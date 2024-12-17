@@ -1,0 +1,19 @@
+pre-push:
+  commands:
+    packages-audit:
+      tags: frontend security
+      run: pnpm audit
+
+prepare-commit-msg:
+  parallel: true
+  scripts:
+    'commitizen.sh':
+      interactive: true
+      runner: sh
+
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: "src/**/*.{js,ts,jsx,tsx}"
+      run: pnpm dlx @biomejs/biome check --write {staged_files}

@@ -44,3 +44,9 @@ next-env.d.ts
 # wrangler files
 .wrangler
 .dev.vars
+
+## Panda
+styled-system
+styled-system-studio
+
+.idea
