@@ -1,13 +1,25 @@
-import { defineConfig } from "@pandacss/dev";
-import { createPreset } from "@park-ui/panda-preset";
+import {defineConfig, defineTextStyles} from "@pandacss/dev";
+import {createPreset} from "@park-ui/panda-preset";
 import amber from "@park-ui/panda-preset/colors/amber";
 import sand from "@park-ui/panda-preset/colors/sand";
+
+export const textStyles = defineTextStyles({
+    body: {
+        description: "The body text style - used in paragraphs",
+        value: {
+            fontFamily: "Satoshi-Variable, var(--font-zen-kaku-gothic-new)",
+            fontSize: "14px",
+            lineHeight: "1.75",
+            fontWeight: "600",
+        },
+    },
+})
 
 export default defineConfig({
     // Whether to use css reset
     preflight: true,
     presets: [
-        createPreset({ accentColor: amber, grayColor: sand, radius: "sm" }),
+        createPreset({accentColor: amber, grayColor: sand, radius: "sm"}),
     ],
     // Where to look for your css declarations
     include: [
@@ -19,7 +31,7 @@ export default defineConfig({
 
     // Useful for theme customization
     theme: {
-        extend: {},
+        extend: {textStyles},
     },
     jsxFramework: "react",
     // The output directory for your css system

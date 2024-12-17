@@ -10,6 +10,8 @@ export default function Home() {
                 width={72}
                 height={16}
             />
+
+            aaaaあああ
         </div>
     );
 }

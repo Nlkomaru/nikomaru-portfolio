@@ -1,1 +1,12 @@
-{ "path": "cz-emoji" }
+{
+  "path": "cz-emoji",
+  "config": {
+    "cz-emoji": {
+      "subjectMaxLength": 72,
+      "skipQuestions": [
+        "scope",
+        "breaking"
+      ]
+    }
+  }
+}
