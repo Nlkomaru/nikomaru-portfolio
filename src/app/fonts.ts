@@ -1,6 +1,9 @@
-import {Caveat, Noto_Sans_JP, Poppins, Zen_Kaku_Gothic_New} from "next/font/google";
-
-
+import {
+    Caveat,
+    Noto_Sans_JP,
+    Poppins,
+    Zen_Kaku_Gothic_New,
+} from "next/font/google";
 
 const zenKakuGothicNew = Zen_Kaku_Gothic_New({
     weight: "400",
@@ -13,6 +16,6 @@ const caveat = Caveat({
     variable: "--font-caveat",
     display: "swap",
     subsets: ["latin"],
-})
+});
 
 export { zenKakuGothicNew, caveat };
