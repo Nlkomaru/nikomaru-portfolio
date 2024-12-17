@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { css } from "@/styled-system/css";
-import { caveat, zenKakuGothicNew } from "~/app/fonts";
+import { poppins, zenKakuGothicNew } from "~/app/fonts";
 
 export const metadata: Metadata = {
     title: "にこまるのポートフォリオ",
@@ -16,7 +16,7 @@ export default function RootLayout({
     return (
         <html lang="ja">
             <body
-                className={`${css({ textStyle: "body" })} ${zenKakuGothicNew.variable} ${caveat.variable}`}
+                className={`${css({ textStyle: "body" })} ${zenKakuGothicNew.variable} ${poppins.variable}`}
             >
                 {children}
             </body>

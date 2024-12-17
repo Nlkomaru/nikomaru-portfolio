@@ -9,6 +9,7 @@
         "build": "next build",
         "build:worker": "cloudflare",
         "start": "next start",
+        "start:worker": "cloudflare && wrangler dev --port 8771",
         "lint": "biome lint --write ./src",
         "format": "biome format --write ./src",
         "check": "biome check ./src --write",
@@ -44,11 +45,5 @@
     "engines": {
         "yarn": "please use pnpm",
         "npm": "please use pnpm"
-    },
-    "pnpm": {
-        "overrides": {
-            "next@>=14.0.0 <14.2.10": ">=14.2.10",
-            "next@>=10.0.0 <14.2.7": ">=14.2.7"
-        }
     }
 }

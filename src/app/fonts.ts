@@ -6,16 +6,17 @@ import {
 } from "next/font/google";
 
 const zenKakuGothicNew = Zen_Kaku_Gothic_New({
-    weight: "400",
+    weight: "500",
     variable: "--font-zen-kaku-gothic-new",
     display: "swap",
     subsets: ["latin"],
 });
 
-const caveat = Caveat({
-    variable: "--font-caveat",
+const poppins = Poppins({
+    weight: "500",
+    variable: "--font-poppins",
     display: "swap",
     subsets: ["latin"],
 });
 
-export { zenKakuGothicNew, caveat };
+export { zenKakuGothicNew, poppins };

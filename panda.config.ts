@@ -7,10 +7,10 @@ export const textStyles = defineTextStyles({
     body: {
         description: "The body text style - used in paragraphs",
         value: {
-            fontFamily: "Satoshi-Variable, var(--font-zen-kaku-gothic-new)",
-            fontSize: "14px",
+            fontFamily: "var(--font-poppins), var(--font-zen-kaku-gothic-new)",
+            fontSize: "18px",
             lineHeight: "1.75",
-            fontWeight: "600",
+            fontWeight: "500",
         },
     },
 })
