@@ -8,9 +8,9 @@ export const textStyles = defineTextStyles({
         description: "The body text style - used in paragraphs",
         value: {
             fontFamily: "var(--font-poppins), var(--font-zen-kaku-gothic-new)",
-            fontSize: "18px",
+            fontSize: "xl",
             lineHeight: "1.75",
-            fontWeight: "500",
+            fontWeight: "400",
         },
     },
 })

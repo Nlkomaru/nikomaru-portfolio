@@ -19,4 +19,18 @@ const poppins = Poppins({
     subsets: ["latin"],
 });
 
-export { zenKakuGothicNew, poppins };
+const notoSansJP = Noto_Sans_JP({
+    variable: "--font-noto-sans-jp",
+    display: "swap",
+    subsets: ["latin"],
+});
+
+const fontList = [zenKakuGothicNew, poppins, notoSansJP];
+
+const fonts = fontList
+    .map((font) => {
+        return font.variable;
+    })
+    .join(" ");
+
+export { fonts };
