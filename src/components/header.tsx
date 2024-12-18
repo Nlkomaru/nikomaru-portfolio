@@ -1,5 +1,5 @@
 import { css } from "@/styled-system/css";
-import {BookUser, Boxes, PenTool, Presentation} from "lucide-react";
+import { BookUser, Boxes, PenTool, Presentation } from "lucide-react";
 import Link from "next/link";
 import { Icon } from "~/components/ui/icon";
 
@@ -65,6 +65,7 @@ export const Header = () => {
                     Portfolio
                 </h1>
             </div>
+            {/*Navbar lg:1024でハンバーガーに*/}
             <div
                 className={css({
                     display: "flex",
@@ -82,7 +83,6 @@ export const Header = () => {
                     >
                         <PenTool />
                     </Icon>
-                    {/*--font-m-plus-1p*/}
                     <div className={linkContentStyle}>書いたぶろぐ</div>
                 </Link>
                 <Link href={"/slides"} className={linkStyle}>
@@ -94,7 +94,6 @@ export const Header = () => {
                     >
                         <Presentation />
                     </Icon>
-                    {/*--font-m-plus-1p*/}
                     <div className={linkContentStyle}>つくったスライド</div>
                 </Link>
                 <Link href={"/products"} className={linkStyle}>
@@ -106,7 +105,6 @@ export const Header = () => {
                     >
                         <Boxes />
                     </Icon>
-                    {/*--font-m-plus-1p*/}
                     <div className={linkContentStyle}>作ったもの</div>
                 </Link>
                 <Link href={"/about"} className={linkStyle}>
@@ -118,7 +116,6 @@ export const Header = () => {
                     >
                         <BookUser />
                     </Icon>
-                    {/*--font-m-plus-1p*/}
                     <div className={linkContentStyle}>わたしについて</div>
                 </Link>
             </div>
