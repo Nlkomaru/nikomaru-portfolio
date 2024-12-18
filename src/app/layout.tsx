@@ -6,6 +6,13 @@ import { fonts } from "./fonts";
 export const metadata: Metadata = {
     title: "にこまるのポートフォリオ",
     description: "にこまるのポートフォリオです。",
+    openGraph: {
+        title: "にこまるのポートフォリオ",
+        description: "にこまるのポートフォリオです。",
+        type: "website",
+        locale: "ja_JP",
+        images: ["https://nikomaru.dev/ogp.png"],
+    },
 };
 
 export default function RootLayout({
@@ -15,6 +22,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ja">
+            {/*og*/}
+
             <body className={`${css({ textStyle: "body" })} ${fonts}`}>
                 {children}
             </body>

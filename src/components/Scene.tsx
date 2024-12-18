@@ -1,6 +1,6 @@
 "use client";
 import { css } from "@/styled-system/css";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 //透明度
 const transparency = 0.6;
@@ -27,8 +27,7 @@ type Circle = {
     size: number;
 };
 
-const speed = 0.5;
-const numCircles = 10;
+const speed = 0.7;
 
 const Scene = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -41,13 +40,15 @@ const Scene = () => {
 
         const handleResize = () => {
             canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.height = document.body.clientHeight;
         };
 
         window.addEventListener("resize", handleResize);
         handleResize();
 
-        circlesRef.current = Array.from({ length: numCircles }).map(() => ({
+        const count = 5 * (document.body.clientHeight / window.innerHeight);
+        console.log(count);
+        circlesRef.current = Array.from({ length: count }).map(() => ({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             vx: Math.random() * speed - speed / 2,
@@ -73,7 +74,9 @@ const Scene = () => {
                 context.arc(
                     circle.x,
                     circle.y,
-                    circle.size * Math.min(canvas.width, canvas.height) * 0.15,
+                    circle.size *
+                        Math.min(canvas.width, window.innerHeight) *
+                        0.15,
                     0,
                     Math.PI * 2,
                 );
@@ -99,8 +102,8 @@ const Scene = () => {
                 top: 0,
                 left: 0,
                 width: "100%",
-                height: "100%",
-                zIndex: -1,
+                //画面全体でなく、ページ全体
+                zIndex: -100,
             }}
         />
     );

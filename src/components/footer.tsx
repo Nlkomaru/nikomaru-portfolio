@@ -11,7 +11,7 @@ export const Footer = () => {
                     lg: "96px 256px",
                 },
                 marginTop: "auto",
-                backgroundColor: "var(--colors-theme-bg-neutral, #f6f8fa)",
+                background: "var(--colors-theme-canvas, #FCFCFC)",
             })}
         >
             <div
