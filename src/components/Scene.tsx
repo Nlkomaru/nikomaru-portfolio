@@ -1,8 +1,9 @@
 "use client";
+import { css } from "@/styled-system/css";
 import React, { useEffect, useRef } from "react";
 
 //透明度
-const transparency = 0.5;
+const transparency = 0.6;
 
 const getRandomBrightColor = () => {
     const r = Math.floor(
@@ -23,6 +24,7 @@ type Circle = {
     vx: number;
     vy: number;
     color: string;
+    size: number;
 };
 
 const speed = 0.5;
@@ -45,14 +47,13 @@ const Scene = () => {
         window.addEventListener("resize", handleResize);
         handleResize();
 
-        const size = Math.min(canvas.width, canvas.height) * 0.15; // Set size relative to window size
-
         circlesRef.current = Array.from({ length: numCircles }).map(() => ({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             vx: Math.random() * speed - speed / 2,
             vy: Math.random() * speed - speed / 2,
             color: getRandomBrightColor(),
+            size: Math.random() * 1.0 + 0.5, // Random size between 0.5 and 1.5
         }));
 
         const animate = () => {
@@ -69,7 +70,13 @@ const Scene = () => {
                     circle.vy = -circle.vy;
 
                 context.beginPath();
-                context.arc(circle.x, circle.y, size, 0, Math.PI * 2);
+                context.arc(
+                    circle.x,
+                    circle.y,
+                    circle.size * Math.min(canvas.width, canvas.height) * 0.15,
+                    0,
+                    Math.PI * 2,
+                );
                 context.fillStyle = circle.color;
                 context.fill();
             }
