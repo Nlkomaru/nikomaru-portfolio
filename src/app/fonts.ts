@@ -1,6 +1,7 @@
 import {
     Caveat,
     M_PLUS_1p,
+    Montserrat,
     Montserrat_Alternates,
     Noto_Sans_JP,
     Poppins,
@@ -34,6 +35,13 @@ const montserratAlternates = Montserrat_Alternates({
     subsets: ["latin"],
 });
 
+const montserrat = Montserrat({
+    weight: "500",
+    variable: "--font-montserrat",
+    display: "swap",
+    subsets: ["latin"],
+});
+
 const mPlus1p = M_PLUS_1p({
     weight: "400",
     variable: "--font-m-plus-1p",
@@ -46,6 +54,7 @@ const fontList = [
     poppins,
     notoSansJP,
     montserratAlternates,
+    montserrat,
     mPlus1p,
 ];
 
