@@ -1,13 +1,13 @@
 import { css } from "@/styled-system/css";
+import { HamburgerMenu } from "~/components/menu";
 import { Navbar } from "~/components/navbar";
-import {HamburgerMenu} from "~/components/menu";
 
 export const Header = () => {
     return (
         <div
             className={css({
                 display: "flex",
-                padding:{
+                padding: {
                     base: "32px 32px",
                     lg: "var(--spacings-radii-64, 10vh) var(--spacings-radii-32, 15vw)",
                 },

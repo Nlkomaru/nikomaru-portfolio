@@ -1,20 +1,22 @@
-import {Menu} from "./ui/menu"
-import {Menu as MenuIcon, PenTool} from "lucide-react"
-import {css} from "@/styled-system/css";
-import {Icon} from "~/components/ui/styled/icon";
+import { css } from "@/styled-system/css";
+import { Menu as MenuIcon, PenTool } from "lucide-react";
 import Link from "next/link";
+import { Icon } from "~/components/ui/styled/icon";
+import { Menu } from "./ui/menu";
 
 export const HamburgerMenu = () => {
     return (
-        <div className={css({
-            display: {
-                base: "block",
-                lg: "none"
-            }
-        })}>
+        <div
+            className={css({
+                display: {
+                    base: "block",
+                    lg: "none",
+                },
+            })}
+        >
             <Menu.Root>
                 <Menu.Trigger asChild>
-                    <MenuIcon/>
+                    <MenuIcon />
                 </Menu.Trigger>
                 <Menu.Positioner>
                     <Menu.Content>
@@ -27,19 +29,20 @@ export const HamburgerMenu = () => {
                                             height: "24px",
                                         })}
                                     >
-                                        <PenTool/>
+                                        <PenTool />
                                     </Icon>
-                                    <div className={linkContentStyle}>書いたぶろぐ</div>
+                                    <div className={linkContentStyle}>
+                                        書いたぶろぐ
+                                    </div>
                                 </Link>
                             </Menu.Item>
-
                         </Menu.ItemGroup>
                     </Menu.Content>
                 </Menu.Positioner>
             </Menu.Root>
         </div>
-    )
-}
+    );
+};
 
 const linkStyle = css({
     display: "flex",
