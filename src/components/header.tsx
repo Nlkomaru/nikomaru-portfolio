@@ -1,6 +1,7 @@
 import { css } from "@/styled-system/css";
 import { HamburgerMenu } from "~/components/menu";
 import { Navbar } from "~/components/navbar";
+import { Title } from "./title";
 
 export const Header = () => {
     return (
@@ -25,30 +26,8 @@ export const Header = () => {
                     flexShrink: 0,
                 })}
             >
-                <h1
-                    className={css({
-                        flex: "1 0 0",
-                        color: "var(--colors-theme-fg-neutral-default, #202020)",
-                        fontFamily: "var(--font-montserrat-alternates)",
-                        fontSize: {
-                            base: "var(--fontSizes-6xl, 32px)",
-                            md: "var(--fontSizes-7xl, 48px)",
-                            lg: "var(--fontSizes-8xl, 64px)",
-                        },
-                        fontStyle: "normal",
-                        fontWeight: 500,
-                        lineHeight: "normal",
-                        _firstLetter: {
-                            fontFamily: "var(--font-montserrat)",
-                        },
-                    })}
-                >
-                    Nikomaru
-                    <br />
-                    Portfolio
-                </h1>
+                <Title />
             </div>
-            {/*Navbar lg:1024でハンバーガーに*/}
             <div>
                 <Navbar />
                 <HamburgerMenu />

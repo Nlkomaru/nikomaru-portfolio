@@ -1,17 +1,22 @@
+"use client";
 import { css } from "@/styled-system/css";
 import { BookUser, Boxes, PenTool, Presentation } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { Icon } from "~/components/ui/styled/icon";
 
 export const Navbar = () => {
     return (
-        <div
+        <motion.div
             className={css({
                 display: {
                     base: "none",
                     lg: "block",
                 },
             })}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2, ease: "easeOut" }}
         >
             <div
                 className={css({
@@ -66,7 +71,7 @@ export const Navbar = () => {
                     <div className={linkContentStyle}>わたしについて</div>
                 </Link>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
