@@ -1,11 +1,8 @@
 import { css } from "@/styled-system/css";
-import { Menu as MenuIcon, PenTool, XIcon } from "lucide-react";
+import { Menu as MenuIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { IconButton } from "~/components/ui/icon-button";
-import { Icon } from "~/components/ui/styled/icon";
 import { Drawer } from "./ui/drawer";
-import { Menu } from "./ui/menu";
 
 export const HamburgerMenu = () => {
     const data = [
@@ -36,20 +33,12 @@ export const HamburgerMenu = () => {
                             top="32px"
                             right="32px"
                         >
-                            <IconButton
+                            <XIcon
                                 className={css({
                                     width: "24px",
                                     height: "24px",
                                 })}
-                                variant="ghost"
-                            >
-                                <XIcon
-                                    className={css({
-                                        width: "24px",
-                                        height: "24px",
-                                    })}
-                                />
-                            </IconButton>
+                            />
                         </Drawer.CloseTrigger>
 
                         <Drawer.Body
