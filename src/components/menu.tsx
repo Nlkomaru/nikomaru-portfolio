@@ -1,10 +1,19 @@
 import { css } from "@/styled-system/css";
-import { Menu as MenuIcon, PenTool } from "lucide-react";
+import { Menu as MenuIcon, PenTool, XIcon } from "lucide-react";
 import Link from "next/link";
+import React from "react";
+import { IconButton } from "~/components/ui/icon-button";
 import { Icon } from "~/components/ui/styled/icon";
+import { Drawer } from "./ui/drawer";
 import { Menu } from "./ui/menu";
 
 export const HamburgerMenu = () => {
+    const data = [
+        { url: "/blog", name: "書いたぶろぐ", label: "Blog" },
+        { url: "/slides", name: "つくったスライド", label: "Slides" },
+        { url: "/products", name: "作ったもの", label: "Products" },
+        { url: "/about", name: "わたしについて", label: "About" },
+    ];
     return (
         <div
             className={css({
@@ -14,32 +23,88 @@ export const HamburgerMenu = () => {
                 },
             })}
         >
-            <Menu.Root>
-                <Menu.Trigger asChild>
+            <Drawer.Root>
+                <Drawer.Trigger asChild>
                     <MenuIcon />
-                </Menu.Trigger>
-                <Menu.Positioner>
-                    <Menu.Content>
-                        <Menu.ItemGroup>
-                            <Menu.Item value="blog">
-                                <Link href={"/blog"} className={linkStyle}>
-                                    <Icon
+                </Drawer.Trigger>
+                <Drawer.Backdrop />
+                <Drawer.Positioner>
+                    <Drawer.Content>
+                        <Drawer.CloseTrigger
+                            asChild
+                            position="absolute"
+                            top="3"
+                            right="4"
+                        >
+                            <IconButton variant="ghost">
+                                <XIcon />
+                            </IconButton>
+                        </Drawer.CloseTrigger>
+
+                        <Drawer.Body
+                            className={css({
+                                justifyContent: "center",
+                                alignItems: "center",
+                            })}
+                        >
+                            <ul
+                                className={css({
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    gap: "32px",
+                                })}
+                            >
+                                {data.map((item) => (
+                                    <li
                                         className={css({
-                                            width: "24px",
-                                            height: "24px",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                            alignSelf: "stretch",
                                         })}
+                                        key={item.url}
                                     >
-                                        <PenTool />
-                                    </Icon>
-                                    <div className={linkContentStyle}>
-                                        書いたぶろぐ
-                                    </div>
-                                </Link>
-                            </Menu.Item>
-                        </Menu.ItemGroup>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
+                                        <Link href={item.url}>
+                                            <div>
+                                                <div
+                                                    className={css({
+                                                        alignSelf: "stretch",
+                                                        color: "#000",
+                                                        textAlign: "center",
+                                                        fontSize: "16px",
+                                                        fontStyle: "normal",
+                                                        fontWeight: 500,
+                                                        lineHeight:
+                                                            "22px /* 137.5% */",
+                                                    })}
+                                                >
+                                                    {item.name}
+                                                </div>
+                                                <div
+                                                    className={css({
+                                                        alignSelf: "stretch",
+                                                        textAlign: "center",
+                                                        fontSize: "10px",
+                                                        fontStyle: "normal",
+                                                        fontWeight: 300,
+                                                        lineHeight:
+                                                            "16px /* 100% */",
+                                                        color: 'var(--colors-accents-green-8, #5BB98B)',
+                                                    })}
+                                                >
+                                                    {item.label}
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </Drawer.Body>
+                    </Drawer.Content>
+                </Drawer.Positioner>
+            </Drawer.Root>
         </div>
     );
 };

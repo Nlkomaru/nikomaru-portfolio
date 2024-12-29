@@ -27,7 +27,7 @@ type Circle = {
     size: number;
 };
 
-const speed = 0.6;
+const speed = 0.2;
 
 const Scene = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
