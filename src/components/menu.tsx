@@ -33,11 +33,22 @@ export const HamburgerMenu = () => {
                         <Drawer.CloseTrigger
                             asChild
                             position="absolute"
-                            top="3"
-                            right="4"
+                            top="32px"
+                            right="32px"
                         >
-                            <IconButton variant="ghost">
-                                <XIcon />
+                            <IconButton
+                                className={css({
+                                    width: "24px",
+                                    height: "24px",
+                                })}
+                                variant="ghost"
+                            >
+                                <XIcon
+                                    className={css({
+                                        width: "24px",
+                                        height: "24px",
+                                    })}
+                                />
                             </IconButton>
                         </Drawer.CloseTrigger>
 
@@ -91,7 +102,7 @@ export const HamburgerMenu = () => {
                                                         fontWeight: 300,
                                                         lineHeight:
                                                             "16px /* 100% */",
-                                                        color: 'var(--colors-accents-green-8, #5BB98B)',
+                                                        color: "var(--colors-accents-green-8, #5BB98B)",
                                                     })}
                                                 >
                                                     {item.label}

@@ -5,17 +5,14 @@ import React, { useEffect, useRef, useState } from "react";
 //透明度
 const transparency = 0.6;
 
-const getRandomBrightColor = () => {
-    const r = Math.floor(
-        Math.random() * (255 * transparency) + 255 * transparency,
-    );
-    const g = Math.floor(
-        Math.random() * (255 * transparency) + 255 * transparency,
-    );
-    const b = Math.floor(
-        Math.random() * (255 * transparency) + 255 * transparency,
-    );
-    return `rgb(${r}, ${g}, ${b})`;
+const baseColorRange = Math.floor(Math.random() * 360);
+
+const getRandomPastelColor = () => {
+    const hue = Math.floor(Math.random() * 150) + baseColorRange;
+    console.log(hue);
+    const saturation = 90 + Math.random() * 10;
+    const lightness = 80 + Math.random() * 10;
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 };
 
 type Circle = {
@@ -46,15 +43,15 @@ const Scene = () => {
         window.addEventListener("resize", handleResize);
         handleResize();
 
-        const count = 5 * (document.body.clientHeight / window.innerHeight);
+        const count = 15 * (document.body.clientHeight / window.innerHeight);
         console.log(count);
         circlesRef.current = Array.from({ length: count }).map(() => ({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             vx: Math.random() * speed - speed / 2,
             vy: Math.random() * speed - speed / 2,
-            color: getRandomBrightColor(),
-            size: Math.random() * 1.0 + 0.5, // Random size between 0.5 and 1.5
+            color: getRandomPastelColor(),
+            size: Math.random() * 1 + 0.5, // Random size between 0.5 and 1.5
         }));
 
         const animate = () => {

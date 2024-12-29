@@ -10,8 +10,11 @@ export const Header = () => {
                 display: "flex",
                 padding: {
                     base: "32px 32px",
-                    lg: "var(--spacings-radii-64, 10vh) var(--spacings-radii-32, 15vw)",
+                    lg: "var(--spacings-radii-64, 10vh) 32px",
                 },
+                margin: "0 auto",
+                maxWidth: "1400px",
+                width: "100%",
                 justifyContent: "space-between",
                 alignItems: "flex-start",
             })}

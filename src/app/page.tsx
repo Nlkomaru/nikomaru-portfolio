@@ -9,6 +9,7 @@ export default function Home() {
             <Scene />
 
             <Header />
+
             <Footer />
         </div>
     );
