@@ -1,6 +1,6 @@
-import { defineConfig, defineTextStyles } from "@pandacss/dev";
-import { createPreset } from "@park-ui/panda-preset";
-import amber from "@park-ui/panda-preset/colors/amber";
+import {defineConfig, defineGlobalStyles, defineTextStyles} from "@pandacss/dev";
+import {createPreset} from "@park-ui/panda-preset";
+import grass from "@park-ui/panda-preset/colors/grass";
 import sand from "@park-ui/panda-preset/colors/sand";
 
 export const textStyles = defineTextStyles({
@@ -19,23 +19,43 @@ export const textStyles = defineTextStyles({
     },
 });
 
+const globalCss = defineGlobalStyles({
+    '*::selection': {
+        color: 'color(display-p3 0.0 0.0 0.0)',
+        bg: 'color(display-p3 0.535 0.807 0.542)',
+    },
+})
+
+
 export default defineConfig({
     // Whether to use css reset
+    globalCss,
     preflight: true,
     presets: [
-        createPreset({ accentColor: amber, grayColor: sand, radius: "sm" }),
+        createPreset({
+            accentColor: grass,
+            grayColor: sand,
+            radius: "sm",
+        }),
+
     ],
     // Where to look for your css declarations
     include: [
         "./src/components/**/*.{ts,tsx,js,jsx}",
         "./src/app/**/*.{ts,tsx,js,jsx}",
     ],
+    conditions: {
+        extend: {
+            light: "[data-theme=light] &",
+            dark: "[data-theme=dark] &",
+        },
+    },
     // Files to exclude
     exclude: [],
 
     // Useful for theme customization
     theme: {
-        extend: { textStyles },
+        extend: {textStyles},
     },
     jsxFramework: "react",
     // The output directory for your css system

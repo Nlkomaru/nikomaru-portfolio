@@ -1,4 +1,5 @@
 import { css } from "@/styled-system/css";
+import { loremJapanese } from "~/app/util";
 import { Text } from "~/components/ui/text";
 
 export const AboutMe = () => {
@@ -21,10 +22,10 @@ export const AboutMe = () => {
                     },
                 })}
             >
-                Statement
+                About Me
             </h1>
             <Text as="p" className={css({})}>
-                未来は予測するものでも、観測するものでもなく、我々の手で作り上げることができるものだと信じています。未来の傍観者となることなく、より人間らしい、ワクワクする、情緒的な未来を、実際に手を動かし作りながら、実現していきたいと考えています。
+                {loremJapanese(400)}
             </Text>
         </div>
     );

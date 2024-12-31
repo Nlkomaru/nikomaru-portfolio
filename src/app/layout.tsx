@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { css } from "@/styled-system/css";
+import { ThemeProvider } from "next-themes";
 import { fonts } from "./fonts";
 
 export const metadata: Metadata = {
@@ -21,11 +22,19 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="ja">
+        <html lang="ja" suppressHydrationWarning>
             {/*og*/}
 
             <body className={`${css({ textStyle: "body" })} ${fonts}`}>
-                {children}
+                <ThemeProvider
+                    enableSystem={false}
+                    value={{
+                        light: "light",
+                        dark: "dark",
+                    }}
+                >
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );

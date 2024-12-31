@@ -1,15 +1,10 @@
 "use client";
-import { css } from "@/styled-system/css";
 import React, { useEffect, useRef, useState } from "react";
-
-//透明度
-const transparency = 0.6;
 
 const baseColorRange = Math.floor(Math.random() * 360);
 
 const getRandomPastelColor = () => {
     const hue = Math.floor(Math.random() * 150) + baseColorRange;
-    console.log(hue);
     const saturation = 90 + Math.random() * 10;
     const lightness = 80 + Math.random() * 10;
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;

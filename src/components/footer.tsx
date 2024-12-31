@@ -7,13 +7,13 @@ export const Footer = () => {
         <div
             className={css({
                 padding: {
-                    base: "24px 64px",
-                    md: "48px 128px",
-                    lg: "96px 256px",
+                    base: "24px 0px",
+                    md: "32px 0px",
+                    lg: "64px 0px",
                 },
                 marginTop: "auto",
                 //もう少し暗く
-                backgroundColor: "var(--colors-theme-bg-neutral, #f9f9f9)",
+                backgroundColor: "var(--colors-bg-canvas)",
             })}
             id={"footer"}
         >
@@ -44,7 +44,7 @@ export const Footer = () => {
                             height: "30px",
                             flexShrink: 0,
                             alignSelf: "stretch",
-                            color: "var(--colors-theme-fg-neutral-default, #202020)",
+                            color: "var(--colors-fg-default)",
                             fontSize: {
                                 base: "20px",
                                 lg: "24px",
@@ -58,7 +58,7 @@ export const Footer = () => {
                     </div>
                     <div
                         className={css({
-                            color: "var(--colors-theme-fg-neutral-subtle, #838383)",
+                            color: "var(--colors-fg-subtle)",
                             textAlign: "center",
                             fontSize: "14px",
                             fontStyle: "normal",

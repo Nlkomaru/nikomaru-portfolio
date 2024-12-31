@@ -76,7 +76,6 @@ export const HamburgerMenu = () => {
                                                 <div
                                                     className={css({
                                                         alignSelf: "stretch",
-                                                        color: "#000",
                                                         textAlign: "center",
                                                         fontSize: "16px",
                                                         fontStyle: "normal",

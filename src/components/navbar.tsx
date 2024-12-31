@@ -85,7 +85,6 @@ const linkStyle = css({
 });
 const linkContentStyle = css({
     width: "35px",
-    color: "var(--colors-theme-fg-neutral-default, #202020)",
     textAlign: "center",
     fontFamily: "var(--font-m-plus-1p)",
     writingMode: "vertical-rl",

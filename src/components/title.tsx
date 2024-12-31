@@ -8,7 +8,6 @@ export const Title = () => {
         <motion.h1
             className={css({
                 flex: "1 0 0",
-                color: "var(--colors-theme-fg-neutral-default, #202020)",
                 fontFamily: "var(--font-montserrat-alternates)",
                 fontSize: {
                     base: "32px",
