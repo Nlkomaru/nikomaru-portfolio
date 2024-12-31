@@ -13,6 +13,10 @@ export const Header = () => {
                     lg: "var(--spacings-radii-64, 10vh) 32px",
                 },
                 margin: "0 auto",
+                height: {
+                    base: "auto",
+                    lg: "100vh",
+                },
                 maxWidth: "1400px",
                 width: "100%",
                 justifyContent: "space-between",
@@ -23,6 +27,10 @@ export const Header = () => {
                 className={css({
                     display: "flex",
                     padding: "var(--spacings-radii-56, 25vh) 0px",
+                    margin: {
+                        base: "",
+                        lg: "auto 0",
+                    },
                     justifyContent: "center",
                     alignItems: "center",
                     gap: "10px",

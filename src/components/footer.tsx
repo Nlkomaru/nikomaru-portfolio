@@ -12,14 +12,19 @@ export const Footer = () => {
                     lg: "96px 256px",
                 },
                 marginTop: "auto",
-                background: "var(--colors-theme-canvas, #FCFCFC)",
+                //もう少し暗く
+                backgroundColor: "var(--colors-theme-bg-neutral, #f9f9f9)",
             })}
+            id={"footer"}
         >
             <div
                 className={css({
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "flex-start",
+                    maxWidth: "1400px",
+                    margin: "0 auto",
+                    padding: "32px",
                 })}
             >
                 <div

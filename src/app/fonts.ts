@@ -6,11 +6,12 @@ import {
     Noto_Sans_JP,
     Poppins,
     Zen_Kaku_Gothic_New,
+    Zen_Maru_Gothic,
 } from "next/font/google";
 
-const zenKakuGothicNew = Zen_Kaku_Gothic_New({
+const zenMaruGothic = Zen_Maru_Gothic({
     weight: "500",
-    variable: "--font-zen-kaku-gothic-new",
+    variable: "--font-zen-maru-gothic",
     display: "swap",
     subsets: ["latin"],
 });
@@ -50,7 +51,7 @@ const mPlus1p = M_PLUS_1p({
 });
 
 const fontList = [
-    zenKakuGothicNew,
+    zenMaruGothic,
     poppins,
     notoSansJP,
     montserratAlternates,

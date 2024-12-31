@@ -43,11 +43,13 @@ const Scene = () => {
         window.addEventListener("resize", handleResize);
         handleResize();
 
-        const count = 15 * (document.body.clientHeight / window.innerHeight);
+        const footerHeight =
+            document.getElementById("footer")?.clientHeight || 0;
+        const count = 13 * (document.body.clientHeight / window.innerHeight);
         console.log(count);
         circlesRef.current = Array.from({ length: count }).map(() => ({
             x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
+            y: Math.random() * (canvas.height - footerHeight),
             vx: Math.random() * speed - speed / 2,
             vy: Math.random() * speed - speed / 2,
             color: getRandomPastelColor(),
@@ -64,7 +66,7 @@ const Scene = () => {
 
                 if (circle.x > canvas.width || circle.x < 0)
                     circle.vx = -circle.vx;
-                if (circle.y > canvas.height || circle.y < 0)
+                if (circle.y > canvas.height - footerHeight || circle.y < 0)
                     circle.vy = -circle.vy;
 
                 context.beginPath();

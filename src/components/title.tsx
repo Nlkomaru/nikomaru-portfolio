@@ -11,9 +11,9 @@ export const Title = () => {
                 color: "var(--colors-theme-fg-neutral-default, #202020)",
                 fontFamily: "var(--font-montserrat-alternates)",
                 fontSize: {
-                    base: "var(--fontSizes-6xl, 32px)",
-                    md: "var(--fontSizes-7xl, 48px)",
-                    lg: "var(--fontSizes-8xl, 64px)",
+                    base: "32px",
+                    md: "48px",
+                    lg: "64px",
                 },
                 fontStyle: "normal",
                 fontWeight: 500,

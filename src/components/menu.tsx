@@ -22,7 +22,12 @@ export const HamburgerMenu = () => {
         >
             <Drawer.Root>
                 <Drawer.Trigger asChild>
-                    <MenuIcon />
+                    <MenuIcon
+                        className={css({
+                            width: "24px",
+                            height: "24px",
+                        })}
+                    />
                 </Drawer.Trigger>
                 <Drawer.Backdrop />
                 <Drawer.Positioner>
