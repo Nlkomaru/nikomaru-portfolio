@@ -17,6 +17,9 @@ importers:
       '@types/three':
         specifier: ^0.171.0
         version: 0.171.0
+      hono:
+        specifier: ^4.6.15
+        version: 4.6.15
       lucide-react:
         specifier: ^0.468.0
         version: 0.468.0(react@18.3.1)
@@ -1746,6 +1749,10 @@ packages:
 
   homedir@0.6.0:
     resolution: {integrity: sha512-KZFBHenkVuyyG4uaqRSXqWJr3HTxcaPguM7rU1BlH/mtbDlzaXNSXTa9AhV+fXEjrNemHu9vtLRIaM8/8OW0xA==}
+
+  hono@4.6.15:
+    resolution: {integrity: sha512-OiQwvAOAaI2JrABBH69z5rsctHDzFzIKJge0nYXgtzGJ0KftwLWcBXm1upJC23/omNRtnqM0gjRMbtXshPdqhQ==}
+    engines: {node: '>=16.9.0'}
 
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
@@ -5174,6 +5181,8 @@ snapshots:
       parse-passwd: 1.0.0
 
   homedir@0.6.0: {}
+
+  hono@4.6.15: {}
 
   hookable@5.5.3: {}
 

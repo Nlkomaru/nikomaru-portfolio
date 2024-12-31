@@ -20,7 +20,7 @@ type Circle = {
 };
 
 const speed = 0.2;
-
+const diffLimit = 0.2;
 const Scene = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const circlesRef = useRef<Circle[]>([]);
@@ -43,12 +43,11 @@ const Scene = () => {
         const footerHeight =
             document.getElementById("footer")?.clientHeight || 0;
         const count = 13 * (document.body.clientHeight / window.innerHeight);
-        console.log(count);
         circlesRef.current = Array.from({ length: count }).map(() => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * (canvas.height - footerHeight),
-            vx: Math.random() * speed - speed / 2,
-            vy: Math.random() * speed - speed / 2,
+            x: (Math.random() * 0.8 + 0.1) * canvas.width,
+            y: (Math.random() * 0.8 + 0.1) * (canvas.height - footerHeight),
+            vx: (Math.random() * (1 - diffLimit) + diffLimit) * speed * (Math.random() < 0.5 ? -1 : 1),
+            vy: (Math.random()  * (1 - diffLimit) + diffLimit)  * speed * (Math.random() < 0.5 ? -1 : 1),
             color: getRandomPastelColor(isDark),
             size: Math.random() * 1 + 0.5, // Random size between 0.5 and 1.5
         }));
@@ -60,19 +59,20 @@ const Scene = () => {
             for (const circle of circlesRef.current) {
                 circle.x += circle.vx;
                 circle.y += circle.vy;
+                const radius = circle.size *
+                        Math.min(canvas.width, window.innerHeight) *
+                        0.15
 
-                if (circle.x > canvas.width || circle.x < 0)
+                if (circle.x > canvas.width - radius || circle.x < radius)
                     circle.vx = -circle.vx;
-                if (circle.y > canvas.height - footerHeight || circle.y < 0)
+                if (circle.y > canvas.height - footerHeight - radius || circle.y < radius)
                     circle.vy = -circle.vy;
 
                 context.beginPath();
                 context.arc(
                     circle.x,
                     circle.y,
-                    circle.size *
-                        Math.min(canvas.width, window.innerHeight) *
-                        0.15,
+                    radius,
                     0,
                     Math.PI * 2,
                 );

@@ -21,9 +21,9 @@ export const textStyles = defineTextStyles({
 
 const globalCss = defineGlobalStyles({
     '*::selection': {
-        bg: 'var(--colors-color-palette-4)',
+        bg: 'var(--colors-color-palette-4)/60',
     },
-})
+});
 
 
 export default defineConfig({

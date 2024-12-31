@@ -27,7 +27,8 @@ export default function RootLayout({
 
             <body className={`${css({ textStyle: "body" })} ${fonts}`}>
                 <ThemeProvider
-                    enableSystem={true}
+                    defaultTheme={"light"}
+                    enableSystem={false}
                     value={{
                         light: "light",
                         dark: "dark",
