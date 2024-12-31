@@ -1,7 +1,7 @@
 import {defineConfig, defineGlobalStyles, defineTextStyles} from "@pandacss/dev";
 import {createPreset} from "@park-ui/panda-preset";
-import grass from "@park-ui/panda-preset/colors/grass";
-import sand from "@park-ui/panda-preset/colors/sand";
+import sky from "@park-ui/panda-preset/colors/sky";
+import neutral from "@park-ui/panda-preset/colors/neutral";
 
 export const textStyles = defineTextStyles({
     body: {
@@ -21,8 +21,7 @@ export const textStyles = defineTextStyles({
 
 const globalCss = defineGlobalStyles({
     '*::selection': {
-        color: 'color(display-p3 0.0 0.0 0.0)',
-        bg: 'color(display-p3 0.535 0.807 0.542)',
+        bg: 'var(--colors-color-palette-4)',
     },
 })
 
@@ -33,8 +32,8 @@ export default defineConfig({
     preflight: true,
     presets: [
         createPreset({
-            accentColor: grass,
-            grayColor: sand,
+            accentColor: sky,
+            grayColor: neutral,
             radius: "sm",
         }),
 

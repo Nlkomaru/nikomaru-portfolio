@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
-const baseColorRange = Math.floor(Math.random() * 360);
+// const baseColorRange = Math.floor(Math.random() * 360);
 
-const getRandomPastelColor = () => {
-    const hue = Math.floor(Math.random() * 150) + baseColorRange;
+const getRandomPastelColor = (isDark: boolean) => {
+    const hue = Math.floor(Math.random() * 150) + 90;
     const saturation = 90 + Math.random() * 10;
-    const lightness = 80 + Math.random() * 10;
+    const lightness = isDark ? 80 : 80 + Math.random() * 10;
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 };
 
@@ -29,6 +29,8 @@ const Scene = () => {
         const canvas = canvasRef.current;
         const context = canvas?.getContext("2d");
         if (!canvas || !context) return;
+        //htmlにdata-theme="dark"があるかどうか
+        const isDark = document.documentElement.dataset.theme === "dark";
 
         const handleResize = () => {
             canvas.width = window.innerWidth;
@@ -47,7 +49,7 @@ const Scene = () => {
             y: Math.random() * (canvas.height - footerHeight),
             vx: Math.random() * speed - speed / 2,
             vy: Math.random() * speed - speed / 2,
-            color: getRandomPastelColor(),
+            color: getRandomPastelColor(isDark),
             size: Math.random() * 1 + 0.5, // Random size between 0.5 and 1.5
         }));
 
