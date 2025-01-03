@@ -1,7 +1,11 @@
-import {defineConfig, defineGlobalStyles, defineTextStyles} from "@pandacss/dev";
-import {createPreset} from "@park-ui/panda-preset";
-import sky from "@park-ui/panda-preset/colors/sky";
+import {
+    defineConfig,
+    defineGlobalStyles,
+    defineTextStyles,
+} from "@pandacss/dev";
+import { createPreset } from "@park-ui/panda-preset";
 import neutral from "@park-ui/panda-preset/colors/neutral";
+import sky from "@park-ui/panda-preset/colors/sky";
 
 export const textStyles = defineTextStyles({
     body: {
@@ -20,11 +24,10 @@ export const textStyles = defineTextStyles({
 });
 
 const globalCss = defineGlobalStyles({
-    '*::selection': {
-        bg: 'var(--colors-color-palette-4)/60',
+    "*::selection": {
+        bg: "var(--colors-color-palette-4)/60",
     },
 });
-
 
 export default defineConfig({
     // Whether to use css reset
@@ -36,7 +39,6 @@ export default defineConfig({
             grayColor: neutral,
             radius: "sm",
         }),
-
     ],
     // Where to look for your css declarations
     include: [
@@ -54,7 +56,7 @@ export default defineConfig({
 
     // Useful for theme customization
     theme: {
-        extend: {textStyles},
+        extend: { textStyles },
     },
     jsxFramework: "react",
     // The output directory for your css system

@@ -1,7 +1,7 @@
-import {css} from "@/styled-system/css";
-import {Text} from "~/components/ui/text";
+import { css } from "@/styled-system/css";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import {ArrowRight} from "lucide-react";
+import { Text } from "~/components/ui/text";
 
 export const AboutMe = () => {
     return (
@@ -28,7 +28,7 @@ export const AboutMe = () => {
             <Text
                 as="p"
                 className={css({
-                    marginTop: {base: "8px"},
+                    marginTop: { base: "8px" },
                 })}
             >
                 信州大学工学部電子情報システム工学科情報システムプログラム在学中。ものづくりへの興味から、工業高校に進学し、電子工学を学びました。
@@ -39,28 +39,33 @@ export const AboutMe = () => {
             </Text>
 
             {/* 詳しくはこちら*/}
-            <Link href={"/about"} className={css({
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                marginTop: {
-                    base: "16px"
-                },
-            })}>
+            <Link
+                href={"/about"}
+                className={css({
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    marginTop: {
+                        base: "16px",
+                    },
+                })}
+            >
                 <Text
                     as="p"
                     className={css({
-                        fontStyle: 'normal',
+                        fontStyle: "normal",
                         fontWeight: 600,
-                        lineHeight: 'normal',
+                        lineHeight: "normal",
                     })}
                 >
                     詳しくみる
                 </Text>
-                <ArrowRight className={css({
-                    width: '24px',
-                    height: '24px',
-                })} />
+                <ArrowRight
+                    className={css({
+                        width: "24px",
+                        height: "24px",
+                    })}
+                />
             </Link>
         </div>
     );
