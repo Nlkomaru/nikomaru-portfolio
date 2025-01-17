@@ -7,8 +7,8 @@ export const HamburgerMenu = () => {
     const data = [
         // { url: "/blog", name: "書いたぶろぐ", label: "Blog" },
         { url: "/slides", name: "つくったスライド", label: "Slides" },
-        { url: "/products", name: "作ったもの", label: "Products" },
-        { url: "/about-me", name: "わたしについて", label: "About" },
+        { url: "/works", name: "作ったもの", label: "Works" },
+        { url: "/about-me", name: "わたしについて", label: "About Me" },
     ];
     return (
         <div>

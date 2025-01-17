@@ -6,7 +6,7 @@ interface Slide {
     lastUpdate: Date | undefined;
 }
 
-interface Product {
+interface Works {
     id: string;
     title: string;
     image: {

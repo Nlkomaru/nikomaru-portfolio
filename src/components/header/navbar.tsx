@@ -48,7 +48,7 @@ export const Navbar = () => {
                     </Icon>
                     <div className={linkContentStyle}>つくったスライド</div>
                 </Link>
-                <Link href={"/products"} className={linkStyle}>
+                <Link href={"/works"} className={linkStyle}>
                     <Icon
                         className={css({
                             width: "24px",

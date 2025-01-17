@@ -1,7 +1,7 @@
 import { css } from "@/styled-system/css";
 import type { EmblaOptionsType } from "embla-carousel";
 import { titleStyle } from "~/components/aboutme";
-import ProductsCarousel from "~/components/products/products-carousel";
+import WorksCarousel from "~/components/works/works-carousel";
 
 const OPTIONS: EmblaOptionsType = {
     loop: true,
@@ -13,15 +13,15 @@ export default function Home() {
     return (
         <div
             className={css({
-                margin: "160px auto",
+                margin: "10vh auto",
                 padding: {
                     base: "32px 32px",
                 },
                 maxWidth: "1600px",
             })}
         >
-            <h1 className={titleStyle}>Products</h1>
-            <ProductsCarousel options={OPTIONS} />
+            <h1 className={titleStyle}>Works</h1>
+            <WorksCarousel options={OPTIONS} />
         </div>
     );
 }

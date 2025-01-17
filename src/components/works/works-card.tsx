@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import { Card } from "../ui/card";
 
 type Params = {
-    product: Product;
+    works: Works;
 };
 
-export default function ProductsCard({ product }: Params) {
+export default function WorksCard({ works }: Params) {
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
@@ -16,36 +16,42 @@ export default function ProductsCard({ product }: Params) {
     }, []);
 
     const renderImage = () => {
-        const aspectRatio = product.image
-            ? product.image.width / product.image.height
+        const aspectRatio = works.image
+            ? works.image.width / works.image.height
             : 1;
 
         const imageStyle = css({
             aspectRatio: `${aspectRatio}`,
             display: "flex",
-            maxHeight: {
-                lg: "30vh",
-            },
             justifyContent: "center",
             alignItems: "center",
             overflow: "hidden",
             position: "relative",
+            height: {
+                base: "200px",
+                xl: "280px",
+            },
             borderRadius: "xl",
-            fontSize: "10vh",
+            fontSize: "6xl",
             margin: "auto",
             textAlign: "center",
         });
 
-        if (!product.image) {
-            return <div className={imageStyle}>{product.emoji}</div>;
+        if (!works.image) {
+            return <div className={imageStyle}>{works.emoji}</div>;
         }
         return (
             <div className={imageStyle}>
                 <Image
-                    src={product.image.url}
-                    alt={product.title}
-                    width={product.image.width}
-                    height={product.image.height}
+                    src={works.image.url}
+                    alt={works.title}
+                    placeholder={"blur"}
+                    blurDataURL={works.image.url}
+                    width={works.image.width}
+                    height={works.image.height}
+                    className={css({
+                        borderRadius: "xl",
+                    })}
                 />
             </div>
         );
@@ -57,7 +63,7 @@ export default function ProductsCard({ product }: Params) {
 
     return (
         <Link
-            href={`/products/${product.id}`}
+            href={`/works/${works.id}`}
             className={css({
                 display: "block",
                 width: "100%",
@@ -81,7 +87,6 @@ export default function ProductsCard({ product }: Params) {
                         outline: "none",
                         margin: "auto",
                         justifyContent: "center",
-                        maxHeight: "50vh",
                         position: "relative",
                     })}
                 >
@@ -109,7 +114,7 @@ export default function ProductsCard({ product }: Params) {
                             lineClamp: 1,
                         })}
                     >
-                        {product.title}
+                        {works.title}
                     </div>
                 </Card.Body>
             </Card.Root>

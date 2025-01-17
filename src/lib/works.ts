@@ -1,6 +1,6 @@
 import "server-only";
 
-export async function getProducts(): Promise<Product[]> {
+export async function getWorks(): Promise<Works[]> {
     const url = "https://nikomaru-portfolio-01.microcms.io/api/v1/products";
     const response = await fetch(url, {
         headers: {
@@ -13,6 +13,6 @@ export async function getProducts(): Promise<Product[]> {
         throw new Error("fetch error");
     }
 
-    const data: { contents: Product[] } = await response.json();
+    const data: { contents: Works[] } = await response.json();
     return data.contents;
 }

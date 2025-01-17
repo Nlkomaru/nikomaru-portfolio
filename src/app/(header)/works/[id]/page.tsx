@@ -8,7 +8,7 @@ type Params = {
 
 export default async function Home({ params }: Params) {
     const resolvedParams = await params;
-    const data: Product = await fetch(
+    const data: Works = await fetch(
         `https://nikomaru-portfolio-01.microcms.io/api/v1/products/${resolvedParams.id}`,
         {
             headers: {

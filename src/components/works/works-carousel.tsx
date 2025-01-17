@@ -5,12 +5,12 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import type React from "react";
 import { useCallback, useEffect, useState } from "react";
-import ProductsCard from "~/components/products/products-card";
+import WorksCard from "~/components/works/works-card";
 import {
     NextButton,
     PrevButton,
     usePrevNextButtons,
-} from "./products-carousel-arrow-buttons";
+} from "./works-carousel-arrow-buttons";
 
 const embla = css({
     margin: "auto",
@@ -58,17 +58,17 @@ type PropType = {
     options?: EmblaOptionsType;
 };
 
-const ProductsCarousel: React.FC<PropType> = (props) => {
+const WorksCarousel: React.FC<PropType> = (props) => {
     const { options } = props;
     const [emblaRef, emblaApi] = useEmblaCarousel(options, [
         Autoplay({ delay: 20 * 1000 }),
     ]);
-    const [data, setData] = useState<Product[]>([]);
+    const [data, setData] = useState<Works[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch("/api/products");
-            const result = await response.json<Product[]>();
+            const result = await response.json<Works[]>();
             setData(result);
         };
 
@@ -100,7 +100,7 @@ const ProductsCarousel: React.FC<PropType> = (props) => {
                 <div className={emblaContainer}>
                     {data.map((product) => (
                         <div className={emblaSlide} key={product.id}>
-                            <ProductsCard product={product} />
+                            <WorksCard works={product} />
                         </div>
                     ))}
                 </div>
@@ -122,4 +122,4 @@ const ProductsCarousel: React.FC<PropType> = (props) => {
     );
 };
 
-export default ProductsCarousel;
+export default WorksCarousel;
