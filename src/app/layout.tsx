@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { css } from "@/styled-system/css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "next-themes";
 import { fonts } from "./fonts";
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
     title: "にこまるのポートフォリオ",
@@ -24,7 +24,6 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ja" suppressHydrationWarning>
-
             {/*og*/}
 
             <body className={`${css({ textStyle: "body" })} ${fonts}`}>
