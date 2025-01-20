@@ -47,7 +47,7 @@ app.get("list", async (c) => {
         { id: "hono-conf-2024", lastUpdate: new Date("2024-06-26") },
         { id: "home-server", lastUpdate: new Date("2024-10-24") },
     ];
-    console.log("Title getting");
+    console.log("RootLogo getting");
     let slides: Slide[] = (
         await Promise.all(
             keys.map(async (key) => {

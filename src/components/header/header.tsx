@@ -1,5 +1,6 @@
 import { css } from "@/styled-system/css";
 import { HamburgerMenu } from "~/components/header/menu";
+import { Navbar } from "~/components/header/navbar";
 import { Logo } from "./logo";
 
 export const Header = () => {
@@ -13,14 +14,32 @@ export const Header = () => {
                 },
                 padding: "16px",
                 maxWidth: "1600px",
-                width: "100%",
                 justifyContent: "space-between",
                 alignItems: "flex-start",
             })}
         >
             <Logo />
             <div>
-                <HamburgerMenu />
+                <div
+                    className={css({
+                        display: {
+                            base: "none",
+                            lg: "block",
+                        },
+                    })}
+                >
+                    <Navbar />
+                </div>
+                <div
+                    className={css({
+                        display: {
+                            base: "block",
+                            lg: "none",
+                        },
+                    })}
+                >
+                    <HamburgerMenu />
+                </div>
             </div>
         </div>
     );

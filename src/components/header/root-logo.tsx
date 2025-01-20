@@ -3,7 +3,7 @@
 import { css } from "@/styled-system/css";
 import { motion } from "motion/react";
 
-export const Title = () => {
+export const RootLogo = () => {
     return (
         <motion.h1
             className={css({

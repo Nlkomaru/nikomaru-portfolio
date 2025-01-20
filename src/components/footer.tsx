@@ -7,8 +7,6 @@ export const Footer = () => {
         <div
             className={css({
                 marginTop: "64px",
-                //もう少し暗く
-                backgroundColor: "var(--colors-bg-canvas)",
             })}
             id={"footer"}
         >

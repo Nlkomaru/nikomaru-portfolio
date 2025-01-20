@@ -1,7 +1,7 @@
 import { css } from "@/styled-system/css";
 import { HamburgerMenu } from "~/components/header/menu";
-import { Navbar } from "~/components/header/navbar";
-import { Title } from "./title";
+import { RootNavbar } from "~/components/header/root-navbar";
+import { RootLogo } from "./root-logo";
 
 export const RootHeader = () => {
     return (
@@ -31,7 +31,7 @@ export const RootHeader = () => {
                     flexShrink: 0,
                 })}
             >
-                <Title />
+                <RootLogo />
             </div>
             <div>
                 <div
@@ -42,7 +42,7 @@ export const RootHeader = () => {
                         },
                     })}
                 >
-                    <Navbar />
+                    <RootNavbar />
                 </div>
                 <div
                     className={css({
