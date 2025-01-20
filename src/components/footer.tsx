@@ -106,7 +106,7 @@ export const Footer = () => {
                         <div className={BrandStyle}>Github</div>
                     </Link>
                     <Link
-                        href={"http://x.com/nikoamru0102"}
+                        href={"http://x.com/nikomaru0102"}
                         className={BrandWithIconStyle}
                     >
                         <Icon className={IconStyle}>

@@ -3,6 +3,7 @@ import "./globals.css";
 import { css } from "@/styled-system/css";
 import { ThemeProvider } from "next-themes";
 import { fonts } from "./fonts";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
     title: "にこまるのポートフォリオ",
@@ -23,6 +24,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ja" suppressHydrationWarning>
+
             {/*og*/}
 
             <body className={`${css({ textStyle: "body" })} ${fonts}`}>
@@ -35,6 +37,7 @@ export default function RootLayout({
                     }}
                 >
                     {children}
+                    <SpeedInsights />
                 </ThemeProvider>
             </body>
         </html>
