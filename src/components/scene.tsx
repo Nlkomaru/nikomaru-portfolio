@@ -19,7 +19,7 @@ type Circle = {
     size: number;
 };
 
-const speed = 0.2;
+const speed = 0.4;
 const diffLimit = 0.2;
 const Scene = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -81,13 +81,16 @@ const Scene = () => {
                     Math.min(canvas.width, window.innerHeight) *
                     0.15;
 
-                if (circle.x > canvas.width - radius || circle.x < radius)
+                if (circle.x > canvas.width - radius || circle.x < radius) {
                     circle.vx = -circle.vx;
+                }
+
                 if (
                     circle.y > canvas.height - footerHeight - radius ||
                     circle.y < radius
-                )
+                ) {
                     circle.vy = -circle.vy;
+                }
 
                 context.beginPath();
                 context.arc(circle.x, circle.y, radius, 0, Math.PI * 2);

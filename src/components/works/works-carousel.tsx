@@ -4,13 +4,14 @@ import type { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import type React from "react";
-import { useCallback, useEffect, useState } from "react";
-import WorksCard from "~/components/works/works-card";
+import { Suspense, lazy, useCallback } from "react";
 import {
     NextButton,
     PrevButton,
     usePrevNextButtons,
 } from "./works-carousel-arrow-buttons";
+
+const WorksList = lazy(() => import("./works-list"));
 
 const embla = css({
     margin: "auto",
@@ -22,18 +23,6 @@ const embla = css({
 
 const emblaViewport = css({
     overflow: "hidden",
-});
-
-const emblaContainer = css({
-    display: "flex",
-    touchAction: "pan-y pinch-zoom",
-    marginLeft: "calc(var(--slide-spacing) * -1)",
-});
-
-const emblaSlide = css({
-    flex: "0 0 var(--slide-size)",
-    minWidth: "0",
-    paddingLeft: "var(--slide-spacing)",
 });
 
 const emblaControls = css({
@@ -63,17 +52,6 @@ const WorksCarousel: React.FC<PropType> = (props) => {
     const [emblaRef, emblaApi] = useEmblaCarousel(options, [
         Autoplay({ delay: 20 * 1000 }),
     ]);
-    const [data, setData] = useState<Works[]>([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch("/api/products");
-            const result = await response.json<Works[]>();
-            setData(result);
-        };
-
-        fetchData();
-    }, []);
 
     const onNavButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
         const autoplay = emblaApi?.plugins()?.autoplay;
@@ -97,13 +75,9 @@ const WorksCarousel: React.FC<PropType> = (props) => {
     return (
         <section className={embla}>
             <div className={emblaViewport} ref={emblaRef}>
-                <div className={emblaContainer}>
-                    {data.map((product) => (
-                        <div className={emblaSlide} key={product.id}>
-                            <WorksCard works={product} />
-                        </div>
-                    ))}
-                </div>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <WorksList />
+                </Suspense>
             </div>
 
             <div className={emblaControls}>
