@@ -5,7 +5,7 @@ export const Certification = () => {
         {
             issuedAt: dayjs("2019-07-01"),
             expiresAt: null,
-            id: "world-heritage-3",
+            id: "test-of-world-heritage-study-3rd-grade",
             name: "世界遺産検定 3級",
         },
         {

@@ -1,3 +1,4 @@
+import { css } from "@/styled-system/css";
 import parse from "html-react-parser";
 
 type Params = {
@@ -19,9 +20,14 @@ export default async function Home({ params }: Params) {
     ).then((res) => res.json());
 
     return (
-        <>
+        <div
+            className={css({
+                maxWidth: "1024px",
+                margin: "auto",
+            })}
+        >
             {data.title}
             <div>{parse(data.description)}</div>
-        </>
+        </div>
     );
 }
