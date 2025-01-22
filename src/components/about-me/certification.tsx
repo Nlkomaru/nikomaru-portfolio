@@ -1,4 +1,7 @@
+"use client";
+
 import dayjs from "dayjs";
+import * as motion from "motion/react-client";
 
 export const Certification = () => {
     const cert: certification[] = [
@@ -21,18 +24,26 @@ export const Certification = () => {
             name: "応用情報技術者試験",
         },
     ];
+
     return (
-        <>
+        <motion.ul>
             {cert
                 .filter((it) =>
                     it.expiresAt ? it.expiresAt?.isAfter(dayjs()) : true,
                 )
-                .map((cert) => (
-                    <div key={cert.id}>
+                .map((cert, index) => (
+                    <motion.li
+                        key={cert.id}
+                        initial={{ opacity: 0, x: -100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                            delay: 0.4 * (index + 1),
+                        }}
+                    >
                         {`${cert.issuedAt.format("YYYY-MM")} ${cert.name}`}
-                    </div>
+                    </motion.li>
                 ))}
-        </>
+        </motion.ul>
     );
 };
 
