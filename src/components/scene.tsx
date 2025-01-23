@@ -19,7 +19,7 @@ type Circle = {
     size: number;
 };
 
-const speed = 0.8;
+const speed = 0.4;
 const diffLimit = 0.2;
 const Scene = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);

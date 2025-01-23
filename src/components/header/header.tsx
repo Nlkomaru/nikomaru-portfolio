@@ -8,12 +8,10 @@ export const Header = () => {
         <div
             className={css({
                 display: "flex",
-                margin: {
-                    base: "0",
-                    lg: "16px 32px",
-                },
-                padding: "16px",
-                maxWidth: "1600px",
+                margin: "0 auto", // 中央揃えに変更
+                maxWidth: "1760px",
+                alignContent: "center",
+                padding: "32px",
                 justifyContent: "space-between",
                 alignItems: "flex-start",
             })}
