@@ -22,7 +22,7 @@ const emblaContainer = css({
 const fetcher = async (url: string): Promise<Works[]> =>
     fetch(url).then((res) => res.json());
 
-export const WorksList: React.FC = () => {
+const WorksList: React.FC = () => {
     const [isClient, setIsClient] = useState(false);
     useEffect(() => {
         setIsClient(true);
@@ -50,3 +50,5 @@ export const WorksList: React.FC = () => {
         </div>
     );
 };
+
+export default WorksList;
