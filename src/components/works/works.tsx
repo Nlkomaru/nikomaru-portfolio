@@ -1,6 +1,8 @@
 import { css } from "@/styled-system/css";
 import type { EmblaOptionsType } from "embla-carousel";
+import { Suspense } from "react";
 import { titleStyle } from "~/components/aboutme";
+import FakeWorksCarousel from "~/components/works/fake-works-card-carousel";
 import WorksCarousel from "~/components/works/works-carousel";
 
 const OPTIONS: EmblaOptionsType = {
@@ -21,7 +23,10 @@ export default function Home() {
             })}
         >
             <h1 className={titleStyle}>Works</h1>
-            <WorksCarousel options={OPTIONS} />
+            {/*<FakeWorksCarousel />*/}
+            <Suspense fallback={<FakeWorksCarousel />}>
+                <WorksCarousel options={OPTIONS} />
+            </Suspense>
         </div>
     );
 }

@@ -22,6 +22,9 @@ const nextConfig = {
 
         ],
     },
+    experimental: {
+        ppr: "incremental", // v14.xではboolean
+    },
 };
 
 export default nextConfig;

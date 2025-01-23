@@ -1,7 +1,6 @@
 import { css } from "@/styled-system/css";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Card } from "../ui/card";
 
 type Params = {
@@ -9,12 +8,6 @@ type Params = {
 };
 
 export default function WorksCard({ works }: Params) {
-    const [isClient, setIsClient] = useState(false);
-
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
-
     const renderImage = () => {
         const aspectRatio = works.image
             ? works.image.width / works.image.height
@@ -56,10 +49,6 @@ export default function WorksCard({ works }: Params) {
             </div>
         );
     };
-
-    if (!isClient) {
-        return null;
-    }
 
     return (
         <Link

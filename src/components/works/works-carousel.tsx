@@ -1,17 +1,23 @@
 "use client";
+
 import { css } from "@/styled-system/css";
 import type { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
+import dynamic from "next/dynamic";
 import type React from "react";
-import { Suspense, lazy, useCallback } from "react";
+import { Suspense } from "react";
+import { useCallback } from "react";
+import FakeWorksList from "./fake-works-list";
 import {
     NextButton,
     PrevButton,
     usePrevNextButtons,
 } from "./works-carousel-arrow-buttons";
 
-const WorksList = lazy(() => import("./works-list"));
+const WorksList = dynamic(() =>
+    import("./works-list").then((mod) => mod.WorksList),
+);
 
 const embla = css({
     margin: "auto",
@@ -75,7 +81,7 @@ const WorksCarousel: React.FC<PropType> = (props) => {
     return (
         <section className={embla}>
             <div className={emblaViewport} ref={emblaRef}>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<FakeWorksList />}>
                     <WorksList />
                 </Suspense>
             </div>

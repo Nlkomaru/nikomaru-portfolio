@@ -16,6 +16,7 @@ export default function Layout({
                 className={css({
                     margin: "0 auto",
                     maxWidth: "1600px",
+                    padding: "0 32px",
                 })}
             >
                 {children}

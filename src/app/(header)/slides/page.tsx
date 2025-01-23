@@ -16,8 +16,7 @@ export default async function Page() {
             <h1
                 className={css({
                     fontSize: "xl",
-                    marginTop: "32px",
-                    padding: "0px 32px",
+                    margin: "32px 0px",
                 })}
             >
                 作製したスライド一覧
@@ -32,7 +31,6 @@ export default async function Page() {
                     },
                     gap: "32px",
                     width: "100%",
-                    padding: "32px",
                     justifyContent: "space-between",
                 })}
             >

@@ -30,6 +30,6 @@ const Heading2 = styled("h2", {
             md: "24px",
             lg: "32px",
         },
-        marginBottom: "8px",
+        marginTop: "32px",
     },
 });

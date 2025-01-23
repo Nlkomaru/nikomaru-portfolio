@@ -2,7 +2,7 @@ import { AboutMe } from "~/components/aboutme";
 import { Footer } from "~/components/footer";
 import { RootHeader } from "~/components/header/root-header";
 import Scene from "~/components/scene";
-import Products from "~/components/works/works";
+import Works from "~/components/works/works";
 
 export default function Home() {
     return (
@@ -10,7 +10,7 @@ export default function Home() {
             <Scene />
             <RootHeader />
             <AboutMe />
-            <Products />
+            <Works />
             <Footer />
         </div>
     );
