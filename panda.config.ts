@@ -5,7 +5,7 @@ import {
 } from "@pandacss/dev";
 import { createPreset } from "@park-ui/panda-preset";
 import neutral from "@park-ui/panda-preset/colors/neutral";
-import sky from "@park-ui/panda-preset/colors/sky";
+import grass from "@park-ui/panda-preset/colors/grass";
 
 export const textStyles = defineTextStyles({
     body: {
@@ -35,7 +35,7 @@ export default defineConfig({
     preflight: true,
     presets: [
         createPreset({
-            accentColor: sky,
+            accentColor: grass,
             grayColor: neutral,
             radius: "xl",
         }),

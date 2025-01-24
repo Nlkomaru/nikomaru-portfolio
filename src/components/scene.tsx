@@ -1,10 +1,9 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-// const baseColorRange = Math.floor(Math.random() * 360);
-
 const getRandomPastelColor = (isDark: boolean) => {
-    const hue = Math.floor(Math.random() * 150) + 90;
+    const hue = Math.floor(Math.random() * 150) + 70;
     const saturation = 90 + Math.random() * 10;
     const lightness = isDark ? 80 : 80 + Math.random() * 10;
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
@@ -24,12 +23,15 @@ const diffLimit = 0.2;
 const Scene = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const circlesRef = useRef<Circle[]>([]);
+    const pathname = usePathname();
 
     useEffect(() => {
+        if (typeof window === "undefined") return;
+
         const canvas = canvasRef.current;
         const context = canvas?.getContext("2d");
         if (!canvas || !context) return;
-        //htmlにdata-theme="dark"があるかどうか
+
         const isDark = document.documentElement.dataset.theme === "dark";
 
         const handleResize = () => {
@@ -65,13 +67,13 @@ const Scene = () => {
                     speed *
                     (Math.random() < 0.5 ? -1 : 1),
                 color: getRandomPastelColor(isDark),
-                size: radius, // Use the radius variable here
+                size: radius,
             };
-        });
+        }, [pathname]);
 
         const animate = () => {
             context.clearRect(0, 0, canvas.width, canvas.height);
-            context.globalAlpha = 0.5; // Set opacity to 50%
+            context.globalAlpha = 0.5;
 
             for (const circle of circlesRef.current) {
                 circle.x += circle.vx;
@@ -106,7 +108,7 @@ const Scene = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    });
 
     return (
         <canvas
