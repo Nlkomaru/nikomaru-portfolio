@@ -22,7 +22,6 @@ app.get("list", async (c) => {
     let keys = [];
     const bucketName = process.env.S3_BUCKET;
     const time = new Date().getTime();
-    console.log("List getting");
     try {
         const listResult = await s3Client.send(
             new ListObjectsV2Command({
@@ -36,10 +35,8 @@ app.get("list", async (c) => {
                 prefix.Prefix?.replace("/", ""),
             ) ?? [];
     } catch (error) {
-        console.error(error);
         return new Response(error?.toString(), { status: 500 });
     }
-    console.log(`List getting: ${new Date().getTime() - time}ms`);
 
     const override: { id: string; lastUpdate: Date }[] = [
         { id: "slidev", lastUpdate: new Date("2024-02-25") },
@@ -47,7 +44,6 @@ app.get("list", async (c) => {
         { id: "hono-conf-2024", lastUpdate: new Date("2024-06-26") },
         { id: "home-server", lastUpdate: new Date("2024-10-24") },
     ];
-    console.log("RootLogo getting");
     let slides: Slide[] = (
         await Promise.all(
             keys.map(async (key) => {

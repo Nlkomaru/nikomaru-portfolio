@@ -17,7 +17,7 @@ export const textStyles = defineTextStyles({
                 md: "md",
                 lg: "lg",
             },
-            lineHeight: "2",
+            lineHeight: "1.8",
             fontWeight: "400",
         },
     },
@@ -25,7 +25,7 @@ export const textStyles = defineTextStyles({
 
 const globalCss = defineGlobalStyles({
     "*::selection": {
-        bg: "var(--colors-color-palette-4)/60",
+        bg: "var(--colors-color-palette-6)/80",
     },
 });
 

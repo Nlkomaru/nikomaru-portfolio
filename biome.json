@@ -38,6 +38,9 @@
       "recommended": true,
       "correctness": {
         "noUnusedImports": "error"
+      },
+      "suspicious": {
+        "noConsoleLog": "error"
       }
     }
   },
