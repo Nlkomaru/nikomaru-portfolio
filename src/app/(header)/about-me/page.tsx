@@ -1,7 +1,7 @@
 import { css } from "@/styled-system/css";
 import { styled } from "@/styled-system/jsx";
+import { Career } from "~/components/about-me/career";
 import { Certification } from "~/components/about-me/certification";
-import { loremJapanese } from "~/lib/util";
 
 export default function Home() {
     return (
@@ -13,7 +13,7 @@ export default function Home() {
         >
             <Heading2>Skills</Heading2>
             <Heading3>Backend</Heading3>
-            <p>
+            <p className={css({ marginBottom: "2rem" })}>
                 Minecraftサーバーのプラグイン開発を行っており、外部からの操作を可能にするために
                 Kotlin + Ktor を活用したバックエンドシステムを構築したり、
                 プレイヤーごとのデータの管理・及びアクセスのための認可認証(OAuth
@@ -25,7 +25,7 @@ export default function Home() {
                 + TypeScript を利用して開発を行っています。
                 最近は、Qwikを利用した開発に少し興味があります。
             </p>
-            <p className={css({ marginTop: "4px" })}>
+            <p className={css({ marginTop: "4px", marginBottom: "2rem" })}>
                 このポートフォリオサイトは、Next.js + Vercel
                 を利用して構築し、ヘッドレスUIとしてArk UIを利用、CSS in
                 JSとしてPanda CSSを利用しています。
@@ -34,7 +34,7 @@ export default function Home() {
             </p>
 
             <Heading3>Infrastructure</Heading3>
-            <p>
+            <p className={css({ marginBottom: "2rem" })}>
                 マインクラフトサーバーの運用の際に、ネットワークの設定や
                 セキュリティの設定、バックアップの設定などを行っており、このあたりの技術についても興味があります。
                 <br />
@@ -44,7 +44,7 @@ export default function Home() {
             </p>
 
             <Heading2>Career</Heading2>
-            {loremJapanese(200)}
+            <Career />
 
             <Heading2>Certification</Heading2>
             <Certification />
@@ -70,6 +70,5 @@ const Heading3 = styled("h3", {
             md: "1.25rem",
             lg: "1.5rem",
         },
-        marginTop: "2rem",
     },
 });

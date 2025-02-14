@@ -3,10 +3,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 const getRandomPastelColor = (isDark: boolean) => {
-    const hue = Math.floor(Math.random() * 150) + 70;
-    const saturation = 90 + Math.random() * 10;
-    const lightness = isDark ? 80 : 80 + Math.random() * 10;
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    const hue = Math.floor(Math.random() * 150) + 70; //色相は70～220
+    const saturation = isDark ? 25 : 90 + Math.random() * 10; //彩度は90～100
+    const lightness = isDark ? 35 : 80 + Math.random() * 10; //明度は20～90
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`; // hsl(色相, 彩度, 明度)
 };
 
 type Circle = {
@@ -18,7 +18,7 @@ type Circle = {
     size: number;
 };
 
-const speed = 0.2;
+const speed = 0.6;
 const diffLimit = 0.2;
 const Scene = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -44,7 +44,7 @@ const Scene = () => {
 
         const footerHeight =
             document.getElementById("footer")?.clientHeight || 0;
-        const count = 13 * (document.body.clientHeight / window.innerHeight);
+        const count = 9 * (document.body.clientHeight / window.innerHeight);
         circlesRef.current = Array.from({ length: count }).map(() => {
             const radius = Math.random() * 1 + 0.5; // Random size between 0.5 and 1.5
             const adjustedRadius =

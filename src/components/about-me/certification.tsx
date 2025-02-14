@@ -1,7 +1,13 @@
 "use client";
 
+import { css } from "@/styled-system/css";
 import dayjs from "dayjs";
+import { useInView } from "motion/react";
 import * as motion from "motion/react-client";
+import { useRef } from "react";
+import CareerCard, {
+    type certification,
+} from "~/components/about-me/certification-card";
 
 export const Certification = () => {
     const cert: certification[] = [
@@ -25,8 +31,11 @@ export const Certification = () => {
         },
     ];
 
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
+
     return (
-        <motion.ul>
+        <motion.ul ref={ref}>
             {cert
                 .filter((it) =>
                     it.expiresAt ? it.expiresAt?.isAfter(dayjs()) : true,
@@ -35,21 +44,17 @@ export const Certification = () => {
                     <motion.li
                         key={cert.id}
                         initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        animate={isInView ? { opacity: 1, x: 0 } : {}}
                         transition={{
                             delay: 0.4 * (index + 1),
                         }}
+                        className={css({
+                            paddingBottom: "8px",
+                        })}
                     >
-                        {`${cert.issuedAt.format("YYYY-MM")} ${cert.name}`}
+                        <CareerCard certification={cert} />
                     </motion.li>
                 ))}
         </motion.ul>
     );
-};
-
-type certification = {
-    issuedAt: dayjs.Dayjs;
-    expiresAt: dayjs.Dayjs | null;
-    id: string;
-    name: string;
 };
