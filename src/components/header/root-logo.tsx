@@ -38,23 +38,23 @@ export const RootLogo = () => {
         >
             Nikomaru
             <br />
-            Portfoli
-            <button
-                type="button"
-                suppressHydrationWarning
-                onClick={() => {
-                    setTheme(clientTheme === "dark" ? "light" : "dark");
-                }}
-                className={css({
-                    color: "var(--colors-fg-default)/40",
-                    background: "none",
-                    border: "none",
-                    padding: 0,
-                    cursor: "pointer",
-                })}
-            >
-                o
-            </button>
+            Portfolio
+            {/*<button*/}
+            {/*    type="button"*/}
+            {/*    suppressHydrationWarning*/}
+            {/*    onClick={() => {*/}
+            {/*        setTheme(clientTheme === "dark" ? "light" : "dark");*/}
+            {/*    }}*/}
+            {/*    className={css({*/}
+            {/*        color: "var(--colors-fg-default)/40",*/}
+            {/*        background: "none",*/}
+            {/*        border: "none",*/}
+            {/*        padding: 0,*/}
+            {/*        cursor: "pointer",*/}
+            {/*    })}*/}
+            {/*>*/}
+            {/*    o*/}
+            {/*</button>*/}
         </motion.h1>
     );
 };

@@ -13,6 +13,7 @@ const headingRecipe = {
         position: "relative",
         fontWeight: "bold",
         backgroundColor: "var(--colors-color-palette-2)",
+        // background: "red",
         zIndex: 0,
     },
     variants: {
@@ -20,11 +21,17 @@ const headingRecipe = {
             xl: {
                 padding: "16px 0",
                 position: "relative",
-                left: "-24px",
+                left: {
+                    base: "8px",
+                    md: "-24px",
+                },
                 paddingLeft: "24px",
                 paddingRight: "40px",
                 borderRadius: "0 20px 20px 0",
-                width: "calc(100% + 48px)",
+                width: {
+                    base: "calc(100% - 8px)",
+                    md: "calc(100% + 48px)",
+                },
                 textStyle: "xl",
                 mdDown: {
                     textStyle: "l",
@@ -54,11 +61,17 @@ const headingRecipe = {
             l: {
                 padding: "12px 0",
                 position: "relative",
-                left: "-26px",
+                left: {
+                    base: "6px",
+                    md: "-26px",
+                },
                 paddingLeft: "26px",
                 paddingRight: "30px",
                 borderRadius: "0 15px 15px 0",
-                width: "calc(100% + 36px)",
+                width: {
+                    base: "calc(100% - 6px)",
+                    md: "calc(100% + 36px)",
+                },
                 textStyle: "l",
                 mdDown: {
                     textStyle: "m",
@@ -88,11 +101,17 @@ const headingRecipe = {
             m: {
                 padding: "8px 0",
                 position: "relative",
-                left: "-28px",
+                left: {
+                    base: "4px",
+                    md: "-28px",
+                },
                 paddingLeft: "28px",
                 paddingRight: "24px",
                 borderRadius: "0 12px 12px 0",
-                width: "calc(100% + 28px)",
+                width: {
+                    base: "calc(100% - 4px)",
+                    md: "calc(100% + 28px)",
+                },
                 textStyle: "m",
                 mdDown: {
                     textStyle: "s",

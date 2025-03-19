@@ -63,7 +63,7 @@ export default function Page() {
                 >
                     {Array.from({ length: 3 }, (_, i) => (
                         <FakeSlideCard
-                            key={`loading-skeleton-${crypto.randomUUID()}`}
+                            key={`loading-skeleton-${crypto.getRandomValues(new Uint32Array(1))[0]}`}
                         />
                     ))}
                 </div>
