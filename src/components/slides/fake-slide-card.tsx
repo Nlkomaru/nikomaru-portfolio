@@ -1,30 +1,38 @@
-"use client";
 import { css } from "@/styled-system/css";
-import { useTheme } from "next-themes";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import type { Slide } from "~/lib/type";
+import { Skeleton } from "~/components/ui/skeleton";
 import { Card } from "../ui/card";
 
-const SlideCard = (props: { slide: Slide }) => {
-    const { slide } = props;
-    const { theme } = useTheme();
-    const [clientTheme, setClientTheme] = useState<string | undefined>(
-        undefined,
-    );
+export default function FakeSlideCard() {
+    const renderImage = () => {
+        const imageStyle = css({
+            aspectRatio: "16 / 9",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
+            position: "relative",
+            height: {
+                base: "200px",
+                xl: "280px",
+            },
+            borderRadius: "xl",
+            fontSize: "6xl",
+            textAlign: "center",
+        });
 
-    useEffect(() => {
-        setClientTheme(theme);
-    }, [theme]);
+        return (
+            <Skeleton className={imageStyle}>
+                <div className={imageStyle} />
+            </Skeleton>
+        );
+    };
 
     return (
-        <Link
-            href={slide.link}
-            target="_blank"
+        <div
             className={css({
                 display: "block",
                 width: "100%",
+                textDecoration: "none",
             })}
         >
             <Card.Root
@@ -43,19 +51,7 @@ const SlideCard = (props: { slide: Slide }) => {
                         outlineColor: "black",
                     })}
                 >
-                    <Image
-                        suppressHydrationWarning
-                        width={1920}
-                        height={1080}
-                        src={slide.image}
-                        alt={slide.id}
-                        className={css({
-                            filter:
-                                clientTheme === "dark"
-                                    ? "brightness(0.8)"
-                                    : "brightness(1)",
-                        })}
-                    />
+                    {renderImage()}
                 </Card.Header>
                 <hr
                     style={{
@@ -83,7 +79,9 @@ const SlideCard = (props: { slide: Slide }) => {
                             lineClamp: 1,
                         })}
                     >
-                        {slide.title}
+                        <Skeleton>
+                            <div>Title placeholder</div>
+                        </Skeleton>
                     </div>
                 </Card.Body>
 
@@ -99,14 +97,11 @@ const SlideCard = (props: { slide: Slide }) => {
                         },
                     })}
                 >
-                    最終更新日:{" "}
-                    {slide.lastUpdate
-                        ? new Date(slide.lastUpdate).toISOString().split("T")[0]
-                        : "N/A"}
+                    <Skeleton>
+                        <div>最終更新日: YYYY-MM-DD</div>
+                    </Skeleton>
                 </Card.Footer>
             </Card.Root>
-        </Link>
+        </div>
     );
-};
-
-export default SlideCard;
+}

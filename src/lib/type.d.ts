@@ -1,4 +1,4 @@
-interface Slide {
+export interface Slide {
     id: string;
     title: string;
     image: string;
@@ -6,7 +6,7 @@ interface Slide {
     lastUpdate: Date | undefined;
 }
 
-interface Works {
+export interface Works {
     id: string;
     title: string;
     image: {
@@ -21,17 +21,17 @@ interface Works {
     link: string;
 }
 
-interface SmartphoneImage {
+export interface SmartphoneImage {
     src: string;
     alt: string;
 }
 
-interface DesktopImage {
+export interface DesktopImage {
     src: string;
     alt: string;
 }
 
-interface Emoji {
+export interface Emoji {
     src: string;
     alt: string;
 }

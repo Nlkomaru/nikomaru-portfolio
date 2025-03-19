@@ -1,5 +1,5 @@
 import "server-only";
-
+import type { Works } from "~/lib/type";
 export async function getWorks(): Promise<Works[]> {
     const url = "https://nikomaru-portfolio-01.microcms.io/api/v1/products";
     const response = await fetch(url, {

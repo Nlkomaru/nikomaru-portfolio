@@ -1,5 +1,10 @@
+import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
+
+initOpenNextCloudflareForDev();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    reactStrictMode: true,
     images: {
         remotePatterns: [
             {
@@ -21,9 +26,6 @@ const nextConfig = {
             },
 
         ],
-    },
-    experimental: {
-        ppr: "incremental", // v14.xではboolean
     },
 };
 

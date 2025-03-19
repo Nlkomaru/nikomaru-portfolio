@@ -1,36 +1,41 @@
+"use client";
 import { css } from "@/styled-system/css";
+import { Suspense, useEffect, useState } from "react";
+import FakeSlideCard from "~/components/slides/fake-slide-card";
 import SlideCard from "~/components/slides/slide-card";
-import { fetcher } from "~/lib/fetcher";
+import type { Slide } from "~/lib/type";
 
-const cache = new Map<string, { data: Slide[]; timestamp: number }>();
+export default function Page() {
+    const [slideArray, setSlideArray] = useState<Slide[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-export default async function Page() {
-    const cacheKey = "/api/slides/list";
-    const cacheEntry = cache.get(cacheKey);
-    const oneHour = 1;
-    const now = Date.now();
-
-    let slideArray: Slide[];
-
-    if (cacheEntry) {
-        slideArray = cacheEntry.data;
-        if (now - cacheEntry.timestamp >= oneHour) {
-            fetcher(cacheKey)
-                .then((res) => res.json<Slide[]>())
-                .then((newData) => {
-                    cache.set(cacheKey, { data: newData, timestamp: now });
-                });
-        }
-    } else {
-        slideArray = await fetcher(cacheKey).then((res) => res.json<Slide[]>());
-        cache.set(cacheKey, { data: slideArray, timestamp: now });
-    }
-
-    for (const slide of slideArray) {
-        slide.lastUpdate = slide.lastUpdate
-            ? new Date(slide.lastUpdate)
-            : undefined;
-    }
+    useEffect(() => {
+        const fetchSlides = async () => {
+            try {
+                const data = await fetch("/api/slides/list").then((res) =>
+                    res.json<Slide[]>(),
+                );
+                const sortedData = data
+                    .map((slide) => ({
+                        ...slide,
+                        lastUpdate: slide.lastUpdate
+                            ? new Date(slide.lastUpdate)
+                            : undefined,
+                    }))
+                    .sort((a, b) => {
+                        if (!a.lastUpdate) return 1;
+                        if (!b.lastUpdate) return -1;
+                        return b.lastUpdate.getTime() - a.lastUpdate.getTime();
+                    });
+                setSlideArray(sortedData);
+            } catch (error) {
+                console.error("スライドの取得に失敗しました:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchSlides();
+    }, []);
 
     return (
         <>
@@ -42,25 +47,56 @@ export default async function Page() {
             >
                 作製したスライド一覧
             </h1>
-            <div
-                className={css({
-                    display: "grid",
-                    gridTemplateColumns: {
-                        base: "repeat(1, 1fr)",
-                        md: "repeat(2, 1fr)",
-                        lg: "repeat(3, 1fr)",
-                    },
-                    gap: "32px",
-                    width: "100%",
-                    justifyContent: "space-between",
-                })}
-            >
-                {slideArray.map((slide) => (
-                    <div key={slide.id} className={css({})}>
-                        <SlideCard slide={slide} />
-                    </div>
-                ))}
-            </div>
+            {isLoading ? (
+                <div
+                    className={css({
+                        display: "grid",
+                        gridTemplateColumns: {
+                            base: "repeat(1, 1fr)",
+                            md: "repeat(2, 1fr)",
+                            lg: "repeat(3, 1fr)",
+                        },
+                        gap: "32px",
+                        width: "100%",
+                        justifyContent: "space-between",
+                    })}
+                >
+                    {Array.from({ length: 3 }, (_, i) => (
+                        <FakeSlideCard
+                            key={`loading-skeleton-${crypto.randomUUID()}`}
+                        />
+                    ))}
+                </div>
+            ) : slideArray.length === 0 ? (
+                <p
+                    className={css({
+                        textAlign: "center",
+                        margin: "32px 0",
+                    })}
+                >
+                    スライドがまだありません
+                </p>
+            ) : (
+                <div
+                    className={css({
+                        display: "grid",
+                        gridTemplateColumns: {
+                            base: "repeat(1, 1fr)",
+                            md: "repeat(2, 1fr)",
+                            lg: "repeat(3, 1fr)",
+                        },
+                        gap: "32px",
+                        width: "100%",
+                        justifyContent: "space-between",
+                    })}
+                >
+                    {slideArray.map((slide) => (
+                        <Suspense key={slide.id} fallback={<FakeSlideCard />}>
+                            <SlideCard slide={slide} />
+                        </Suspense>
+                    ))}
+                </div>
+            )}
         </>
     );
 }

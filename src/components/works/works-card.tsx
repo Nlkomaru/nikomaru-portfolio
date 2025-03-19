@@ -1,8 +1,8 @@
 import { css } from "@/styled-system/css";
 import Image from "next/image";
 import Link from "next/link";
+import type { Works } from "~/lib/type";
 import { Card } from "../ui/card";
-
 type Params = {
     works: Works;
 };

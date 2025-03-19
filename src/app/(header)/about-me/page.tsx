@@ -26,11 +26,13 @@ export default function Home() {
                 最近は、Qwikを利用した開発に少し興味があります。
             </p>
             <p className={css({ marginTop: "4px", marginBottom: "2rem" })}>
-                このポートフォリオサイトは、Next.js + Vercel
-                を利用して構築し、ヘッドレスUIとしてArk UIを利用、CSS in
-                JSとしてPanda CSSを利用しています。
-                また、コンポーネントライブラリ及びデザインシステムとしてPark
-                UIを利用し、Figmaを利用してデザインを行いました。
+                このポートフォリオサイトは、Next.jsをベースに構築し、
+                ヘッドレスUIライブラリとしてArk UI、スタイリングにはPanda
+                CSS(CSS in JS)を採用しています。
+                デプロイ環境としてはOpenNextを用いてCloudflare
+                Workersへ展開しています。
+                また、UIコンポーネントとデザインシステムにはPark UIを採用し、
+                デザインの設計はFigmaで行いました。
             </p>
 
             <Heading3>Infrastructure</Heading3>

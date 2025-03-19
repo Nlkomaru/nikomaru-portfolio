@@ -1,11 +1,6 @@
-import type { Readable } from "node:stream";
-import {
-    GetObjectCommand,
-    type GetObjectCommandOutput,
-    ListObjectsV2Command,
-    S3Client,
-} from "@aws-sdk/client-s3";
+import { S3Client } from "@aws-sdk/client-s3";
 import { Hono } from "hono";
+import type { Slide } from "~/lib/type";
 
 const app = new Hono<{ Bindings: CloudflareEnv }>();
 
@@ -19,24 +14,33 @@ const s3Client = new S3Client({
 });
 
 app.get("list", async (c) => {
-    let keys = [];
-    const bucketName = process.env.S3_BUCKET;
-    const time = new Date().getTime();
-    try {
-        const listResult = await s3Client.send(
-            new ListObjectsV2Command({
-                Bucket: bucketName,
-                Prefix: "",
-                Delimiter: "/",
-            }),
-        );
-        keys =
-            listResult.CommonPrefixes?.map((prefix) =>
-                prefix.Prefix?.replace("/", ""),
-            ) ?? [];
-    } catch (error) {
-        return new Response(error?.toString(), { status: 500 });
-    }
+    // 古いコード
+    // let keys = [];
+    // const bucketName = process.env.S3_BUCKET;
+    // const time = new Date().getTime();
+    // try {
+    //     const listResult = await s3Client.send(
+    //         new ListObjectsV2Command({
+    //             Bucket: bucketName,
+    //             Prefix: "",
+    //             Delimiter: "/",
+    //         }),
+    //     );
+    //     keys =
+    //         listResult.CommonPrefixes?.map((prefix) =>
+    //             prefix.Prefix?.replace("/", ""),
+    //         ) ?? [];
+    // } catch (error) {
+    //     return new Response(error?.toString(), { status: 500 });
+
+    const keys = [
+        "slidev",
+        "oauth2-with-ktor",
+        "hono-conf-2024",
+        "home-server",
+        "burikaigi-2025",
+        "health-connect-cursor",
+    ];
 
     const override: { id: string; lastUpdate: Date }[] = [
         { id: "slidev", lastUpdate: new Date("2024-02-25") },
@@ -44,39 +48,35 @@ app.get("list", async (c) => {
         { id: "hono-conf-2024", lastUpdate: new Date("2024-06-26") },
         { id: "home-server", lastUpdate: new Date("2024-10-24") },
     ];
+
     let slides: Slide[] = (
         await Promise.all(
             keys.map(async (key) => {
                 const id = key as string;
-                let object: GetObjectCommandOutput;
+                const url = `https://${process.env.NEXT_PUBLIC_S3_HOST_NAME}/${id}/index.html`;
+
                 try {
-                    object = await s3Client.send(
-                        new GetObjectCommand({
-                            Bucket: bucketName,
-                            Key: `${id}/index.html`,
-                        }),
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        return null;
+                    }
+
+                    const html = await response.text();
+                    const title = (
+                        html.match(/<title>(.*?)<\/title>/)?.[1] as string
+                    ).split(" - ")[0] as string;
+
+                    const image = `https://${process.env.NEXT_PUBLIC_S3_HOST_NAME}/${id}/picture/1.png`;
+                    // LastModifiedヘッダーから最終更新日を取得
+                    const lastUpdate = new Date(
+                        response.headers.get("last-modified") || "",
                     );
+
+                    return { id, title, image, link: url, lastUpdate };
                 } catch (error) {
-                    // skip if object not found
+                    // skip if fetch fails
                     return null;
                 }
-                const stream = object.Body as Readable;
-                const html = await new Promise<string>((resolve, reject) => {
-                    let data = "";
-                    stream.on("data", (chunk) => {
-                        data += chunk;
-                    });
-                    stream.on("end", () => resolve(data));
-                    stream.on("error", reject);
-                });
-                const title = (
-                    html.match(/<title>(.*?)<\/title>/)?.[1] as string
-                ).split(" - ")[0] as string;
-                const image = `https://${process.env.NEXT_PUBLIC_S3_HOST_NAME}/${id}/picture/1.png`;
-                const link = `https://${process.env.NEXT_PUBLIC_S3_HOST_NAME}/${id}/index.html`;
-                const lastUpdate = object.LastModified;
-
-                return { id, title: title, image, link, lastUpdate };
             }),
         )
     ).filter((slide) => slide !== null);

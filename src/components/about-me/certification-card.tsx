@@ -17,7 +17,7 @@ export default function CareerCard({
                 gap: "8px",
                 flexShrink: 0,
                 borderRadius: "xl",
-                background: "var(--colors-color-palette-a6)",
+                background: "var(--colors-color-palette-8)/60",
             })}
         >
             <div

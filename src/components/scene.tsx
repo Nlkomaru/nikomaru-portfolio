@@ -1,6 +1,7 @@
 "use client";
+import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const getRandomPastelColor = (isDark: boolean) => {
     const hue = Math.floor(Math.random() * 150) + 70; //色相は70～220
@@ -18,21 +19,24 @@ type Circle = {
     size: number;
 };
 
-const speed = 0.6;
 const diffLimit = 0.2;
+
 const Scene = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const circlesRef = useRef<Circle[]>([]);
     const pathname = usePathname();
+    const { theme } = useTheme();
+    const [speed, setSpeed] = useState(0);
 
     useEffect(() => {
+        setSpeed(0.5);
         if (typeof window === "undefined") return;
 
         const canvas = canvasRef.current;
         const context = canvas?.getContext("2d");
         if (!canvas || !context) return;
 
-        const isDark = document.documentElement.dataset.theme === "dark";
+        const isDark = theme === "dark";
 
         const handleResize = () => {
             canvas.width = window.innerWidth;
@@ -46,9 +50,14 @@ const Scene = () => {
             document.getElementById("footer")?.clientHeight || 0;
         const count = 9 * (document.body.clientHeight / window.innerHeight);
         circlesRef.current = Array.from({ length: count }).map(() => {
-            const radius = Math.random() * 1 + 0.5; // Random size between 0.5 and 1.5
+            const radius = Math.random() * 1 + 0.5;
             const adjustedRadius =
                 radius * Math.min(canvas.width, window.innerHeight) * 0.15;
+
+            const getRandomVelocity = () =>
+                (Math.random() * (1 - diffLimit) + diffLimit) *
+                speed *
+                (Math.random() < 0.5 ? -1 : 1);
 
             return {
                 x:
@@ -58,18 +67,12 @@ const Scene = () => {
                     Math.random() *
                         (canvas.height - footerHeight - 2 * adjustedRadius) +
                     adjustedRadius,
-                vx:
-                    (Math.random() * (1 - diffLimit) + diffLimit) *
-                    speed *
-                    (Math.random() < 0.5 ? -1 : 1),
-                vy:
-                    (Math.random() * (1 - diffLimit) + diffLimit) *
-                    speed *
-                    (Math.random() < 0.5 ? -1 : 1),
+                vx: getRandomVelocity(),
+                vy: getRandomVelocity(),
                 color: getRandomPastelColor(isDark),
                 size: radius,
             };
-        }, [pathname]);
+        }, [theme, pathname, speed]);
 
         const animate = () => {
             context.clearRect(0, 0, canvas.width, canvas.height);
@@ -108,7 +111,7 @@ const Scene = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    });
+    }, [theme, pathname, speed]);
 
     return (
         <canvas

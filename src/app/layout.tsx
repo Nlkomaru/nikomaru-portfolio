@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { css } from "@/styled-system/css";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "next-themes";
 import { fonts } from "./fonts";
 
@@ -17,8 +16,6 @@ export const metadata: Metadata = {
     },
 };
 
-export const experimental_ppr = true;
-
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -30,14 +27,14 @@ export default function RootLayout({
 
             <body className={`${css({ textStyle: "body" })} ${fonts}`}>
                 <ThemeProvider
-                    enableSystem={true}
+                    enableSystem={false}
+                    defaultTheme={"light"}
                     value={{
                         light: "light",
                         dark: "dark",
                     }}
                 >
                     {children}
-                    <SpeedInsights />
                 </ThemeProvider>
             </body>
         </html>

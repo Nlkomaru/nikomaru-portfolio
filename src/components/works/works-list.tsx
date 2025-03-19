@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import FakeWorksList from "~/components/works/fake-works-list";
 import WorksCard from "~/components/works/works-card";
-
+import type { Works } from "~/lib/type";
 const emblaSlide = css({
     flex: "0 0 var(--slide-size)",
     minWidth: "0",
