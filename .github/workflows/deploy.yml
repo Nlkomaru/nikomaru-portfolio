@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -36,7 +36,7 @@ jobs:
 
       - name: Build
         run: |
-          pnpm run pages:build
+          pnpm run build:worker
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
