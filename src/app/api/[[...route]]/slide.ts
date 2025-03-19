@@ -1,17 +1,16 @@
-import { S3Client } from "@aws-sdk/client-s3";
 import { Hono } from "hono";
 import type { Slide } from "~/lib/type";
 
 const app = new Hono<{ Bindings: CloudflareEnv }>();
 
-const s3Client = new S3Client({
-    region: process.env.S3_REGION || "",
-    credentials: {
-        accessKeyId: process.env.S3_ACCESS_ID || "",
-        secretAccessKey: process.env.S3_SECRET_KEY || "",
-    },
-    endpoint: process.env.S3_ENDPOINT,
-});
+// const s3Client = new S3Client({
+//     region: process.env.S3_REGION || "",
+//     credentials: {
+//         accessKeyId: process.env.S3_ACCESS_ID || "",
+//         secretAccessKey: process.env.S3_SECRET_KEY || "",
+//     },
+//     endpoint: process.env.S3_ENDPOINT,
+// });
 
 app.get("list", async (c) => {
     // 古いコード
