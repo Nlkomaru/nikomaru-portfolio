@@ -8,6 +8,5 @@ interface CloudflareEnv {
 	S3_BUCKET: string;
 	NEXT_PUBLIC_S3_HOST_NAME: string;
 	MICROCMS_API_KEY: string;
-	R2: R2Bucket;
 	ASSETS: Fetcher;
 }

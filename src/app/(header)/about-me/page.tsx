@@ -57,20 +57,22 @@ export default function Home() {
 const Heading2 = styled("h2", {
     base: {
         fontSize: {
-            base: "1.25rem",
-            md: "1.5rem",
+            base: "1.5rem",
+            md: "1.75rem",
             lg: "2rem",
         },
         marginTop: "2rem",
+        fontWeight: "bold",
     },
 });
 
 const Heading3 = styled("h3", {
     base: {
         fontSize: {
-            base: "1rem",
-            md: "1.25rem",
-            lg: "1.5rem",
+            base: "1.25rem",
+            md: "1.5rem",
+            lg: "1.75rem",
         },
+        fontWeight: "bold",
     },
 });

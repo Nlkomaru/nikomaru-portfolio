@@ -13,7 +13,7 @@ export const textStyles = defineTextStyles({
         value: {
             fontFamily: "var(--font-poppins), var(--font-zen-maru-gothic), Fluent Emoji Color",
             fontSize: {
-                base: "sm",
+                base: "md",
                 md: "md",
                 lg: "lg",
             },

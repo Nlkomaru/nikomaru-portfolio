@@ -1,6 +1,6 @@
 "use client";
 import { css } from "@/styled-system/css";
-import { BookUser, Boxes, Presentation } from "lucide-react";
+import { BookUser, Presentation } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { Icon } from "~/components/ui/styled/icon";
@@ -48,17 +48,17 @@ export const RootNavbar = () => {
                     </Icon>
                     <div className={linkContentStyle}>つくったスライド</div>
                 </Link>
-                <Link href={"/works"} className={linkStyle}>
-                    <Icon
-                        className={css({
-                            width: "24px",
-                            height: "24px",
-                        })}
-                    >
-                        <Boxes />
-                    </Icon>
-                    <div className={linkContentStyle}>作ったもの</div>
-                </Link>
+                {/*<Link href={"/works"} className={linkStyle}>*/}
+                {/*    <Icon*/}
+                {/*        className={css({*/}
+                {/*            width: "24px",*/}
+                {/*            height: "24px",*/}
+                {/*        })}*/}
+                {/*    >*/}
+                {/*        <Boxes />*/}
+                {/*    </Icon>*/}
+                {/*    <div className={linkContentStyle}>作ったもの</div>*/}
+                {/*</Link>*/}
                 <Link href={"/about-me"} className={linkStyle}>
                     <Icon
                         className={css({

@@ -15,4 +15,4 @@ This site is built on the following technology stack.
 - Git hook: lefthook
 - CI/CD: GitHub Actions
 - API Route's framework: Hono
-- Hosting: Versel
+- Hosting: Cloudflare Workers (with OpenNext)

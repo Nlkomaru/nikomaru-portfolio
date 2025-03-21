@@ -8,14 +8,6 @@
     "binding": "ASSETS"
   },
   "kv_namespaces": [
-
-  ],
-  "r2_buckets": [
-  {
-    "binding": "R2",
-    "bucket_name": "slide-nikomaru",
-    "preview_bucket_name": "slide-nikomaru"
-    }
   ],
   "observability": {
     "logs": {

@@ -10,8 +10,8 @@ export const Logo = () => {
                     flex: "1 0 0",
                     fontFamily: "var(--font-montserrat-alternates)",
                     fontSize: {
-                        base: "20px",
-                        md: "24px",
+                        base: "24px",
+                        md: "28px",
                         lg: "32px",
                     },
 
