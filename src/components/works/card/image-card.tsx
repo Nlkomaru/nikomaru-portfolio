@@ -57,7 +57,7 @@ export default function ImageCard({ works }: Params) {
                         })}
                     >
                         <Image
-                            src={works.image?.url}
+                            src={works?.image?.url || ""}
                             alt={works.title}
                             placeholder={"blur"}
                             blurDataURL={works.image?.url}
