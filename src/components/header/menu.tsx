@@ -1,15 +1,10 @@
 import { css } from "@/styled-system/css";
 import { Menu as MenuIcon, XIcon } from "lucide-react";
 import Link from "next/link";
+import { NAVIGATION_ITEMS } from "~/lib/constants/urls";
 import { Drawer } from "../ui/drawer";
 
 export const HamburgerMenu = () => {
-    const data = [
-        // { url: "/blog", name: "書いたぶろぐ", label: "Blog" },
-        { url: "/slides", name: "つくったスライド", label: "Slides" },
-        // { url: "/works", name: "作ったもの", label: "Works" },
-        { url: "/about-me", name: "わたしについて", label: "About Me" },
-    ];
     return (
         <div>
             <Drawer.Root>
@@ -53,7 +48,7 @@ export const HamburgerMenu = () => {
                                     gap: "32px",
                                 })}
                             >
-                                {data.map((item) => (
+                                {NAVIGATION_ITEMS.map((item) => (
                                     <li
                                         className={css({
                                             display: "flex",

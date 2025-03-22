@@ -62,7 +62,6 @@ const Heading2 = styled("h2", {
             lg: "2rem",
         },
         marginTop: "2rem",
-        fontWeight: "bold",
     },
 });
 
@@ -73,6 +72,5 @@ const Heading3 = styled("h3", {
             md: "1.5rem",
             lg: "1.75rem",
         },
-        fontWeight: "bold",
     },
 });

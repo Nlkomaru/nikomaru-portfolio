@@ -1,9 +1,9 @@
 "use client";
 import { css } from "@/styled-system/css";
-import { BookUser, Presentation } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { Icon } from "~/components/ui/styled/icon";
+import { NAVIGATION_ITEMS } from "~/lib/constants/urls";
 
 export const RootNavbar = () => {
     return (
@@ -26,50 +26,19 @@ export const RootNavbar = () => {
                     gap: "8px",
                 })}
             >
-                {/*<Link href={"/blog"} className={linkStyle}>*/}
-                {/*    <Icon*/}
-                {/*        className={css({*/}
-                {/*            width: "24px",*/}
-                {/*            height: "24px",*/}
-                {/*        })}*/}
-                {/*    >*/}
-                {/*        <PenTool />*/}
-                {/*    </Icon>*/}
-                {/*    <div className={linkContentStyle}>書いたぶろぐ</div>*/}
-                {/*</Link>*/}
-                <Link href={"/slides"} className={linkStyle}>
-                    <Icon
-                        className={css({
-                            width: "24px",
-                            height: "24px",
-                        })}
-                    >
-                        <Presentation />
-                    </Icon>
-                    <div className={linkContentStyle}>つくったスライド</div>
-                </Link>
-                {/*<Link href={"/works"} className={linkStyle}>*/}
-                {/*    <Icon*/}
-                {/*        className={css({*/}
-                {/*            width: "24px",*/}
-                {/*            height: "24px",*/}
-                {/*        })}*/}
-                {/*    >*/}
-                {/*        <Boxes />*/}
-                {/*    </Icon>*/}
-                {/*    <div className={linkContentStyle}>作ったもの</div>*/}
-                {/*</Link>*/}
-                <Link href={"/about-me"} className={linkStyle}>
-                    <Icon
-                        className={css({
-                            width: "24px",
-                            height: "24px",
-                        })}
-                    >
-                        <BookUser />
-                    </Icon>
-                    <div className={linkContentStyle}>わたしについて</div>
-                </Link>
+                {NAVIGATION_ITEMS.map((item) => (
+                    <Link key={item.url} href={item.url} className={linkStyle}>
+                        <Icon
+                            className={css({
+                                width: "24px",
+                                height: "24px",
+                            })}
+                        >
+                            <item.icon />
+                        </Icon>
+                        <div className={linkContentStyle}>{item.rootName}</div>
+                    </Link>
+                ))}
             </div>
         </motion.div>
     );

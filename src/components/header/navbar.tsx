@@ -1,8 +1,8 @@
 "use client";
 import { css } from "@/styled-system/css";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { NAVIGATION_ITEMS } from "~/lib/constants/urls";
 
 const linkStyle = css({});
 const activeLinkStyle = css({
@@ -18,13 +18,6 @@ const activeLinkStyle = css({
 export const Navbar = () => {
     const currentPath = usePathname();
 
-    const data = [
-        // { url: "/blog", name: "書いたぶろぐ", label: "Blog" },
-        { url: "/slides", name: "スライド", label: "Slides" },
-        // { url: "/works", name: "作ったもの", label: "Works" },
-        { url: "/about-me", name: "私について", label: "About Me" },
-    ];
-
     return (
         <div
             className={css({
@@ -35,7 +28,7 @@ export const Navbar = () => {
                 gap: "64px",
             })}
         >
-            {data.map((item) => (
+            {NAVIGATION_ITEMS.map((item) => (
                 <Link
                     key={item.url}
                     href={item.url}

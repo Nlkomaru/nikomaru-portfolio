@@ -2,7 +2,9 @@
 
 import { css } from "@/styled-system/css";
 import dayjs from "dayjs";
+import { useInView } from "motion/react";
 import * as motion from "motion/react-client";
+import { useRef } from "react";
 import { flex } from "../../../styled-system/patterns";
 
 // 資格情報の型を定義するのだ
@@ -46,18 +48,20 @@ const sortCertificationsByDate = (
 
 export const Certification = () => {
     const sortedCertifications = sortCertificationsByDate(certifications);
-
+    const ref = useRef<HTMLDivElement>(null);
+    const isInView = useInView(ref);
     return (
         <motion.div
             className={css({
                 paddingTop: "8px",
             })}
+            ref={ref}
         >
             {sortedCertifications.map((cert, index) => (
                 <motion.div
                     key={cert.id}
                     initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{
                         delay: 0.4 * (index + 1) + 1,
                     }}

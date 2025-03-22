@@ -9,7 +9,7 @@ export interface Slide {
 export interface Works {
     id: string;
     title: string;
-    image: {
+    image?: {
         url: string;
         width: number;
         height: number;
@@ -19,6 +19,7 @@ export interface Works {
     client: string;
     position: string;
     link: string;
+    updatedAt: Date | undefined;
 }
 
 export interface SmartphoneImage {
