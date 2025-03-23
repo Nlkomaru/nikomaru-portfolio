@@ -48,6 +48,7 @@ const SlideCard = (props: { slide: Slide }) => {
                         width={1920}
                         height={1080}
                         src={slide.image}
+                        blurDataURL={slide.image}
                         alt={slide.id}
                         className={css({
                             filter:

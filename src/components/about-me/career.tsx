@@ -44,7 +44,7 @@ const sortCareersByStartDate = (careers: Career[]): Career[] => {
 export const Career = () => {
     const sortedCareers = sortCareersByStartDate(careers);
     const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref);
+    const isInView = useInView(ref, { once: true });
 
     return (
         <motion.div

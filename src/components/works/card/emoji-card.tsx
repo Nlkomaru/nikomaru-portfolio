@@ -35,7 +35,7 @@ export default function EmojiCard({ works }: Params) {
     const gradientColors = useMemo(() => {
         const hash = generateHash(works.title);
         const color1 = hashToHSL(hash);
-        const color2 = hashToHSL(hash + 60); // 60度ずらして2つ目の色を生成
+        const color2 = hashToHSL(generateHash(hash.toString()));
         return `linear-gradient(45deg, ${color1}, ${color2})`;
     }, [works.title]);
 

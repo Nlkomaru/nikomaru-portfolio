@@ -49,7 +49,7 @@ const sortCertificationsByDate = (
 export const Certification = () => {
     const sortedCertifications = sortCertificationsByDate(certifications);
     const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref);
+    const isInView = useInView(ref, { once: true });
     return (
         <motion.div
             className={css({
