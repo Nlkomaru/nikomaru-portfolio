@@ -11,15 +11,15 @@ export default function Home() {
                 margin: "auto",
             })}
         >
-            <Heading2>Skills</Heading2>
-            <Heading3>Backend</Heading3>
+            <Heading2>Skills ✨</Heading2>
+            <Heading3>Backend 🛠️</Heading3>
             <p className={css({ marginBottom: "2rem" })}>
                 Minecraftサーバーのプラグイン開発を行っており、外部からの操作を可能にするために
                 Kotlin + Ktor を活用したバックエンドシステムを構築したり、
                 プレイヤーごとのデータの管理・及びアクセスのための認可認証(OAuth
                 2.0/ OpenID Connect)のシステムを構築したりしています。
             </p>
-            <Heading3>Frontend</Heading3>
+            <Heading3>Frontend 🎨</Heading3>
             <p>
                 2024年の10月あたりから、Webのフロントエンド開発を行ってきました。主に、Next.js
                 + TypeScript を利用して開発を行っています。
@@ -35,7 +35,7 @@ export default function Home() {
                 デザインの設計はFigmaで行いました。
             </p>
 
-            <Heading3>Infrastructure</Heading3>
+            <Heading3>Infrastructure 🌐</Heading3>
             <p className={css({ marginBottom: "2rem" })}>
                 マインクラフトサーバーの運用の際に、ネットワークの設定や
                 セキュリティの設定、バックアップの設定などを行っており、このあたりの技術についても興味があります。
@@ -45,10 +45,10 @@ export default function Home() {
                 NodeExporterを利用したモニタリングを行っています。
             </p>
 
-            <Heading2>Career</Heading2>
+            <Heading2>Career 📚</Heading2>
             <Career />
 
-            <Heading2>Certification</Heading2>
+            <Heading2>Certification 📜</Heading2>
             <Certification />
         </div>
     );

@@ -12,8 +12,8 @@ const headingRecipe = {
     base: {
         position: "relative",
         fontWeight: "bold",
-        backgroundColor: "var(--colors-color-palette-2)",
-        // background: "red",
+        background:
+            "linear-gradient(90deg, var(--colors-color-palette-2) 0%, var(--colors-color-palette-7) 100%)",
         zIndex: 0,
     },
     variants: {
