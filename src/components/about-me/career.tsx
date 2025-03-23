@@ -6,7 +6,7 @@ import { useInView } from "motion/react";
 import * as motion from "motion/react-client";
 import { useRef } from "react";
 
-// キャリア情報の型を定義するのだ
+// キャリア情報の型を定義
 type Career = {
     startedAt: dayjs.Dayjs;
     endedAt: dayjs.Dayjs | null;
@@ -14,10 +14,10 @@ type Career = {
     name: string;
 };
 
-// キャリア情報の配列を定義するのだ
+// キャリア情報の配列を定義
 const careers: Career[] = [
     {
-        startedAt: dayjs("2019-04-01"),
+        startedAt: dayjs("2020-04-01"),
         endedAt: dayjs("2023-03-31"),
         id: "1",
         name: "愛知県立愛知総合工科高等学校",
@@ -36,7 +36,7 @@ const careers: Career[] = [
     },
 ];
 
-// 開始日でソートする関数を定義するのだ
+// 開始日でソートする関数を定義
 const sortCareersByStartDate = (careers: Career[]): Career[] => {
     return careers.sort((a, b) => (a.startedAt.isBefore(b.startedAt) ? -1 : 1)); // 開始日が早い方を前にするのだ
 };
