@@ -28,6 +28,8 @@ const headingRecipe = {
                 paddingLeft: "24px",
                 paddingRight: "40px",
                 borderRadius: "0 20px 20px 0",
+                background:
+                    "linear-gradient(90deg, var(--colors-color-palette-2) 0%, var(--colors-color-palette-7) 100%)",
                 width: {
                     base: "calc(100% - 8px)",
                     md: "calc(100% + 48px)",
@@ -68,6 +70,8 @@ const headingRecipe = {
                 paddingLeft: "26px",
                 paddingRight: "30px",
                 borderRadius: "0 15px 15px 0",
+                background:
+                    "linear-gradient(90deg, var(--colors-color-palette-2) 0%, var(--colors-color-palette-6) 100%)",
                 width: {
                     base: "calc(100% - 6px)",
                     md: "calc(100% + 36px)",
@@ -108,6 +112,8 @@ const headingRecipe = {
                 paddingLeft: "28px",
                 paddingRight: "24px",
                 borderRadius: "0 12px 12px 0",
+                background:
+                    "linear-gradient(90deg, var(--colors-color-palette-2) 0%, var(--colors-color-palette-5) 100%)",
                 width: {
                     base: "calc(100% - 4px)",
                     md: "calc(100% + 28px)",

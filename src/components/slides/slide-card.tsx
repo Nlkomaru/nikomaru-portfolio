@@ -51,6 +51,7 @@ const SlideCard = (props: { slide: Slide }) => {
                         blurDataURL={slide.image}
                         alt={slide.id}
                         className={css({
+                            aspectRatio: "16/9",
                             filter:
                                 clientTheme === "dark"
                                     ? "brightness(0.8)"
