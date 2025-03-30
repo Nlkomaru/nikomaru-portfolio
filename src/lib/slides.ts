@@ -16,21 +16,18 @@ export async function getSlides(): Promise<Slide[]> {
     // return getFakeSlides()
     let keys = [];
     const bucketName = process.env.S3_BUCKET;
-    try {
-        const listResult = await s3Client.send(
-            new ListObjectsV2Command({
-                Bucket: bucketName,
-                Prefix: "",
-                Delimiter: "/",
-            }),
-        );
-        keys =
-            listResult.CommonPrefixes?.map((prefix) =>
-                prefix.Prefix?.replace("/", ""),
-            ) ?? [];
-    } catch (error) {
-        return [];
-    }
+    const listResult = await s3Client.send(
+        new ListObjectsV2Command({
+            Bucket: bucketName,
+            Prefix: "",
+            Delimiter: "/",
+        }),
+    );
+    keys =
+        listResult.CommonPrefixes?.map((prefix) =>
+            prefix.Prefix?.replace("/", ""),
+        ) ?? [];
+
     // const keys = [
     //     "slidev",
     //     "oauth2-with-ktor",
@@ -96,7 +93,7 @@ export async function getSlides(): Promise<Slide[]> {
     return slides;
 }
 
-function getFakeSlides(): Promise<Slide[]> {
+export function getFakeSlides(): Promise<Slide[]> {
     // ダミーデータを生成する
     const slides: Slide[] = Array.from({ length: 10 }, () => ({
         id: faker.string.uuid(),

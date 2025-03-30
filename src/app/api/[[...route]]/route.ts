@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
+import { getSlides } from "~/lib/slides";
 import { getWorks } from "~/lib/works";
-import slide from "./slide";
 
 const app = new Hono().basePath("/api");
 
@@ -16,7 +16,10 @@ app.get("/products", async (c) => {
     return c.json(data);
 });
 
-app.route("/slides", slide);
+app.get("/slides", async (c) => {
+    const slides = await getSlides();
+    return c.json(slides);
+});
 
 export const GET = handle(app);
 export const POST = handle(app);
