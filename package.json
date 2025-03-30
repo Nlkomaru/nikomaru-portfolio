@@ -6,6 +6,7 @@
     "prepare": "panda codegen",
     "dev": "next dev",
     "build": "next build",
+    "build:worker": "opennextjs-cloudflare build",
     "start": "next start",
     "preview": "opennextjs-cloudflare build && wrangler dev --port 3000",
     "check": "biome check ./src --write",
