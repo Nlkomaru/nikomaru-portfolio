@@ -29,7 +29,7 @@ const Scene = () => {
     const [speed, setSpeed] = useState(0);
 
     useEffect(() => {
-        setSpeed(0.5);
+        setSpeed(1);
         if (typeof window === "undefined") return;
 
         const canvas = canvasRef.current;

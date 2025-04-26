@@ -40,7 +40,7 @@ export default function WorksCard({ works }: Params) {
     const renderImage = () => {
         const aspectRatio = works.image
             ? works.image.width / works.image.height
-            : 1;
+            : "16/9";
 
         const imageStyle = css({
             aspectRatio: `${aspectRatio}`,
@@ -49,10 +49,8 @@ export default function WorksCard({ works }: Params) {
             alignItems: "center",
             overflow: "hidden",
             position: "relative",
-            height: {
-                base: "200px",
-                xl: "280px",
-            },
+            height: "100%",
+            objectFit: "cover",
             width: "100%",
             borderRadius: "xl",
             fontSize: "6xl",
@@ -76,6 +74,8 @@ export default function WorksCard({ works }: Params) {
                     style={{
                         backgroundImage: gradientColors,
                         width: "100%",
+                        height: "100%",
+                        aspectRatio: `${aspectRatio}`,
                     }}
                 >
                     <div
@@ -84,7 +84,9 @@ export default function WorksCard({ works }: Params) {
                             zIndex: 2,
                             textShadow: "0 2px 4px rgba(0,0,0,0.1)",
                             padding: "2rem",
+                            alignContent: "center",
                             width: "100%",
+                            height: "100%",
                         })}
                     >
                         {works.emoji}

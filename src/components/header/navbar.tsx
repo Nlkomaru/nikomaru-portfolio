@@ -33,7 +33,9 @@ export const Navbar = () => {
                     key={item.url}
                     href={item.url}
                     className={
-                        currentPath === item.url ? activeLinkStyle : linkStyle
+                        currentPath.startsWith(item.url)
+                            ? activeLinkStyle
+                            : linkStyle
                     }
                 >
                     {item.name}
