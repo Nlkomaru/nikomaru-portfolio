@@ -1,7 +1,4 @@
-import { css } from "@/styled-system/css";
 import { Footer } from "~/components/footer";
-import { Header } from "~/components/header/header";
-import Scene from "~/components/scene";
 
 export default function Layout({
     children,
@@ -10,17 +7,7 @@ export default function Layout({
 }>) {
     return (
         <>
-            <Scene />
-            <Header />
-            <div
-                className={css({
-                    margin: "0 auto",
-                    maxWidth: "1600px",
-                    padding: "0 32px",
-                })}
-            >
-                {children}
-            </div>
+            {children}
             <Footer />
         </>
     );
