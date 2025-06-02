@@ -8,7 +8,7 @@ const app = new Hono().basePath("/slide");
 app.get("*", async (c) => {
     const slides = await getSlides();
 
-    const { env } = await getCloudflareContext({ async: true });
+    const { env } = getCloudflareContext();
     const headers = new Headers();
     const { pathname } = new URL(c.req.url);
     headers.append("CF-Access-Client-Id", env.CF_ACCESS_CLIENT_ID);

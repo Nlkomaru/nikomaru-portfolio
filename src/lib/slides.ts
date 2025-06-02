@@ -6,12 +6,21 @@ import type { Slide } from "~/lib/type";
 export async function getSlides(): Promise<Slide[]> {
     const { env } = await getCloudflareContext({ async: true });
     const headers = new Headers();
-    headers.append("CF-Access-Client-Id", env.CF_ACCESS_CLIENT_ID);
-    headers.append("CF-Access-Client-Secret", env.CF_ACCESS_CLIENT_SECRET);
+    headers.append(
+        "CF-Access-Client-Id",
+        process.env.CF_ACCESS_CLIENT_ID ?? env.CF_ACCESS_CLIENT_ID,
+    );
+    headers.append(
+        "CF-Access-Client-Secret",
+        process.env.CF_ACCESS_CLIENT_SECRET ?? env.CF_ACCESS_CLIENT_SECRET,
+    );
 
-    const res = await fetch(`${env.R2_PUBLIC_URL}slide-info-list.json`, {
-        headers: headers,
-    });
+    const res = await fetch(
+        `${process.env.R2_PUBLIC_URL ?? env.R2_PUBLIC_URL}slide-info-list.json`,
+        {
+            headers: headers,
+        },
+    );
     const data =
         await res.json<
             {

@@ -13,6 +13,7 @@ jobs:
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
       R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
       MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+      
     runs-on: ubuntu-latest
     name: Deploy
     steps:

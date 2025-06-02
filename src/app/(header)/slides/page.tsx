@@ -1,6 +1,4 @@
 import { css } from "@/styled-system/css";
-import { Suspense } from "react";
-import FakeSlideCard from "~/components/slides/fake-slide-card";
 import SlideCard from "~/components/slides/slide-card";
 import { getSlides } from "~/lib/slides";
 
@@ -32,9 +30,7 @@ export default async function Page() {
                 })}
             >
                 {slideArray.map((slide) => (
-                    <Suspense key={slide.id} fallback={<FakeSlideCard />}>
-                        <SlideCard slide={slide} />
-                    </Suspense>
+                    <SlideCard slide={slide} key={slide.id} />
                 ))}
             </div>
         </>
