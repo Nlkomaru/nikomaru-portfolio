@@ -77,9 +77,12 @@ async function getImageUrl(id: string): Promise<string> {
         "CF-Access-Client-Secret",
         process.env.CF_ACCESS_CLIENT_SECRET ?? env.CF_ACCESS_CLIENT_SECRET,
     );
-    const res = await fetch(`${env.R2_PUBLIC_URL}${id}/picture/1.png`, {
-        headers: headers,
-    });
+    const res = await fetch(
+        `${process.env.R2_PUBLIC_URL ?? env.R2_PUBLIC_URL}${id}/picture/1.png`,
+        {
+            headers: headers,
+        },
+    );
     const data = await res.blob();
     //base64
     const base64 = await data.arrayBuffer();
