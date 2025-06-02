@@ -8,15 +8,7 @@ on:
 
 jobs:
   deploy:
-    env:
-      S3_REGION: ${{ secrets.S3_REGION }}
-      S3_ACCESS_ID: ${{ secrets.S3_ACCESS_ID }}
-      S3_SECRET_KEY: ${{ secrets.S3_SECRET_KEY }}
-      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-      S3_BUCKET: ${{ secrets.S3_BUCKET }}
-      NEXT_PUBLIC_S3_HOST_NAME: ${{ secrets.NEXT_PUBLIC_S3_HOST_NAME }}
-      MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
-
+  
     runs-on: ubuntu-latest
     name: Deploy
     steps:
@@ -44,18 +36,12 @@ jobs:
           apiToken: ${{ secrets.CF_API_KEY }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           secrets: |
-            S3_REGION
-            S3_ACCESS_ID
-            S3_SECRET_KEY
-            S3_ENDPOINT
-            S3_BUCKET
-            NEXT_PUBLIC_S3_HOST_NAME
+            CF_ACCESS_CLIENT_ID
+            CF_ACCESS_CLIENT_SECRET
+            R2_PUBLIC_URL
             MICROCMS_API_KEY
         env:
-          S3_REGION: ${{ secrets.S3_REGION }}
-          S3_ACCESS_ID: ${{ secrets.S3_ACCESS_ID }}
-          S3_SECRET_KEY: ${{ secrets.S3_SECRET_KEY }}
-          S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-          S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          NEXT_PUBLIC_S3_HOST_NAME: ${{ secrets.NEXT_PUBLIC_S3_HOST_NAME }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+          R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
