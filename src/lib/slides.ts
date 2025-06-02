@@ -33,18 +33,18 @@ export async function getSlides(): Promise<Slide[]> {
 
     const slides: Slide[] = [];
 
-    //biome-ignore lint/complexity/noForEach: <explanation>
-    data.filter((v) => v.type === "public")
-        .filter((v) => v.id.length !== 36)
-        .forEach((v) => {
-            slides.push({
-                id: v.id,
-                title: v.title,
-                image: `/slide/${v.id}/picture/1.png`,
-                lastUpdate: new Date(v.lastUpdated),
-                link: `/slide/${v.id}`,
-            });
+    for (const v of data
+        .filter((v) => v.type === "public")
+        .filter((v) => v.id.length !== 36)) {
+        const imageUrl = await getImageUrl(v.id);
+        slides.push({
+            id: v.id,
+            title: v.title,
+            image: imageUrl,
+            lastUpdate: new Date(v.lastUpdated),
+            link: `/slide/${v.id}`,
         });
+    }
 
     return slides;
 }
@@ -64,4 +64,24 @@ export function getFakeSlides(): Promise<Slide[]> {
             resolve(slides);
         }, 1000);
     });
+}
+
+async function getImageUrl(id: string): Promise<string> {
+    const { env } = await getCloudflareContext({ async: true });
+    const headers = new Headers();
+    headers.append(
+        "CF-Access-Client-Id",
+        process.env.CF_ACCESS_CLIENT_ID ?? env.CF_ACCESS_CLIENT_ID,
+    );
+    headers.append(
+        "CF-Access-Client-Secret",
+        process.env.CF_ACCESS_CLIENT_SECRET ?? env.CF_ACCESS_CLIENT_SECRET,
+    );
+    const res = await fetch(`${env.R2_PUBLIC_URL}${id}/picture/1.png`, {
+        headers: headers,
+    });
+    const data = await res.blob();
+    //base64
+    const base64 = await data.arrayBuffer();
+    return `data:image/png;base64,${Buffer.from(base64).toString("base64")}`;
 }
