@@ -4,7 +4,7 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 import type { Slide } from "~/lib/type";
 
 export async function getSlides(): Promise<Slide[]> {
-    const { env } = getCloudflareContext();
+    const { env } = await getCloudflareContext({ async: true });
     const headers = new Headers();
     headers.append("CF-Access-Client-Id", env.CF_ACCESS_CLIENT_ID);
     headers.append("CF-Access-Client-Secret", env.CF_ACCESS_CLIENT_SECRET);
