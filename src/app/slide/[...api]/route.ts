@@ -1,12 +1,24 @@
 import { getSlides } from "@/src/lib/slides";
+import type { Slide } from "@/src/lib/type";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 
 const app = new Hono().basePath("/slide");
 
+let slides: Slide[] | null = null;
+let lastUpdated: Date | null = null;
+
 app.get("*", async (c) => {
-    const slides = await getSlides();
+    // 15分に1回更新する
+    if (
+        slides === null ||
+        lastUpdated === null ||
+        lastUpdated < new Date(Date.now() - 1000 * 60 * 15)
+    ) {
+        slides = await getSlides();
+        lastUpdated = new Date();
+    }
 
     const { env } = getCloudflareContext();
     const headers = new Headers();

@@ -29,9 +29,11 @@ export default async function Page() {
                     justifyContent: "space-between",
                 })}
             >
-                {slideArray.map((slide) => (
-                    <SlideCard slide={slide} key={slide.id} />
-                ))}
+                {slideArray
+                    .filter((slide) => slide.type === "public")
+                    .map((slide) => (
+                        <SlideCard slide={slide} key={slide.id} />
+                    ))}
             </div>
         </>
     );

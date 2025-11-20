@@ -4,6 +4,7 @@ export interface Slide {
     image: string;
     link: string;
     lastUpdate: Date | undefined;
+    type: "draft" | "public" | "private";
 }
 
 export interface Works {
