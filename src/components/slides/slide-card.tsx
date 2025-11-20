@@ -9,6 +9,7 @@ import { Card } from "../ui/card";
 
 const SlideCard = (props: { slide: Slide }) => {
     const { slide } = props;
+
     const { theme } = useTheme();
     const [clientTheme, setClientTheme] = useState<string | undefined>(
         undefined,
@@ -52,6 +53,9 @@ const SlideCard = (props: { slide: Slide }) => {
                         alt={slide.id}
                         className={css({
                             aspectRatio: "16/9",
+                            width: "100%",
+                            height: "auto",
+                            objectFit: "cover",
                             filter:
                                 clientTheme === "dark"
                                     ? "brightness(0.8)"

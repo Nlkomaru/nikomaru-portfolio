@@ -19,6 +19,7 @@ export async function getSlides(): Promise<Slide[]> {
         `${process.env.R2_PUBLIC_URL ?? env.R2_PUBLIC_URL}slide-info-list.json`,
         {
             headers: headers,
+            cache: "no-store",
         },
     );
     const data =
@@ -34,7 +35,7 @@ export async function getSlides(): Promise<Slide[]> {
     const slides: Slide[] = [];
 
     for (const v of data
-        .filter((v) => v.type === "public")
+        .filter((v) => v.type !== "private")
         .filter((v) => v.id.length !== 36)) {
         const imageUrl = await getImageUrl(v.id);
         slides.push({
@@ -43,6 +44,7 @@ export async function getSlides(): Promise<Slide[]> {
             image: imageUrl,
             lastUpdate: new Date(v.lastUpdated),
             link: `/slide/${v.id}`,
+            type: v.type,
         });
     }
 
@@ -57,6 +59,7 @@ export function getFakeSlides(): Promise<Slide[]> {
         image: faker.image.url(),
         link: faker.internet.url(),
         lastUpdate: faker.date.past(),
+        type: "public",
     }));
 
     return new Promise((resolve) => {
