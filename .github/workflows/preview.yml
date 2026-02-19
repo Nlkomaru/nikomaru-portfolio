@@ -196,6 +196,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Comment Preview URLs
     steps:
+      - uses: actions/checkout@v4
+
       - name: Download Lighthouse summary
         uses: actions/download-artifact@v4
         with:
