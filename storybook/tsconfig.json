@@ -1,0 +1,17 @@
+{
+    "extends": "../tsconfig.base.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["../app/src/*"]
+        }
+    },
+    "include": [
+        "stories/**/*.ts",
+        "stories/**/*.tsx",
+        ".storybook/**/*.ts",
+        ".storybook/**/*.tsx",
+        "../app/src/**/*.ts",
+        "../app/src/**/*.tsx"
+    ]
+}

@@ -5,17 +5,13 @@ on:
     types: [opened, synchronize]
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
 
 jobs:
-  deploy:
-    env:
-      CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
-      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-      R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+  check:
     runs-on: ubuntu-latest
-    name: Deploy Preview
+    name: Check
     steps:
       - uses: actions/checkout@v4
 
@@ -36,55 +32,148 @@ jobs:
       - name: Check
         run: pnpm run check
 
-      - name: Build
+  deploy-app-preview:
+    needs: check
+    env:
+      CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+      R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+    runs-on: ubuntu-latest
+    name: Deploy App Preview
+    outputs:
+      deployment_url: ${{ steps.deploy-preview.outputs.deployment-url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install
+
+      - name: Build app
         run: pnpm run build
 
-      - name: Deploy preview
+      - name: Deploy app preview
         id: deploy-preview
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: versions upload --message "Deployed preview by GitHub Actions branch ${{ github.ref_name }}"
+          workingDirectory: app
+
+  deploy-storybook-preview:
+    needs: check
+    runs-on: ubuntu-latest
+    name: Deploy Storybook Preview
+    outputs:
+      deployment_url: ${{ steps.deploy-storybook-preview.outputs.deployment-url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install
+
+      - name: Build storybook
+        run: pnpm --filter ./storybook build
+
+      - name: Deploy storybook preview
+        id: deploy-storybook-preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: versions upload --message "Deployed storybook preview by GitHub Actions branch ${{ github.ref_name }}"
+          workingDirectory: storybook
+
+  lighthouse-app:
+    needs: deploy-app-preview
+    runs-on: ubuntu-latest
+    name: Lighthouse (App only)
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install
 
       - name: Build Lighthouse URL list
-        id: build-lighthouse-urls
         env:
-          DEPLOYMENT_URL: ${{ steps.deploy-preview.outputs.deployment-url }}
+          DEPLOYMENT_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
         run: |
           node .github/workflows/scripts/lighthouse-build-urls.mjs
 
       - name: Run Lighthouse
         run: |
-          ./.github/workflows/scripts/lighthouse-run.sh lighthouse-urls.txt lighthouse 4
+          ./.github/workflows/scripts/lighthouse-run.sh lighthouse-urls.txt lighthouse 6 3
 
       - name: Summarize Lighthouse
         continue-on-error: true
         run: |
           node .github/workflows/scripts/lighthouse-summarize.mjs
 
-      - name: Create comment file
-        id: create-comment-file
-        env:
-          DEPLOYMENT_URL: ${{ steps.deploy-preview.outputs.deployment-url }}
-        run: |
-          cat << EOF > comment.md
-          ## Deploy preview
-          Preview URL: $DEPLOYMENT_URL
-          EOF
-
-          cat lighthouse-summary.md >> comment.md
-
-      - name: Upload Lighthouse artifacts
+      - name: Upload Lighthouse summary artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lighthouse-reports
-          path: |
-            lighthouse
-            lighthouse-summary.md
-            lighthouse-urls.txt
-            lighthouse-skipped.txt
+          name: lighthouse-summary
+          path: lighthouse-summary.md
+
+  comment:
+    needs: [deploy-app-preview, deploy-storybook-preview, lighthouse-app]
+    runs-on: ubuntu-latest
+    name: Comment Preview URLs
+    steps:
+      - name: Download Lighthouse summary
+        uses: actions/download-artifact@v4
+        with:
+          name: lighthouse-summary
+          path: .
+
+      - name: Create comment file
+        env:
+          APP_PREVIEW_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
+          STORYBOOK_PREVIEW_URL: ${{ needs.deploy-storybook-preview.outputs.deployment_url }}
+        run: |
+          cat << EOF > comment.md
+          ## Deploy preview
+          - App Preview URL: $APP_PREVIEW_URL
+          - Storybook Preview URL: $STORYBOOK_PREVIEW_URL
+          EOF
+
+          if [ -f lighthouse-summary.md ]; then
+            cat lighthouse-summary.md >> comment.md
+          fi
 
       - name: Create PR comment
         run: gh pr comment ${{ github.event.number }} --body-file comment.md

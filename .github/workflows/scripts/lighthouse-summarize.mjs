@@ -5,10 +5,7 @@ const dir = join(process.cwd(), "lighthouse");
 const files = readdirSync(dir).filter((f) => f.endsWith(".json"));
 
 if (files.length === 0) {
-    writeFileSync(
-        "lighthouse-summary.md",
-        "No Lighthouse reports were generated.\n",
-    );
+    writeFileSync("lighthouse-summary.md", "No Lighthouse reports were generated.\n");
     writeFileSync("lighthouse-failed.txt", "1\n");
     process.exit(0);
 }
@@ -38,32 +35,63 @@ function toMarkdownPathLink(url) {
     return path;
 }
 
-const rows = [];
-const failures = [];
+const groupedRows = new Map();
 for (const file of files) {
     const report = JSON.parse(readFileSync(join(dir, file), "utf8"));
     const categories = report.categories || {};
     const rawUrl = report.finalUrl || report.requestedUrl || "unknown";
-    const displayPath = toDisplayPath(rawUrl);
-    const row = {
-        url: displayPath,
-        pathLink: toMarkdownPathLink(rawUrl),
+    const key = toDisplayPath(rawUrl);
+
+    const metrics = {
         performance: Math.round((categories.performance?.score ?? 0) * 100),
         accessibility: Math.round((categories.accessibility?.score ?? 0) * 100),
-        bestPractices: Math.round(
-            (categories["best-practices"]?.score ?? 0) * 100,
-        ),
+        bestPractices: Math.round((categories["best-practices"]?.score ?? 0) * 100),
         seo: Math.round((categories.seo?.score ?? 0) * 100),
     };
-    rows.push(row);
 
-    if (row.performance < thresholds.performance)
-        failures.push(`${row.url} performance ${row.performance}`);
-    if (row.accessibility < thresholds.accessibility)
-        failures.push(`${row.url} accessibility ${row.accessibility}`);
-    if (row.bestPractices < thresholds.bestPractices)
-        failures.push(`${row.url} best-practices ${row.bestPractices}`);
-    if (row.seo < thresholds.seo) failures.push(`${row.url} seo ${row.seo}`);
+    if (!groupedRows.has(key)) {
+        groupedRows.set(key, {
+            url: key,
+            rawUrl,
+            runCount: 0,
+            totals: {
+                performance: 0,
+                accessibility: 0,
+                bestPractices: 0,
+                seo: 0,
+            },
+        });
+    }
+
+    const current = groupedRows.get(key);
+    current.runCount += 1;
+    current.totals.performance += metrics.performance;
+    current.totals.accessibility += metrics.accessibility;
+    current.totals.bestPractices += metrics.bestPractices;
+    current.totals.seo += metrics.seo;
+}
+
+const rows = [];
+const failures = [];
+for (const row of groupedRows.values()) {
+    const averaged = {
+        performance: Math.round(row.totals.performance / row.runCount),
+        accessibility: Math.round(row.totals.accessibility / row.runCount),
+        bestPractices: Math.round(row.totals.bestPractices / row.runCount),
+        seo: Math.round(row.totals.seo / row.runCount),
+    };
+
+    rows.push({
+        url: row.url,
+        pathLink: toMarkdownPathLink(row.rawUrl),
+        runCount: row.runCount,
+        ...averaged,
+    });
+
+    if (averaged.performance < thresholds.performance) failures.push(`${row.url} performance(avg) ${averaged.performance}`);
+    if (averaged.accessibility < thresholds.accessibility) failures.push(`${row.url} accessibility(avg) ${averaged.accessibility}`);
+    if (averaged.bestPractices < thresholds.bestPractices) failures.push(`${row.url} best-practices(avg) ${averaged.bestPractices}`);
+    if (averaged.seo < thresholds.seo) failures.push(`${row.url} seo(avg) ${averaged.seo}`);
 }
 
 rows.sort((a, b) => a.url.localeCompare(b.url));
@@ -72,13 +100,13 @@ const lines = [];
 lines.push("## Lighthouse results");
 lines.push("");
 lines.push("<details>");
-lines.push("<summary>Show Lighthouse scores</summary>");
+lines.push("<summary>Show Lighthouse average scores (3 runs per path)</summary>");
 lines.push("");
-lines.push("| Path | Performance | Accessibility | Best Practices | SEO |");
-lines.push("| --- | --- | --- | --- | --- |");
+lines.push("| Path | Runs | Performance(avg) | Accessibility(avg) | Best Practices(avg) | SEO(avg) |");
+lines.push("| --- | --- | --- | --- | --- | --- |");
 for (const row of rows) {
     lines.push(
-        `| ${row.pathLink} | ${row.performance} | ${row.accessibility} | ${row.bestPractices} | ${row.seo} |`,
+        `| ${row.pathLink} | ${row.runCount} | ${row.performance} | ${row.accessibility} | ${row.bestPractices} | ${row.seo} |`,
     );
 }
 lines.push("");

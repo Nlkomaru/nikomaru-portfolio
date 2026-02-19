@@ -1,20 +1,22 @@
-import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const baseUrl = process.env.DEPLOYMENT_URL?.replace(/\/$/, "");
 if (!baseUrl) {
-    console.error("DEPLOYMENT_URL is missing");
+    process.stderr.write("DEPLOYMENT_URL is missing\n");
     process.exit(1);
 }
 
-const routesDir = join(process.cwd(), "src", "routes");
-const extraPathsFile = join(
-    process.cwd(),
-    ".github",
-    "workflows",
-    "config",
-    "lighthouse-extra-paths.txt",
-);
+const cwd = process.cwd();
+const routesDirCandidates = [join(cwd, "app", "src", "routes"), join(cwd, "src", "routes")];
+const routesDir = routesDirCandidates.find((dir) => existsSync(dir));
+
+if (!routesDir) {
+    process.stderr.write(`Routes directory is missing. Looked for: ${routesDirCandidates.join(", ")}\n`);
+    process.exit(1);
+}
+
+const extraPathsFile = join(cwd, ".github", "workflows", "config", "lighthouse-extra-paths.txt");
 
 const paths = new Set();
 const skipped = [];
@@ -47,10 +49,7 @@ function walk(dir) {
             continue;
         }
 
-        const normalized =
-            routePath === "index"
-                ? "/"
-                : `/${routePath}`.replace(/\/{2,}/g, "/");
+        const normalized = routePath === "index" ? "/" : `/${routePath}`.replace(/\/{2,}/g, "/");
         paths.add(normalized);
     }
 }

@@ -18,3 +18,5 @@ todos.json
 !.env.example
 # local tooling
 .playwright-mcp/
+
+**/storybook-static
