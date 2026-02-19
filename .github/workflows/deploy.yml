@@ -7,13 +7,9 @@ on:
       - main
 
 jobs:
-  deploy:
-    env:
-      CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
-      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-      R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+  check:
     runs-on: ubuntu-latest
-    name: Deploy
+    name: Check
     steps:
       - uses: actions/checkout@v4
 
@@ -34,15 +30,42 @@ jobs:
       - name: Check
         run: pnpm run check
 
-      - name: Build
+  deploy-app:
+    needs: check
+    env:
+      CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+      R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+    runs-on: ubuntu-latest
+    name: Deploy App
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install
+
+      - name: Build app
         run: pnpm run build
 
-      - name: Deploy
+      - name: Deploy app
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           environment: production
+          command: deploy
+          workingDirectory: app
           secrets: |
             CF_ACCESS_CLIENT_ID
             CF_ACCESS_CLIENT_SECRET
@@ -51,3 +74,36 @@ jobs:
           CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
           R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+
+  deploy-storybook:
+    needs: check
+    runs-on: ubuntu-latest
+    name: Deploy Storybook
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install
+
+      - name: Build storybook
+        run: pnpm run build-storybook
+
+      - name: Deploy storybook
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          environment: production
+          command: deploy
+          workingDirectory: storybook
