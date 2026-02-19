@@ -42,6 +42,7 @@ jobs:
     name: Deploy App Preview
     outputs:
       deployment_url: ${{ steps.resolve-app-preview-url.outputs.deployment_url }}
+      has_deployment_url: ${{ steps.resolve-app-preview-url.outputs.has_deployment_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -76,20 +77,24 @@ jobs:
         env:
           WRANGLER_DEPLOYMENT_URL: ${{ steps.deploy-preview.outputs.deployment-url }}
           WRANGLER_COMMAND_OUTPUT: ${{ steps.deploy-preview.outputs.command-output }}
+          WRANGLER_COMMAND_STDERR: ${{ steps.deploy-preview.outputs.command-stderr }}
         shell: bash
         run: |
           url="$WRANGLER_DEPLOYMENT_URL"
           if [ -z "$url" ]; then
-            output="$WRANGLER_COMMAND_OUTPUT"
+            output="$WRANGLER_COMMAND_OUTPUT"$'\n'"$WRANGLER_COMMAND_STDERR"
             url=$(echo "$output" | grep -Eo 'https://[^[:space:]]+' | head -n 1 || true)
           fi
 
           if [ -z "$url" ]; then
-            echo "Failed to resolve app preview URL from wrangler-action outputs."
-            exit 1
+            echo "App preview URL is unavailable from wrangler-action outputs. Lighthouse will be skipped."
+            echo "deployment_url=" >> "$GITHUB_OUTPUT"
+            echo "has_deployment_url=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
           echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
+          echo "has_deployment_url=true" >> "$GITHUB_OUTPUT"
 
   deploy-storybook-preview:
     needs: check
@@ -131,23 +136,26 @@ jobs:
         env:
           WRANGLER_DEPLOYMENT_URL: ${{ steps.deploy-storybook-preview.outputs.deployment-url }}
           WRANGLER_COMMAND_OUTPUT: ${{ steps.deploy-storybook-preview.outputs.command-output }}
+          WRANGLER_COMMAND_STDERR: ${{ steps.deploy-storybook-preview.outputs.command-stderr }}
         shell: bash
         run: |
           url="$WRANGLER_DEPLOYMENT_URL"
           if [ -z "$url" ]; then
-            output="$WRANGLER_COMMAND_OUTPUT"
+            output="$WRANGLER_COMMAND_OUTPUT"$'\n'"$WRANGLER_COMMAND_STDERR"
             url=$(echo "$output" | grep -Eo 'https://[^[:space:]]+' | head -n 1 || true)
           fi
 
           if [ -z "$url" ]; then
-            echo "Failed to resolve storybook preview URL from wrangler-action outputs."
-            exit 1
+            echo "Storybook preview URL is unavailable from wrangler-action outputs."
+            echo "deployment_url=" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
           echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
 
   lighthouse-app:
     needs: deploy-app-preview
+    if: ${{ needs.deploy-app-preview.outputs.has_deployment_url == 'true' }}
     runs-on: ubuntu-latest
     name: Lighthouse (App only)
     steps:
@@ -204,14 +212,20 @@ jobs:
         env:
           APP_PREVIEW_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
           STORYBOOK_PREVIEW_URL: ${{ needs.deploy-storybook-preview.outputs.deployment_url }}
+          APP_HAS_PREVIEW_URL: ${{ needs.deploy-app-preview.outputs.has_deployment_url }}
         run: |
           cat << EOF > comment.md
           ## Deploy preview
-          - App Preview URL: $APP_PREVIEW_URL
+          - App Preview URL: ${APP_PREVIEW_URL:-Unavailable}
           - Storybook Preview URL: $STORYBOOK_PREVIEW_URL
           EOF
 
-          if [ -f lighthouse-summary.md ]; then
+          if [ "$APP_HAS_PREVIEW_URL" != "true" ]; then
+            cat << EOF >> comment.md
+
+          > App preview URL could not be resolved from wrangler output, so Lighthouse was skipped.
+          EOF
+          elif [ -f lighthouse-summary.md ]; then
             cat lighthouse-summary.md >> comment.md
           fi
 
