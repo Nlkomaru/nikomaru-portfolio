@@ -1,10 +1,8 @@
-# Nikomaru Portfolio
+## このアプリケーションの概要
+「nikomaru-portfolio」という、ウェブアプリケーションです。  
+私のポートフォリオサイトです。
 
-This is a portfolio site of Nikomaru.
-
-## Development
-
-This site is built on the following technology stack.
+## 主な技術スタック
 
 - Framework: Tanstack Start
 - UI Library: Shadcn/UI

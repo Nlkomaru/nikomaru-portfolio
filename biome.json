@@ -1,0 +1,17 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
+    "files": {
+        "includes": [
+            "**",
+            "!dist",
+            "!.wrangler",
+            "!lighthouse",
+            "!src/routeTree.gen.ts",
+            "!worker-configuration.d.ts"
+        ]
+    },
+    "formatter": {
+        "indentStyle": "space",
+        "indentWidth": 4
+    }
+}
