@@ -1,0 +1,92 @@
+name: Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Preview
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Deploy preview
+        id: deploy-preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_KEY }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: versions upload --message "Deployed preview by GitHub Actions branch ${{ github.ref_name }}"
+
+      - name: Build Lighthouse URL list
+        id: build-lighthouse-urls
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy-preview.outputs.deployment-url }}
+        run: |
+          node scripts/ci/lighthouse-build-urls.mjs
+
+      - name: Run Lighthouse
+        run: |
+          ./scripts/ci/lighthouse-run.sh lighthouse-urls.txt lighthouse 4
+
+      - name: Summarize Lighthouse
+        continue-on-error: true
+        run: |
+          node scripts/ci/lighthouse-summarize.mjs
+
+      - name: Create comment file
+        id: create-comment-file
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy-preview.outputs.deployment-url }}
+        run: |
+          cat << EOF > comment.md
+          ## Deploy preview
+          Preview URL: $DEPLOYMENT_URL
+          EOF
+
+          cat lighthouse-summary.md >> comment.md
+
+      - name: Upload Lighthouse artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: |
+            lighthouse
+            lighthouse-summary.md
+            lighthouse-urls.txt
+            lighthouse-skipped.txt
+
+      - name: Create PR comment
+        run: gh pr comment ${{ github.event.number }} --body-file comment.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fail if Lighthouse thresholds failed
+        run: |
+          if [ -f lighthouse-failed.txt ] && [ "$(cat lighthouse-failed.txt)" = "1" ]; then
+            echo "Lighthouse thresholds failed."
+            exit 1
+          fi
