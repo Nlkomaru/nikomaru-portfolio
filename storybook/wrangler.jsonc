@@ -4,6 +4,7 @@
     "assets": {
         "directory": "./storybook-static"
     },
+    "preview_urls": true,
     "routes": [
         {
             "pattern": "storybook.next.nikomaru.dev",

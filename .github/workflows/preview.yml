@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy App Preview
     outputs:
-      deployment_url: ${{ steps.deploy-preview.outputs.deployment-url }}
+      deployment_url: ${{ steps.resolve-app-preview-url.outputs.deployment_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -71,12 +71,32 @@ jobs:
           command: versions upload --message "Deployed preview by GitHub Actions branch ${{ github.ref_name }}"
           workingDirectory: app
 
+      - name: Resolve app preview URL
+        id: resolve-app-preview-url
+        env:
+          WRANGLER_DEPLOYMENT_URL: ${{ steps.deploy-preview.outputs.deployment-url }}
+          WRANGLER_COMMAND_OUTPUT: ${{ steps.deploy-preview.outputs.command-output }}
+        shell: bash
+        run: |
+          url="$WRANGLER_DEPLOYMENT_URL"
+          if [ -z "$url" ]; then
+            output="$WRANGLER_COMMAND_OUTPUT"
+            url=$(echo "$output" | grep -Eo 'https://[^[:space:]]+' | head -n 1 || true)
+          fi
+
+          if [ -z "$url" ]; then
+            echo "Failed to resolve app preview URL from wrangler-action outputs."
+            exit 1
+          fi
+
+          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
+
   deploy-storybook-preview:
     needs: check
     runs-on: ubuntu-latest
     name: Deploy Storybook Preview
     outputs:
-      deployment_url: ${{ steps.deploy-storybook-preview.outputs.deployment-url }}
+      deployment_url: ${{ steps.resolve-storybook-preview-url.outputs.deployment_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -105,6 +125,26 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: versions upload --message "Deployed storybook preview by GitHub Actions branch ${{ github.ref_name }}"
           workingDirectory: storybook
+
+      - name: Resolve storybook preview URL
+        id: resolve-storybook-preview-url
+        env:
+          WRANGLER_DEPLOYMENT_URL: ${{ steps.deploy-storybook-preview.outputs.deployment-url }}
+          WRANGLER_COMMAND_OUTPUT: ${{ steps.deploy-storybook-preview.outputs.command-output }}
+        shell: bash
+        run: |
+          url="$WRANGLER_DEPLOYMENT_URL"
+          if [ -z "$url" ]; then
+            output="$WRANGLER_COMMAND_OUTPUT"
+            url=$(echo "$output" | grep -Eo 'https://[^[:space:]]+' | head -n 1 || true)
+          fi
+
+          if [ -z "$url" ]; then
+            echo "Failed to resolve storybook preview URL from wrangler-action outputs."
+            exit 1
+          fi
+
+          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
 
   lighthouse-app:
     needs: deploy-app-preview
