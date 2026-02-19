@@ -1,6 +1,11 @@
 import type { Slide } from "../../-types/slide";
 
-export default function SlideCard({ slide }: { slide: Slide }) {
+interface SlideCardProps {
+    slide: Slide;
+    priority?: boolean;
+}
+
+export default function SlideCard({ slide, priority = false }: SlideCardProps) {
     return (
         <a
             href={slide.link}
@@ -15,8 +20,9 @@ export default function SlideCard({ slide }: { slide: Slide }) {
                         alt={slide.title}
                         width={960}
                         height={540}
-                        loading="lazy"
-                        decoding="async"
+                        loading={priority ? "eager" : "lazy"}
+                        decoding={priority ? "sync" : "async"}
+                        fetchPriority={priority ? "high" : "auto"}
                         className="aspect-video w-full h-auto object-cover"
                     />
                 </div>

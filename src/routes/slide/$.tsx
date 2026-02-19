@@ -1,10 +1,32 @@
 import { env } from "cloudflare:workers";
 import { createFileRoute } from "@tanstack/react-router";
 
+const STATIC_CACHE_CONTROL = "public, max-age=86400, s-maxage=604800";
+
+function resolveR2Url(splat: string, segments: string[]): string {
+    // /slide/:id → :id/index.html
+    if (segments.length === 1) {
+        return `${env.R2_PUBLIC_URL}${splat}/index.html`;
+    }
+    // /slide/:id/:pageNum → :id/index.html（SPA内ページ遷移）
+    if (segments.length === 2 && !Number.isNaN(Number(segments[1]))) {
+        return `${env.R2_PUBLIC_URL}${segments[0]}/index.html`;
+    }
+    return `${env.R2_PUBLIC_URL}${splat}`;
+}
+
+function isStaticAsset(contentType: string): boolean {
+    return (
+        contentType.startsWith("image/") ||
+        contentType.includes("css") ||
+        contentType.includes("javascript") ||
+        contentType.includes("font")
+    );
+}
+
 export const Route = createFileRoute("/slide/$")({
     server: {
         handlers: {
-            // R2に格納されたSlidevプレゼンテーションのHTML/CSS/JS/画像をプロキシ配信
             GET: async ({ params }) => {
                 const splat = params._splat || "";
                 const segments = splat.split("/").filter(Boolean);
@@ -20,39 +42,17 @@ export const Route = createFileRoute("/slide/$")({
                     env.CF_ACCESS_CLIENT_SECRET,
                 );
 
-                let slideUrl = `${env.R2_PUBLIC_URL}${splat}`;
-
-                // /slide/:id → R2の :id/index.html
-                if (segments.length === 1) {
-                    slideUrl = `${env.R2_PUBLIC_URL}${splat}/index.html`;
-                }
-
-                // /slide/:id/:pageNum → R2の :id/index.html（SPA内ページ遷移）
-                if (
-                    segments.length === 2 &&
-                    !Number.isNaN(Number(segments[1]))
-                ) {
-                    slideUrl = `${env.R2_PUBLIC_URL}${segments[0]}/index.html`;
-                }
-
+                const slideUrl = resolveR2Url(splat, segments);
                 const res = await fetch(slideUrl, { headers });
 
-                // 画像・CSS・JSなどの静的アセットにはキャッシュヘッダーを付与
                 const contentType = res.headers.get("content-type") || "";
-                const isStaticAsset =
-                    contentType.startsWith("image/") ||
-                    contentType.includes("css") ||
-                    contentType.includes("javascript") ||
-                    contentType.includes("font");
-
-                const responseHeaders = new Headers(res.headers);
-                if (isStaticAsset) {
-                    responseHeaders.set(
-                        "Cache-Control",
-                        "public, max-age=86400, s-maxage=604800",
-                    );
+                if (!isStaticAsset(contentType)) {
+                    return res;
                 }
 
+                // 静的アセットにはブラウザ・CDNキャッシュヘッダーを付与
+                const responseHeaders = new Headers(res.headers);
+                responseHeaders.set("Cache-Control", STATIC_CACHE_CONTROL);
                 return new Response(res.body, {
                     status: res.status,
                     headers: responseHeaders,

@@ -10,7 +10,6 @@ export const getSlides = createServerFn({ method: "GET" }).handler(async () => {
 
     const res = await fetch(`${env.R2_PUBLIC_URL}slide-info-list.json`, {
         headers,
-        cache: "no-store",
     });
 
     const data = (await res.json()) as Array<{

@@ -30,14 +30,24 @@ function toDisplayPath(url) {
     }
 }
 
+function toMarkdownPathLink(url) {
+    const path = toDisplayPath(url);
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+        return `[${path}](${url})`;
+    }
+    return path;
+}
+
 const rows = [];
 const failures = [];
 for (const file of files) {
     const report = JSON.parse(readFileSync(join(dir, file), "utf8"));
     const categories = report.categories || {};
     const rawUrl = report.finalUrl || report.requestedUrl || "unknown";
+    const displayPath = toDisplayPath(rawUrl);
     const row = {
-        url: toDisplayPath(rawUrl),
+        url: displayPath,
+        pathLink: toMarkdownPathLink(rawUrl),
         performance: Math.round((categories.performance?.score ?? 0) * 100),
         accessibility: Math.round((categories.accessibility?.score ?? 0) * 100),
         bestPractices: Math.round(
@@ -68,11 +78,9 @@ lines.push("| Path | Performance | Accessibility | Best Practices | SEO |");
 lines.push("| --- | --- | --- | --- | --- |");
 for (const row of rows) {
     lines.push(
-        `| ${row.url} | ${row.performance} | ${row.accessibility} | ${row.bestPractices} | ${row.seo} |`,
+        `| ${row.pathLink} | ${row.performance} | ${row.accessibility} | ${row.bestPractices} | ${row.seo} |`,
     );
 }
-lines.push("");
-lines.push("</details>");
 lines.push("");
 
 let skipped = "";
@@ -99,6 +107,9 @@ if (failures.length) {
     lines.push("```");
     lines.push("");
 }
+
+lines.push("</details>");
+lines.push("");
 
 writeFileSync("lighthouse-summary.md", lines.join("\n"));
 writeFileSync("lighthouse-failed.txt", failures.length ? "1\n" : "0\n");
