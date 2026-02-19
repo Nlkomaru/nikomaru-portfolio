@@ -42,7 +42,6 @@ jobs:
     name: Deploy App Preview
     outputs:
       deployment_url: ${{ steps.resolve-app-preview-url.outputs.deployment_url }}
-      has_deployment_url: ${{ steps.resolve-app-preview-url.outputs.has_deployment_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -87,14 +86,11 @@ jobs:
           fi
 
           if [ -z "$url" ]; then
-            echo "App preview URL is unavailable from wrangler-action outputs. Lighthouse will be skipped."
-            echo "deployment_url=" >> "$GITHUB_OUTPUT"
-            echo "has_deployment_url=false" >> "$GITHUB_OUTPUT"
-            exit 0
+            echo "Failed to resolve app preview URL from wrangler-action outputs."
+            exit 1
           fi
 
           echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
-          echo "has_deployment_url=true" >> "$GITHUB_OUTPUT"
 
   deploy-storybook-preview:
     needs: check
@@ -146,16 +142,14 @@ jobs:
           fi
 
           if [ -z "$url" ]; then
-            echo "Storybook preview URL is unavailable from wrangler-action outputs."
-            echo "deployment_url=" >> "$GITHUB_OUTPUT"
-            exit 0
+            echo "Failed to resolve storybook preview URL from wrangler-action outputs."
+            exit 1
           fi
 
           echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
 
   lighthouse-app:
     needs: deploy-app-preview
-    if: ${{ needs.deploy-app-preview.outputs.has_deployment_url == 'true' }}
     runs-on: ubuntu-latest
     name: Lighthouse (App only)
     steps:
@@ -212,20 +206,14 @@ jobs:
         env:
           APP_PREVIEW_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
           STORYBOOK_PREVIEW_URL: ${{ needs.deploy-storybook-preview.outputs.deployment_url }}
-          APP_HAS_PREVIEW_URL: ${{ needs.deploy-app-preview.outputs.has_deployment_url }}
         run: |
           cat << EOF > comment.md
           ## Deploy preview
-          - App Preview URL: ${APP_PREVIEW_URL:-Unavailable}
+          - App Preview URL: $APP_PREVIEW_URL
           - Storybook Preview URL: $STORYBOOK_PREVIEW_URL
           EOF
 
-          if [ "$APP_HAS_PREVIEW_URL" != "true" ]; then
-            cat << EOF >> comment.md
-
-          > App preview URL could not be resolved from wrangler output, so Lighthouse was skipped.
-          EOF
-          elif [ -f lighthouse-summary.md ]; then
+          if [ -f lighthouse-summary.md ]; then
             cat lighthouse-summary.md >> comment.md
           fi
 
