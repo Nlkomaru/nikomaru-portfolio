@@ -88,9 +88,12 @@ for (const row of groupedRows.values()) {
         ...averaged,
     });
 
-    if (averaged.performance < thresholds.performance) failures.push(`${row.url} performance(avg) ${averaged.performance}`);
-    if (averaged.accessibility < thresholds.accessibility) failures.push(`${row.url} accessibility(avg) ${averaged.accessibility}`);
-    if (averaged.bestPractices < thresholds.bestPractices) failures.push(`${row.url} best-practices(avg) ${averaged.bestPractices}`);
+    if (averaged.performance < thresholds.performance)
+        failures.push(`${row.url} performance(avg) ${averaged.performance}`);
+    if (averaged.accessibility < thresholds.accessibility)
+        failures.push(`${row.url} accessibility(avg) ${averaged.accessibility}`);
+    if (averaged.bestPractices < thresholds.bestPractices)
+        failures.push(`${row.url} best-practices(avg) ${averaged.bestPractices}`);
     if (averaged.seo < thresholds.seo) failures.push(`${row.url} seo(avg) ${averaged.seo}`);
 }
 
