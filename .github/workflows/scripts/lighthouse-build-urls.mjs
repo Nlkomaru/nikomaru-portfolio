@@ -8,35 +8,24 @@ if (!baseUrl) {
 }
 
 const routesDir = join(process.cwd(), 'src', 'routes')
-const overrideFile = join(process.cwd(), 'lighthouse-urls.override.txt')
-
-let overrideContents = ''
-try {
-  overrideContents = readFileSync(overrideFile, 'utf8')
-} catch {
-  overrideContents = ''
-}
-
-if (overrideContents.trim()) {
-  const overrideUrls = overrideContents
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line) => {
-      if (line.startsWith('http://') || line.startsWith('https://')) return line
-      const normalized = line.startsWith('/') ? line : `/${line}`
-      return `${baseUrl}${normalized}`
-    })
-
-  writeFileSync('lighthouse-urls.txt', overrideUrls.join('\n') + '\n')
-  writeFileSync('lighthouse-skipped.txt', '', 'utf8')
-  process.exit(0)
-}
+const extraPathsFile = join(
+  process.cwd(),
+  '.github',
+  'workflows',
+  'config',
+  'lighthouse-extra-paths.txt',
+)
 
 const paths = new Set()
 const skipped = []
 
 function walk(dir) {
+  const relDir = relative(routesDir, dir)
+  const segments = relDir === '' ? [] : relDir.split(/[\\/]/)
+  if (segments.some((segment) => segment.startsWith('-'))) {
+    return
+  }
+
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry)
     const stats = statSync(full)
@@ -65,6 +54,20 @@ function walk(dir) {
 }
 
 walk(routesDir)
+
+let extraPathContents = ''
+try {
+  extraPathContents = readFileSync(extraPathsFile, 'utf8')
+} catch {
+  extraPathContents = ''
+}
+
+for (const line of extraPathContents.split('\n')) {
+  const trimmed = line.trim()
+  if (!trimmed || trimmed.startsWith('#')) continue
+  const normalized = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+  paths.add(normalized.replace(/\/{2,}/g, '/'))
+}
 
 const urls = [...paths]
   .sort()
