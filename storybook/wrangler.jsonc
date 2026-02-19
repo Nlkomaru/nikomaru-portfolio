@@ -1,0 +1,14 @@
+{
+    "name": "nikomaru-portfolio-storybook",
+    "compatibility_date": "2025-01-01",
+    "assets": {
+        "directory": "./storybook-static"
+    },
+    "preview_urls": true,
+    "routes": [
+        {
+            "pattern": "storybook.next.nikomaru.dev",
+            "custom_domain": true
+        }
+    ]
+}

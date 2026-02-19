@@ -1,0 +1,2 @@
+/* Import app styles (includes tailwind, fonts and CSS variables) */
+@import "../../app/src/styles.css";

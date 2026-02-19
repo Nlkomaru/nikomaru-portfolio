@@ -1,0 +1,6 @@
+/* Storybook用のCSS入り口 */
+/* アプリのスタイル（tailwindcss、フォント、CSS変数など）を読み込む */
+@import "../../app/src/styles.css";
+
+/* Tailwind v4にapp/srcディレクトリのクラスをスキャンさせる */
+@source "../../app/src";

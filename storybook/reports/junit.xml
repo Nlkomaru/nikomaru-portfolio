@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="11" failures="0" errors="0" time="5.106">
+  <testsuite name="COMPONENTS/Button" errors="0" failures="0" skipped="0" timestamp="2025-12-30T09:38:42" time="4.643" tests="11">
+    <testcase classname="COMPONENTS/Button Default smoke-test" name="COMPONENTS/Button Default smoke-test" time="0.618">
+    </testcase>
+    <testcase classname="COMPONENTS/Button Primary smoke-test" name="COMPONENTS/Button Primary smoke-test" time="0.261">
+    </testcase>
+    <testcase classname="COMPONENTS/Button Secondary smoke-test" name="COMPONENTS/Button Secondary smoke-test" time="0.218">
+    </testcase>
+    <testcase classname="COMPONENTS/Button Danger smoke-test" name="COMPONENTS/Button Danger smoke-test" time="0.213">
+    </testcase>
+    <testcase classname="COMPONENTS/Button Warning smoke-test" name="COMPONENTS/Button Warning smoke-test" time="0.2">
+    </testcase>
+    <testcase classname="COMPONENTS/Button Outline smoke-test" name="COMPONENTS/Button Outline smoke-test" time="0.194">
+    </testcase>
+    <testcase classname="COMPONENTS/Button Plain smoke-test" name="COMPONENTS/Button Plain smoke-test" time="0.194">
+    </testcase>
+    <testcase classname="COMPONENTS/Button Circle smoke-test" name="COMPONENTS/Button Circle smoke-test" time="0.177">
+    </testcase>
+    <testcase classname="COMPONENTS/Button Small smoke-test" name="COMPONENTS/Button Small smoke-test" time="0.186">
+    </testcase>
+    <testcase classname="COMPONENTS/Button Large smoke-test" name="COMPONENTS/Button Large smoke-test" time="0.203">
+    </testcase>
+    <testcase classname="COMPONENTS/Button WithIcon smoke-test" name="COMPONENTS/Button WithIcon smoke-test" time="0.191">
+    </testcase>
+  </testsuite>
+</testsuites>
