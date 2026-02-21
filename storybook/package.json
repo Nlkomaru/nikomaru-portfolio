@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "storybook dev -p 6006",
         "build": "storybook build",
+        "deploy": "pnpm run build && wrangler deploy",
         "serve:storybook": "http-server storybook-static -p 6006 --silent",
         "test": "test-storybook --junit",
         "test:vrt": "playwright test",
