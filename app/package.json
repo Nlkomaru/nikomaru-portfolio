@@ -3,8 +3,9 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite dev --port 3000",
+        "dev": "vite dev --port 3000 --host --open",
         "build": "vite build",
+        "paraglide:compile": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide",
         "preview": "pnpm run build && vite preview",
         "test": "vitest run",
         "deploy": "pnpm run build && wrangler deploy",
