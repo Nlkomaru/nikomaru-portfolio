@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AnimatePresence, motion } from "framer-motion";
+import { m } from "../../paraglide/messages";
 import SlideCard from "./-components/slide-card";
 import { getSlides } from "./-functions/get-slides";
 
@@ -11,10 +13,10 @@ export const Route = createFileRoute("/slides/")({
 
         return {
             meta: [
-                { title: "スライド一覧 | nikomaru.dev" },
+                { title: `${m.slidesTitle()} | nikomaru.dev` },
                 {
                     name: "description",
-                    content: "nikomaruが作製したスライドの一覧ページです。",
+                    content: m.slidesDescription(),
                 },
             ],
             links: firstImage ? [{ rel: "preload", href: firstImage, as: "image" }] : [],
@@ -31,7 +33,18 @@ function SlidesPage() {
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
-            <h1 className="text-xl mb-8">作製したスライド一覧</h1>
+            <AnimatePresence mode="wait" initial={false}>
+                <motion.h1
+                    key={m.slidesTitle()}
+                    className="text-xl mb-8"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.25 }}
+                >
+                    {m.slidesTitle()}
+                </motion.h1>
+            </AnimatePresence>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
                 {publicSlides.map((slide, i) => (
