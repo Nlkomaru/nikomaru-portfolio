@@ -5,6 +5,7 @@
     "version": "0.0.1",
     "scripts": {
         "dev": "storybook dev -p 6006",
+        "prebuild": "pnpm --filter @nikomaru-portfolio/app paraglide:compile",
         "build": "storybook build",
         "deploy": "pnpm run build && wrangler deploy",
         "serve:storybook": "http-server storybook-static -p 6006 --silent",

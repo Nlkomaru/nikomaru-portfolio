@@ -1,12 +1,15 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { createRootRoute, HeadContent, Outlet, Scripts, useRouterState } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import Header from "../components/header";
+import { m } from "../paraglide/messages";
+import { getLocale } from "../paraglide/runtime";
 
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
+    component: RootComponent,
     head: () => ({
         meta: [
             {
@@ -17,11 +20,11 @@ export const Route = createRootRoute({
                 content: "width=device-width, initial-scale=1",
             },
             {
-                title: "nikomaru.dev",
+                title: m.metaSiteTitle(),
             },
             {
                 name: "description",
-                content: "nikomaruのポートフォリオサイト",
+                content: m.metaSiteDescription(),
             },
         ],
         links: [
@@ -34,9 +37,18 @@ export const Route = createRootRoute({
     shellComponent: RootDocument,
 });
 
+// Force child routes to re-mount on locale change so all m.*() messages update
+function RootComponent() {
+    useRouterState();
+    const locale = getLocale();
+    return <Outlet key={locale} />;
+}
+
 function RootDocument({ children }: { children: React.ReactNode }) {
+    const locale = getLocale();
+
     return (
-        <html lang="ja">
+        <html lang={locale}>
             <head>
                 <HeadContent />
             </head>

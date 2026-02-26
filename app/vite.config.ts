@@ -1,11 +1,13 @@
 import { fileURLToPath, URL } from "node:url";
 import { cloudflare } from "@cloudflare/vite-plugin";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
+import { urlPatternsWithFallback } from "./src/i18n/translated-pathnames";
 
 const config = defineConfig({
     resolve: {
@@ -14,6 +16,12 @@ const config = defineConfig({
         },
     },
     plugins: [
+        paraglideVitePlugin({
+            project: "./project.inlang",
+            outdir: "./src/paraglide",
+            strategy: ["url", "cookie", "baseLocale"],
+            urlPatterns: urlPatternsWithFallback,
+        }),
         devtools(),
         cloudflare({ viteEnvironment: { name: "ssr" } }),
         // this is the plugin that enables path aliases
