@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SlidesIndexRouteImport } from './routes/slides/index'
+import { Route as WorksIndexRouteImport } from './routes/works/index'
+import { Route as TalksIndexRouteImport } from './routes/talks/index'
+import { Route as ContactIndexRouteImport } from './routes/contact/index'
+import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as SlideSplatRouteImport } from './routes/slide/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +21,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SlidesIndexRoute = SlidesIndexRouteImport.update({
-  id: '/slides/',
-  path: '/slides/',
+const WorksIndexRoute = WorksIndexRouteImport.update({
+  id: '/works/',
+  path: '/works/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TalksIndexRoute = TalksIndexRouteImport.update({
+  id: '/talks/',
+  path: '/talks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactIndexRoute = ContactIndexRouteImport.update({
+  id: '/contact/',
+  path: '/contact/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutIndexRoute = AboutIndexRouteImport.update({
+  id: '/about/',
+  path: '/about/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SlideSplatRoute = SlideSplatRouteImport.update({
@@ -32,31 +50,50 @@ const SlideSplatRoute = SlideSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/slide/$': typeof SlideSplatRoute
-  '/slides/': typeof SlidesIndexRoute
+  '/about/': typeof AboutIndexRoute
+  '/contact/': typeof ContactIndexRoute
+  '/talks/': typeof TalksIndexRoute
+  '/works/': typeof WorksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/slide/$': typeof SlideSplatRoute
-  '/slides': typeof SlidesIndexRoute
+  '/about': typeof AboutIndexRoute
+  '/contact': typeof ContactIndexRoute
+  '/talks': typeof TalksIndexRoute
+  '/works': typeof WorksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/slide/$': typeof SlideSplatRoute
-  '/slides/': typeof SlidesIndexRoute
+  '/about/': typeof AboutIndexRoute
+  '/contact/': typeof ContactIndexRoute
+  '/talks/': typeof TalksIndexRoute
+  '/works/': typeof WorksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/slide/$' | '/slides/'
+  fullPaths: '/' | '/slide/$' | '/about/' | '/contact/' | '/talks/' | '/works/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/slide/$' | '/slides'
-  id: '__root__' | '/' | '/slide/$' | '/slides/'
+  to: '/' | '/slide/$' | '/about' | '/contact' | '/talks' | '/works'
+  id:
+    | '__root__'
+    | '/'
+    | '/slide/$'
+    | '/about/'
+    | '/contact/'
+    | '/talks/'
+    | '/works/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SlideSplatRoute: typeof SlideSplatRoute
-  SlidesIndexRoute: typeof SlidesIndexRoute
+  AboutIndexRoute: typeof AboutIndexRoute
+  ContactIndexRoute: typeof ContactIndexRoute
+  TalksIndexRoute: typeof TalksIndexRoute
+  WorksIndexRoute: typeof WorksIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,11 +105,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/slides/': {
-      id: '/slides/'
-      path: '/slides'
-      fullPath: '/slides/'
-      preLoaderRoute: typeof SlidesIndexRouteImport
+    '/works/': {
+      id: '/works/'
+      path: '/works'
+      fullPath: '/works/'
+      preLoaderRoute: typeof WorksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/talks/': {
+      id: '/talks/'
+      path: '/talks'
+      fullPath: '/talks/'
+      preLoaderRoute: typeof TalksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact/': {
+      id: '/contact/'
+      path: '/contact'
+      fullPath: '/contact/'
+      preLoaderRoute: typeof ContactIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/': {
+      id: '/about/'
+      path: '/about'
+      fullPath: '/about/'
+      preLoaderRoute: typeof AboutIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/slide/$': {
@@ -88,7 +146,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SlideSplatRoute: SlideSplatRoute,
-  SlidesIndexRoute: SlidesIndexRoute,
+  AboutIndexRoute: AboutIndexRoute,
+  ContactIndexRoute: ContactIndexRoute,
+  TalksIndexRoute: TalksIndexRoute,
+  WorksIndexRoute: WorksIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

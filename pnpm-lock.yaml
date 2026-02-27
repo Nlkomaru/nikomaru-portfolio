@@ -17,12 +17,6 @@ importers:
       '@cloudflare/vite-plugin':
         specifier: ^1.13.8
         version: 1.25.1(vite@7.3.1(@types/node@22.19.11)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.46.0)(tsx@4.21.0))(workerd@1.20260217.0)(wrangler@4.66.0)
-      '@fontsource/poppins':
-        specifier: ^5.2.7
-        version: 5.2.7
-      '@fontsource/zen-kaku-gothic-new':
-        specifier: ^5.2.7
-        version: 5.2.7
       '@inlang/paraglide-js':
         specifier: ^2.12.0
         version: 2.12.0

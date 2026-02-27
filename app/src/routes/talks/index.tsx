@@ -6,7 +6,7 @@ import { getSlides } from "./-functions/get-slides";
 
 const ABOVE_FOLD_COUNT = 3;
 
-export const Route = createFileRoute("/slides/")({
+export const Route = createFileRoute("/talks/")({
     head: ({ loaderData }) => {
         const publicSlides = loaderData?.filter((s) => s.type === "public");
         const firstImage = publicSlides?.[0]?.image;

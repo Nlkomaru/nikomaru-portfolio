@@ -13,8 +13,6 @@
     },
     "dependencies": {
         "@cloudflare/vite-plugin": "^1.13.8",
-        "@fontsource/poppins": "^5.2.7",
-        "@fontsource/zen-kaku-gothic-new": "^5.2.7",
         "@inlang/paraglide-js": "^2.12.0",
         "@tailwindcss/vite": "^4.1.18",
         "@tanstack/react-devtools": "^0.7.0",
