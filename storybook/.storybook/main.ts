@@ -1,5 +1,9 @@
+import { resolve } from "node:path";
 import type { StorybookConfig } from "@storybook/react-vite";
-import tailwindcss from "@tailwindcss/vite";
+
+const appDir = resolve(process.cwd(), "../app");
+const appSrcDir = resolve(appDir, "src");
+const appStyledSystemDir = resolve(appDir, "styled-system");
 
 const config: StorybookConfig = {
     stories: ["../stories/**/*.mdx", "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -17,20 +21,26 @@ const config: StorybookConfig = {
         options: {},
     },
     viteFinal: async (config) => {
-        config.plugins = config.plugins || [];
-        config.plugins.push(tailwindcss());
-
         config.resolve = config.resolve || {};
         config.resolve.alias = config.resolve.alias || [];
 
-        // Viteのエイリアス設定（配列形式）
-        if (Array.isArray(config.resolve.alias)) {
-            config.resolve.alias.push({
+        const aliases = [
+            {
                 find: "@/",
-                replacement: `${process.cwd()}/../app/src/`,
-            });
+                replacement: `${appSrcDir}/`,
+            },
+            {
+                find: "styled-system/",
+                replacement: `${appStyledSystemDir}/`,
+            },
+        ];
+
+        if (Array.isArray(config.resolve.alias)) {
+            config.resolve.alias.push(...aliases);
         } else {
-            config.resolve.alias["@/"] = `${process.cwd()}/../app/src/`;
+            for (const alias of aliases) {
+                config.resolve.alias[alias.find] = alias.replacement;
+            }
         }
 
         return config;
