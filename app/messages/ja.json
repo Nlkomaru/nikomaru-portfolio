@@ -7,5 +7,15 @@
     "slidesDescription": "nikomaruが作製したスライドの一覧ページです。",
     "languageLabel": "言語",
     "languageSwitchToJa": "日本語",
-    "languageSwitchToEn": "English"
+    "languageSwitchToEn": "English",
+    "contact": {
+        "heading": "Let's Talk",
+        "summary": "現在学生につき、アルバイトやインターンを探しています。多忙のため、返信に少し時間がかかることがあります。",
+        "basedIn": "活動拠点",
+        "location": "Nagano, Japan",
+        "locationSub": "Available worldwide",
+        "social": "ソーシャル",
+        "available": "対応可能",
+        "availabilityNote": "2026年Q2以降の新規プロジェクト相談を受け付けています。"
+    }
 }

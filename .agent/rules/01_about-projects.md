@@ -5,8 +5,8 @@
 ## 主な技術スタック
 
 - Framework: Tanstack Start
-- UI Library: Shadcn/UI
-- CSS Library: Tailwind CSS
+- UI Library: Chakra UI
+- CSS Library: Panda CSS
 - Animation Library: Motion
 - 3D Library: React Three Fiber
 - Formatter & Linter: Biome
