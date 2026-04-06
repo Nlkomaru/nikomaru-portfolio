@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { css } from "styled-system/css";
 
 export default function CustomCursor() {
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -47,7 +48,15 @@ export default function CustomCursor() {
 
     return (
         <motion.div
-            className="fixed top-0 left-0 z-[9999] hidden pointer-events-none mix-blend-difference md:block"
+            className={css({
+                position: "fixed",
+                top: 0,
+                left: 0,
+                zIndex: 9999,
+                display: { base: "none", md: "block" },
+                pointerEvents: "none",
+                mixBlendMode: "difference",
+            })}
             animate={{
                 x: position.x - (isHovering ? 30 : 6),
                 y: position.y - (isHovering ? 30 : 6),
@@ -58,7 +67,13 @@ export default function CustomCursor() {
             transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
         >
             <div
-                className="h-full w-full rounded-full border border-white"
+                className={css({
+                    h: "full",
+                    w: "full",
+                    borderRadius: "full",
+                    borderWidth: "1px",
+                    borderColor: "white",
+                })}
                 style={{ backgroundColor: isHovering ? "rgba(255,255,255,0.08)" : "white" }}
             />
         </motion.div>

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import { css } from "styled-system/css";
 
 const works = [
     {
@@ -82,21 +83,42 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
             transition={{ duration: 0.8 }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="group grid cursor-pointer grid-cols-1 items-center gap-6 py-12 md:grid-cols-12 md:gap-0 md:py-20"
+            className={css({
+                display: "grid",
+                cursor: "pointer",
+                gridTemplateColumns: { base: "1fr", md: "repeat(12, minmax(0, 1fr))" },
+                alignItems: "center",
+                gap: { base: "6", md: "0" },
+                py: { base: "12", md: "20" },
+            })}
         >
             <div
-                className={`relative overflow-hidden md:col-span-6 ${isEven ? "md:col-start-1" : "md:col-start-7"}`}
+                className={css({
+                    position: "relative",
+                    overflow: "hidden",
+                    gridColumn: { md: "span 6 / span 6" },
+                    gridColumnStart: { md: isEven ? "1" : "7" },
+                })}
                 style={{ order: isEven ? 1 : 2 }}
             >
-                <div className="relative aspect-[4/5] overflow-hidden">
+                <div className={css({ position: "relative", aspectRatio: "4 / 5", overflow: "hidden" })}>
                     <motion.img
                         src={work.image}
                         alt={work.title}
-                        className="h-[120%] w-full object-cover transition-all duration-1000"
+                        className={css({
+                            h: "120%",
+                            w: "full",
+                            objectFit: "cover",
+                            transition: "all 1s ease",
+                        })}
                         style={{ y: imgY, filter: hovered ? "grayscale(0%)" : "grayscale(100%)" }}
                     />
                     <div
-                        className="absolute inset-0 transition-all duration-700"
+                        className={css({
+                            position: "absolute",
+                            inset: 0,
+                            transition: "all 0.7s ease",
+                        })}
                         style={{
                             background: hovered ? `linear-gradient(135deg, ${work.color}15, transparent)` : "none",
                         }}
@@ -104,10 +126,17 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                 </div>
 
                 <div
-                    className="absolute top-4 left-4 text-[0.5rem] tracking-[0.3em] transition-colors duration-500"
+                    className={css({
+                        position: "absolute",
+                        top: "4",
+                        left: "4",
+                        fontSize: "0.5rem",
+                        letterSpacing: "0.3em",
+                        transition: "color 0.5s ease",
+                    })}
                     style={{
                         fontFamily: "'Space Mono', monospace",
-                        color: hovered ? work.color : "rgba(255,255,255,0.2)",
+                        color: hovered ? work.color : "rgba(31,41,55,0.4)",
                     }}
                 >
                     {String(index + 1).padStart(2, "0")} / {String(works.length).padStart(2, "0")}
@@ -115,54 +144,81 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
             </div>
 
             <div
-                className={`flex flex-col justify-center md:col-span-5 ${isEven ? "md:col-start-8 md:pl-12" : "md:col-start-1 md:pr-12"}`}
+                className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    gridColumn: { md: "span 5 / span 5" },
+                    gridColumnStart: { md: isEven ? "8" : "1" },
+                    pl: { md: isEven ? "12" : "0" },
+                    pr: { md: isEven ? "0" : "12" },
+                })}
                 style={{ order: isEven ? 2 : 1 }}
             >
                 <span
-                    className="mb-4 text-[0.5rem] uppercase tracking-[0.4em] transition-colors duration-500"
+                    className={css({
+                        mb: "4",
+                        fontSize: "0.5rem",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.4em",
+                        transition: "color 0.5s ease",
+                    })}
                     style={{
                         fontFamily: "'Space Mono', monospace",
-                        color: hovered ? work.color : "#444",
+                        color: hovered ? work.color : "var(--colors-fg-muted)",
                     }}
                 >
                     {work.category} - {work.year}
                 </span>
 
                 <h2
-                    className="text-[1.75rem] transition-colors duration-700 md:text-[2.5rem]"
+                    className={css({
+                        fontSize: { base: "1.75rem", md: "2.5rem" },
+                        transition: "color 0.7s ease",
+                    })}
                     style={{
                         fontFamily: "'Cormorant Garamond', serif",
                         fontWeight: 300,
                         lineHeight: 1.1,
-                        color: hovered ? "#fff" : "rgba(255,255,255,0.6)",
+                        color: hovered ? "var(--colors-fg-default)" : "rgba(31,41,55,0.7)",
                     }}
                 >
                     {work.title}
                 </h2>
 
                 <p
-                    className="mt-4 max-w-sm text-[0.6875rem] transition-colors duration-500"
+                    className={css({
+                        mt: "4",
+                        maxW: "sm",
+                        fontSize: "0.6875rem",
+                        transition: "color 0.5s ease",
+                    })}
                     style={{
                         fontFamily: "'Space Mono', monospace",
                         lineHeight: 1.8,
-                        color: hovered ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.15)",
+                        color: hovered ? "rgba(31,41,55,0.7)" : "rgba(31,41,55,0.45)",
                     }}
                 >
                     {work.description}
                 </p>
 
-                <div className="mt-8 flex items-center gap-3">
+                <div className={css({ mt: "8", display: "flex", alignItems: "center", gap: "3" })}>
                     <motion.div
                         animate={{ width: hovered ? 48 : 24 }}
                         transition={{ duration: 0.5 }}
-                        className="h-px"
-                        style={{ backgroundColor: hovered ? work.color : "rgba(255,255,255,0.1)" }}
+                        className={css({ h: "1px" })}
+                        style={{ backgroundColor: hovered ? work.color : "rgba(31,41,55,0.16)" }}
                     />
                     <span
-                        className="text-[0.5rem] uppercase tracking-[0.3em] transition-colors duration-500"
+                        className={css({
+                            fontSize: "0.5rem",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.3em",
+                            transition: "color 0.5s ease",
+                        })}
                         style={{
                             fontFamily: "'Space Mono', monospace",
-                            color: hovered ? work.color : "rgba(255,255,255,0.2)",
+                            color: hovered ? work.color : "rgba(31,41,55,0.45)",
                         }}
                     >
                         View project
@@ -175,21 +231,27 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
 
 function WorksPage() {
     return (
-        <div className="min-h-screen bg-black md:ml-14">
-            <section className="px-8 pt-20 pb-8 md:px-20 md:pt-32">
+        <div className={css({ minH: "100vh", bg: "bg.canvas" })}>
+            <section className={css({ px: { base: "8", md: "20" }, pt: { base: "20", md: "32" }, pb: "8" })}>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
                     <p
-                        className="mb-4 text-[0.5625rem] uppercase tracking-[0.5em] text-gray-600"
+                        className={css({
+                            mb: "4",
+                            fontSize: "0.5625rem",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5em",
+                            color: "fg.muted",
+                        })}
                         style={{ fontFamily: "'Space Mono', monospace" }}
                     >
                         Archive - {works.length} Projects
                     </p>
                     <h1
-                        className="text-[2.5rem] text-white md:text-[5rem]"
+                        className={css({ fontSize: { base: "2.5rem", md: "5rem" }, color: "fg.default" })}
                         style={{
                             fontFamily: "'Cormorant Garamond', serif",
                             fontWeight: 300,
@@ -201,7 +263,7 @@ function WorksPage() {
                 </motion.div>
             </section>
 
-            <section className="px-8 md:px-12">
+            <section className={css({ px: { base: "8", md: "12" } })}>
                 {works.map((work, index) => (
                     <WorkItem key={work.id} work={work} index={index} />
                 ))}

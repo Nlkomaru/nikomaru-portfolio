@@ -2,7 +2,7 @@
 
 ## 実装手順
 - 常に既存コードの設計や記法を参考にしてください。。
-- styleを記述する際は、panda-cssで記述してください。
+- styleを記述する際は、Panda CSSで記述してください。
 - `pnpm run check`を実行して、コードのチェックを行ってください。
 - また、記述後に`pnpm run dev`の実行やデプロイは行わないでください。
 
@@ -14,6 +14,9 @@
 - ファイルの命名規則としては、kebab-caseを使用してください。
 
 ## スタイルの記述
-- スタイルの記述は、tailwindcssで記述してください。
+- スタイルの記述は、Panda CSSの`css()`やrecipeを優先して記述してください。
+- `theme/`配下のChakra UI theme tokenとsemantic tokenを優先して利用してください。
+- テーマ切り替えは`next-themes`で管理してください。
+- 共有UIの見た目は`theme/recipes/`と`theme/slot-recipes/`に定義したChakra UI recipe / slot recipeを活用してください。
 
 記述した後は、playwright mcpを利用してスクリーンショットを取得し、スタイルの確認を行ってください。サーバーはすでに3000番ポートで起動してるので、起動しようとしないでください。widthが1200px以下の場合は、widthを1200pxに設定してください。

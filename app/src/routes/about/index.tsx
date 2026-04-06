@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { css } from "styled-system/css";
 
 export const Route = createFileRoute("/about/")({
     component: AboutPage,
@@ -7,47 +8,104 @@ export const Route = createFileRoute("/about/")({
 
 function AboutPage() {
     return (
-        <div className="min-h-screen bg-black px-8 pt-24 pb-20 text-white md:ml-14 md:px-20 md:pt-28">
+        <div
+            className={css({
+                minH: "100vh",
+                bg: "bg.canvas",
+                px: { base: "8", md: "20" },
+                pt: { base: "24", md: "28" },
+                pb: "20",
+                color: "fg.default",
+            })}
+        >
             <motion.p
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-4 text-[0.625rem] uppercase tracking-[0.45em] text-gray-500"
+                className={css({
+                    mb: "4",
+                    fontSize: "0.625rem",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.45em",
+                    color: "fg.muted",
+                })}
             >
                 About
             </motion.p>
 
-            <section className="grid gap-10 md:grid-cols-12">
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="md:col-span-5">
-                    <div className="aspect-[3/4] border border-white/10 bg-gradient-to-b from-zinc-900 to-black p-6">
-                        <p className="text-xs uppercase tracking-[0.3em] text-gray-500">Nikomaru</p>
-                        <p className="mt-4 text-sm leading-7 text-gray-400">
+            <section
+                className={css({
+                    display: "grid",
+                    gap: "10",
+                    gridTemplateColumns: { md: "repeat(12, minmax(0, 1fr))" },
+                })}
+            >
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className={css({ gridColumn: { md: "span 5 / span 5" } })}
+                >
+                    <div
+                        className={css({
+                            aspectRatio: "3 / 4",
+                            borderWidth: "1px",
+                            borderColor: "border.default",
+                            bg: "bg.default",
+                            p: "6",
+                            boxShadow: "sm",
+                        })}
+                    >
+                        <p
+                            className={css({
+                                fontSize: "xs",
+                                textTransform: "uppercase",
+                                letterSpacing: "0.3em",
+                                color: "fg.muted",
+                            })}
+                        >
+                            Nikomaru
+                        </p>
+                        <p className={css({ mt: "4", fontSize: "sm", lineHeight: "7", color: "fg.subtle" })}>
                             Web engineer focused on making polished products that are simple to maintain.
                         </p>
                     </div>
                 </motion.div>
 
-                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="md:col-span-7">
-                    <h1 className="text-[2rem] leading-tight md:text-[3.5rem]">
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className={css({ gridColumn: { md: "span 7 / span 7" } })}
+                >
+                    <h1 className={css({ fontSize: { base: "2rem", md: "3.5rem" }, lineHeight: 1.1 })}>
                         Design like an artist,
                         <br />
                         <span
-                            className="text-transparent italic"
-                            style={{ WebkitTextStroke: "1px rgba(255,255,255,0.35)" }}
+                            className={css({ fontStyle: "italic" })}
+                            style={{ color: "transparent", WebkitTextStroke: "1px rgba(31,41,55,0.45)" }}
                         >
                             ship like an engineer
                         </span>
                     </h1>
-                    <p className="mt-8 max-w-2xl text-sm leading-8 text-gray-400">
+                    <p className={css({ mt: "8", maxW: "2xl", fontSize: "sm", lineHeight: "8", color: "fg.subtle" })}>
                         I enjoy translating rough ideas into maintainable code. I care about visual quality, clean
                         component boundaries, and pragmatic delivery speed.
                     </p>
 
-                    <div className="mt-10 flex flex-wrap gap-3">
+                    <div className={css({ mt: "10", display: "flex", flexWrap: "wrap", gap: "3" })}>
                         {["TypeScript", "React", "TanStack Start", "Cloudflare Workers", "Hono", "Storybook"].map(
                             (skill) => (
                                 <span
                                     key={skill}
-                                    className="border border-white/15 px-4 py-2 text-xs uppercase tracking-[0.25em] text-gray-400"
+                                    className={css({
+                                        borderWidth: "1px",
+                                        borderColor: "border.default",
+                                        bg: "bg.default",
+                                        px: "4",
+                                        py: "2",
+                                        fontSize: "xs",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.25em",
+                                        color: "fg.subtle",
+                                    })}
                                 >
                                     {skill}
                                 </span>

@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import { css } from "styled-system/css";
 import CustomCursor from "../components/custom-cursor";
 import NoiseOverlay from "../components/noise-overlay";
+import { Button } from "../components/ui";
 
 export const Route = createFileRoute("/")({ component: App });
 
@@ -51,44 +53,75 @@ function HeroSection() {
     const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
     return (
-        <section ref={ref} className="relative flex h-screen items-center overflow-hidden">
-            <motion.div style={{ y, opacity }} className="relative z-10 w-full px-8 md:px-20">
+        <section
+            ref={ref}
+            className={css({
+                position: "relative",
+                display: "flex",
+                h: "100vh",
+                alignItems: "center",
+                overflow: "hidden",
+            })}
+        >
+            <motion.div
+                style={{ y, opacity }}
+                className={css({
+                    position: "relative",
+                    zIndex: 10,
+                    w: "full",
+                    px: { base: "8", md: "20" },
+                })}
+            >
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                 >
                     <p
-                        className="mb-8 text-[0.5625rem] uppercase tracking-[0.5em] text-gray-500"
-                        style={{ fontFamily: "'Space Mono', monospace" }}
+                        className={css({
+                            mb: "8",
+                            fontSize: "0.5625rem",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5em",
+                            color: "fg.muted",
+                        })}
+                        style={{ fontFamily: '"Space Mono", monospace' }}
                     >
                         Creative Direction & Design
                     </p>
                 </motion.div>
 
-                <div className="overflow-hidden">
+                <div className={css({ overflow: "hidden" })}>
                     <motion.h1
                         initial={{ y: "100%" }}
                         animate={{ y: 0 }}
                         transition={{ duration: 1, delay: 0.4, ease: [0.76, 0, 0.24, 1] }}
-                        className="text-[3rem] tracking-tight text-white md:text-[6rem] lg:text-[8rem]"
-                        style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, lineHeight: 0.9 }}
+                        className={css({
+                            fontSize: { base: "3rem", md: "6rem", lg: "8rem" },
+                            letterSpacing: "-0.03em",
+                            color: "fg.default",
+                        })}
+                        style={{ fontFamily: '"Cormorant Garamond", serif', fontWeight: 300, lineHeight: 0.9 }}
                     >
                         Make it
                     </motion.h1>
                 </div>
-                <div className="overflow-hidden">
+                <div className={css({ overflow: "hidden" })}>
                     <motion.h1
                         initial={{ y: "100%" }}
                         animate={{ y: 0 }}
                         transition={{ duration: 1, delay: 0.55, ease: [0.76, 0, 0.24, 1] }}
-                        className="text-[3rem] tracking-tight text-white italic md:text-[6rem] lg:text-[8rem]"
+                        className={css({
+                            fontSize: { base: "3rem", md: "6rem", lg: "8rem" },
+                            letterSpacing: "-0.03em",
+                            fontStyle: "italic",
+                        })}
                         style={{
-                            fontFamily: "'Cormorant Garamond', serif",
+                            fontFamily: '"Cormorant Garamond", serif',
                             fontWeight: 300,
                             lineHeight: 0.9,
                             color: "transparent",
-                            WebkitTextStroke: "1px rgba(255,255,255,0.4)",
+                            WebkitTextStroke: "1px rgba(31,41,55,0.4)",
                         }}
                     >
                         unforgettable
@@ -99,12 +132,17 @@ function HeroSection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}
-                    className="mt-12 flex items-center gap-8"
+                    className={css({ mt: "12", display: "flex", alignItems: "center", gap: "8" })}
                 >
-                    <div className="h-px w-16 bg-white/20" />
+                    <div className={css({ h: "1px", w: "16", bg: "border.default" })} />
                     <p
-                        className="max-w-xs text-[0.625rem] tracking-wider text-gray-500"
-                        style={{ fontFamily: "'Space Mono', monospace", lineHeight: 1.8 }}
+                        className={css({
+                            maxW: "xs",
+                            fontSize: "0.625rem",
+                            letterSpacing: "0.08em",
+                            color: "fg.muted",
+                        })}
+                        style={{ fontFamily: '"Space Mono", monospace', lineHeight: 1.8 }}
                     >
                         Crafting visual narratives at the intersection of art and technology
                     </p>
@@ -115,18 +153,31 @@ function HeroSection() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.8 }}
-                className="absolute right-8 bottom-10 flex flex-col items-center gap-3 md:right-16"
+                className={css({
+                    position: "absolute",
+                    right: { base: "8", md: "16" },
+                    bottom: "10",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "3",
+                })}
             >
                 <span
-                    className="text-[0.5rem] uppercase tracking-[0.3em] text-gray-600"
-                    style={{ fontFamily: "'Space Mono', monospace", writingMode: "vertical-rl" }}
+                    className={css({
+                        fontSize: "0.5rem",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.3em",
+                        color: "fg.subtle",
+                    })}
+                    style={{ fontFamily: '"Space Mono", monospace', writingMode: "vertical-rl" }}
                 >
                     Scroll
                 </span>
                 <motion.div
                     animate={{ height: [20, 40, 20] }}
                     transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2, ease: "easeInOut" }}
-                    className="w-px bg-white/20"
+                    className={css({ w: "1px", bg: "border.default" })}
                 />
             </motion.div>
         </section>
@@ -147,42 +198,69 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
             data-hover
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="group relative cursor-pointer border-t border-white/5 py-8 md:py-12"
+            className={css({
+                position: "relative",
+                cursor: "pointer",
+                borderTopWidth: "1px",
+                borderColor: "border.subtle",
+                py: { base: "8", md: "12" },
+            })}
         >
-            <div className="flex items-start justify-between px-8 md:px-20">
-                <div className="flex items-start gap-6 md:gap-12">
+            <div
+                className={css({
+                    display: "flex",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    px: { base: "8", md: "20" },
+                })}
+            >
+                <div className={css({ display: "flex", alignItems: "flex-start", gap: { base: "6", md: "12" } })}>
                     <span
-                        className="mt-2 hidden text-[0.625rem] text-gray-700 md:block"
-                        style={{ fontFamily: "'Space Mono', monospace" }}
+                        className={css({
+                            mt: "2",
+                            display: { base: "none", md: "block" },
+                            fontSize: "0.625rem",
+                            color: "fg.muted",
+                        })}
+                        style={{ fontFamily: '"Space Mono", monospace' }}
                     >
                         {String(index + 1).padStart(2, "0")}
                     </span>
 
                     <div>
                         <h2
-                            className="whitespace-pre-line text-[1.5rem] transition-all duration-700 md:text-[2.5rem] lg:text-[3.5rem]"
+                            className={css({
+                                whiteSpace: "pre-line",
+                                fontSize: { base: "1.5rem", md: "2.5rem", lg: "3.5rem" },
+                                transition: "all 0.7s ease",
+                            })}
                             style={{
-                                fontFamily: "'Cormorant Garamond', serif",
+                                fontFamily: '"Cormorant Garamond", serif',
                                 fontWeight: 300,
                                 lineHeight: 1,
-                                color: hovered ? project.color : "#fff",
+                                color: hovered ? project.color : "var(--colors-fg-default)",
                             }}
                         >
                             {project.title}
                         </h2>
-                        <div className="mt-4 flex items-center gap-4">
+                        <div className={css({ mt: "4", display: "flex", alignItems: "center", gap: "4" })}>
                             <span
-                                className="text-[0.5625rem] uppercase tracking-[0.3em] transition-colors duration-500"
+                                className={css({
+                                    fontSize: "0.5625rem",
+                                    textTransform: "uppercase",
+                                    letterSpacing: "0.3em",
+                                    transition: "color 0.5s ease",
+                                })}
                                 style={{
-                                    fontFamily: "'Space Mono', monospace",
-                                    color: hovered ? project.color : "#555",
+                                    fontFamily: '"Space Mono", monospace',
+                                    color: hovered ? project.color : "var(--colors-fg-muted)",
                                 }}
                             >
                                 {project.category}
                             </span>
                             <span
-                                className="text-[0.5625rem] text-gray-700"
-                                style={{ fontFamily: "'Space Mono', monospace" }}
+                                className={css({ fontSize: "0.5625rem", color: "fg.muted" })}
+                                style={{ fontFamily: '"Space Mono", monospace' }}
                             >
                                 {project.year}
                             </span>
@@ -193,7 +271,12 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
                 <motion.div
                     animate={{ rotate: hovered ? 45 : 0 }}
                     transition={{ duration: 0.4 }}
-                    className="mt-2 hidden text-[1.5rem] text-gray-600 md:block"
+                    className={css({
+                        mt: "2",
+                        display: { base: "none", md: "block" },
+                        fontSize: "1.5rem",
+                        color: "fg.subtle",
+                    })}
                 >
                     +
                 </motion.div>
@@ -203,17 +286,43 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
                 initial={false}
                 animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.9, x: hovered ? 0 : 20 }}
                 transition={{ duration: 0.5 }}
-                className="pointer-events-none absolute top-1/2 right-8 z-10 w-48 -translate-y-1/2 md:right-20 md:w-64"
+                className={css({
+                    pointerEvents: "none",
+                    position: "absolute",
+                    top: "50%",
+                    right: { base: "8", md: "20" },
+                    zIndex: 10,
+                    display: { base: "none", md: "block" },
+                    w: { md: "48", lg: "64" },
+                    transform: "translateY(-50%)",
+                })}
             >
-                <div className="relative aspect-[3/4] overflow-hidden">
+                <div
+                    className={css({
+                        position: "relative",
+                        aspectRatio: "3 / 4",
+                        overflow: "hidden",
+                        borderRadius: "l3",
+                        boxShadow: "md",
+                    })}
+                >
                     <img
                         src={project.image}
                         alt={project.title}
-                        className="h-full w-full object-cover transition-all duration-700"
+                        className={css({
+                            h: "full",
+                            w: "full",
+                            objectFit: "cover",
+                            transition: "all 0.7s ease",
+                        })}
                         style={{ filter: hovered ? "grayscale(0%)" : "grayscale(100%)" }}
                     />
                     <div
-                        className="absolute inset-0 transition-opacity duration-500"
+                        className={css({
+                            position: "absolute",
+                            inset: 0,
+                            transition: "opacity 0.5s ease",
+                        })}
                         style={{ backgroundColor: project.color, opacity: hovered ? 0.1 : 0, mixBlendMode: "overlay" }}
                     />
                 </div>
@@ -227,23 +336,31 @@ function MarqueeSection() {
     const marqueeGroups = ["group-1", "group-2", "group-3"];
 
     return (
-        <div className="overflow-hidden border-y border-white/5 py-16">
+        <div
+            className={css({
+                overflow: "hidden",
+                borderTopWidth: "1px",
+                borderBottomWidth: "1px",
+                borderColor: "border.subtle",
+                py: "16",
+            })}
+        >
             <motion.div
                 animate={{ x: [0, -1920] }}
                 transition={{ repeat: Number.POSITIVE_INFINITY, duration: 30, ease: "linear" }}
-                className="flex items-center gap-16 whitespace-nowrap"
+                className={css({ display: "flex", alignItems: "center", gap: "16", whiteSpace: "nowrap" })}
             >
                 {marqueeGroups.map((groupKey) => (
-                    <div key={groupKey} className="flex items-center gap-16">
+                    <div key={groupKey} className={css({ display: "flex", alignItems: "center", gap: "16" })}>
                         {marqueeRows.map((word) => (
                             <span
                                 key={`${groupKey}-${word}`}
-                                className="text-[1.5rem] tracking-wider md:text-[3rem]"
+                                className={css({ fontSize: { base: "1.5rem", md: "3rem" }, letterSpacing: "0.05em" })}
                                 style={{
-                                    fontFamily: "'Cormorant Garamond', serif",
+                                    fontFamily: '"Cormorant Garamond", serif',
                                     fontWeight: 300,
                                     color: "transparent",
-                                    WebkitTextStroke: "0.5px rgba(255,255,255,0.1)",
+                                    WebkitTextStroke: "0.5px rgba(31,41,55,0.16)",
                                 }}
                             >
                                 {word}
@@ -258,17 +375,22 @@ function MarqueeSection() {
 
 function App() {
     return (
-        <div className="min-h-screen cursor-none bg-black text-white md:ml-14">
+        <div className={css({ minH: "100vh", cursor: "none", bg: "bg.canvas", color: "fg.default" })}>
             <CustomCursor />
             <NoiseOverlay />
             <HeroSection />
             <MarqueeSection />
 
-            <section className="py-16 md:py-24">
-                <div className="mb-12 px-8 md:px-20">
+            <section className={css({ py: { base: "16", md: "24" } })}>
+                <div className={css({ mb: "12", px: { base: "8", md: "20" } })}>
                     <p
-                        className="text-[0.5625rem] uppercase tracking-[0.5em] text-gray-600"
-                        style={{ fontFamily: "'Space Mono', monospace" }}
+                        className={css({
+                            fontSize: "0.5625rem",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5em",
+                            color: "fg.muted",
+                        })}
+                        style={{ fontFamily: '"Space Mono", monospace' }}
                     >
                         Selected Works
                     </p>
@@ -276,10 +398,10 @@ function App() {
                 {projects.map((project, index) => (
                     <ProjectCard key={project.id} project={project} index={index} />
                 ))}
-                <div className="border-t border-white/5" />
+                <div className={css({ borderTopWidth: "1px", borderColor: "border.subtle" })} />
             </section>
 
-            <section className="px-8 py-32 text-center md:px-20">
+            <section className={css({ px: { base: "8", md: "20" }, py: "32", textAlign: "center" })}>
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -287,43 +409,71 @@ function App() {
                     transition={{ duration: 0.8 }}
                 >
                     <p
-                        className="mb-6 text-[0.5625rem] uppercase tracking-[0.5em] text-gray-600"
-                        style={{ fontFamily: "'Space Mono', monospace" }}
+                        className={css({
+                            mb: "6",
+                            fontSize: "0.5625rem",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5em",
+                            color: "fg.muted",
+                        })}
+                        style={{ fontFamily: '"Space Mono", monospace' }}
                     >
                         Let&apos;s collaborate
                     </p>
                     <h2
-                        className="mb-8 text-[2rem] text-white md:text-[4rem]"
-                        style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, lineHeight: 1.1 }}
+                        className={css({ mb: "8", fontSize: { base: "2rem", md: "4rem" }, color: "fg.default" })}
+                        style={{ fontFamily: '"Cormorant Garamond", serif', fontWeight: 300, lineHeight: 1.1 }}
                     >
                         Have a project
                         <br />
                         <span
-                            className="italic"
-                            style={{ color: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.3)" }}
+                            style={{
+                                color: "transparent",
+                                WebkitTextStroke: "1px rgba(31,41,55,0.32)",
+                                fontStyle: "italic",
+                            }}
                         >
                             in mind?
                         </span>
                     </h2>
-                    <Link
+                    <Button
+                        as={Link}
                         to="/contact"
                         data-hover
-                        className="inline-block border border-white/15 px-10 py-4 text-[0.625rem] uppercase tracking-[0.3em] text-gray-400 transition-all duration-700 hover:border-white hover:bg-white hover:text-black"
-                        style={{ fontFamily: "'Space Mono', monospace" }}
+                        variant="outline"
+                        size="lg"
+                        className={css({
+                            fontSize: "0.625rem",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.3em",
+                            fontFamily: '"Space Mono", monospace',
+                        })}
                     >
                         Start a conversation
-                    </Link>
+                    </Button>
                 </motion.div>
             </section>
 
-            <footer className="flex flex-col items-center justify-between gap-4 border-t border-white/5 px-8 py-8 md:flex-row md:px-20">
+            <footer
+                className={css({
+                    display: "flex",
+                    flexDirection: { base: "column", md: "row" },
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: "4",
+                    borderTopWidth: "1px",
+                    borderColor: "border.subtle",
+                    px: { base: "8", md: "20" },
+                    py: "8",
+                })}
+            >
                 <p
-                    className="text-[0.5625rem] tracking-wider text-gray-700"
-                    style={{ fontFamily: "'Space Mono', monospace" }}
+                    className={css({ fontSize: "0.5625rem", letterSpacing: "0.08em", color: "fg.muted" })}
+                    style={{ fontFamily: '"Space Mono", monospace' }}
                 >
                     &copy; 2026 — All rights reserved
                 </p>
-                <div className="flex gap-6">
+                <div className={css({ display: "flex", gap: "6" })}>
                     {[
                         { label: "Tw", href: "https://x.com/" },
                         { label: "Ig", href: "https://www.instagram.com/" },
@@ -336,8 +486,16 @@ function App() {
                             target="_blank"
                             rel="noreferrer"
                             data-hover
-                            className="text-[0.5625rem] tracking-wider text-gray-700 transition-colors duration-500 hover:text-white"
-                            style={{ fontFamily: "'Space Mono', monospace" }}
+                            className={css({
+                                fontSize: "0.5625rem",
+                                letterSpacing: "0.08em",
+                                color: "fg.muted",
+                                transition: "color 0.5s ease",
+                                _hover: {
+                                    color: "fg.default",
+                                },
+                            })}
+                            style={{ fontFamily: '"Space Mono", monospace' }}
                         >
                             {social.label}
                         </a>
