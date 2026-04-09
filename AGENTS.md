@@ -52,13 +52,40 @@
 - ファイルの命名規則としては、kebab-caseを使用してください。
 
 ## スタイルの記述
-- スタイルの記述は、Panda CSSの`css()`やrecipeを優先して記述してください。
+- スタイルの記述は、Panda CSSの`recipe` / `slot recipe` / `sva()`を優先して記述してください。
+- `styled-system/css` の `css()` は既存資産の保守を除いて新規採用せず、複数要素を持つUIは`slot recipe`または`sva()`に寄せてください。
 - `theme/`配下のChakra UI theme tokenとsemantic tokenを優先して利用してください。
 - テーマ切り替えは`next-themes`で管理してください。
 - 共有UIの見た目は`theme/recipes/`と`theme/slot-recipes/`に定義したChakra UI recipe / slot recipeを活用してください。
 
 記述した後は、playwright mcpを利用してスクリーンショットを取得し、スタイルの確認を行ってください。サーバーはすでに3000番ポートで起動してるので、起動しようとしないでください。widthが1200px以下の場合は、widthを1200pxに設定してください。
 
+
+
+# Gitのルール
+
+## Repository
+- [nikomaru-portfolio](https://github.com/nlkomaru/nikomaru-portfolio)
+
+## コミットメッセージ
+- コミットメッセージは英語で書き、以下のような形式で書く。
+
+```
+emoji コミットの概要
+
+```
+
+例: 
+```
+🎨 Add new page to portfolio site
+```
+
+## Issueについて
+
+- 新しい機能を追加する場合は、Issueを作成してください。
+- Issueは英語で書き、適切なラベルを追加してください。
+- 現状存在しないラベルについては、勝手に作成しないでください
+- どうしても必要である場合は、.github/labels.jsonに追加してください
 
 
 # コンポーネントについて
@@ -112,32 +139,6 @@
 -`aaa/bbb/ccc/-functions/`
     - ルート内で使用される関数
     - 各関数ごとに単体テストを実装する
-
-
-# Gitのルール
-
-## Repository
-- [nikomaru-portfolio](https://github.com/nlkomaru/nikomaru-portfolio)
-
-## コミットメッセージ
-- コミットメッセージは英語で書き、以下のような形式で書く。
-
-```
-emoji コミットの概要
-
-```
-
-例: 
-```
-🎨 Add new page to portfolio site
-```
-
-## Issueについて
-
-- 新しい機能を追加する場合は、Issueを作成してください。
-- Issueは英語で書き、適切なラベルを追加してください。
-- 現状存在しないラベルについては、勝手に作成しないでください
-- どうしても必要である場合は、.github/labels.jsonに追加してください
 
 
 ## 人格

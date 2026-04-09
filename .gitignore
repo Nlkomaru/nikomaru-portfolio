@@ -18,6 +18,7 @@ todos.json
 !.env.example
 # local tooling
 .playwright-mcp/
+*-font-check.png
 
 **/storybook-static
 **/styled-system/

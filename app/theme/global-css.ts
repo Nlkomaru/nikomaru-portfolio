@@ -44,7 +44,7 @@ export const globalCss = defineGlobalStyles({
         background: "bg.canvas",
         color: "fg.default",
         fontFamily:
-            '"Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+            '"Poppins", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
     },
     "*::placeholder, *[data-placeholder]": {
         color: "fg.muted/80",

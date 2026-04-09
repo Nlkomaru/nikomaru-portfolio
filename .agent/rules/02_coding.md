@@ -14,7 +14,8 @@
 - ファイルの命名規則としては、kebab-caseを使用してください。
 
 ## スタイルの記述
-- スタイルの記述は、Panda CSSの`css()`やrecipeを優先して記述してください。
+- スタイルの記述は、Panda CSSの`recipe` / `slot recipe` / `sva()`を優先して記述してください。
+- `styled-system/css` の `css()` は既存資産の保守を除いて新規採用せず、複数要素を持つUIは`slot recipe`または`sva()`に寄せてください。
 - `theme/`配下のChakra UI theme tokenとsemantic tokenを優先して利用してください。
 - テーマ切り替えは`next-themes`で管理してください。
 - 共有UIの見た目は`theme/recipes/`と`theme/slot-recipes/`に定義したChakra UI recipe / slot recipeを活用してください。

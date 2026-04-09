@@ -1,8 +1,133 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { css } from "styled-system/css";
+import { sva } from "styled-system/css";
 import { m } from "../../paraglide/messages";
+
+const contactPageStyles = sva({
+    slots: [
+        "root",
+        "eyebrow",
+        "title",
+        "grid",
+        "content",
+        "email",
+        "srOnly",
+        "summaryWrap",
+        "summary",
+        "aside",
+        "asideBlock",
+        "asideLabel",
+        "locationText",
+        "locationSub",
+        "socialList",
+    ],
+    base: {
+        root: {
+            minH: "100vh",
+            bg: "bg.canvas",
+            px: { base: "8", md: "20" },
+            pt: { base: "24", md: "28" },
+            pb: "20",
+            color: "fg.default",
+        },
+        eyebrow: {
+            mb: "4",
+            fontSize: "0.625rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.45em",
+            color: "fg.muted",
+        },
+        title: {
+            fontSize: { base: "2.5rem", md: "4.5rem" },
+            color: "fg.default",
+        },
+        grid: {
+            mt: "12",
+            display: "grid",
+            gap: "16",
+            gridTemplateColumns: { md: "repeat(12, minmax(0, 1fr))" },
+        },
+        content: {
+            gridColumn: { md: "span 7 / span 7" },
+        },
+        email: {
+            fontSize: { base: "1.25rem", md: "2rem" },
+            color: "fg.subtle",
+            transition: "color 0.7s ease",
+            _hover: {
+                color: "fg.default",
+            },
+        },
+        srOnly: {
+            position: "absolute",
+            w: "1px",
+            h: "1px",
+            p: 0,
+            m: "-1px",
+            overflow: "hidden",
+            clip: "rect(0, 0, 0, 0)",
+            whiteSpace: "nowrap",
+            borderWidth: 0,
+        },
+        summaryWrap: {
+            mt: "10",
+            borderTopWidth: "1px",
+            borderColor: "border.subtle",
+            pt: "8",
+        },
+        summary: {
+            maxW: "xl",
+            fontSize: "0.6875rem",
+            lineHeight: "8",
+            color: "fg.muted",
+        },
+        aside: {
+            gridColumn: { md: "span 5 / span 5" },
+        },
+        asideBlock: {
+            mb: "16",
+        },
+        asideLabel: {
+            mb: "6",
+            fontSize: "0.5625rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.5em",
+            color: "fg.muted",
+        },
+        locationText: {
+            fontSize: "1rem",
+            color: "fg.subtle",
+        },
+        locationSub: {
+            color: "fg.muted",
+        },
+        socialList: {},
+    },
+});
+
+const socialLinkStyles = sva({
+    slots: ["link", "name", "handle"],
+    base: {
+        link: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderBottomWidth: "1px",
+            borderColor: "border.subtle",
+            py: "4",
+            transition: "all 0.5s ease",
+        },
+        name: {
+            fontSize: "0.6875rem",
+            transition: "color 0.5s ease",
+        },
+        handle: {
+            fontSize: "0.5625rem",
+            transition: "all 0.5s ease",
+        },
+    },
+});
 
 export const Route = createFileRoute("/contact/")({
     component: ContactPage,
@@ -15,59 +140,27 @@ const socialLinks = [
 
 function ContactPage() {
     const [hoveredSocial, setHoveredSocial] = useState<string | null>(null);
+    const styles = contactPageStyles();
 
     return (
-        <div
-            className={css({
-                minH: "100vh",
-                bg: "bg.canvas",
-                px: { base: "8", md: "20" },
-                pt: { base: "24", md: "28" },
-                pb: "20",
-                color: "fg.default",
-            })}
-        >
-            <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={css({
-                    mb: "4",
-                    fontSize: "0.625rem",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.45em",
-                    color: "fg.muted",
-                })}
-            >
+        <div className={styles.root}>
+            <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className={styles.eyebrow}>
                 Contact
             </motion.p>
             <motion.h1
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={css({ fontSize: { base: "2.5rem", md: "4.5rem" }, color: "fg.default" })}
+                className={styles.title}
                 style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
                 {m["contact.heading"]()}
             </motion.h1>
 
-            <div
-                className={css({
-                    mt: "12",
-                    display: "grid",
-                    gap: "16",
-                    gridTemplateColumns: { md: "repeat(12, minmax(0, 1fr))" },
-                })}
-            >
-                <section className={css({ gridColumn: { md: "span 7 / span 7" } })}>
+            <div className={styles.grid}>
+                <section className={styles.content}>
                     <p
                         data-hover
-                        className={css({
-                            fontSize: { base: "1.25rem", md: "2rem" },
-                            color: "fg.subtle",
-                            transition: "color 0.7s ease",
-                            _hover: {
-                                color: "fg.default",
-                            },
-                        })}
+                        className={`${styles.email} mail-obfuscated`}
                         data-user="recruit"
                         data-domain="nikomaru.dev"
                         style={{
@@ -75,73 +168,39 @@ function ContactPage() {
                             fontWeight: 300,
                         }}
                     >
-                        <span
-                            style={{
-                                position: "absolute",
-                                width: "1px",
-                                height: "1px",
-                                padding: 0,
-                                margin: "-1px",
-                                overflow: "hidden",
-                                clip: "rect(0, 0, 0, 0)",
-                                whiteSpace: "nowrap",
-                                border: 0,
-                            }}
-                        >
-                            recruit@nikomaru.dev
-                        </span>
+                        <span className={styles.srOnly}>recruit@nikomaru.dev</span>
                     </p>
 
-                    <div className={css({ mt: "10", borderTopWidth: "1px", borderColor: "border.subtle", pt: "8" })}>
-                        <p
-                            className={css({ maxW: "xl", fontSize: "0.6875rem", lineHeight: "8", color: "fg.muted" })}
-                            style={{ fontFamily: "'Space Mono', monospace" }}
-                        >
+                    <div className={styles.summaryWrap}>
+                        <p className={styles.summary} style={{ fontFamily: "'Space Mono', monospace" }}>
                             {m["contact.summary"]()}
                         </p>
                     </div>
                 </section>
 
-                <aside className={css({ gridColumn: { md: "span 5 / span 5" } })}>
-                    <div className={css({ mb: "16" })}>
-                        <p
-                            className={css({
-                                mb: "6",
-                                fontSize: "0.5625rem",
-                                textTransform: "uppercase",
-                                letterSpacing: "0.5em",
-                                color: "fg.muted",
-                            })}
-                            style={{ fontFamily: "'Space Mono', monospace" }}
-                        >
+                <aside className={styles.aside}>
+                    <div className={styles.asideBlock}>
+                        <p className={styles.asideLabel} style={{ fontFamily: "'Space Mono', monospace" }}>
                             {m["contact.basedIn"]()}
                         </p>
                         <p
-                            className={css({ fontSize: "1rem", color: "fg.subtle" })}
+                            className={styles.locationText}
                             style={{ fontFamily: "'Cormorant Garamond', serif", lineHeight: 1.8 }}
                         >
                             {m["contact.location"]()}
                             <br />
-                            <span className={css({ color: "fg.muted" })}>{m["contact.locationSub"]()}</span>
+                            <span className={styles.locationSub}>{m["contact.locationSub"]()}</span>
                         </p>
                     </div>
 
-                    <div className={css({ mb: "16" })}>
-                        <p
-                            className={css({
-                                mb: "6",
-                                fontSize: "0.5625rem",
-                                textTransform: "uppercase",
-                                letterSpacing: "0.5em",
-                                color: "fg.muted",
-                            })}
-                            style={{ fontFamily: "'Space Mono', monospace" }}
-                        >
+                    <div className={styles.asideBlock}>
+                        <p className={styles.asideLabel} style={{ fontFamily: "'Space Mono', monospace" }}>
                             {m["contact.social"]()}
                         </p>
-                        <div>
+                        <div className={styles.socialList}>
                             {socialLinks.map((social) => {
                                 const isHovered = hoveredSocial === social.name;
+                                const socialStyles = socialLinkStyles();
 
                                 return (
                                     <a
@@ -152,18 +211,10 @@ function ContactPage() {
                                         data-hover
                                         onMouseEnter={() => setHoveredSocial(social.name)}
                                         onMouseLeave={() => setHoveredSocial(null)}
-                                        className={css({
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "space-between",
-                                            borderBottomWidth: "1px",
-                                            borderColor: "border.subtle",
-                                            py: "4",
-                                            transition: "all 0.5s ease",
-                                        })}
+                                        className={socialStyles.link}
                                     >
                                         <span
-                                            className={css({ fontSize: "0.6875rem", transition: "color 0.5s ease" })}
+                                            className={socialStyles.name}
                                             style={{
                                                 fontFamily: "'Space Mono', monospace",
                                                 color: isHovered ? social.color : "var(--colors-fg-muted)",
@@ -172,7 +223,7 @@ function ContactPage() {
                                             {social.name}
                                         </span>
                                         <span
-                                            className={css({ fontSize: "0.5625rem", transition: "all 0.5s ease" })}
+                                            className={socialStyles.handle}
                                             style={{
                                                 fontFamily: "'Space Mono', monospace",
                                                 color: isHovered ? "rgba(31,41,55,0.55)" : "rgba(31,41,55,0.25)",
