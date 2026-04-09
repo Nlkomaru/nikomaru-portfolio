@@ -1,11 +1,34 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { css } from "styled-system/css";
+import { sva } from "styled-system/css";
+
+const customCursorStyles = sva({
+    slots: ["root", "dot"],
+    base: {
+        root: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: 9999,
+            display: { base: "none", md: "block" },
+            pointerEvents: "none",
+            mixBlendMode: "difference",
+        },
+        dot: {
+            h: "full",
+            w: "full",
+            borderRadius: "full",
+            borderWidth: "1px",
+            borderColor: "white",
+        },
+    },
+});
 
 export default function CustomCursor() {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+    const styles = customCursorStyles();
 
     useEffect(() => {
         const move = (e: MouseEvent) => {
@@ -48,15 +71,7 @@ export default function CustomCursor() {
 
     return (
         <motion.div
-            className={css({
-                position: "fixed",
-                top: 0,
-                left: 0,
-                zIndex: 9999,
-                display: { base: "none", md: "block" },
-                pointerEvents: "none",
-                mixBlendMode: "difference",
-            })}
+            className={styles.root}
             animate={{
                 x: position.x - (isHovering ? 30 : 6),
                 y: position.y - (isHovering ? 30 : 6),
@@ -66,16 +81,7 @@ export default function CustomCursor() {
             }}
             transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
         >
-            <div
-                className={css({
-                    h: "full",
-                    w: "full",
-                    borderRadius: "full",
-                    borderWidth: "1px",
-                    borderColor: "white",
-                })}
-                style={{ backgroundColor: isHovering ? "rgba(255,255,255,0.08)" : "white" }}
-            />
+            <div className={styles.dot} style={{ backgroundColor: isHovering ? "rgba(255,255,255,0.08)" : "white" }} />
         </motion.div>
     );
 }

@@ -1,7 +1,164 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import { css } from "styled-system/css";
+import { sva } from "styled-system/css";
+
+const serifDisplayStyle = {
+    fontFamily: "'Cormorant Garamond', serif",
+    fontWeight: 300,
+} as const;
+
+const monoStyle = {
+    fontFamily: "'Space Mono', monospace",
+} as const;
+
+const worksPageStyles = sva({
+    slots: ["root", "hero", "eyebrow", "title", "list"],
+    base: {
+        root: {
+            minH: "100vh",
+            bg: "bg.canvas",
+        },
+        hero: {
+            px: { base: "8", md: "20" },
+            pt: { base: "20", md: "32" },
+            pb: "8",
+        },
+        eyebrow: {
+            mb: "4",
+            fontSize: "0.5625rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.5em",
+            color: "fg.muted",
+        },
+        title: {
+            fontSize: { base: "2.5rem", md: "5rem" },
+            color: "fg.default",
+        },
+        list: {
+            px: { base: "8", md: "12" },
+        },
+    },
+});
+
+const workItemStyles = sva({
+    slots: [
+        "root",
+        "mediaColumn",
+        "mediaFrame",
+        "mediaImage",
+        "mediaOverlay",
+        "count",
+        "copyColumn",
+        "meta",
+        "title",
+        "description",
+        "action",
+        "actionLine",
+        "actionText",
+    ],
+    base: {
+        root: {
+            display: "grid",
+            cursor: "pointer",
+            gridTemplateColumns: { base: "1fr", md: "repeat(12, minmax(0, 1fr))" },
+            alignItems: "center",
+            gap: { base: "6", md: "0" },
+            py: { base: "12", md: "20" },
+        },
+        mediaColumn: {
+            position: "relative",
+            overflow: "hidden",
+            gridColumn: { md: "span 6 / span 6" },
+        },
+        mediaFrame: {
+            position: "relative",
+            aspectRatio: "4 / 5",
+            overflow: "hidden",
+        },
+        mediaImage: {
+            h: "120%",
+            w: "full",
+            objectFit: "cover",
+            transition: "all 1s ease",
+        },
+        mediaOverlay: {
+            position: "absolute",
+            inset: 0,
+            transition: "all 0.7s ease",
+        },
+        count: {
+            position: "absolute",
+            top: "4",
+            left: "4",
+            fontSize: "0.5rem",
+            letterSpacing: "0.3em",
+            transition: "color 0.5s ease",
+        },
+        copyColumn: {
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gridColumn: { md: "span 5 / span 5" },
+        },
+        meta: {
+            mb: "4",
+            fontSize: "0.5rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.4em",
+            transition: "color 0.5s ease",
+        },
+        title: {
+            fontSize: { base: "1.75rem", md: "2.5rem" },
+            transition: "color 0.7s ease",
+        },
+        description: {
+            mt: "4",
+            maxW: "sm",
+            fontSize: "0.6875rem",
+            transition: "color 0.5s ease",
+        },
+        action: {
+            mt: "8",
+            display: "flex",
+            alignItems: "center",
+            gap: "3",
+        },
+        actionLine: {
+            h: "1px",
+        },
+        actionText: {
+            fontSize: "0.5rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.3em",
+            transition: "color 0.5s ease",
+        },
+    },
+    variants: {
+        parity: {
+            even: {
+                mediaColumn: {
+                    gridColumnStart: { md: "1" },
+                },
+                copyColumn: {
+                    gridColumnStart: { md: "8" },
+                    pl: { md: "12" },
+                    pr: { md: "0" },
+                },
+            },
+            odd: {
+                mediaColumn: {
+                    gridColumnStart: { md: "7" },
+                },
+                copyColumn: {
+                    gridColumnStart: { md: "1" },
+                    pl: { md: "0" },
+                    pr: { md: "12" },
+                },
+            },
+        },
+    },
+});
 
 const works = [
     {
@@ -73,6 +230,7 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
     });
     const imgY = useTransform(scrollYProgress, [0, 1], [60, -60]);
     const isEven = index % 2 === 0;
+    const styles = workItemStyles({ parity: isEven ? "even" : "odd" });
 
     return (
         <motion.div
@@ -83,42 +241,18 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
             transition={{ duration: 0.8 }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className={css({
-                display: "grid",
-                cursor: "pointer",
-                gridTemplateColumns: { base: "1fr", md: "repeat(12, minmax(0, 1fr))" },
-                alignItems: "center",
-                gap: { base: "6", md: "0" },
-                py: { base: "12", md: "20" },
-            })}
+            className={styles.root}
         >
-            <div
-                className={css({
-                    position: "relative",
-                    overflow: "hidden",
-                    gridColumn: { md: "span 6 / span 6" },
-                    gridColumnStart: { md: isEven ? "1" : "7" },
-                })}
-                style={{ order: isEven ? 1 : 2 }}
-            >
-                <div className={css({ position: "relative", aspectRatio: "4 / 5", overflow: "hidden" })}>
+            <div className={styles.mediaColumn} style={{ order: isEven ? 1 : 2 }}>
+                <div className={styles.mediaFrame}>
                     <motion.img
                         src={work.image}
                         alt={work.title}
-                        className={css({
-                            h: "120%",
-                            w: "full",
-                            objectFit: "cover",
-                            transition: "all 1s ease",
-                        })}
+                        className={styles.mediaImage}
                         style={{ y: imgY, filter: hovered ? "grayscale(0%)" : "grayscale(100%)" }}
                     />
                     <div
-                        className={css({
-                            position: "absolute",
-                            inset: 0,
-                            transition: "all 0.7s ease",
-                        })}
+                        className={styles.mediaOverlay}
                         style={{
                             background: hovered ? `linear-gradient(135deg, ${work.color}15, transparent)` : "none",
                         }}
@@ -126,16 +260,9 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                 </div>
 
                 <div
-                    className={css({
-                        position: "absolute",
-                        top: "4",
-                        left: "4",
-                        fontSize: "0.5rem",
-                        letterSpacing: "0.3em",
-                        transition: "color 0.5s ease",
-                    })}
+                    className={styles.count}
                     style={{
-                        fontFamily: "'Space Mono', monospace",
+                        ...monoStyle,
                         color: hovered ? work.color : "rgba(31,41,55,0.4)",
                     }}
                 >
@@ -143,28 +270,11 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                 </div>
             </div>
 
-            <div
-                className={css({
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    gridColumn: { md: "span 5 / span 5" },
-                    gridColumnStart: { md: isEven ? "8" : "1" },
-                    pl: { md: isEven ? "12" : "0" },
-                    pr: { md: isEven ? "0" : "12" },
-                })}
-                style={{ order: isEven ? 2 : 1 }}
-            >
+            <div className={styles.copyColumn} style={{ order: isEven ? 2 : 1 }}>
                 <span
-                    className={css({
-                        mb: "4",
-                        fontSize: "0.5rem",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.4em",
-                        transition: "color 0.5s ease",
-                    })}
+                    className={styles.meta}
                     style={{
-                        fontFamily: "'Space Mono', monospace",
+                        ...monoStyle,
                         color: hovered ? work.color : "var(--colors-fg-muted)",
                     }}
                 >
@@ -172,13 +282,9 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                 </span>
 
                 <h2
-                    className={css({
-                        fontSize: { base: "1.75rem", md: "2.5rem" },
-                        transition: "color 0.7s ease",
-                    })}
+                    className={styles.title}
                     style={{
-                        fontFamily: "'Cormorant Garamond', serif",
-                        fontWeight: 300,
+                        ...serifDisplayStyle,
                         lineHeight: 1.1,
                         color: hovered ? "var(--colors-fg-default)" : "rgba(31,41,55,0.7)",
                     }}
@@ -187,14 +293,9 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                 </h2>
 
                 <p
-                    className={css({
-                        mt: "4",
-                        maxW: "sm",
-                        fontSize: "0.6875rem",
-                        transition: "color 0.5s ease",
-                    })}
+                    className={styles.description}
                     style={{
-                        fontFamily: "'Space Mono', monospace",
+                        ...monoStyle,
                         lineHeight: 1.8,
                         color: hovered ? "rgba(31,41,55,0.7)" : "rgba(31,41,55,0.45)",
                     }}
@@ -202,22 +303,17 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                     {work.description}
                 </p>
 
-                <div className={css({ mt: "8", display: "flex", alignItems: "center", gap: "3" })}>
+                <div className={styles.action}>
                     <motion.div
                         animate={{ width: hovered ? 48 : 24 }}
                         transition={{ duration: 0.5 }}
-                        className={css({ h: "1px" })}
+                        className={styles.actionLine}
                         style={{ backgroundColor: hovered ? work.color : "rgba(31,41,55,0.16)" }}
                     />
                     <span
-                        className={css({
-                            fontSize: "0.5rem",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.3em",
-                            transition: "color 0.5s ease",
-                        })}
+                        className={styles.actionText}
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            ...monoStyle,
                             color: hovered ? work.color : "rgba(31,41,55,0.45)",
                         }}
                     >
@@ -230,31 +326,23 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
 }
 
 function WorksPage() {
+    const styles = worksPageStyles();
+
     return (
-        <div className={css({ minH: "100vh", bg: "bg.canvas" })}>
-            <section className={css({ px: { base: "8", md: "20" }, pt: { base: "20", md: "32" }, pb: "8" })}>
+        <div className={styles.root}>
+            <section className={styles.hero}>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <p
-                        className={css({
-                            mb: "4",
-                            fontSize: "0.5625rem",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.5em",
-                            color: "fg.muted",
-                        })}
-                        style={{ fontFamily: "'Space Mono', monospace" }}
-                    >
+                    <p className={styles.eyebrow} style={monoStyle}>
                         Archive - {works.length} Projects
                     </p>
                     <h1
-                        className={css({ fontSize: { base: "2.5rem", md: "5rem" }, color: "fg.default" })}
+                        className={styles.title}
                         style={{
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontWeight: 300,
+                            ...serifDisplayStyle,
                             lineHeight: 1,
                         }}
                     >
@@ -263,7 +351,7 @@ function WorksPage() {
                 </motion.div>
             </section>
 
-            <section className={css({ px: { base: "8", md: "12" } })}>
+            <section className={styles.list}>
                 {works.map((work, index) => (
                     <WorkItem key={work.id} work={work} index={index} />
                 ))}
