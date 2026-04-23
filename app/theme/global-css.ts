@@ -50,7 +50,7 @@ export const globalCss = defineGlobalStyles({
         color: "fg.muted/80",
     },
     "*::selection": {
-        bg: "bg.muted",
-        color: "fg.default",
+        bg: "bg.inverted",
+        color: "fg.inverted",
     },
 });

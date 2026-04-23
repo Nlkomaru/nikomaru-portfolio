@@ -17,5 +17,10 @@
         "social": "Social",
         "available": "Available for work",
         "availabilityNote": "Currently accepting new projects for Q2 2026 and beyond."
+    },
+    "top": {
+        "introP1": "I'm Nikomaru, a developer and university student based in Japan. I build for both the web and Minecraft, mainly using TypeScript, React, and Kotlin.",
+        "introP2": "I'm especially interested in authentication and developer-facing systems. In MineAuth, I work on OAuth2 / OpenID Connect and related API design. I've also built projects such as MoriPath and Chlorophyll, where I explore modern web development, UI foundations, and design systems.",
+        "introP3": "When I'm not coding, I'm usually baking or taking photos. I enjoy creating things with care, learning through experimentation, and finding joy in both technical and creative work."
     }
 }
