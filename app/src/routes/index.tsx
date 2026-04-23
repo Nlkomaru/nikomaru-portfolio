@@ -1,10 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
-import CustomCursor from "../components/custom-cursor";
-import NoiseOverlay from "../components/noise-overlay";
-import { Button } from "../components/ui";
 import { m } from "../paraglide/messages";
 
 const appPageStyles = sva({
@@ -46,7 +41,13 @@ function AppPage() {
     return (
         <div className={styles.root}>
             <div className={styles.icon}>
-                <img className={styles.iconImage} src="https://avatars.githubusercontent.com/u/76208219?v=4" alt="icon" width={64} height={64} />
+                <img
+                    className={styles.iconImage}
+                    src="https://avatars.githubusercontent.com/u/76208219?v=4"
+                    alt="icon"
+                    width={64}
+                    height={64}
+                />
                 <p className={styles.iconText}>Hi, I'm Nikomaru</p>
             </div>
             <p>{m["top.introP1"]()}</p>
