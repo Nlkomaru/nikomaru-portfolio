@@ -1,5 +1,5 @@
 import { sva } from "styled-system/css";
-import { ImageFrame } from "./image-frame";
+import { MiniImageFrame  } from "./mini-image-frame";
 
 const bakingStyles = sva({
     slots: ["root", "stack", "back", "front"],
@@ -35,10 +35,10 @@ export function Baking() {
         <div className={styles.root}>
             <div className={styles.stack}>
                 <div className={styles.back}>
-                    <ImageFrame src="/sweets/napoleon-pastry.avif" alt="Napoleon pastry" />
+                    <MiniImageFrame src="/sweets/napoleon-pastry.avif" alt="Napoleon pastry" />
                 </div>
                 <div className={styles.front}>
-                    <ImageFrame src="/sweets/bonbon-au-chocolat.avif" alt="Bonbon au chocolat" />
+                    <MiniImageFrame src="/sweets/bonbon-au-chocolat.avif" alt="Bonbon au chocolat" />
                 </div>
             </div>
         </div>

@@ -22,11 +22,11 @@ const appPageStyles = sva({
         greeting: {
             display: "flex",
             flexDirection: "row",
-            gap: "4",
+            gap: "6",
             alignItems: "center",
         },
         greetingText: {
-            fontSize: "2xl",
+            fontSize: "3xl",
             fontWeight: "bold",
             color: "fg.default",
         },

@@ -1,6 +1,6 @@
 import { sva } from "styled-system/css";
 
-const imageFrameStyles = sva({
+const miniImageFrameStyles = sva({
     slots: ["root", "frame", "image"],
     base: {
         root: {
@@ -70,7 +70,7 @@ type ImageFrameProps = {
 };
 
 export function ImageFrame({ src, alt, loading = "lazy", mode = "fixed" }: ImageFrameProps) {
-    const styles = imageFrameStyles({ mode });
+    const styles = miniImageFrameStyles({ mode });
 
     return (
         <div className={styles.root}>
