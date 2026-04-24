@@ -34,7 +34,21 @@ const config = defineConfig({
         viteTsConfigPaths({
             projects: ["./tsconfig.json"],
         }),
-        tanstackStart(),
+        tanstackStart({
+            prerender: {
+                enabled: true,
+                // Limit prerender scope strictly to '/'
+                autoStaticPathsDiscovery: false,
+                crawlLinks: false,
+                failOnError: true,
+            },
+            pages: [
+                {
+                    path: "/",
+                    prerender: { enabled: true },
+                },
+            ],
+        }),
         viteReact(),
     ],
 });

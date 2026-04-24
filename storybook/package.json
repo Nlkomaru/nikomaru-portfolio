@@ -4,6 +4,7 @@
     "type": "module",
     "version": "0.0.1",
     "scripts": {
+        "prepare": "panda codegen",
         "dev": "storybook dev -p 6006",
         "prebuild": "pnpm --filter @nikomaru-portfolio/app paraglide:compile",
         "build": "storybook build",
@@ -30,6 +31,7 @@
         "tailwindcss": "^4.1.18"
     },
     "devDependencies": {
+        "@pandacss/dev": "^1.9.1",
         "@playwright/test": "^1.57.0",
         "@storybook/addon-a11y": "^10.1.10",
         "@storybook/addon-designs": "^11.1.1",
@@ -46,6 +48,7 @@
         "@vitest/browser": "^4.0.16",
         "@vitest/coverage-v8": "^4.0.16",
         "apca-w3": "^0.1.9",
+        "autoprefixer": "^10.4.27",
         "axe-core": "^4.11.0",
         "axe-playwright": "^2.2.2",
         "globals": "^16.5.0",

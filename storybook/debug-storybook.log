@@ -1,0 +1,20 @@
+[15:41:06.141] [INFO] storybook v10.3.4
+[15:41:06.557] [DEBUG] Getting package.json info for /home/nikomaru/myself/nikomaru-portfolio/storybook/package.json...
+[15:41:07.707] [INFO] Starting...
+[15:41:07.751] [WARN] No story files found for the specified pattern: [34mstories/**/*.mdx[39m
+[15:41:07.910] [DEBUG] Starting preview..
+[15:41:07.924] [ERROR] Failed to build the preview
+[15:41:07.925] [ERROR] [38;2;241;97;97mError: Build failed with 1 error:
+../node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:1217:27: ERROR: [plugin: externalize-deps] Missing "./postcss.js" specifier in "@pandacss/dev" package[39m
+    at failureErrorWithLog (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:1467:15)
+    at /home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:926:25
+    at runOnEndCallbacks (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:1307:45)
+    at buildResponseToResult (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:924:7)
+    at /home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:951:16
+    at responseCallbacks.<computed> (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+[15:41:07.928] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.

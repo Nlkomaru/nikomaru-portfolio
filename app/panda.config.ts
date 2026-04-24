@@ -15,7 +15,7 @@ const { container: _containerRecipe, ...pandaRecipes } = recipes;
 export default defineConfig({
     globalCss,
     preflight: true,
-    include: ["./src/**/*.{js,jsx,ts,tsx}"],
+    include: ["./src/**/*.{js,jsx,ts,tsx}" , "../storybook/stories/**/*.{js,jsx,ts,tsx}"],
     exclude: ["./src/routeTree.gen.ts"],
     jsxFramework: "react",
     outdir: "./styled-system",

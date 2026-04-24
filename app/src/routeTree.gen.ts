@@ -10,25 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as WorksIndexRouteImport } from './routes/works/index'
 import { Route as TalksIndexRouteImport } from './routes/talks/index'
+import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
 import { Route as ContactIndexRouteImport } from './routes/contact/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as SlideSplatRouteImport } from './routes/slide/$'
+import { Route as ProjectsProjectRouteImport } from './routes/projects/$project'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WorksIndexRoute = WorksIndexRouteImport.update({
-  id: '/works/',
-  path: '/works/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TalksIndexRoute = TalksIndexRouteImport.update({
   id: '/talks/',
   path: '/talks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactIndexRoute = ContactIndexRouteImport.update({
@@ -46,54 +47,78 @@ const SlideSplatRoute = SlideSplatRouteImport.update({
   path: '/slide/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsProjectRoute = ProjectsProjectRouteImport.update({
+  id: '/projects/$project',
+  path: '/projects/$project',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/projects/$project': typeof ProjectsProjectRoute
   '/slide/$': typeof SlideSplatRoute
   '/about/': typeof AboutIndexRoute
   '/contact/': typeof ContactIndexRoute
+  '/projects/': typeof ProjectsIndexRoute
   '/talks/': typeof TalksIndexRoute
-  '/works/': typeof WorksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/projects/$project': typeof ProjectsProjectRoute
   '/slide/$': typeof SlideSplatRoute
   '/about': typeof AboutIndexRoute
   '/contact': typeof ContactIndexRoute
+  '/projects': typeof ProjectsIndexRoute
   '/talks': typeof TalksIndexRoute
-  '/works': typeof WorksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/projects/$project': typeof ProjectsProjectRoute
   '/slide/$': typeof SlideSplatRoute
   '/about/': typeof AboutIndexRoute
   '/contact/': typeof ContactIndexRoute
+  '/projects/': typeof ProjectsIndexRoute
   '/talks/': typeof TalksIndexRoute
-  '/works/': typeof WorksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/slide/$' | '/about/' | '/contact/' | '/talks/' | '/works/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/slide/$' | '/about' | '/contact' | '/talks' | '/works'
-  id:
-    | '__root__'
+  fullPaths:
     | '/'
+    | '/projects/$project'
     | '/slide/$'
     | '/about/'
     | '/contact/'
+    | '/projects/'
     | '/talks/'
-    | '/works/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/projects/$project'
+    | '/slide/$'
+    | '/about'
+    | '/contact'
+    | '/projects'
+    | '/talks'
+  id:
+    | '__root__'
+    | '/'
+    | '/projects/$project'
+    | '/slide/$'
+    | '/about/'
+    | '/contact/'
+    | '/projects/'
+    | '/talks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProjectsProjectRoute: typeof ProjectsProjectRoute
   SlideSplatRoute: typeof SlideSplatRoute
   AboutIndexRoute: typeof AboutIndexRoute
   ContactIndexRoute: typeof ContactIndexRoute
+  ProjectsIndexRoute: typeof ProjectsIndexRoute
   TalksIndexRoute: typeof TalksIndexRoute
-  WorksIndexRoute: typeof WorksIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -105,18 +130,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/works/': {
-      id: '/works/'
-      path: '/works'
-      fullPath: '/works/'
-      preLoaderRoute: typeof WorksIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/talks/': {
       id: '/talks/'
       path: '/talks'
       fullPath: '/talks/'
       preLoaderRoute: typeof TalksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/': {
+      id: '/projects/'
+      path: '/projects'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact/': {
@@ -140,16 +165,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SlideSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/$project': {
+      id: '/projects/$project'
+      path: '/projects/$project'
+      fullPath: '/projects/$project'
+      preLoaderRoute: typeof ProjectsProjectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProjectsProjectRoute: ProjectsProjectRoute,
   SlideSplatRoute: SlideSplatRoute,
   AboutIndexRoute: AboutIndexRoute,
   ContactIndexRoute: ContactIndexRoute,
+  ProjectsIndexRoute: ProjectsIndexRoute,
   TalksIndexRoute: TalksIndexRoute,
-  WorksIndexRoute: WorksIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

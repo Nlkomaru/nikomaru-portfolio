@@ -1,10 +1,10 @@
 {
     "metaSiteTitle": "Nikomaru - Full Stack Developer",
-    "metaSiteDescription": "Nikomaru's portfolio site",
+    "metaSiteDescription": "nikomaru's portfolio site",
     "navSlides": "Slides",
-    "homeGreeting": "Hi! I'm Nikomaru",
-    "slidesTitle": "Slides",
-    "slidesDescription": "A list of slides created by Nikomaru.",
+    "homeGreeting": "Hi, I'm Nikomaru",
+    "slidesTitle": "Slides I've Made",
+    "slidesDescription": "A list of slides created by nikomaru.",
     "languageLabel": "Language",
     "languageSwitchToJa": "日本語",
     "languageSwitchToEn": "English",
@@ -17,5 +17,8 @@
         "social": "Social",
         "available": "Available for work",
         "availabilityNote": "Currently accepting new projects for Q2 2026 and beyond."
+    },
+    "top": {
+        "introP1": "I'm currently a university student in Japan. I mainly work with Kotlin, TypeScript, and React, building Minecraft plugins and web applications."
     }
 }

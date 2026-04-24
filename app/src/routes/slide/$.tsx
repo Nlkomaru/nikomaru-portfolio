@@ -6,6 +6,9 @@ const STATIC_CACHE_CONTROL = "public, max-age=86400, s-maxage=604800";
 function resolveR2Url(splat: string, segments: string[]): string {
     // /slide/:id → :id/index.html
     if (segments.length === 1) {
+        if (segments[0].endsWith("slidev-exported.pdf")) {
+            return `${env.R2_PUBLIC_URL}${segments[0].replace("slidev-exported.pdf", "/slidev-exported.pdf")}`;
+        }
         return `${env.R2_PUBLIC_URL}${splat}/index.html`;
     }
     // /slide/:id/:pageNum → :id/index.html（SPA内ページ遷移）

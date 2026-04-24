@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import { sva } from "styled-system/css";
@@ -163,61 +163,37 @@ const workItemStyles = sva({
 const works = [
     {
         id: 1,
-        title: "Concrete Dreams",
-        category: "Architecture",
+        slug: "MineAuth",
+        title: "MineAuth",
+        category: "Project",
         year: "2025",
         color: "#e74c3c",
         image: "https://images.unsplash.com/photo-1769283979195-d418a41ae2ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicnV0YWxpc3QlMjBhcmNoaXRlY3R1cmUlMjBjb25jcmV0ZXxlbnwxfHx8fDE3NzIxMTQ4OTV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-        description: "Exploring the raw beauty of brutalist architecture through a minimalist lens.",
+        description: "Authentication toolkit for Minecraft-related apps and services.",
     },
     {
         id: 2,
-        title: "Neon Noir",
-        category: "Photography",
+        slug: "Chlorophyll",
+        title: "Chlorophyll",
+        category: "Project",
         year: "2025",
         color: "#9b59b6",
         image: "https://images.unsplash.com/photo-1618902410393-6fe0a34bb79e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuZW9uJTIwbGlnaHRzJTIwZGFyayUyMGN5YmVycHVua3xlbnwxfHx8fDE3NzIxNjA1NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-        description: "A nocturnal journey through the electric veins of the modern metropolis.",
+        description: "A fast, minimal UI system focusing on clarity and accessibility.",
     },
     {
         id: 3,
-        title: "Form & Void",
-        category: "Sculpture",
-        year: "2024",
+        slug: "MoriPath",
+        title: "MoriPath",
+        category: "Project",
+        year: "2025",
         color: "#2ecc71",
         image: "https://images.unsplash.com/photo-1656332694386-3dd2734e63c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHNjdWxwdHVyZSUyMG1vZGVybiUyMGFydHxlbnwxfHx8fDE3NzIxNjA1NzF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-        description: "Investigating the tension between presence and absence in three-dimensional space.",
-    },
-    {
-        id: 4,
-        title: "Silent Waters",
-        category: "Fine Art",
-        year: "2024",
-        color: "#3498db",
-        image: "https://images.unsplash.com/photo-1750473511825-1d6e3b09e562?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvY2VhbiUyMHdhdmVzJTIwYWVyaWFsJTIwZGFya3xlbnwxfHx8fDE3NzIwODYxOTd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-        description: "Capturing the meditative quality of water from perspectives rarely seen.",
-    },
-    {
-        id: 5,
-        title: "Dark Portrait",
-        category: "Photography",
-        year: "2024",
-        color: "#e67e22",
-        image: "https://images.unsplash.com/photo-1736366285834-25ad1e00c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXJrJTIwbW9vZHklMjBwb3J0cmFpdCUyMGFydGlzdGljfGVufDF8fHx8MTc3MjA4MDYyN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-        description: "Embracing shadow and light to reveal the unseen layers of identity.",
-    },
-    {
-        id: 6,
-        title: "Editorial Gaze",
-        category: "Fashion",
-        year: "2025",
-        color: "#1abc9c",
-        image: "https://images.unsplash.com/photo-1771072426459-1ab467cd80f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwZWRpdG9yaWFsJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MXx8fHwxNzcyMDgwNjI5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-        description: "Where fashion meets fine art in a dialogue of form and expression.",
+        description: "A pathfinding/graph toolkit exploring algorithms and visual explanations.",
     },
 ];
 
-export const Route = createFileRoute("/works/")({
+export const Route = createFileRoute("/projects/")({
     component: WorksPage,
 });
 
@@ -233,95 +209,97 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
     const styles = workItemStyles({ parity: isEven ? "even" : "odd" });
 
     return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8 }}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            className={styles.root}
-        >
-            <div className={styles.mediaColumn} style={{ order: isEven ? 1 : 2 }}>
-                <div className={styles.mediaFrame}>
-                    <motion.img
-                        src={work.image}
-                        alt={work.title}
-                        className={styles.mediaImage}
-                        style={{ y: imgY, filter: hovered ? "grayscale(0%)" : "grayscale(100%)" }}
-                    />
+        <Link to="/projects/$project" params={{ project: work.slug }}>
+            <motion.div
+                ref={ref}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8 }}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                className={styles.root}
+            >
+                <div className={styles.mediaColumn} style={{ order: isEven ? 1 : 2 }}>
+                    <div className={styles.mediaFrame}>
+                        <motion.img
+                            src={work.image}
+                            alt={work.title}
+                            className={styles.mediaImage}
+                            style={{ y: imgY, filter: hovered ? "grayscale(0%)" : "grayscale(100%)" }}
+                        />
+                        <div
+                            className={styles.mediaOverlay}
+                            style={{
+                                background: hovered ? `linear-gradient(135deg, ${work.color}15, transparent)` : "none",
+                            }}
+                        />
+                    </div>
+
                     <div
-                        className={styles.mediaOverlay}
-                        style={{
-                            background: hovered ? `linear-gradient(135deg, ${work.color}15, transparent)` : "none",
-                        }}
-                    />
-                </div>
-
-                <div
-                    className={styles.count}
-                    style={{
-                        ...monoStyle,
-                        color: hovered ? work.color : "rgba(31,41,55,0.4)",
-                    }}
-                >
-                    {String(index + 1).padStart(2, "0")} / {String(works.length).padStart(2, "0")}
-                </div>
-            </div>
-
-            <div className={styles.copyColumn} style={{ order: isEven ? 2 : 1 }}>
-                <span
-                    className={styles.meta}
-                    style={{
-                        ...monoStyle,
-                        color: hovered ? work.color : "var(--colors-fg-muted)",
-                    }}
-                >
-                    {work.category} - {work.year}
-                </span>
-
-                <h2
-                    className={styles.title}
-                    style={{
-                        ...serifDisplayStyle,
-                        lineHeight: 1.1,
-                        color: hovered ? "var(--colors-fg-default)" : "rgba(31,41,55,0.7)",
-                    }}
-                >
-                    {work.title}
-                </h2>
-
-                <p
-                    className={styles.description}
-                    style={{
-                        ...monoStyle,
-                        lineHeight: 1.8,
-                        color: hovered ? "rgba(31,41,55,0.7)" : "rgba(31,41,55,0.45)",
-                    }}
-                >
-                    {work.description}
-                </p>
-
-                <div className={styles.action}>
-                    <motion.div
-                        animate={{ width: hovered ? 48 : 24 }}
-                        transition={{ duration: 0.5 }}
-                        className={styles.actionLine}
-                        style={{ backgroundColor: hovered ? work.color : "rgba(31,41,55,0.16)" }}
-                    />
-                    <span
-                        className={styles.actionText}
+                        className={styles.count}
                         style={{
                             ...monoStyle,
-                            color: hovered ? work.color : "rgba(31,41,55,0.45)",
+                            color: hovered ? work.color : "rgba(31,41,55,0.4)",
                         }}
                     >
-                        View project
-                    </span>
+                        {String(index + 1).padStart(2, "0")} / {String(works.length).padStart(2, "0")}
+                    </div>
                 </div>
-            </div>
-        </motion.div>
+
+                <div className={styles.copyColumn} style={{ order: isEven ? 2 : 1 }}>
+                    <span
+                        className={styles.meta}
+                        style={{
+                            ...monoStyle,
+                            color: hovered ? work.color : "var(--colors-fg-muted)",
+                        }}
+                    >
+                        {work.category} - {work.year}
+                    </span>
+
+                    <h2
+                        className={styles.title}
+                        style={{
+                            ...serifDisplayStyle,
+                            lineHeight: 1.1,
+                            color: hovered ? "var(--colors-fg-default)" : "rgba(31,41,55,0.7)",
+                        }}
+                    >
+                        {work.title}
+                    </h2>
+
+                    <p
+                        className={styles.description}
+                        style={{
+                            ...monoStyle,
+                            lineHeight: 1.8,
+                            color: hovered ? "rgba(31,41,55,0.7)" : "rgba(31,41,55,0.45)",
+                        }}
+                    >
+                        {work.description}
+                    </p>
+
+                    <div className={styles.action}>
+                        <motion.div
+                            animate={{ width: hovered ? 48 : 24 }}
+                            transition={{ duration: 0.5 }}
+                            className={styles.actionLine}
+                            style={{ backgroundColor: hovered ? work.color : "rgba(31,41,55,0.16)" }}
+                        />
+                        <span
+                            className={styles.actionText}
+                            style={{
+                                ...monoStyle,
+                                color: hovered ? work.color : "rgba(31,41,55,0.45)",
+                            }}
+                        >
+                            View project
+                        </span>
+                    </div>
+                </div>
+            </motion.div>
+        </Link>
     );
 }
 

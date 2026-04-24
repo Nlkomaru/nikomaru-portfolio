@@ -2,23 +2,25 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { sva } from "styled-system/css";
 import { deLocalizeHref, getLocale, setLocale } from "../paraglide/runtime";
+import { ThemeToggleButton } from "./theme-toggle-button";
 
-const headerLayoutStyles = sva({
-    slots: ["desktopNav", "brand", "navList", "localeLink", "mobileBar"],
+const desktopNavbarStyles = sva({
+    slots: ["nav", "brand", "navList", "bottomControls", "localeLink"],
     base: {
-        desktopNav: {
+        nav: {
             position: "fixed",
             top: 0,
             left: 0,
             zIndex: 50,
-            display: { base: "none", md: "flex" },
+            display: "flex",
             h: "100vh",
             w: "14",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-between",
             borderRightWidth: "1px",
-            borderColor: "border.subtle",
+            borderRightStyle: "solid",
+            borderRightColor: "border.subtle",
             bg: "bg.canvas",
             py: "6",
         },
@@ -35,27 +37,44 @@ const headerLayoutStyles = sva({
             alignItems: "center",
             gap: "6",
         },
+        bottomControls: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "4",
+        },
         localeLink: {
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            h: "10",
+            w: "10",
+            px: "2",
+            py: "2",
+            borderRadius: "full",
+            borderWidth: "1px",
+            borderColor: "transparent",
+            transition: "background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease",
             fontSize: "0.7rem",
             letterSpacing: "0.2em",
             color: "fg.subtle",
-        },
-        mobileBar: {
-            position: "fixed",
-            top: 0,
-            left: 0,
-            zIndex: 40,
-            display: { base: "block", md: "none" },
-            h: "14",
-            w: "full",
-            borderBottomWidth: "1px",
-            borderColor: "border.subtle",
-            bg: "bg.canvas",
+            _hover: {
+                bg: "bg.subtle",
+                borderColor: "border.outline",
+            },
+            _active: {
+                transform: "scale(0.98)",
+            },
+            _focusVisible: {
+                outline: "2px solid",
+                outlineColor: "border.outline",
+                outlineOffset: "2px",
+            },
         },
     },
 });
 
-const headerNavItemStyles = sva({
+const desktopNavbarItemStyles = sva({
     slots: ["link", "dot", "label"],
     base: {
         link: {
@@ -105,63 +124,62 @@ const headerNavItemStyles = sva({
     },
 });
 
-export default function Header() {
+export function DesktopNavbar() {
     const routerState = useRouterState();
     const locale = getLocale();
     const targetLocale = locale === "ja" ? "en" : "ja";
     const basePathname = deLocalizeHref(routerState.location.pathname);
     const localeSearch = { ...routerState.location.search, __locale: targetLocale };
     const currentPath = deLocalizeHref(routerState.location.pathname);
+
     const navItems = [
         { label: "Index", to: "/" },
-        { label: "Works", to: "/works" },
         { label: "Talks", to: "/talks" },
+
+        { label: "Projects", to: "/projects" },
         { label: "About", to: "/about" },
         { label: "Pictures", to: "/pictures" },
-        { label: "Contact", to: "/contact" },
-    ];
-    const layoutStyles = headerLayoutStyles();
+    ] as const;
+
+    const styles = desktopNavbarStyles();
 
     return (
-        <>
-            <nav className={layoutStyles.desktopNav}>
-                <Link
-                    to="/"
-                    className={layoutStyles.brand}
-                    style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                >
-                    NIKOMARU
-                    <br />
-                    PORTFOLIO
-                </Link>
+        <nav className={styles.nav}>
+            <Link to="/" className={styles.brand} style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+                NIKOMARU
+                <br />
+                PORTFOLIO
+            </Link>
 
-                <div className={layoutStyles.navList}>
-                    {navItems.map((item, index) => {
-                        const isActive = currentPath === item.to;
-                        const itemStyles = headerNavItemStyles({
-                            state: isActive ? "active" : "inactive",
-                        });
+            <div className={styles.navList}>
+                {navItems.map((item, index) => {
+                    const isActive = currentPath === item.to;
+                    const itemStyles = desktopNavbarItemStyles({
+                        state: isActive ? "active" : "inactive",
+                    });
 
-                        return (
-                            <Link key={item.to} to={item.to} className={itemStyles.link}>
-                                <div
-                                    className={itemStyles.dot}
-                                    style={{ transform: isActive ? "scale(1.3)" : "scale(1)" }}
-                                />
-                                <span className={itemStyles.label} data-slot="nav-label">
-                                    {String(index + 1).padStart(2, "0")}—{item.label}
-                                </span>
-                            </Link>
-                        );
-                    })}
-                </div>
+                    return (
+                        <Link key={item.to} to={item.to} className={itemStyles.link}>
+                            <div
+                                className={itemStyles.dot}
+                                style={{ transform: isActive ? "scale(1.3)" : "scale(1)" }}
+                            />
+                            <span className={itemStyles.label} data-slot="nav-label">
+                                {String(index + 1).padStart(2, "0")}—{item.label}
+                            </span>
+                        </Link>
+                    );
+                })}
+            </div>
 
+            <div className={styles.bottomControls}>
+                <ThemeToggleButton />
                 <Link
                     to={basePathname}
                     search={localeSearch}
                     hash={routerState.location.hash}
                     onClick={() => setLocale(targetLocale, { reload: false })}
-                    className={layoutStyles.localeLink}
+                    className={styles.localeLink}
                     style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
                 >
                     <AnimatePresence mode="wait" initial={false}>
@@ -176,8 +194,8 @@ export default function Header() {
                         </motion.span>
                     </AnimatePresence>
                 </Link>
-            </nav>
-            <div className={layoutStyles.mobileBar} />
-        </>
+            </div>
+        </nav>
     );
 }
+

@@ -10,16 +10,14 @@ type ProviderProps = PropsWithChildren<ThemeProviderProps>;
 
 export function Provider({ children, ...props }: ProviderProps) {
     return (
-        <ChakraProvider value={system}>
-            <ThemeProvider
-                attribute="class"
-                forcedTheme="dark"
-                enableSystem={false}
-                disableTransitionOnChange
-                {...props}
-            >
-                {children}
-            </ThemeProvider>
-        </ChakraProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem={false}
+            disableTransitionOnChange
+            {...props}
+        >
+            <ChakraProvider value={system}>{children}</ChakraProvider>
+        </ThemeProvider>
     );
 }
