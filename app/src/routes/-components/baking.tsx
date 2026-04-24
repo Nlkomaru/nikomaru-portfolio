@@ -35,10 +35,10 @@ export function Baking() {
         <div className={styles.root}>
             <div className={styles.stack}>
                 <div className={styles.back}>
-                    <ImageFrame src="/sweets/Napoleon_pastry.avif" alt="Napoleon pastry" />
+                    <ImageFrame src="/sweets/napoleon-pastry.avif" alt="Napoleon pastry" />
                 </div>
                 <div className={styles.front}>
-                    <ImageFrame src="/sweets/Bonbon_au_chocolat.avif" alt="Bonbon au chocolat" />
+                    <ImageFrame src="/sweets/bonbon-au-chocolat.avif" alt="Bonbon au chocolat" />
                 </div>
             </div>
         </div>
