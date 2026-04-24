@@ -62,14 +62,14 @@ const miniImageFrameStyles = sva({
     },
 });
 
-type ImageFrameProps = {
+type MiniImageFrameProps = {
     src: string;
     alt: string;
     loading?: "lazy" | "eager";
     mode?: "fixed" | "fluid";
 };
 
-export function ImageFrame({ src, alt, loading = "lazy", mode = "fixed" }: ImageFrameProps) {
+export function MiniImageFrame({ src, alt, loading = "lazy", mode = "fixed" }: MiniImageFrameProps) {
     const styles = miniImageFrameStyles({ mode });
 
     return (
