@@ -3,7 +3,7 @@ import { createRootRoute, HeadContent, Link, Outlet, Scripts, useRouterState } f
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { sva } from "styled-system/css";
 
-import Header from "../components/header";
+import { Navbar } from "../components/navbar";
 import { Provider } from "../components/ui/provider";
 import { m } from "../paraglide/messages";
 import { getLocale } from "../paraglide/runtime";
@@ -127,7 +127,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             </head>
             <body>
                 <Provider>
-                    <Header />
+                    <Navbar />
                     <div className={styles.content}>{children}</div>
                 </Provider>
                 <TanStackDevtools

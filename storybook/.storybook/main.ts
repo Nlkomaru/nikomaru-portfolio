@@ -4,10 +4,12 @@ import type { StorybookConfig } from "@storybook/react-vite";
 const appDir = resolve(process.cwd(), "../app");
 const appSrcDir = resolve(appDir, "src");
 const appStyledSystemDir = resolve(appDir, "styled-system");
+const appPublicDir = resolve(appDir, "public");
 
 const config: StorybookConfig = {
-    stories: ["../stories/**/*.mdx", "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+    stories: ["../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
     addons: ["@storybook/addon-a11y", "@storybook/addon-docs", "@storybook/addon-themes", "@storybook/addon-designs"],
+    staticDirs: [appPublicDir],
     core: {
         builder: "@storybook/builder-vite",
     },
@@ -38,9 +40,7 @@ const config: StorybookConfig = {
         if (Array.isArray(config.resolve.alias)) {
             config.resolve.alias.push(...aliases);
         } else {
-            for (const alias of aliases) {
-                config.resolve.alias[alias.find] = alias.replacement;
-            }
+            config.resolve.alias = aliases;
         }
 
         return config;

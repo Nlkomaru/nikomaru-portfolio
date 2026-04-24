@@ -4,15 +4,15 @@ import { sva } from "styled-system/css";
 import { deLocalizeHref, getLocale, setLocale } from "../paraglide/runtime";
 import { ThemeToggleButton } from "./theme-toggle-button";
 
-const headerLayoutStyles = sva({
-    slots: ["desktopNav", "brand", "navList", "bottomControls", "localeLink", "mobileBar"],
+const desktopNavbarStyles = sva({
+    slots: ["nav", "brand", "navList", "bottomControls", "localeLink"],
     base: {
-        desktopNav: {
+        nav: {
             position: "fixed",
             top: 0,
             left: 0,
             zIndex: 50,
-            display: { base: "none", md: "flex" },
+            display: "flex",
             h: "100vh",
             w: "14",
             flexDirection: "column",
@@ -71,23 +71,10 @@ const headerLayoutStyles = sva({
                 outlineOffset: "2px",
             },
         },
-        mobileBar: {
-            position: "fixed",
-            top: 0,
-            left: 0,
-            zIndex: 40,
-            display: { base: "block", md: "none" },
-            h: "14",
-            w: "full",
-            borderBottomWidth: "1px",
-            borderBottomStyle: "solid",
-            borderBottomColor: "border.subtle",
-            bg: "bg.canvas",
-        },
     },
 });
 
-const headerNavItemStyles = sva({
+const desktopNavbarItemStyles = sva({
     slots: ["link", "dot", "label"],
     base: {
         link: {
@@ -137,81 +124,78 @@ const headerNavItemStyles = sva({
     },
 });
 
-export default function Header() {
+export function DesktopNavbar() {
     const routerState = useRouterState();
     const locale = getLocale();
     const targetLocale = locale === "ja" ? "en" : "ja";
     const basePathname = deLocalizeHref(routerState.location.pathname);
     const localeSearch = { ...routerState.location.search, __locale: targetLocale };
     const currentPath = deLocalizeHref(routerState.location.pathname);
+
     const navItems = [
         { label: "Index", to: "/" },
-        { label: "Projects", to: "/projects" },
         { label: "Talks", to: "/talks" },
+
+        { label: "Projects", to: "/projects" },
         { label: "About", to: "/about" },
         { label: "Pictures", to: "/pictures" },
-    ];
-    const layoutStyles = headerLayoutStyles();
+    ] as const;
+
+    const styles = desktopNavbarStyles();
 
     return (
-        <>
-            <nav className={layoutStyles.desktopNav}>
+        <nav className={styles.nav}>
+            <Link to="/" className={styles.brand} style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+                NIKOMARU
+                <br />
+                PORTFOLIO
+            </Link>
+
+            <div className={styles.navList}>
+                {navItems.map((item, index) => {
+                    const isActive = currentPath === item.to;
+                    const itemStyles = desktopNavbarItemStyles({
+                        state: isActive ? "active" : "inactive",
+                    });
+
+                    return (
+                        <Link key={item.to} to={item.to} className={itemStyles.link}>
+                            <div
+                                className={itemStyles.dot}
+                                style={{ transform: isActive ? "scale(1.3)" : "scale(1)" }}
+                            />
+                            <span className={itemStyles.label} data-slot="nav-label">
+                                {String(index + 1).padStart(2, "0")}—{item.label}
+                            </span>
+                        </Link>
+                    );
+                })}
+            </div>
+
+            <div className={styles.bottomControls}>
+                <ThemeToggleButton />
                 <Link
-                    to="/"
-                    className={layoutStyles.brand}
+                    to={basePathname}
+                    search={localeSearch}
+                    hash={routerState.location.hash}
+                    onClick={() => setLocale(targetLocale, { reload: false })}
+                    className={styles.localeLink}
                     style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
                 >
-                    NIKOMARU
-                    <br />
-                    PORTFOLIO
+                    <AnimatePresence mode="wait" initial={false}>
+                        <motion.span
+                            key={targetLocale}
+                            initial={{ opacity: 0, y: 4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -4 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            {targetLocale.toUpperCase()}
+                        </motion.span>
+                    </AnimatePresence>
                 </Link>
-
-                <div className={layoutStyles.navList}>
-                    {navItems.map((item, index) => {
-                        const isActive = currentPath === item.to;
-                        const itemStyles = headerNavItemStyles({
-                            state: isActive ? "active" : "inactive",
-                        });
-
-                        return (
-                            <Link key={item.to} to={item.to} className={itemStyles.link}>
-                                <div
-                                    className={itemStyles.dot}
-                                    style={{ transform: isActive ? "scale(1.3)" : "scale(1)" }}
-                                />
-                                <span className={itemStyles.label} data-slot="nav-label">
-                                    {String(index + 1).padStart(2, "0")}—{item.label}
-                                </span>
-                            </Link>
-                        );
-                    })}
-                </div>
-
-                <div className={layoutStyles.bottomControls}>
-                    <ThemeToggleButton />
-                    <Link
-                        to={basePathname}
-                        search={localeSearch}
-                        hash={routerState.location.hash}
-                        onClick={() => setLocale(targetLocale, { reload: false })}
-                        className={layoutStyles.localeLink}
-                        style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                    >
-                        <AnimatePresence mode="wait" initial={false}>
-                            <motion.span
-                                key={targetLocale}
-                                initial={{ opacity: 0, y: 4 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -4 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                {targetLocale.toUpperCase()}
-                            </motion.span>
-                        </AnimatePresence>
-                    </Link>
-                </div>
-            </nav>
-            <div className={layoutStyles.mobileBar} />
-        </>
+            </div>
+        </nav>
     );
 }
+
