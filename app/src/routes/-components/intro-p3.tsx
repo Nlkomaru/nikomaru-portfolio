@@ -1,7 +1,7 @@
+import { Link } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { getLocale } from "../../paraglide/runtime";
 import { Baking } from "./baking";
-import { Link } from "@tanstack/react-router";
 
 const introP3Styles = sva({
     slots: ["baking"],
@@ -39,7 +39,10 @@ export function IntroP3() {
             <span className={styles.baking}>
                 <Baking />
             </span>
-            baking or <Link to="/pictures" data-inline-link>taking photos</Link>
+            baking or{" "}
+            <Link to="/pictures" data-inline-link>
+                taking photos
+            </Link>
             . I started photography after buying a camera recently, and I enjoy creating things with care—learning
             through trial and error along the way.
         </p>

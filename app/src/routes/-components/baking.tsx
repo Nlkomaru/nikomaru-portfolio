@@ -1,5 +1,5 @@
 import { sva } from "styled-system/css";
-import { MiniImageFrame  } from "./mini-image-frame";
+import { MiniImageFrame } from "./mini-image-frame";
 
 const bakingStyles = sva({
     slots: ["root", "stack", "back", "front"],
