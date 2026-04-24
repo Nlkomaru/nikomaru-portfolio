@@ -53,4 +53,23 @@ export const globalCss = defineGlobalStyles({
         bg: "bg.inverted",
         color: "fg.inverted",
     },
+    "a[data-inline-link]": {
+        color: "fg.default",
+        textDecorationLine: "underline",
+        textDecorationStyle: "solid",
+        textDecorationThickness: "2px",
+        textUnderlineOffset: "2px",
+        textDecorationColor: "border.outline",
+        transition: "color 0.2s ease, text-decoration-color 0.2s ease",
+        "&:hover": {
+            color: "fg.default",
+            textDecorationColor: "fg.default",
+        },
+        "&:focus-visible": {
+            outline: "2px solid",
+            outlineColor: "border.outline",
+            outlineOffset: "2px",
+            borderRadius: "xs",
+        },
+    },
 });

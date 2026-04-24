@@ -2,7 +2,6 @@
     "metaSiteTitle": "Nikomaru - フルスタック開発者",
     "metaSiteDescription": "nikomaruのポートフォリオサイト",
     "navSlides": "スライド",
-    "homeGreeting": "こんにちは！Nikomaruです",
     "slidesTitle": "作製したスライド一覧",
     "slidesDescription": "nikomaruが作製したスライドの一覧ページです。",
     "languageLabel": "言語",
@@ -18,9 +17,8 @@
         "available": "対応可能",
         "availabilityNote": "2026年Q2以降の新規プロジェクト相談を受け付けています。"
     },
+    "homeGreeting": "こんにちは、にこまるです",
     "top": {
-        "introP1": "私はNikomaruです。日本在住の開発者で、大学生です。TypeScript、React、Kotlinを中心に、WebとMinecraftの両方でものづくりをしています。",
-        "introP2": "認証や開発者向けのシステムに強い関心があります。MineAuthではOAuth2 / OpenID Connectおよび関連するAPI設計に取り組んでいます。また、MoriPathやChlorophyllなどのプロジェクトでは、モダンなWeb開発、UIの土台、デザインシステムを探求しています。",
-        "introP3": "コードから離れているときは、多くの場合パン焼きや写真を楽しんでいます。丁寧にものをつくること、試行錯誤しながら学ぶこと、技術と創作の両方に喜びを見いだすことを大切にしています。"
+        "introP1": "現在、日本の大学で学生をしています。Kotlin、TypeScript、Reactを中心に、Minecraftのプラグイン開発やWebアプリケーションの開発に取り組んでいます。"
     }
 }

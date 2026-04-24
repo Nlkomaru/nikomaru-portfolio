@@ -2,9 +2,10 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { sva } from "styled-system/css";
 import { deLocalizeHref, getLocale, setLocale } from "../paraglide/runtime";
+import { ThemeToggleButton } from "./theme-toggle-button";
 
 const headerLayoutStyles = sva({
-    slots: ["desktopNav", "brand", "navList", "localeLink", "mobileBar"],
+    slots: ["desktopNav", "brand", "navList", "bottomControls", "localeLink", "mobileBar"],
     base: {
         desktopNav: {
             position: "fixed",
@@ -18,7 +19,8 @@ const headerLayoutStyles = sva({
             alignItems: "center",
             justifyContent: "space-between",
             borderRightWidth: "1px",
-            borderColor: "border.subtle",
+            borderRightStyle: "solid",
+            borderRightColor: "border.subtle",
             bg: "bg.canvas",
             py: "6",
         },
@@ -35,10 +37,39 @@ const headerLayoutStyles = sva({
             alignItems: "center",
             gap: "6",
         },
+        bottomControls: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "4",
+        },
         localeLink: {
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            h: "10",
+            w: "10",
+            px: "2",
+            py: "2",
+            borderRadius: "full",
+            borderWidth: "1px",
+            borderColor: "transparent",
+            transition: "background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease",
             fontSize: "0.7rem",
             letterSpacing: "0.2em",
             color: "fg.subtle",
+            _hover: {
+                bg: "bg.subtle",
+                borderColor: "border.outline",
+            },
+            _active: {
+                transform: "scale(0.98)",
+            },
+            _focusVisible: {
+                outline: "2px solid",
+                outlineColor: "border.outline",
+                outlineOffset: "2px",
+            },
         },
         mobileBar: {
             position: "fixed",
@@ -49,7 +80,8 @@ const headerLayoutStyles = sva({
             h: "14",
             w: "full",
             borderBottomWidth: "1px",
-            borderColor: "border.subtle",
+            borderBottomStyle: "solid",
+            borderBottomColor: "border.subtle",
             bg: "bg.canvas",
         },
     },
@@ -114,11 +146,10 @@ export default function Header() {
     const currentPath = deLocalizeHref(routerState.location.pathname);
     const navItems = [
         { label: "Index", to: "/" },
-        { label: "Works", to: "/works" },
+        { label: "Projects", to: "/projects" },
         { label: "Talks", to: "/talks" },
         { label: "About", to: "/about" },
         { label: "Pictures", to: "/pictures" },
-        { label: "Contact", to: "/contact" },
     ];
     const layoutStyles = headerLayoutStyles();
 
@@ -156,26 +187,29 @@ export default function Header() {
                     })}
                 </div>
 
-                <Link
-                    to={basePathname}
-                    search={localeSearch}
-                    hash={routerState.location.hash}
-                    onClick={() => setLocale(targetLocale, { reload: false })}
-                    className={layoutStyles.localeLink}
-                    style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                >
-                    <AnimatePresence mode="wait" initial={false}>
-                        <motion.span
-                            key={targetLocale}
-                            initial={{ opacity: 0, y: 4 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -4 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            {targetLocale.toUpperCase()}
-                        </motion.span>
-                    </AnimatePresence>
-                </Link>
+                <div className={layoutStyles.bottomControls}>
+                    <ThemeToggleButton />
+                    <Link
+                        to={basePathname}
+                        search={localeSearch}
+                        hash={routerState.location.hash}
+                        onClick={() => setLocale(targetLocale, { reload: false })}
+                        className={layoutStyles.localeLink}
+                        style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+                    >
+                        <AnimatePresence mode="wait" initial={false}>
+                            <motion.span
+                                key={targetLocale}
+                                initial={{ opacity: 0, y: 4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -4 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                {targetLocale.toUpperCase()}
+                            </motion.span>
+                        </AnimatePresence>
+                    </Link>
+                </div>
             </nav>
             <div className={layoutStyles.mobileBar} />
         </>
