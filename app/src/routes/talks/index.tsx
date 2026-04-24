@@ -35,21 +35,6 @@ const talksPageStyles = sva({
 });
 
 export const Route = createFileRoute("/talks/")({
-    head: ({ loaderData }) => {
-        const publicSlides = loaderData?.filter((s) => s.type === "public");
-        const firstImage = publicSlides?.[0]?.image;
-
-        return {
-            meta: [
-                { title: `${m.slidesTitle()} | nikomaru.dev` },
-                {
-                    name: "description",
-                    content: m.slidesDescription(),
-                },
-            ],
-            links: firstImage ? [{ rel: "preload", href: firstImage, as: "image" }] : [],
-        };
-    },
     loader: () => getSlides(),
     staleTime: 1000 * 60 * 5,
     component: SlidesPage,
@@ -77,7 +62,9 @@ function SlidesPage() {
 
             <div className={styles.grid}>
                 {publicSlides.map((slide, i) => (
-                    <SlideCard slide={slide} key={slide.id} priority={i < ABOVE_FOLD_COUNT} />
+                    <div key={slide.id}>
+                        <h1>{slide.title}</h1>
+                    </div>
                 ))}
             </div>
         </div>
