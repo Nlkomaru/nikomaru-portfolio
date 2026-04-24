@@ -1,6 +1,5 @@
 import { env } from "cloudflare:workers";
 import { createServerFn } from "@tanstack/react-start";
-import type { Slide } from "../-types/slide";
 
 type SlideInfoV2 = {
     $schema: string;
@@ -33,5 +32,7 @@ export const getSlides = createServerFn({ method: "GET" }).handler(async () => {
     return data
         .filter((v) => v.type !== "private")
         .sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())
-        .sort((a, b) => new Date(b.presentation?.date ?? "").getTime() - new Date(a.presentation?.date ?? "").getTime());
+        .sort(
+            (a, b) => new Date(b.presentation?.date ?? "").getTime() - new Date(a.presentation?.date ?? "").getTime(),
+        );
 });

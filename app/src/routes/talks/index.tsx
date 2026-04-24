@@ -2,10 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { sva } from "styled-system/css";
 import { m } from "../../paraglide/messages";
-import SlideCard from "./-components/slide-card";
 import { getSlides } from "./-functions/get-slides";
-
-const ABOVE_FOLD_COUNT = 3;
 
 const talksPageStyles = sva({
     slots: ["root", "title", "grid"],
@@ -61,7 +58,7 @@ function SlidesPage() {
             </AnimatePresence>
 
             <div className={styles.grid}>
-                {publicSlides.map((slide, i) => (
+                {publicSlides.map((slide) => (
                     <div key={slide.id}>
                         <h1>{slide.title}</h1>
                     </div>

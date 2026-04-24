@@ -12,7 +12,6 @@ import { tokens } from "../app/theme/tokens";
 
 const { container: _containerRecipe, ...pandaRecipes } = recipes;
 
-
 export default defineConfig({
     globalCss,
     preflight: true,
