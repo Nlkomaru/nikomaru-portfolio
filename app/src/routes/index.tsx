@@ -41,7 +41,14 @@ const appPageStyles = sva({
         },
     },
 });
-export const Route = createFileRoute("/")({ component: AppPage });
+export const Route = createFileRoute("/")({
+    component: AppPage,
+    headers: () => ({
+        // Cache HTML at the edge to reduce TTFB on repeat visits.
+        // Keep browser cache minimal to avoid stale locale-specific content.
+        "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+    }),
+});
 
 function AppPage() {
     const styles = appPageStyles();
@@ -56,6 +63,9 @@ function AppPage() {
                     alt="icon"
                     width={48}
                     height={48}
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                 />
                 <p className={styles.greetingText}>{m["homeGreeting"]()}</p>
             </div>
