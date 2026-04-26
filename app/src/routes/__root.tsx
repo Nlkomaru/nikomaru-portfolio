@@ -14,8 +14,11 @@ const rootDocumentStyles = sva({
     slots: ["content"],
     base: {
         content: {
-            minH: "100vh",
+            // Use dvh so the height tracks the dynamic viewport (address bar show/hide)
+            // On mobile, subtract the fixed header height to prevent total overflow
+            minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
             ml: { md: "14" },
+            mt: { base: "14", md: "0" },
         },
     },
 });
@@ -24,14 +27,14 @@ const notFoundStyles = sva({
     slots: ["root", "section", "eyebrow", "title", "description", "linkWrap", "backLink"],
     base: {
         root: {
-            minH: "100vh",
+            minH: "100dvh",
             bg: "bg.canvas",
             color: "fg.default",
             pt: { base: "14", md: "0" },
         },
         section: {
             display: "flex",
-            minH: { base: "calc(100vh - 3.5rem)", md: "100vh" },
+            minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
             flexDirection: "column",
             justifyContent: "center",
             gap: "6",

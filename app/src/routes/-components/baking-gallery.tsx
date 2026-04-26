@@ -1,50 +1,38 @@
 import { Dialog, Portal } from "@chakra-ui/react";
-import { AnimatePresence, motion, type PanInfo } from "framer-motion";
+import { motion, type PanInfo } from "framer-motion";
 import { useState } from "react";
 import { sva } from "styled-system/css";
 import { Baking } from "./baking";
 import { ImageFrame } from "./image-frame";
 
 const sweets = [
-    {
-        src: "/sweets/napoleon-pastry.avif",
-        alt: "Napoleon pastry",
-        title: "Napoleon pastry",
-    },
-    {
-        src: "/sweets/bonbon-au-chocolat.avif",
-        alt: "Bonbon au chocolat",
-        title: "Bonbon au chocolat",
-    },
-    {
-        src: "/sweets/chocolate-cake.avif",
-        alt: "Chocolate cake",
-        title: "Chocolate cake",
-    },
-    {
-        src: "/sweets/lemon-tart.avif",
-        alt: "Lemon tart",
-        title: "Lemon tart",
-    },
+    { src: "/sweets/bonbon-au-chocolat.avif", alt: "Bonbon au chocolat", title: "Bonbon au chocolat" },
+    { src: "/sweets/petit-strawberry-tart.avif", alt: "Petit strawberry tart", title: "Petit strawberry tart" },
+    { src: "/sweets/souffle-pancakes.avif", alt: "Soufflé pancakes", title: "Soufflé pancakes" },
+    { src: "/sweets/chocolate-tart.avif", alt: "Chocolate tart", title: "Chocolate tart" },
+    { src: "/sweets/strawberry-tart.avif", alt: "Strawberry tart", title: "Strawberry tart" },
+    { src: "/sweets/shortcake.avif", alt: "Shortcake", title: "Shortcake" },
+    { src: "/sweets/napoleon-pie.avif", alt: "Napoleon pie", title: "Napoleon pie" },
+    { src: "/sweets/creme-brulee.avif", alt: "Crème brûlée", title: "Crème brûlée" },
+    { src: "/sweets/mont-blanc-tart.avif", alt: "Mont blanc tart", title: "Mont blanc tart" },
 ] as const;
 
-const swipeConfidenceThreshold = 10_000;
+const swipeConfidenceThreshold = 8_000;
+const swipeDistanceThreshold = 90;
+const cardExitDistance = 560;
+const minCardTilt = 2;
+const maxCardTilt = 7;
+
+const stackPlacement = { x: 0, y: 0, scale: 1 } as const;
+
+type SwipeExit = {
+    x: number;
+    y: number;
+    rotate: number;
+};
 
 const bakingGalleryStyles = sva({
-    slots: [
-        "root",
-        "trigger",
-        "backdrop",
-        "positioner",
-        "content",
-        "closeButton",
-        "viewport",
-        "slide",
-        "controls",
-        "navButton",
-        "dots",
-        "dot",
-    ],
+    slots: ["root", "trigger", "backdrop", "positioner", "deck", "card"],
     base: {
         root: {
             display: "inline-flex",
@@ -87,148 +75,81 @@ const bakingGalleryStyles = sva({
             justifyContent: "center",
             px: "5",
         },
-        content: {
+        deck: {
             position: "relative",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
             w: "min(92vw, 460px)",
-            outline: "none",
-        },
-        closeButton: {
-            position: "absolute",
-            top: "-12",
-            right: "0",
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            w: "9",
-            h: "9",
-            borderRadius: "full",
-            borderWidth: "1px",
-            borderColor: "white/30",
-            bg: "white/15",
-            color: "white",
-            cursor: "pointer",
-            fontSize: "xl",
-            lineHeight: 1,
-            backdropFilter: "blur(8px)",
-            _hover: {
-                bg: "white/25",
-            },
-            _focusVisible: {
-                outline: "2px solid",
-                outlineColor: "white",
-                outlineOffset: "2px",
-            },
-        },
-        viewport: {
-            position: "relative",
-            w: "full",
-            overflow: "hidden",
+            h: { base: "320px", md: "360px" },
             cursor: "grab",
+            touchAction: "none",
+            bg: "transparent",
+            boxShadow: "none",
+            border: "none",
+            outline: "none",
             _active: {
                 cursor: "grabbing",
             },
         },
-        slide: {
+        card: {
+            position: "absolute",
+            inset: 0,
             w: "full",
             px: "1",
-        },
-        controls: {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "4",
-            mt: "5",
-        },
-        navButton: {
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            w: "10",
-            h: "10",
-            borderRadius: "full",
-            borderWidth: "1px",
-            borderColor: "white/30",
-            bg: "white/15",
-            color: "white",
-            cursor: "pointer",
-            fontSize: "xl",
-            lineHeight: 1,
-            backdropFilter: "blur(8px)",
-            _hover: {
-                bg: "white/25",
-            },
-            _focusVisible: {
-                outline: "2px solid",
-                outlineColor: "white",
-                outlineOffset: "2px",
-            },
-        },
-        dots: {
-            display: "flex",
-            alignItems: "center",
-            gap: "2",
-        },
-        dot: {
-            w: "2",
-            h: "2",
-            borderRadius: "full",
-            border: 0,
-            bg: "white/45",
-            cursor: "pointer",
-            transition: "background-color 0.2s ease, transform 0.2s ease",
-            "&[data-active=true]": {
-                bg: "white",
-                transform: "scale(1.35)",
-            },
-            _focusVisible: {
-                outline: "2px solid",
-                outlineColor: "white",
-                outlineOffset: "3px",
+            transformOrigin: "center center",
+            userSelect: "none",
+            "& img": {
+                pointerEvents: "none",
+                userSelect: "none",
             },
         },
     },
 });
 
-function wrapSweetIndex(index: number) {
-    return (index + sweets.length) % sweets.length;
+function getSwipeConfidence(distance: number, velocity: number) {
+    return distance * velocity;
 }
 
-function getSwipeConfidence(offset: number, velocity: number) {
-    return Math.abs(offset) * velocity;
+function hashText(text: string) {
+    return [...text].reduce((hash, character) => (hash * 31 + character.charCodeAt(0)) >>> 0, 0);
+}
+
+function getCardTilt(seed: string) {
+    const hash = hashText(seed);
+    const sign = hash % 2 === 0 ? 1 : -1;
+    const range = maxCardTilt - minCardTilt;
+
+    return sign * (minCardTilt + (hash % (range + 1)));
 }
 
 export function BakingGallery() {
     const styles = bakingGalleryStyles();
-    const [[currentIndex, direction], setPage] = useState([0, 0]);
+    const [deck, setDeck] = useState(() => [...sweets]);
+    const [swipeExit, setSwipeExit] = useState<SwipeExit | null>(null);
     const [open, setOpen] = useState(false);
-    const currentSweet = sweets[currentIndex];
 
-    const paginate = (newDirection: number) => {
-        setPage(([page]) => [wrapSweetIndex(page + newDirection), newDirection]);
-    };
-
-    const showSweet = (nextIndex: number) => {
-        if (nextIndex === currentIndex) {
-            return;
-        }
-
-        setPage(([page]) => [nextIndex, nextIndex > page ? 1 : -1]);
+    const sendTopCardToBack = () => {
+        setDeck(([topCard, ...restCards]) => (topCard ? [...restCards, topCard] : restCards));
+        setSwipeExit(null);
     };
 
     const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, { offset, velocity }: PanInfo) => {
-        const swipe = getSwipeConfidence(offset.x, velocity.x);
+        const distance = Math.hypot(offset.x, offset.y);
+        const speed = Math.hypot(velocity.x, velocity.y);
+        const swipe = getSwipeConfidence(distance, speed);
 
-        if (swipe < -swipeConfidenceThreshold) {
-            paginate(1);
+        if (distance < swipeDistanceThreshold && swipe < swipeConfidenceThreshold) {
             return;
         }
 
-        if (swipe > swipeConfidenceThreshold) {
-            paginate(-1);
-        }
+        const fallbackX = offset.x === 0 && offset.y === 0 ? 1 : offset.x;
+        const fallbackY = offset.x === 0 && offset.y === 0 ? 0 : offset.y;
+        const vectorLength = Math.hypot(fallbackX, fallbackY);
+        const rotate = Math.max(-18, Math.min(18, offset.x / 8 || velocity.x / 80));
+
+        setSwipeExit({
+            x: (fallbackX / vectorLength) * cardExitDistance,
+            y: (fallbackY / vectorLength) * cardExitDistance,
+            rotate,
+        });
     };
 
     return (
@@ -247,72 +168,59 @@ export function BakingGallery() {
             <Portal>
                 <Dialog.Backdrop className={styles.backdrop} />
                 <Dialog.Positioner className={styles.positioner}>
-                    <Dialog.Content className={styles.content}>
-                        <Dialog.CloseTrigger className={styles.closeButton} aria-label="Close baking gallery">
-                            x
-                        </Dialog.CloseTrigger>
+                    <Dialog.Content asChild>
+                        <div className={styles.deck}>
+                            {deck.map((sweet, position) => {
+                                const isTopCard = position === 0;
+                                const rotate = getCardTilt(`${sweet.title}:${sweet.src}`);
 
-                        <div className={styles.viewport}>
-                            <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                                <motion.div
-                                    key={currentSweet.src}
-                                    className={styles.slide}
-                                    custom={direction}
-                                    initial={{
-                                        opacity: 0,
-                                        x: direction >= 0 ? 140 : -140,
-                                        rotate: direction >= 0 ? 4 : -4,
-                                    }}
-                                    animate={{ opacity: 1, x: 0, rotate: 0 }}
-                                    exit={{
-                                        opacity: 0,
-                                        x: direction >= 0 ? -140 : 140,
-                                        rotate: direction >= 0 ? -4 : 4,
-                                    }}
-                                    transition={{ type: "spring", stiffness: 320, damping: 34 }}
-                                    drag="x"
-                                    dragConstraints={{ left: 0, right: 0 }}
-                                    dragElastic={0.65}
-                                    onDragEnd={handleDragEnd}
-                                >
-                                    <ImageFrame
-                                        src={currentSweet.src}
-                                        alt={currentSweet.alt}
-                                        title={currentSweet.title}
-                                    />
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-
-                        <div className={styles.controls}>
-                            <button
-                                type="button"
-                                className={styles.navButton}
-                                aria-label="Show previous sweet"
-                                onClick={() => paginate(-1)}
-                            >
-                                {"<"}
-                            </button>
-                            <nav className={styles.dots} aria-label="Baking gallery pages">
-                                {sweets.map((sweet, index) => (
-                                    <button
+                                return (
+                                    <motion.div
                                         key={sweet.src}
-                                        type="button"
-                                        className={styles.dot}
-                                        data-active={index === currentIndex}
-                                        aria-label={`Show ${sweet.title}`}
-                                        onClick={() => showSweet(index)}
-                                    />
-                                ))}
-                            </nav>
-                            <button
-                                type="button"
-                                className={styles.navButton}
-                                aria-label="Show next sweet"
-                                onClick={() => paginate(1)}
-                            >
-                                {">"}
-                            </button>
+                                        className={styles.card}
+                                        style={{
+                                            zIndex: sweets.length - position,
+                                            pointerEvents: isTopCard ? "auto" : "none",
+                                        }}
+                                        initial={false}
+                                        animate={
+                                            isTopCard && swipeExit
+                                                ? swipeExit
+                                                : {
+                                                      ...stackPlacement,
+                                                      rotate,
+                                                      opacity: 1,
+                                                  }
+                                        }
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 600,
+                                            damping: 48,
+                                            mass: 1,
+                                            restDelta: 0.5,
+                                            restSpeed: 1,
+                                        }}
+                                        drag={isTopCard && !swipeExit}
+                                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                                        dragElastic={0.9}
+                                        dragMomentum={false}
+                                        dragTransition={{
+                                            bounceStiffness: 600,
+                                            bounceDamping: 48,
+                                            restDelta: 0.5,
+                                            restSpeed: 1,
+                                        }}
+                                        onDragEnd={isTopCard ? handleDragEnd : undefined}
+                                        onAnimationComplete={() => {
+                                            if (isTopCard && swipeExit) {
+                                                sendTopCardToBack();
+                                            }
+                                        }}
+                                    >
+                                        <ImageFrame src={sweet.src} alt={sweet.alt} title={sweet.title} />
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </Dialog.Content>
                 </Dialog.Positioner>

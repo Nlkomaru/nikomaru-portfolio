@@ -5,7 +5,7 @@ const projectPageStyles = sva({
     slots: ["root", "section", "eyebrow", "title", "description", "backLink"],
     base: {
         root: {
-            minH: "100vh",
+            minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
             bg: "bg.canvas",
             color: "fg.default",
             pt: { base: "20", md: "16" },

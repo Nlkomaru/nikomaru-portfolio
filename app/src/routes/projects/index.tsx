@@ -16,7 +16,7 @@ const worksPageStyles = sva({
     slots: ["root", "hero", "eyebrow", "title", "list"],
     base: {
         root: {
-            minH: "100vh",
+            minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
             bg: "bg.canvas",
         },
         hero: {

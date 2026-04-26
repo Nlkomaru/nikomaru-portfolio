@@ -14,7 +14,7 @@ const imageFrameStyles = sva({
             px: "3",
             pt: "3",
             pb: "2",
-            gap: "2",
+            gap: "1",
             boxShadow: "0px 0px 1px 0px rgba(24,24,27,0.30), 0px 4px 8px 0px rgba(24,24,27,0.10)",
         },
         media: {
@@ -38,6 +38,8 @@ const imageFrameStyles = sva({
             fontSize: "3xl",
             textAlign: "center",
             w: "calc(100% - 1rem)",
+            h: "100%",
+            lineHeight: "normal",
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
@@ -55,11 +57,11 @@ export function ImageFrame({ src, alt, title }: ImageFrameProps) {
     const styles = imageFrameStyles();
 
     return (
-        <div className={styles.root}>
+        <figure className={styles.root}>
             <div className={styles.media}>
-                <img src={src} alt={alt} decoding="async" loading="lazy" className={styles.image} />
+                <img src={src} alt={alt} decoding="async" loading="lazy" draggable={false} className={styles.image} />
             </div>
-            <div className={styles.title}>{title}</div>
-        </div>
+            <figcaption className={styles.title}>{title}</figcaption>
+        </figure>
     );
 }
