@@ -36,6 +36,7 @@ const appPageStyles = sva({
         intro: {
             color: "fg.muted",
             display: "flex",
+            fontSize: "lg",
             flexDirection: "column",
             gap: "4",
         },

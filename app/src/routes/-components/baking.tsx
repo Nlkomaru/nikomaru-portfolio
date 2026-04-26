@@ -9,13 +9,13 @@ const bakingStyles = sva({
         },
         stack: {
             position: "relative",
-            w: "25px",
+            w: "27px",
             aspectRatio: "1 / 1",
         },
         back: {
             position: "absolute",
-            left: "5px",
-            top: "4px",
+            left: "4px",
+            top: "3px",
             transform: "rotate(-6deg)",
             transformOrigin: "left bottom",
             opacity: 0.95,
@@ -23,7 +23,7 @@ const bakingStyles = sva({
         front: {
             position: "absolute",
             right: 0,
-            bottom: 0.5,
+            bottom: 0.9,
         },
     },
 });
