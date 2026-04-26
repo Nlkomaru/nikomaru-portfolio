@@ -135,7 +135,6 @@ export function DesktopNavbar() {
     const navItems = [
         { label: "Index", to: "/" },
         { label: "Talks", to: "/talks" },
-
         { label: "Projects", to: "/projects" },
         { label: "About", to: "/about" },
         { label: "Pictures", to: "/pictures" },
@@ -198,4 +197,3 @@ export function DesktopNavbar() {
         </nav>
     );
 }
-

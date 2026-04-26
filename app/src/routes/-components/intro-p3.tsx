@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { getLocale } from "../../paraglide/runtime";
-import { Baking } from "./baking";
+import { BakingGallery } from "./baking-gallery";
 
 const introP3Styles = sva({
     slots: ["baking"],
@@ -22,7 +22,7 @@ export function IntroP3() {
             <p>
                 また、プログラミング以外には、
                 <span className={styles.baking}>
-                    <Baking />
+                    <BakingGallery />
                 </span>
                 お菓子作りや、最近カメラを購入したことをきっかけに始めた
                 <Link to="/pictures" data-inline-link>
@@ -37,7 +37,7 @@ export function IntroP3() {
         <p>
             When I&apos;m not coding, I&apos;m usually{" "}
             <span className={styles.baking}>
-                <Baking />
+                <BakingGallery />
             </span>
             baking or{" "}
             <Link to="/pictures" data-inline-link>

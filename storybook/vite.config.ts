@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
-import react from "@vitejs/plugin-react";
 import pandacss from "@pandacss/dev/postcss";
+import react from "@vitejs/plugin-react";
 import autoprefixer from "autoprefixer";
 import { defineConfig } from "vite";
 

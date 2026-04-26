@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Baking } from "@/routes/-components/baking";
 import { Provider } from "@/components/ui/provider";
+import { Baking } from "@/routes/-components/baking";
 
 const meta: Meta<typeof Baking> = {
     title: "routes/components/Baking",
@@ -26,4 +26,3 @@ export default meta;
 export const Default: StoryObj<typeof meta> = {
     args: {},
 };
-

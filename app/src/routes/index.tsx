@@ -8,7 +8,11 @@ const appPageStyles = sva({
     slots: ["root", "greeting", "greetingText", "icon", "intro"],
     base: {
         root: {
-            minH: "100vh",
+            minH: {
+                // dvh tracks the dynamic viewport, avoiding jitter from address bar show/hide
+                base: "calc(100dvh - 3.5rem)",
+                md: "100dvh",
+            },
             bg: "bg.canvas",
             px: { base: "8", md: "20" },
             display: "flex",
@@ -26,9 +30,10 @@ const appPageStyles = sva({
             alignItems: "center",
         },
         greetingText: {
-            fontSize: "3xl",
+            fontSize: "2xl",
             fontWeight: "bold",
             color: "fg.default",
+            wordBreak: "keep-all",
         },
         icon: {
             borderRadius: "full",
@@ -36,6 +41,7 @@ const appPageStyles = sva({
         intro: {
             color: "fg.muted",
             display: "flex",
+            fontSize: "md",
             flexDirection: "column",
             gap: "4",
         },

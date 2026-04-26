@@ -6,76 +6,41 @@ const miniImageFrameStyles = sva({
         root: {
             position: "relative",
             display: "block",
+            w: "full",
+            h: "full",
         },
-        frame: {},
-        image: {},
-    },
-    variants: {
-        mode: {
-            fixed: {
-                root: {
-                    w: "25px",
-                    h: "21px",
-                },
-                frame: {
-                    w: "25px",
-                    h: "21px",
-                    borderRadius: "xs",
-                    bg: "white",
-                    boxShadow: "md",
-                },
-                image: {
-                    position: "absolute",
-                    left: "2px",
-                    top: "2px",
-                    w: "21px",
-                    h: "14px",
-                    objectFit: "cover",
-                    borderRadius: "xs",
-                    display: "block",
-                },
-            },
-            fluid: {
-                frame: {
-                    w: "full",
-                    h: "full",
-                    borderRadius: "3xl",
-                    bg: "white",
-                    borderWidth: "1px",
-                    borderColor: "border.outline",
-                    boxShadow: "0 18px 40px rgba(0,0,0,0.28)",
-                },
-                image: {
-                    position: "absolute",
-                    inset: 0,
-                    w: "full",
-                    h: "full",
-                    objectFit: "cover",
-                    borderRadius: "inherit",
-                    display: "block",
-                },
-            },
+        frame: {
+            w: "calc(9px * 3 + 2px)",
+            h: "calc(9px * 2 + 5px)",
+            borderRadius: "xs",
+            bg: "white",
+            boxShadow: "md",
         },
-    },
-    defaultVariants: {
-        mode: "fixed",
+        image: {
+            position: "absolute",
+            left: "1px",
+            top: "1px",
+            w: "calc(9px * 3)",
+            h: "calc(9px * 2)",
+            objectFit: "cover",
+            borderRadius: "xs",
+            display: "block",
+        },
     },
 });
 
 type MiniImageFrameProps = {
     src: string;
     alt: string;
-    loading?: "lazy" | "eager";
-    mode?: "fixed" | "fluid";
 };
 
-export function MiniImageFrame({ src, alt, loading = "lazy", mode = "fixed" }: MiniImageFrameProps) {
-    const styles = miniImageFrameStyles({ mode });
+export function MiniImageFrame({ src, alt }: MiniImageFrameProps) {
+    const styles = miniImageFrameStyles();
 
     return (
         <div className={styles.root}>
             <div className={styles.frame} />
-            <img src={src} alt={alt} decoding="async" loading={loading} className={styles.image} />
+            <img src={src} alt={alt} decoding="async" loading="lazy" className={styles.image} />
         </div>
     );
 }

@@ -24,7 +24,7 @@ const contactPageStyles = sva({
     ],
     base: {
         root: {
-            minH: "100vh",
+            minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
             bg: "bg.canvas",
             px: { base: "8", md: "20" },
             pt: { base: "24", md: "28" },

@@ -1,9 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
+import { Menu } from "lucide-react";
 import { sva } from "styled-system/css";
 import { deLocalizeHref, getLocale, setLocale } from "../paraglide/runtime";
 import { ThemeToggleButton } from "./theme-toggle-button";
-import { Menu } from "lucide-react";
 
 const mobileHeaderStyles = sva({
     slots: ["bar", "inner", "brand", "controls", "localeButton"],
@@ -108,4 +108,3 @@ export function MobileHeader() {
         </div>
     );
 }
-

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Navbar } from "@/components/navbar";
 import { DesktopNavbar } from "@/components/desktop-navbar";
 import { MobileHeader } from "@/components/mobile-header";
+import { Navbar } from "@/components/navbar";
 import { Provider } from "@/components/ui/provider";
 
 const meta: Meta<typeof Navbar> = {
@@ -42,4 +42,3 @@ export const Mobile: StoryObj<typeof meta> = {
         ),
     ],
 };
-

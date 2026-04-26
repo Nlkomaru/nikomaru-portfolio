@@ -11,6 +11,9 @@ importers:
       '@biomejs/biome':
         specifier: ^2.4.10
         version: 2.4.10
+      '@fontsource/caveat':
+        specifier: ^5.2.8
+        version: 5.2.8
 
   app:
     dependencies:
@@ -23,9 +26,9 @@ importers:
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.2.14)(react@19.2.4)
-      '@fontsource/cormorant-garamond':
-        specifier: ^5.2.11
-        version: 5.2.11
+      '@fontsource/caveat':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@fontsource/noto-sans-jp':
         specifier: ^5.2.9
         version: 5.2.9
@@ -1200,8 +1203,8 @@ packages:
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
 
-  '@fontsource/cormorant-garamond@5.2.11':
-    resolution: {integrity: sha512-5JjpN023lhA5soijgVT0BdRGzmlijm402ppjccMd6h+vRE0mX2lJnE+41UPfnlidrkV9/rCo1mf58WZlHnB0CA==}
+  '@fontsource/caveat@5.2.8':
+    resolution: {integrity: sha512-9fUUfFE2IQFKbx+xOcaeQxxmh8iJguEb8z+j1PeueO4UUx+XfT4pRm/B04ZDvFA794/iRxY/IibmP8ZKtIf4rw==}
 
   '@fontsource/noto-sans-jp@5.2.9':
     resolution: {integrity: sha512-6yVGiofnrnbiJjU8ch4JGSs2HqyozxMvsVyVmFwOnDH3u//qQKLqmKM4n0lqN0637uaJNzUW9nIJqbbMgHVQzw==}
@@ -7902,7 +7905,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.11': {}
 
-  '@fontsource/cormorant-garamond@5.2.11': {}
+  '@fontsource/caveat@5.2.8': {}
 
   '@fontsource/noto-sans-jp@5.2.9': {}
 

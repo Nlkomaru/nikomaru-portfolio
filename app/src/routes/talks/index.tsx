@@ -2,10 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { sva } from "styled-system/css";
 import { m } from "../../paraglide/messages";
-import SlideCard from "./-components/slide-card";
 import { getSlides } from "./-functions/get-slides";
-
-const ABOVE_FOLD_COUNT = 3;
 
 const talksPageStyles = sva({
     slots: ["root", "title", "grid"],
@@ -35,21 +32,6 @@ const talksPageStyles = sva({
 });
 
 export const Route = createFileRoute("/talks/")({
-    head: ({ loaderData }) => {
-        const publicSlides = loaderData?.filter((s) => s.type === "public");
-        const firstImage = publicSlides?.[0]?.image;
-
-        return {
-            meta: [
-                { title: `${m.slidesTitle()} | nikomaru.dev` },
-                {
-                    name: "description",
-                    content: m.slidesDescription(),
-                },
-            ],
-            links: firstImage ? [{ rel: "preload", href: firstImage, as: "image" }] : [],
-        };
-    },
     loader: () => getSlides(),
     staleTime: 1000 * 60 * 5,
     component: SlidesPage,
@@ -76,8 +58,10 @@ function SlidesPage() {
             </AnimatePresence>
 
             <div className={styles.grid}>
-                {publicSlides.map((slide, i) => (
-                    <SlideCard slide={slide} key={slide.id} priority={i < ABOVE_FOLD_COUNT} />
+                {publicSlides.map((slide) => (
+                    <div key={slide.id}>
+                        <h1>{slide.title}</h1>
+                    </div>
                 ))}
             </div>
         </div>
