@@ -26,12 +26,18 @@ importers:
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.2.14)(react@19.2.4)
+      '@fontsource/cormorant-garamond':
+        specifier: ^5.2.11
+        version: 5.2.11
       '@fontsource/noto-sans-jp':
         specifier: ^5.2.9
         version: 5.2.9
       '@fontsource/poppins':
         specifier: ^5.2.7
         version: 5.2.7
+      '@fontsource/space-mono':
+        specifier: ^5.2.9
+        version: 5.2.9
       '@inlang/paraglide-js':
         specifier: ^2.12.0
         version: 2.15.1(babel-plugin-macros@3.1.0)
@@ -1205,6 +1211,9 @@ packages:
 
   '@fontsource/poppins@5.2.7':
     resolution: {integrity: sha512-6uQyPmseo4FgI97WIhA4yWRlNaoLk4vSDK/PyRwdqqZb5zAEuc+Kunt8JTMcsHYUEGYBtN15SNkMajMdqUSUmg==}
+
+  '@fontsource/space-mono@5.2.9':
+    resolution: {integrity: sha512-b61faFOHEISQ/pD25G+cfGY9o/WW6lRv6hBQQfpWvEJ4y1V+S4gmth95EVyBE2VL3qDYHeVQ8nBzrplzdXTDDg==}
 
   '@fontsource/zen-kaku-gothic-new@5.2.7':
     resolution: {integrity: sha512-tfGiyBqeeBjUURHm+RIuBJCxIKhZFp46/+LEc+zCxR4sLslKwlVpWda0ZOnX/mTvOHpfr4DYjiV/pVosRXHWaw==}
@@ -7896,11 +7905,11 @@ snapshots:
 
   '@floating-ui/utils@0.2.11': {}
 
-  '@fontsource/caveat@5.2.8': {}
-
   '@fontsource/noto-sans-jp@5.2.9': {}
 
   '@fontsource/poppins@5.2.7': {}
+
+  '@fontsource/space-mono@5.2.9': {}
 
   '@fontsource/zen-kaku-gothic-new@5.2.7': {}
 
