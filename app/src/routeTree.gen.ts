@@ -8,212 +8,203 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as TalksIndexRouteImport } from './routes/talks/index'
-import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
-import { Route as PicturesIndexRouteImport } from './routes/pictures/index'
-import { Route as ContactIndexRouteImport } from './routes/contact/index'
-import { Route as AboutIndexRouteImport } from './routes/about/index'
-import { Route as SlideSplatRouteImport } from './routes/slide/$'
-import { Route as ProjectsProjectRouteImport } from './routes/projects/$project'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as AboutIndexRouteImport } from "./routes/about/index";
+import { Route as ContactIndexRouteImport } from "./routes/contact/index";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as PicturesIndexRouteImport } from "./routes/pictures/index";
+import { Route as ProjectsProjectRouteImport } from "./routes/projects/$project";
+import { Route as ProjectsIndexRouteImport } from "./routes/projects/index";
+import { Route as SlideSplatRouteImport } from "./routes/slide/$";
+import { Route as TalksIndexRouteImport } from "./routes/talks/index";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+    id: "/",
+    path: "/",
+    getParentRoute: () => rootRouteImport,
+} as any);
 const TalksIndexRoute = TalksIndexRouteImport.update({
-  id: '/talks/',
-  path: '/talks/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+    id: "/talks/",
+    path: "/talks/",
+    getParentRoute: () => rootRouteImport,
+} as any);
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
-  id: '/projects/',
-  path: '/projects/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+    id: "/projects/",
+    path: "/projects/",
+    getParentRoute: () => rootRouteImport,
+} as any);
 const PicturesIndexRoute = PicturesIndexRouteImport.update({
-  id: '/pictures/',
-  path: '/pictures/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+    id: "/pictures/",
+    path: "/pictures/",
+    getParentRoute: () => rootRouteImport,
+} as any);
 const ContactIndexRoute = ContactIndexRouteImport.update({
-  id: '/contact/',
-  path: '/contact/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+    id: "/contact/",
+    path: "/contact/",
+    getParentRoute: () => rootRouteImport,
+} as any);
 const AboutIndexRoute = AboutIndexRouteImport.update({
-  id: '/about/',
-  path: '/about/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+    id: "/about/",
+    path: "/about/",
+    getParentRoute: () => rootRouteImport,
+} as any);
 const SlideSplatRoute = SlideSplatRouteImport.update({
-  id: '/slide/$',
-  path: '/slide/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
+    id: "/slide/$",
+    path: "/slide/$",
+    getParentRoute: () => rootRouteImport,
+} as any);
 const ProjectsProjectRoute = ProjectsProjectRouteImport.update({
-  id: '/projects/$project',
-  path: '/projects/$project',
-  getParentRoute: () => rootRouteImport,
-} as any)
+    id: "/projects/$project",
+    path: "/projects/$project",
+    getParentRoute: () => rootRouteImport,
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/projects/$project': typeof ProjectsProjectRoute
-  '/slide/$': typeof SlideSplatRoute
-  '/about/': typeof AboutIndexRoute
-  '/contact/': typeof ContactIndexRoute
-  '/pictures/': typeof PicturesIndexRoute
-  '/projects/': typeof ProjectsIndexRoute
-  '/talks/': typeof TalksIndexRoute
+    "/": typeof IndexRoute;
+    "/projects/$project": typeof ProjectsProjectRoute;
+    "/slide/$": typeof SlideSplatRoute;
+    "/about/": typeof AboutIndexRoute;
+    "/contact/": typeof ContactIndexRoute;
+    "/pictures/": typeof PicturesIndexRoute;
+    "/projects/": typeof ProjectsIndexRoute;
+    "/talks/": typeof TalksIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/projects/$project': typeof ProjectsProjectRoute
-  '/slide/$': typeof SlideSplatRoute
-  '/about': typeof AboutIndexRoute
-  '/contact': typeof ContactIndexRoute
-  '/pictures': typeof PicturesIndexRoute
-  '/projects': typeof ProjectsIndexRoute
-  '/talks': typeof TalksIndexRoute
+    "/": typeof IndexRoute;
+    "/projects/$project": typeof ProjectsProjectRoute;
+    "/slide/$": typeof SlideSplatRoute;
+    "/about": typeof AboutIndexRoute;
+    "/contact": typeof ContactIndexRoute;
+    "/pictures": typeof PicturesIndexRoute;
+    "/projects": typeof ProjectsIndexRoute;
+    "/talks": typeof TalksIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/projects/$project': typeof ProjectsProjectRoute
-  '/slide/$': typeof SlideSplatRoute
-  '/about/': typeof AboutIndexRoute
-  '/contact/': typeof ContactIndexRoute
-  '/pictures/': typeof PicturesIndexRoute
-  '/projects/': typeof ProjectsIndexRoute
-  '/talks/': typeof TalksIndexRoute
+    __root__: typeof rootRouteImport;
+    "/": typeof IndexRoute;
+    "/projects/$project": typeof ProjectsProjectRoute;
+    "/slide/$": typeof SlideSplatRoute;
+    "/about/": typeof AboutIndexRoute;
+    "/contact/": typeof ContactIndexRoute;
+    "/pictures/": typeof PicturesIndexRoute;
+    "/projects/": typeof ProjectsIndexRoute;
+    "/talks/": typeof TalksIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/projects/$project'
-    | '/slide/$'
-    | '/about/'
-    | '/contact/'
-    | '/pictures/'
-    | '/projects/'
-    | '/talks/'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/projects/$project'
-    | '/slide/$'
-    | '/about'
-    | '/contact'
-    | '/pictures'
-    | '/projects'
-    | '/talks'
-  id:
-    | '__root__'
-    | '/'
-    | '/projects/$project'
-    | '/slide/$'
-    | '/about/'
-    | '/contact/'
-    | '/pictures/'
-    | '/projects/'
-    | '/talks/'
-  fileRoutesById: FileRoutesById
+    fileRoutesByFullPath: FileRoutesByFullPath;
+    fullPaths:
+        | "/"
+        | "/projects/$project"
+        | "/slide/$"
+        | "/about/"
+        | "/contact/"
+        | "/pictures/"
+        | "/projects/"
+        | "/talks/";
+    fileRoutesByTo: FileRoutesByTo;
+    to: "/" | "/projects/$project" | "/slide/$" | "/about" | "/contact" | "/pictures" | "/projects" | "/talks";
+    id:
+        | "__root__"
+        | "/"
+        | "/projects/$project"
+        | "/slide/$"
+        | "/about/"
+        | "/contact/"
+        | "/pictures/"
+        | "/projects/"
+        | "/talks/";
+    fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ProjectsProjectRoute: typeof ProjectsProjectRoute
-  SlideSplatRoute: typeof SlideSplatRoute
-  AboutIndexRoute: typeof AboutIndexRoute
-  ContactIndexRoute: typeof ContactIndexRoute
-  PicturesIndexRoute: typeof PicturesIndexRoute
-  ProjectsIndexRoute: typeof ProjectsIndexRoute
-  TalksIndexRoute: typeof TalksIndexRoute
+    IndexRoute: typeof IndexRoute;
+    ProjectsProjectRoute: typeof ProjectsProjectRoute;
+    SlideSplatRoute: typeof SlideSplatRoute;
+    AboutIndexRoute: typeof AboutIndexRoute;
+    ContactIndexRoute: typeof ContactIndexRoute;
+    PicturesIndexRoute: typeof PicturesIndexRoute;
+    ProjectsIndexRoute: typeof ProjectsIndexRoute;
+    TalksIndexRoute: typeof TalksIndexRoute;
 }
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+declare module "@tanstack/react-router" {
+    interface FileRoutesByPath {
+        "/": {
+            id: "/";
+            path: "/";
+            fullPath: "/";
+            preLoaderRoute: typeof IndexRouteImport;
+            parentRoute: typeof rootRouteImport;
+        };
+        "/talks/": {
+            id: "/talks/";
+            path: "/talks";
+            fullPath: "/talks/";
+            preLoaderRoute: typeof TalksIndexRouteImport;
+            parentRoute: typeof rootRouteImport;
+        };
+        "/projects/": {
+            id: "/projects/";
+            path: "/projects";
+            fullPath: "/projects/";
+            preLoaderRoute: typeof ProjectsIndexRouteImport;
+            parentRoute: typeof rootRouteImport;
+        };
+        "/pictures/": {
+            id: "/pictures/";
+            path: "/pictures";
+            fullPath: "/pictures/";
+            preLoaderRoute: typeof PicturesIndexRouteImport;
+            parentRoute: typeof rootRouteImport;
+        };
+        "/contact/": {
+            id: "/contact/";
+            path: "/contact";
+            fullPath: "/contact/";
+            preLoaderRoute: typeof ContactIndexRouteImport;
+            parentRoute: typeof rootRouteImport;
+        };
+        "/about/": {
+            id: "/about/";
+            path: "/about";
+            fullPath: "/about/";
+            preLoaderRoute: typeof AboutIndexRouteImport;
+            parentRoute: typeof rootRouteImport;
+        };
+        "/slide/$": {
+            id: "/slide/$";
+            path: "/slide/$";
+            fullPath: "/slide/$";
+            preLoaderRoute: typeof SlideSplatRouteImport;
+            parentRoute: typeof rootRouteImport;
+        };
+        "/projects/$project": {
+            id: "/projects/$project";
+            path: "/projects/$project";
+            fullPath: "/projects/$project";
+            preLoaderRoute: typeof ProjectsProjectRouteImport;
+            parentRoute: typeof rootRouteImport;
+        };
     }
-    '/talks/': {
-      id: '/talks/'
-      path: '/talks'
-      fullPath: '/talks/'
-      preLoaderRoute: typeof TalksIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects/': {
-      id: '/projects/'
-      path: '/projects'
-      fullPath: '/projects/'
-      preLoaderRoute: typeof ProjectsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pictures/': {
-      id: '/pictures/'
-      path: '/pictures'
-      fullPath: '/pictures/'
-      preLoaderRoute: typeof PicturesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact/': {
-      id: '/contact/'
-      path: '/contact'
-      fullPath: '/contact/'
-      preLoaderRoute: typeof ContactIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about/': {
-      id: '/about/'
-      path: '/about'
-      fullPath: '/about/'
-      preLoaderRoute: typeof AboutIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/slide/$': {
-      id: '/slide/$'
-      path: '/slide/$'
-      fullPath: '/slide/$'
-      preLoaderRoute: typeof SlideSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects/$project': {
-      id: '/projects/$project'
-      path: '/projects/$project'
-      fullPath: '/projects/$project'
-      preLoaderRoute: typeof ProjectsProjectRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  ProjectsProjectRoute: ProjectsProjectRoute,
-  SlideSplatRoute: SlideSplatRoute,
-  AboutIndexRoute: AboutIndexRoute,
-  ContactIndexRoute: ContactIndexRoute,
-  PicturesIndexRoute: PicturesIndexRoute,
-  ProjectsIndexRoute: ProjectsIndexRoute,
-  TalksIndexRoute: TalksIndexRoute,
-}
-export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+    IndexRoute: IndexRoute,
+    ProjectsProjectRoute: ProjectsProjectRoute,
+    SlideSplatRoute: SlideSplatRoute,
+    AboutIndexRoute: AboutIndexRoute,
+    ContactIndexRoute: ContactIndexRoute,
+    PicturesIndexRoute: PicturesIndexRoute,
+    ProjectsIndexRoute: ProjectsIndexRoute,
+    TalksIndexRoute: TalksIndexRoute,
+};
+export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
+import type { createStart } from "@tanstack/react-start";
+import type { getRouter } from "./router.tsx";
+
+declare module "@tanstack/react-start" {
+    interface Register {
+        ssr: true;
+        router: Awaited<ReturnType<typeof getRouter>>;
+    }
 }

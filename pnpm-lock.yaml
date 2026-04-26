@@ -26,9 +26,9 @@ importers:
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.2.14)(react@19.2.4)
-      '@fontsource/cormorant-garamond':
-        specifier: ^5.2.11
-        version: 5.2.11
+      '@fontsource/caveat':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@fontsource/noto-sans-jp':
         specifier: ^5.2.9
         version: 5.2.9
@@ -7904,6 +7904,8 @@ snapshots:
       '@floating-ui/utils': 0.2.11
 
   '@floating-ui/utils@0.2.11': {}
+
+  '@fontsource/caveat@5.2.8': {}
 
   '@fontsource/noto-sans-jp@5.2.9': {}
 
