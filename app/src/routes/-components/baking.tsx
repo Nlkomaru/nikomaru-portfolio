@@ -32,12 +32,22 @@ export function Baking() {
     const styles = bakingStyles();
 
     return (
-        <div className={styles.root}>
-            <div className={styles.stack}>
-                <div className={styles.back}>
+        <div className={styles.root} style={{ width: 27, height: 27 }}>
+            <div className={styles.stack} style={{ position: "relative", width: 27, height: 27 }}>
+                <div
+                    className={styles.back}
+                    style={{
+                        position: "absolute",
+                        left: 4,
+                        top: 3,
+                        transform: "rotate(-6deg)",
+                        transformOrigin: "left bottom",
+                        opacity: 0.95,
+                    }}
+                >
                     <MiniImageFrame src="/sweets/napoleon-pastry.avif" alt="Napoleon pastry" />
                 </div>
-                <div className={styles.front}>
+                <div className={styles.front} style={{ position: "absolute", right: 0, bottom: 0 }}>
                     <MiniImageFrame src="/sweets/bonbon-au-chocolat.avif" alt="Bonbon au chocolat" />
                 </div>
             </div>

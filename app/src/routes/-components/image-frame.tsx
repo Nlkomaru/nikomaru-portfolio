@@ -51,15 +51,16 @@ type ImageFrameProps = {
     src: string;
     alt: string;
     title: string;
+    loading: "eager" | "lazy";
 };
 
-export function ImageFrame({ src, alt, title }: ImageFrameProps) {
+export function ImageFrame({ src, alt, title, loading }: ImageFrameProps) {
     const styles = imageFrameStyles();
 
     return (
         <figure className={styles.root}>
             <div className={styles.media}>
-                <img src={src} alt={alt} decoding="async" loading="lazy" draggable={false} className={styles.image} />
+                <img src={src} alt={alt} decoding="async" loading={loading} draggable={false} className={styles.image} />
             </div>
             <figcaption className={styles.title}>{title}</figcaption>
         </figure>
