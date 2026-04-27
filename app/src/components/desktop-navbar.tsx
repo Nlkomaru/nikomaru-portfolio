@@ -57,7 +57,7 @@ const desktopNavbarStyles = sva({
             transition: "background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease",
             fontSize: "0.7rem",
             letterSpacing: "0.2em",
-            color: "fg.subtle",
+            color: "fg.default",
             _hover: {
                 bg: "bg.subtle",
                 borderColor: "border.outline",

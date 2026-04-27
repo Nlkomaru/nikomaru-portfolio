@@ -6,8 +6,18 @@ import { Baking } from "./baking";
 import { ImageFrame } from "./image-frame";
 
 const sweets = [
-    { src: "/sweets/bonbon-au-chocolat.avif", alt: "Bonbon au chocolat", title: "Bonbon au chocolat", loading: "eager" },
-    { src: "/sweets/petit-strawberry-tart.avif", alt: "Petit strawberry tart", title: "Petit strawberry tart", loading: "lazy" },
+    {
+        src: "/sweets/bonbon-au-chocolat.avif",
+        alt: "Bonbon au chocolat",
+        title: "Bonbon au chocolat",
+        loading: "eager",
+    },
+    {
+        src: "/sweets/petit-strawberry-tart.avif",
+        alt: "Petit strawberry tart",
+        title: "Petit strawberry tart",
+        loading: "lazy",
+    },
     { src: "/sweets/souffle-pancakes.avif", alt: "Soufflé pancakes", title: "Soufflé pancakes", loading: "lazy" },
     { src: "/sweets/chocolate-tart.avif", alt: "Chocolate tart", title: "Chocolate tart", loading: "lazy" },
     { src: "/sweets/strawberry-tart.avif", alt: "Strawberry tart", title: "Strawberry tart", loading: "lazy" },
@@ -272,7 +282,12 @@ export function BakingGallery() {
                                             }
                                         }}
                                     >
-                                        <ImageFrame src={sweet.src} alt={sweet.alt} title={sweet.title} loading={sweet.loading} />
+                                        <ImageFrame
+                                            src={sweet.src}
+                                            alt={sweet.alt}
+                                            title={sweet.title}
+                                            loading={sweet.loading}
+                                        />
                                     </motion.div>
                                 );
                             })}
