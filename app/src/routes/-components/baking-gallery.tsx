@@ -6,15 +6,15 @@ import { Baking } from "./baking";
 import { ImageFrame } from "./image-frame";
 
 const sweets = [
-    { src: "/sweets/bonbon-au-chocolat.avif", alt: "Bonbon au chocolat", title: "Bonbon au chocolat" },
-    { src: "/sweets/petit-strawberry-tart.avif", alt: "Petit strawberry tart", title: "Petit strawberry tart" },
-    { src: "/sweets/souffle-pancakes.avif", alt: "Soufflé pancakes", title: "Soufflé pancakes" },
-    { src: "/sweets/chocolate-tart.avif", alt: "Chocolate tart", title: "Chocolate tart" },
-    { src: "/sweets/strawberry-tart.avif", alt: "Strawberry tart", title: "Strawberry tart" },
-    { src: "/sweets/shortcake.avif", alt: "Shortcake", title: "Shortcake" },
-    { src: "/sweets/napoleon-pie.avif", alt: "Napoleon pie", title: "Napoleon pie" },
-    { src: "/sweets/creme-brulee.avif", alt: "Crème brûlée", title: "Crème brûlée" },
-    { src: "/sweets/mont-blanc-tart.avif", alt: "Mont blanc tart", title: "Mont blanc tart" },
+    { src: "/sweets/bonbon-au-chocolat.avif", alt: "Bonbon au chocolat", title: "Bonbon au chocolat", loading: "eager" },
+    { src: "/sweets/petit-strawberry-tart.avif", alt: "Petit strawberry tart", title: "Petit strawberry tart", loading: "lazy" },
+    { src: "/sweets/souffle-pancakes.avif", alt: "Soufflé pancakes", title: "Soufflé pancakes", loading: "lazy" },
+    { src: "/sweets/chocolate-tart.avif", alt: "Chocolate tart", title: "Chocolate tart", loading: "lazy" },
+    { src: "/sweets/strawberry-tart.avif", alt: "Strawberry tart", title: "Strawberry tart", loading: "lazy" },
+    { src: "/sweets/shortcake.avif", alt: "Shortcake", title: "Shortcake", loading: "lazy" },
+    { src: "/sweets/napoleon-pie.avif", alt: "Napoleon pie", title: "Napoleon pie", loading: "lazy" },
+    { src: "/sweets/creme-brulee.avif", alt: "Crème brûlée", title: "Crème brûlée", loading: "lazy" },
+    { src: "/sweets/mont-blanc-tart.avif", alt: "Mont blanc tart", title: "Mont blanc tart", loading: "lazy" },
 ] as const;
 
 const swipeConfidenceThreshold = 8_000;
@@ -32,7 +32,7 @@ type SwipeExit = {
 };
 
 const bakingGalleryStyles = sva({
-    slots: ["root", "trigger", "backdrop", "positioner", "deck", "card"],
+    slots: ["root", "trigger", "backdrop", "positioner", "deck", "card", "close"],
     base: {
         root: {
             display: "inline-flex",
@@ -101,6 +101,36 @@ const bakingGalleryStyles = sva({
                 userSelect: "none",
             },
         },
+        close: {
+            position: "fixed",
+            top: "2",
+            right: "3",
+            zIndex: 52,
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            w: "10",
+            h: "10",
+            p: 0,
+            bg: "transparent",
+            color: "white",
+            border: 0,
+            cursor: "pointer",
+            transition: "opacity 0.2s ease, transform 0.2s ease",
+            opacity: 0.8,
+            _hover: {
+                opacity: 1,
+                transform: "scale(1.08)",
+            },
+            _active: {
+                transform: "scale(0.96)",
+            },
+            _focusVisible: {
+                outline: "2px solid",
+                outlineColor: "white",
+                outlineOffset: "2px",
+            },
+        },
     },
 });
 
@@ -154,20 +184,45 @@ export function BakingGallery() {
 
     return (
         <Dialog.Root open={open} onOpenChange={(details) => setOpen(details.open)} placement="center">
-            <div className={styles.root}>
+            <span className={styles.root} style={{ display: "inline-flex", verticalAlign: "middle" }}>
                 <button
                     type="button"
                     className={styles.trigger}
                     aria-label="Open baking gallery"
                     onClick={() => setOpen(true)}
+                    style={{
+                        appearance: "none",
+                        border: 0,
+                        padding: 0,
+                        background: "transparent",
+                        color: "inherit",
+                        cursor: "pointer",
+                        lineHeight: 0,
+                    }}
                 >
                     <Baking />
                 </button>
-            </div>
+            </span>
 
             <Portal>
                 <Dialog.Backdrop className={styles.backdrop} />
                 <Dialog.Positioner className={styles.positioner}>
+                    <Dialog.CloseTrigger className={styles.close} aria-label="Close baking gallery">
+                        <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </Dialog.CloseTrigger>
                     <Dialog.Content asChild>
                         <div className={styles.deck}>
                             {deck.map((sweet, position) => {
@@ -217,7 +272,7 @@ export function BakingGallery() {
                                             }
                                         }}
                                     >
-                                        <ImageFrame src={sweet.src} alt={sweet.alt} title={sweet.title} />
+                                        <ImageFrame src={sweet.src} alt={sweet.alt} title={sweet.title} loading={sweet.loading} />
                                     </motion.div>
                                 );
                             })}

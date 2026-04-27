@@ -1,13 +1,18 @@
 import { sva } from "styled-system/css";
 
+const MINI_IMAGE_W = 9 * 3;
+const MINI_IMAGE_H = 9 * 2;
+const MINI_FRAME_W = MINI_IMAGE_W + 2;
+const MINI_FRAME_H = MINI_IMAGE_H + 5;
+
 const miniImageFrameStyles = sva({
     slots: ["root", "frame", "image"],
     base: {
         root: {
             position: "relative",
             display: "block",
-            w: "full",
-            h: "full",
+            w: `${MINI_FRAME_W}px`,
+            h: `${MINI_FRAME_H}px`,
         },
         frame: {
             w: "calc(9px * 3 + 2px)",
@@ -38,9 +43,27 @@ export function MiniImageFrame({ src, alt }: MiniImageFrameProps) {
     const styles = miniImageFrameStyles();
 
     return (
-        <div className={styles.root}>
-            <div className={styles.frame} />
-            <img src={src} alt={alt} decoding="async" loading="lazy" className={styles.image} />
+        <div
+            className={styles.root}
+            style={{ width: MINI_FRAME_W, height: MINI_FRAME_H, position: "relative", display: "block" }}
+        >
+            <div className={styles.frame} style={{ width: MINI_FRAME_W, height: MINI_FRAME_H }} />
+            <img
+                src={src}
+                alt={alt}
+                width={MINI_IMAGE_W}
+                height={MINI_IMAGE_H}
+                className={styles.image}
+                style={{
+                    position: "absolute",
+                    left: 1,
+                    top: 1,
+                    width: MINI_IMAGE_W,
+                    height: MINI_IMAGE_H,
+                    objectFit: "cover",
+                    display: "block",
+                }}
+            />
         </div>
     );
 }
