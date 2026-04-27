@@ -65,7 +65,7 @@ function AppPage() {
             <div className={styles.greeting}>
                 <img
                     className={styles.icon}
-                    src="https://avatars.githubusercontent.com/u/76208219?v=4"
+                    src="/icon.avif"
                     alt="icon"
                     width={48}
                     height={48}

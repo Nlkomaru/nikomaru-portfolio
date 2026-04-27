@@ -42,10 +42,7 @@ export function IntroP3() {
                         margin: "0 0.5rem",
                     }}
                 >
-                    <span
-                        className={styles.bakingInner}
-
-                    >
+                    <span className={styles.bakingInner}>
                         <BakingGallery />
                     </span>
                 </span>{" "}
@@ -72,10 +69,7 @@ export function IntroP3() {
                     margin: "0 0.5rem",
                 }}
             >
-                <span
-                    className={styles.bakingInner}
-
-                >
+                <span className={styles.bakingInner}>
                     <BakingGallery />
                 </span>
             </span>{" "}
