@@ -1,5 +1,5 @@
 import { Dialog, Portal } from "@chakra-ui/react";
-import { motion } from "motion/react";
+import { motion, type PanInfo } from "motion/react";
 import { useState } from "react";
 import { sva } from "styled-system/css";
 import { Baking } from "./baking";
