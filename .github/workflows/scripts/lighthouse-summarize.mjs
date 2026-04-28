@@ -1,21 +1,22 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
-let manifest = [];
-try {
-    manifest = JSON.parse(readFileSync(".lighthouseci/manifest.json", "utf8"));
-} catch {
-    manifest = [];
-}
+const logContents = (() => {
+    try {
+        return readFileSync("lighthouse.log", "utf8");
+    } catch {
+        return "";
+    }
+})();
 
-if (!Array.isArray(manifest) || manifest.length === 0) {
+if (!logContents.trim()) {
     writeFileSync("lighthouse-summary.md", "No Lighthouse reports were generated.\n");
     writeFileSync("lighthouse-failed.txt", "1\n");
     process.exit(0);
 }
 
-const logContents = (() => {
+const urlListContents = (() => {
     try {
-        return readFileSync("lighthouse.log", "utf8");
+        return readFileSync("lighthouse-urls.txt", "utf8");
     } catch {
         return "";
     }
@@ -29,10 +30,6 @@ function toDisplayPath(url) {
     } catch {
         return url;
     }
-}
-
-function scoreToPercent(score) {
-    return Math.round((score ?? 0) * 100);
 }
 
 function normalizeUrl(url) {
@@ -61,39 +58,32 @@ function collectReportLinks(log) {
     return links;
 }
 
+const urls = urlListContents
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
 const reportLinks = collectReportLinks(logContents);
-const rows = manifest
-    .filter((entry) => entry?.isRepresentativeRun)
-    .map((entry) => {
-        const rawUrl = entry.url || "unknown";
-        const summary = entry.summary || {};
-        return {
-            url: rawUrl,
-            path: toDisplayPath(rawUrl),
-            reportUrl: reportLinks.get(normalizeUrl(rawUrl)) || "",
-            performance: scoreToPercent(summary.performance),
-            accessibility: scoreToPercent(summary.accessibility),
-            bestPractices: scoreToPercent(summary["best-practices"]),
-            seo: scoreToPercent(summary.seo),
-        };
-    })
+const rows = urls
+    .map((url) => ({
+        url,
+        path: toDisplayPath(url),
+        reportUrl: reportLinks.get(normalizeUrl(url)) || "",
+    }))
     .sort((a, b) => a.path.localeCompare(b.path));
 
 const lines = [];
 lines.push("## Lighthouse results");
 lines.push("");
 lines.push("<details>");
-lines.push("<summary>Show Lighthouse representative scores and public report URLs</summary>");
+lines.push("<summary>Show Lighthouse public report URLs</summary>");
 lines.push("");
-lines.push("| Path | Report | Performance | Accessibility | Best Practices | SEO |");
-lines.push("| --- | --- | --- | --- | --- | --- |");
+lines.push("| Path | Report |");
+lines.push("| --- | --- |");
 
 for (const row of rows) {
     const pathLink = `[${row.path}](${row.url})`;
     const reportLink = row.reportUrl ? `[Open report](${row.reportUrl})` : "N/A";
-    lines.push(
-        `| ${pathLink} | ${reportLink} | ${row.performance} | ${row.accessibility} | ${row.bestPractices} | ${row.seo} |`,
-    );
+    lines.push(`| ${pathLink} | ${reportLink} |`);
 }
 
 lines.push("");
