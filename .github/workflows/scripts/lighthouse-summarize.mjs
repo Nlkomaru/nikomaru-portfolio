@@ -158,19 +158,6 @@ for (const row of rows) {
 }
 
 lines.push("");
-lines.push("<details>");
-lines.push("<summary>Show Lighthouse public report URLs</summary>");
-lines.push("");
-lines.push("| Path | Report |");
-lines.push("| --- | --- |");
-
-for (const row of rows) {
-    const pathLink = `[${row.path}](${row.url})`;
-    const reportLink = row.reportUrl ? `[Open report](${row.reportUrl})` : "N/A";
-    lines.push(`| ${pathLink} | ${reportLink} |`);
-}
-
-lines.push("");
 lines.push("Reports are uploaded to Lighthouse temporary public storage and may expire after a few days.");
 lines.push("");
 
@@ -189,9 +176,6 @@ if (skipped) {
     lines.push("```");
     lines.push("");
 }
-
-lines.push("</details>");
-lines.push("");
 
 writeFileSync("lighthouse-summary.md", lines.join("\n"));
 writeFileSync("lighthouse-failed.txt", "0\n");
