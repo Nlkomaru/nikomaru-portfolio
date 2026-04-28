@@ -19,6 +19,7 @@ const config = {
             url: urls,
             numberOfRuns: 3,
             settings: {
+                preset: "desktop",
                 chromeFlags: "--headless --no-sandbox --disable-gpu",
             },
         },
