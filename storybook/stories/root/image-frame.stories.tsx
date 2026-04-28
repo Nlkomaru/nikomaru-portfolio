@@ -3,27 +3,24 @@ import { Provider } from "@/components/ui/provider";
 import { ImageFrame } from "@/routes/-components/image-frame";
 
 const meta: Meta<typeof ImageFrame> = {
-    title: "routes/components/ImageFrame",
+    title: "routes/root/ImageFrame",
     component: ImageFrame,
     tags: ["autodocs"],
     parameters: {
         layout: "centered",
-        backgrounds: {
-            default: "light",
-        },
     },
     decorators: [
         (Story) => (
             <Provider>
-                <div style={{ width: 420, height: 280 }}>
+                <div style={{ width: 460, height: 360 }}>
                     <Story />
                 </div>
             </Provider>
         ),
     ],
     args: {
-        src: "/sweets/napoleon-pastry.avif",
-        alt: "Napoleon pastry",
+        src: "/sweets/bonbon-au-chocolat.avif",
+        alt: "Bonbon au chocolat",
         title: "Bonbon au chocolat",
     },
 };

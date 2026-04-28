@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { sva } from "styled-system/css";
 
 const aboutPageStyles = sva({

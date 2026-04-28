@@ -45,7 +45,7 @@ export function Baking() {
                         opacity: 0.95,
                     }}
                 >
-                    <MiniImageFrame src="/sweets/mini-preview/napoleon-pastry.avif" alt="Napoleon pastry" />
+                    <MiniImageFrame src="/sweets/mini-preview/napoleon-pie.avif" alt="Napoleon pie" />
                 </div>
                 <div className={styles.front} style={{ position: "absolute", right: 0, bottom: 0 }}>
                     <MiniImageFrame src="/sweets/mini-preview/bonbon-au-chocolat.avif" alt="Bonbon au chocolat" />
