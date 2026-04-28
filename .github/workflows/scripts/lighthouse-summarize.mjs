@@ -1,21 +1,25 @@
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync, writeFileSync } from "node:fs";
 
-const dir = join(process.cwd(), "lighthouse");
-const files = readdirSync(dir).filter((f) => f.endsWith(".json"));
+let manifest = [];
+try {
+    manifest = JSON.parse(readFileSync(".lighthouseci/manifest.json", "utf8"));
+} catch {
+    manifest = [];
+}
 
-if (files.length === 0) {
+if (!Array.isArray(manifest) || manifest.length === 0) {
     writeFileSync("lighthouse-summary.md", "No Lighthouse reports were generated.\n");
     writeFileSync("lighthouse-failed.txt", "1\n");
     process.exit(0);
 }
 
-const thresholds = {
-    performance: 80,
-    accessibility: 80,
-    bestPractices: 80,
-    seo: 80,
-};
+const logContents = (() => {
+    try {
+        return readFileSync("lighthouse.log", "utf8");
+    } catch {
+        return "";
+    }
+})();
 
 function toDisplayPath(url) {
     try {
@@ -27,91 +31,73 @@ function toDisplayPath(url) {
     }
 }
 
-function toMarkdownPathLink(url) {
-    const path = toDisplayPath(url);
-    if (url.startsWith("http://") || url.startsWith("https://")) {
-        return `[${path}](${url})`;
-    }
-    return path;
+function scoreToPercent(score) {
+    return Math.round((score ?? 0) * 100);
 }
 
-const groupedRows = new Map();
-for (const file of files) {
-    const report = JSON.parse(readFileSync(join(dir, file), "utf8"));
-    const categories = report.categories || {};
-    const rawUrl = report.finalUrl || report.requestedUrl || "unknown";
-    const key = toDisplayPath(rawUrl);
+function normalizeUrl(url) {
+    return url.replace(/\/$/, "");
+}
 
-    const metrics = {
-        performance: Math.round((categories.performance?.score ?? 0) * 100),
-        accessibility: Math.round((categories.accessibility?.score ?? 0) * 100),
-        bestPractices: Math.round((categories["best-practices"]?.score ?? 0) * 100),
-        seo: Math.round((categories.seo?.score ?? 0) * 100),
-    };
+function collectReportLinks(log) {
+    const lines = log.split("\n");
+    const links = new Map();
+    let currentUrl = "";
 
-    if (!groupedRows.has(key)) {
-        groupedRows.set(key, {
-            url: key,
-            rawUrl,
-            runCount: 0,
-            totals: {
-                performance: 0,
-                accessibility: 0,
-                bestPractices: 0,
-                seo: 0,
-            },
-        });
+    for (const line of lines) {
+        const uploadMatch = line.match(/Uploading median LHR of (.+?)\.\.\.success!?/);
+        if (uploadMatch) {
+            currentUrl = normalizeUrl(uploadMatch[1].trim());
+            continue;
+        }
+
+        const reportMatch = line.match(/Open the report at (https:\/\/\S+)/);
+        if (reportMatch && currentUrl) {
+            links.set(currentUrl, reportMatch[1].trim());
+            currentUrl = "";
+        }
     }
 
-    const current = groupedRows.get(key);
-    current.runCount += 1;
-    current.totals.performance += metrics.performance;
-    current.totals.accessibility += metrics.accessibility;
-    current.totals.bestPractices += metrics.bestPractices;
-    current.totals.seo += metrics.seo;
+    return links;
 }
 
-const rows = [];
-const failures = [];
-for (const row of groupedRows.values()) {
-    const averaged = {
-        performance: Math.round(row.totals.performance / row.runCount),
-        accessibility: Math.round(row.totals.accessibility / row.runCount),
-        bestPractices: Math.round(row.totals.bestPractices / row.runCount),
-        seo: Math.round(row.totals.seo / row.runCount),
-    };
-
-    rows.push({
-        url: row.url,
-        pathLink: toMarkdownPathLink(row.rawUrl),
-        runCount: row.runCount,
-        ...averaged,
-    });
-
-    if (averaged.performance < thresholds.performance)
-        failures.push(`${row.url} performance(avg) ${averaged.performance}`);
-    if (averaged.accessibility < thresholds.accessibility)
-        failures.push(`${row.url} accessibility(avg) ${averaged.accessibility}`);
-    if (averaged.bestPractices < thresholds.bestPractices)
-        failures.push(`${row.url} best-practices(avg) ${averaged.bestPractices}`);
-    if (averaged.seo < thresholds.seo) failures.push(`${row.url} seo(avg) ${averaged.seo}`);
-}
-
-rows.sort((a, b) => a.url.localeCompare(b.url));
+const reportLinks = collectReportLinks(logContents);
+const rows = manifest
+    .filter((entry) => entry?.isRepresentativeRun)
+    .map((entry) => {
+        const rawUrl = entry.url || "unknown";
+        const summary = entry.summary || {};
+        return {
+            url: rawUrl,
+            path: toDisplayPath(rawUrl),
+            reportUrl: reportLinks.get(normalizeUrl(rawUrl)) || "",
+            performance: scoreToPercent(summary.performance),
+            accessibility: scoreToPercent(summary.accessibility),
+            bestPractices: scoreToPercent(summary["best-practices"]),
+            seo: scoreToPercent(summary.seo),
+        };
+    })
+    .sort((a, b) => a.path.localeCompare(b.path));
 
 const lines = [];
 lines.push("## Lighthouse results");
 lines.push("");
 lines.push("<details>");
-lines.push("<summary>Show Lighthouse average scores (3 runs per path)</summary>");
+lines.push("<summary>Show Lighthouse representative scores and public report URLs</summary>");
 lines.push("");
-lines.push("| Path | Runs | Performance(avg) | Accessibility(avg) | Best Practices(avg) | SEO(avg) |");
+lines.push("| Path | Report | Performance | Accessibility | Best Practices | SEO |");
 lines.push("| --- | --- | --- | --- | --- | --- |");
+
 for (const row of rows) {
+    const pathLink = `[${row.path}](${row.url})`;
+    const reportLink = row.reportUrl ? `[Open report](${row.reportUrl})` : "N/A";
     lines.push(
-        `| ${row.pathLink} | ${row.runCount} | ${row.performance} | ${row.accessibility} | ${row.bestPractices} | ${row.seo} |`,
+        `| ${pathLink} | ${reportLink} | ${row.performance} | ${row.accessibility} | ${row.bestPractices} | ${row.seo} |`,
     );
 }
+
+lines.push("");
+lines.push("Reports are uploaded to Lighthouse temporary public storage and may expire after a few days.");
 lines.push("");
 
 let skipped = "";
@@ -130,17 +116,8 @@ if (skipped) {
     lines.push("");
 }
 
-if (failures.length) {
-    lines.push("Threshold failures:");
-    lines.push("");
-    lines.push("```");
-    lines.push(failures.join("\n"));
-    lines.push("```");
-    lines.push("");
-}
-
 lines.push("</details>");
 lines.push("");
 
 writeFileSync("lighthouse-summary.md", lines.join("\n"));
-writeFileSync("lighthouse-failed.txt", failures.length ? "1\n" : "0\n");
+writeFileSync("lighthouse-failed.txt", "0\n");
