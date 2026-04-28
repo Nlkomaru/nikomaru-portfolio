@@ -7,7 +7,7 @@ import { withDummyRouter } from "./dummy-router";
 
 const apca = registerAPCACheck("silver");
 
-// テーマを適用するデコレータ
+// テーマと背景色を適用するデコレータ
 const withTheme: Decorator = (Story, context) => {
     const colorMode = context.globals.colorMode || "light";
     React.useEffect(() => {
@@ -22,7 +22,11 @@ const withTheme: Decorator = (Story, context) => {
         }
     }, [colorMode]);
 
-    return <Story />;
+    return (
+        <div style={{ backgroundColor: "var(--chakra-colors-bg-default)", padding: "1rem" }}>
+            <Story />
+        </div>
+    );
 };
 
 const preview: Preview = {
@@ -51,11 +55,8 @@ const preview: Preview = {
             },
         },
         backgrounds: {
-            default: "light",
-            values: [
-                { name: "light", value: "#fffcfc" },
-                { name: "dark", value: "#1a0607" },
-            ],
+            // bg.default をwithThemeデコレータで直接bodyに適用するため無効化
+            disable: true,
         },
         a11y: {
             test: "todo",

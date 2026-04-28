@@ -3,14 +3,11 @@ import { Provider } from "@/components/ui/provider";
 import { Baking } from "@/routes/-components/baking";
 
 const meta: Meta<typeof Baking> = {
-    title: "routes/components/Baking",
+    title: "routes/root/Baking",
     component: Baking,
     tags: ["autodocs"],
     parameters: {
         layout: "centered",
-        backgrounds: {
-            default: "light",
-        },
     },
     decorators: [
         (Story) => (
