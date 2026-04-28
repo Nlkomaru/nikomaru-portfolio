@@ -1,3 +1,6 @@
+import poppinsLatin400Woff2 from "@fontsource/poppins/files/poppins-latin-400-normal.woff2?url";
+import poppinsLatin600Woff2 from "@fontsource/poppins/files/poppins-latin-600-normal.woff2?url";
+import spaceMonoLatin400Woff2 from "@fontsource/space-mono/files/space-mono-latin-400-normal.woff2?url";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, HeadContent, Link, Outlet, Scripts, useRouterState } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
@@ -103,6 +106,27 @@ export const Route = createRootRoute({
             },
         ],
         links: [
+            {
+                rel: "preload",
+                as: "font",
+                type: "font/woff2",
+                href: poppinsLatin400Woff2,
+                crossOrigin: "anonymous",
+            },
+            {
+                rel: "preload",
+                as: "font",
+                type: "font/woff2",
+                href: poppinsLatin600Woff2,
+                crossOrigin: "anonymous",
+            },
+            {
+                rel: "preload",
+                as: "font",
+                type: "font/woff2",
+                href: spaceMonoLatin400Woff2,
+                crossOrigin: "anonymous",
+            },
             {
                 rel: "stylesheet",
                 href: appCss,
