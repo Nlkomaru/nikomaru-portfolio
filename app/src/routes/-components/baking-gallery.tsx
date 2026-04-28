@@ -1,11 +1,11 @@
 import { Dialog, Portal } from "@chakra-ui/react";
-import { motion, type PanInfo } from "framer-motion";
+import { motion } from "motion/react";
 import { useState } from "react";
 import { sva } from "styled-system/css";
 import { Baking } from "./baking";
 import { ImageFrame } from "./image-frame";
 
-const sweets = [
+export const sweets = [
     {
         src: "/sweets/bonbon-au-chocolat.avif",
         alt: "Bonbon au chocolat",
@@ -193,7 +193,13 @@ export function BakingGallery() {
     };
 
     return (
-        <Dialog.Root open={open} onOpenChange={(details) => setOpen(details.open)} placement="center">
+        <Dialog.Root
+            open={open}
+            onOpenChange={(details) => setOpen(details.open)}
+            placement="center"
+            // lazyMount={false}
+            // unmountOnExit={false}
+        >
             <span className={styles.root} style={{ display: "inline-flex", verticalAlign: "middle" }}>
                 <button
                     type="button"

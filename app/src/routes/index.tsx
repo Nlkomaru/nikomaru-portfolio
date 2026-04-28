@@ -1,7 +1,9 @@
+import caveatLatin400Woff2 from "@fontsource/caveat/files/caveat-latin-400-normal.woff2?url";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { m } from "../paraglide/messages";
 import { getLocale } from "../paraglide/runtime";
+import { sweets } from "./-components/baking-gallery";
 import { IntroP3 } from "./-components/intro-p3";
 
 const appPageStyles = sva({
@@ -53,6 +55,23 @@ export const Route = createFileRoute("/")({
         // Cache HTML at the edge to reduce TTFB on repeat visits.
         // Keep browser cache minimal to avoid stale locale-specific content.
         "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+    }),
+    head: () => ({
+        links: [
+            {
+                rel: "preload",
+                as: "font",
+                type: "font/woff2",
+                href: caveatLatin400Woff2,
+                crossOrigin: "anonymous",
+            },
+            ...sweets.slice(0, 2).map((sweet) => ({
+                rel: "prefetch" as const,
+                as: "image" as const,
+                href: sweet.src,
+                type: "image/avif",
+            })),
+        ],
     }),
 });
 

@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { AnimatePresence, motion } from "framer-motion";
 import { Menu } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { sva } from "styled-system/css";
 import { deLocalizeHref, getLocale, setLocale } from "../paraglide/runtime";
 import { ThemeToggleButton } from "./theme-toggle-button";

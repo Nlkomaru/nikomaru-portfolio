@@ -15,8 +15,7 @@
         "build-storybook": "pnpm --filter ./storybook build"
     },
     "packageManager": "pnpm@10.9.0",
-    "dependencies": {
-        "@biomejs/biome": "^2.4.10",
-        "@fontsource/caveat": "^5.2.8"
+    "devDependencies": {
+        "@biomejs/biome": "^2.4.10"
     }
 }
