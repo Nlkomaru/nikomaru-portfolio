@@ -6,7 +6,9 @@
         "build": "pnpm --filter @nikomaru-portfolio/app build",
         "preview": "pnpm --filter @nikomaru-portfolio/app preview",
         "test": "pnpm --filter @nikomaru-portfolio/app test",
-        "check": "biome check . --write",
+        "prepare": "lefthook install",
+        "check": "biome check .",
+        "check:write": "biome check . --write",
         "deploy": "pnpm --filter @nikomaru-portfolio/app deploy",
         "deploy:app": "pnpm --filter @nikomaru-portfolio/app deploy",
         "deploy:storybook": "pnpm --filter ./storybook deploy",
@@ -16,6 +18,7 @@
     },
     "packageManager": "pnpm@10.9.0",
     "devDependencies": {
-        "@biomejs/biome": "^2.4.10"
+        "@biomejs/biome": "^2.4.10",
+        "lefthook": "^2.1.6"
     }
 }

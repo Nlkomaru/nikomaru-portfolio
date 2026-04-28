@@ -1,0 +1,55 @@
+name: Bug report
+description: Report a defect or regression in the portfolio site.
+title: "[Bug] "
+labels:
+  - bug
+  - not-reviewed
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug report.
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the problem in one sentence.
+      placeholder: Example: Theme switcher state is not persisted after reload
+    validations:
+      required: true
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current behavior
+      description: Describe what is happening now.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: Describe what should happen instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide reproducible steps.
+      placeholder: |
+        1. Open ...
+        2. Click ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Affected route or component
+      description: Add relevant paths, routes, or components if known.
+      placeholder: Example: app/src/routes/about/index.tsx
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: Include screenshots, logs, or related references.

@@ -1,0 +1,92 @@
+[
+    {
+        "name": "projects",
+        "color": "#3B82F6",
+        "description": "Area: projects section and project detail pages"
+    },
+    {
+        "name": "talks",
+        "color": "#06B6D4",
+        "description": "Area: talks page and slide-related experience"
+    },
+    {
+        "name": "pictures",
+        "color": "#8B5CF6",
+        "description": "Area: pictures page and photography content"
+    },
+    {
+        "name": "about",
+        "color": "#14B8A6",
+        "description": "Area: about page and profile content"
+    },
+    {
+        "name": "design-system",
+        "color": "#F59E0B",
+        "description": "Area: UI styling, Panda CSS, Chakra UI, and Storybook"
+    },
+    {
+        "name": "tooling",
+        "color": "#64748B",
+        "description": "Area: repository tooling, CI, checks, and local workflow"
+    },
+    {
+        "name": "i18n",
+        "color": "#EC4899",
+        "description": "Area: localization, translated paths, and multilingual content"
+    },
+    {
+        "name": "bug",
+        "color": "#FC2C2B",
+        "description": "Type: bug fix"
+    },
+    {
+        "name": "requirement",
+        "color": "#EF2816",
+        "description": "Type: implementation required"
+    },
+    {
+        "name": "test",
+        "color": "#23E523",
+        "description": "Type: test"
+    },
+    {
+        "name": "enhancement",
+        "color": "#375E97",
+        "description": "Type: feature improvement"
+    },
+    {
+        "name": "document",
+        "color": "#3B62BD",
+        "description": "Type: documentation"
+    },
+    {
+        "name": "chore",
+        "color": "#E2601E",
+        "description": "Type: tooling or library change"
+    },
+    {
+        "name": "refactor",
+        "color": "#AFD38D",
+        "description": "Type: refactoring"
+    },
+    {
+        "name": "duplicate",
+        "color": "#CCCCCC",
+        "description": "Type: duplicate"
+    },
+    {
+        "name": "wontfix",
+        "color": "#CCCCCC",
+        "description": "Type: won't fix"
+    },
+    {
+        "name": "dependencies",
+        "color": "#5319E7",
+        "description": "Type: dependency update"
+    },
+    {
+        "name": "not-reviewed",
+        "color": "#F9C1CF",
+        "description": "Not reviewed yet"
+    }
+]
