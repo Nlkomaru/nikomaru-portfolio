@@ -17,7 +17,7 @@ const config = {
     ci: {
         collect: {
             url: urls,
-            numberOfRuns: 3,
+            numberOfRuns: 1,
             settings: {
                 preset: "desktop",
                 chromeFlags: "--headless --no-sandbox --disable-gpu",

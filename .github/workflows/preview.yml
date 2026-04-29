@@ -151,7 +151,9 @@ jobs:
   lighthouse-app:
     needs: deploy-app-preview
     runs-on: ubuntu-latest
-    name: Lighthouse (App only)
+    name: Prepare Lighthouse Matrix
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
 
@@ -170,14 +172,79 @@ jobs:
         run: pnpm install
 
       - name: Build Lighthouse URL list
+        id: matrix
         env:
           DEPLOYMENT_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
         run: |
           node .github/workflows/scripts/lighthouse-build-urls.mjs
+          {
+            echo 'matrix<<EOF'
+            cat lighthouse-matrix.json
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Upload Lighthouse manifest artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-manifest
+          path: |
+            lighthouse-urls.txt
+            lighthouse-skipped.txt
+
+  lighthouse-app-pages:
+    needs: [deploy-app-preview, lighthouse-app]
+    runs-on: ubuntu-latest
+    name: Lighthouse ${{ matrix.path }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.lighthouse-app.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install
+
+      - name: Write Lighthouse URL file
+        run: |
+          printf '%s\n' '${{ matrix.url }}' > lighthouse-urls.txt
 
       - name: Run Lighthouse
         run: |
           ./.github/workflows/scripts/lighthouse-run.sh lighthouse-urls.txt .lighthouserc.generated.json lighthouse.log
+
+      - name: Upload Lighthouse result artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-result-${{ matrix.id }}
+          path: |
+            lighthouse.log
+            lighthouse-urls.txt
+            .lighthouseci
+
+  lighthouse-summary:
+    needs: [lighthouse-app, lighthouse-app-pages]
+    runs-on: ubuntu-latest
+    name: Summarize Lighthouse
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Lighthouse artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: .
 
       - name: Summarize Lighthouse
         continue-on-error: true
@@ -192,7 +259,7 @@ jobs:
           path: lighthouse-summary.md
 
   comment:
-    needs: [deploy-app-preview, deploy-storybook-preview, lighthouse-app]
+    needs: [deploy-app-preview, deploy-storybook-preview, lighthouse-summary]
     runs-on: ubuntu-latest
     name: Comment Preview URLs
     steps:

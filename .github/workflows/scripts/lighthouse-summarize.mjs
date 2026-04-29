@@ -1,8 +1,34 @@
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+
+function collectFiles(rootDir, predicate) {
+    const matches = [];
+
+    function walk(dir) {
+        if (!existsSync(dir)) return;
+
+        for (const entry of readdirSync(dir, { withFileTypes: true })) {
+            const full = join(dir, entry.name);
+            if (entry.isDirectory()) {
+                walk(full);
+                continue;
+            }
+
+            if (predicate(entry.name, full)) {
+                matches.push(full);
+            }
+        }
+    }
+
+    walk(rootDir);
+
+    return matches.sort();
+}
 
 const logContents = (() => {
     try {
-        return readFileSync("lighthouse.log", "utf8");
+        const logFiles = collectFiles(".", (name, full) => name === "lighthouse.log" && !full.includes("node_modules"));
+        return logFiles.map((file) => readFileSync(file, "utf8")).join("\n");
     } catch {
         return "";
     }
@@ -16,7 +42,11 @@ if (!logContents.trim()) {
 
 const urlListContents = (() => {
     try {
-        return readFileSync("lighthouse-urls.txt", "utf8");
+        const urlFiles = collectFiles(
+            ".",
+            (name, full) => name === "lighthouse-urls.txt" && !full.includes("node_modules"),
+        );
+        return urlFiles.length > 0 ? readFileSync(urlFiles[0], "utf8") : "";
     } catch {
         return "";
     }
@@ -65,14 +95,15 @@ function getRepresentativeRun(runs) {
 
 function readRepresentativeScores() {
     try {
-        const lhrFiles = readdirSync(".lighthouseci")
-            .filter((file) => file.startsWith("lhr-") && file.endsWith(".json"))
-            .sort();
+        const lhrFiles = collectFiles(
+            ".",
+            (name, full) => name.startsWith("lhr-") && name.endsWith(".json") && full.includes(".lighthouseci"),
+        );
 
         const runsByUrl = new Map();
 
         for (const file of lhrFiles) {
-            const report = JSON.parse(readFileSync(`.lighthouseci/${file}`, "utf8"));
+            const report = JSON.parse(readFileSync(file, "utf8"));
             const reportUrl = normalizeUrl(report.finalUrl || report.requestedUrl || "");
             if (!reportUrl) continue;
 
@@ -163,7 +194,11 @@ lines.push("");
 
 let skipped = "";
 try {
-    skipped = readFileSync("lighthouse-skipped.txt", "utf8").trim();
+    const skippedFiles = collectFiles(
+        ".",
+        (name, full) => name === "lighthouse-skipped.txt" && !full.includes("node_modules"),
+    );
+    skipped = skippedFiles.length > 0 ? readFileSync(skippedFiles[0], "utf8").trim() : "";
 } catch {
     skipped = "";
 }
