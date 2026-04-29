@@ -41,7 +41,7 @@ const appPageStyles = sva({
             borderRadius: "full",
         },
         intro: {
-            color: "fg.muted",
+            color: "fg.subtle",
             display: "flex",
             fontSize: "md",
             flexDirection: "column",
