@@ -31,17 +31,7 @@ export function IntroP3() {
         return (
             <p>
                 また、プログラミング以外には、
-                <span
-                    className={styles.baking}
-                    style={{
-                        display: "inline-block",
-                        verticalAlign: "middle",
-                        position: "relative",
-                        width: 27,
-                        height: "1em",
-                        margin: "0 0.5rem",
-                    }}
-                >
+                <span className={styles.baking}>
                     <span className={styles.bakingInner}>
                         <BakingGallery />
                     </span>
@@ -58,17 +48,7 @@ export function IntroP3() {
     return (
         <p>
             When I&apos;m not coding, I&apos;m usually{" "}
-            <span
-                className={styles.baking}
-                style={{
-                    display: "inline-block",
-                    verticalAlign: "middle",
-                    position: "relative",
-                    width: 27,
-                    height: "1em",
-                    margin: "0 0.5rem",
-                }}
-            >
+            <span className={styles.baking}>
                 <span className={styles.bakingInner}>
                     <BakingGallery />
                 </span>

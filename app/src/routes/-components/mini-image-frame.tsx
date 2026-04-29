@@ -43,27 +43,9 @@ export function MiniImageFrame({ src, alt }: MiniImageFrameProps) {
     const styles = miniImageFrameStyles();
 
     return (
-        <div
-            className={styles.root}
-            style={{ width: MINI_FRAME_W, height: MINI_FRAME_H, position: "relative", display: "block" }}
-        >
-            <div className={styles.frame} style={{ width: MINI_FRAME_W, height: MINI_FRAME_H }} />
-            <img
-                src={src}
-                alt={alt}
-                width={MINI_IMAGE_W}
-                height={MINI_IMAGE_H}
-                className={styles.image}
-                style={{
-                    position: "absolute",
-                    left: 1,
-                    top: 1,
-                    width: MINI_IMAGE_W,
-                    height: MINI_IMAGE_H,
-                    objectFit: "cover",
-                    display: "block",
-                }}
-            />
+        <div className={styles.root}>
+            <div className={styles.frame} />
+            <img src={src} alt={alt} width={MINI_IMAGE_W} height={MINI_IMAGE_H} className={styles.image} />
         </div>
     );
 }

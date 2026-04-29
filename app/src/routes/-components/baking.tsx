@@ -5,12 +5,14 @@ const bakingStyles = sva({
     slots: ["root", "stack", "back", "front"],
     base: {
         root: {
-            w: "full",
+            display: "block",
+            w: "27px",
+            h: "27px",
         },
         stack: {
             position: "relative",
             w: "27px",
-            aspectRatio: "1 / 1",
+            h: "27px",
         },
         back: {
             position: "absolute",
@@ -32,22 +34,12 @@ export function Baking() {
     const styles = bakingStyles();
 
     return (
-        <div className={styles.root} style={{ width: 27, height: 27 }}>
-            <div className={styles.stack} style={{ position: "relative", width: 27, height: 27 }}>
-                <div
-                    className={styles.back}
-                    style={{
-                        position: "absolute",
-                        left: 4,
-                        top: 3,
-                        transform: "rotate(-6deg)",
-                        transformOrigin: "left bottom",
-                        opacity: 0.95,
-                    }}
-                >
+        <div className={styles.root}>
+            <div className={styles.stack}>
+                <div className={styles.back}>
                     <MiniImageFrame src="/sweets/mini-preview/napoleon-pie.avif" alt="Napoleon pie" />
                 </div>
-                <div className={styles.front} style={{ position: "absolute", right: 0, bottom: 0 }}>
+                <div className={styles.front}>
                     <MiniImageFrame src="/sweets/mini-preview/bonbon-au-chocolat.avif" alt="Bonbon au chocolat" />
                 </div>
             </div>

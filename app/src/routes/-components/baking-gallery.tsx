@@ -55,6 +55,7 @@ const bakingGalleryStyles = sva({
             bg: "transparent",
             color: "inherit",
             cursor: "pointer",
+            lineHeight: 0,
             borderRadius: "sm",
             transition: "transform 0.2s ease",
             _hover: {
@@ -200,21 +201,12 @@ export function BakingGallery() {
             // lazyMount={false}
             // unmountOnExit={false}
         >
-            <span className={styles.root} style={{ display: "inline-flex", verticalAlign: "middle" }}>
+            <span className={styles.root}>
                 <button
                     type="button"
                     className={styles.trigger}
                     aria-label="Open baking gallery"
                     onClick={() => setOpen(true)}
-                    style={{
-                        appearance: "none",
-                        border: 0,
-                        padding: 0,
-                        background: "transparent",
-                        color: "inherit",
-                        cursor: "pointer",
-                        lineHeight: 0,
-                    }}
                 >
                     <Baking />
                 </button>

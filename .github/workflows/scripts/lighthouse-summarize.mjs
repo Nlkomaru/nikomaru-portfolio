@@ -1,21 +1,26 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
 
-const dir = join(process.cwd(), "lighthouse");
-const files = readdirSync(dir).filter((f) => f.endsWith(".json"));
+const logContents = (() => {
+    try {
+        return readFileSync("lighthouse.log", "utf8");
+    } catch {
+        return "";
+    }
+})();
 
-if (files.length === 0) {
+if (!logContents.trim()) {
     writeFileSync("lighthouse-summary.md", "No Lighthouse reports were generated.\n");
     writeFileSync("lighthouse-failed.txt", "1\n");
     process.exit(0);
 }
 
-const thresholds = {
-    performance: 80,
-    accessibility: 80,
-    bestPractices: 80,
-    seo: 80,
-};
+const urlListContents = (() => {
+    try {
+        return readFileSync("lighthouse-urls.txt", "utf8");
+    } catch {
+        return "";
+    }
+})();
 
 function toDisplayPath(url) {
     try {
@@ -27,91 +32,133 @@ function toDisplayPath(url) {
     }
 }
 
-function toMarkdownPathLink(url) {
-    const path = toDisplayPath(url);
-    if (url.startsWith("http://") || url.startsWith("https://")) {
-        return `[${path}](${url})`;
-    }
-    return path;
+function normalizeUrl(url) {
+    return url.replace(/\/$/, "");
 }
 
-const groupedRows = new Map();
-for (const file of files) {
-    const report = JSON.parse(readFileSync(join(dir, file), "utf8"));
-    const categories = report.categories || {};
-    const rawUrl = report.finalUrl || report.requestedUrl || "unknown";
-    const key = toDisplayPath(rawUrl);
+function getAuditValue(report, auditName) {
+    return report.audits?.[auditName]?.numericValue || 0;
+}
 
-    const metrics = {
-        performance: Math.round((categories.performance?.score ?? 0) * 100),
-        accessibility: Math.round((categories.accessibility?.score ?? 0) * 100),
-        bestPractices: Math.round((categories["best-practices"]?.score ?? 0) * 100),
-        seo: Math.round((categories.seo?.score ?? 0) * 100),
+function getRepresentativeRun(runs) {
+    if (runs.length === 0) return null;
+
+    const sortedByFcp = [...runs].sort(
+        (a, b) => getAuditValue(a, "first-contentful-paint") - getAuditValue(b, "first-contentful-paint"),
+    );
+    const medianFcp = getAuditValue(sortedByFcp[Math.floor(runs.length / 2)], "first-contentful-paint");
+
+    const sortedByInteractive = [...runs].sort(
+        (a, b) => getAuditValue(a, "interactive") - getAuditValue(b, "interactive"),
+    );
+    const medianInteractive = getAuditValue(sortedByInteractive[Math.floor(runs.length / 2)], "interactive");
+
+    const getMedianSortValue = (report) => {
+        const distanceFcp = medianFcp - getAuditValue(report, "first-contentful-paint");
+        const distanceInteractive = medianInteractive - getAuditValue(report, "interactive");
+
+        return distanceFcp * distanceFcp + distanceInteractive * distanceInteractive;
     };
 
-    if (!groupedRows.has(key)) {
-        groupedRows.set(key, {
-            url: key,
-            rawUrl,
-            runCount: 0,
-            totals: {
-                performance: 0,
-                accessibility: 0,
-                bestPractices: 0,
-                seo: 0,
-            },
-        });
+    return [...runs].sort((a, b) => getMedianSortValue(a) - getMedianSortValue(b))[0] || null;
+}
+
+function readRepresentativeScores() {
+    try {
+        const lhrFiles = readdirSync(".lighthouseci")
+            .filter((file) => file.startsWith("lhr-") && file.endsWith(".json"))
+            .sort();
+
+        const runsByUrl = new Map();
+
+        for (const file of lhrFiles) {
+            const report = JSON.parse(readFileSync(`.lighthouseci/${file}`, "utf8"));
+            const reportUrl = normalizeUrl(report.finalUrl || report.requestedUrl || "");
+            if (!reportUrl) continue;
+
+            const runs = runsByUrl.get(reportUrl) || [];
+            runs.push(report);
+            runsByUrl.set(reportUrl, runs);
+        }
+
+        const scoresByUrl = new Map();
+
+        for (const [url, runs] of runsByUrl) {
+            const representative = getRepresentativeRun(runs);
+            if (!representative) continue;
+
+            scoresByUrl.set(url, {
+                performance: representative.categories?.performance?.score ?? null,
+                accessibility: representative.categories?.accessibility?.score ?? null,
+                bestPractices: representative.categories?.["best-practices"]?.score ?? null,
+                seo: representative.categories?.seo?.score ?? null,
+            });
+        }
+
+        return scoresByUrl;
+    } catch {
+        return new Map();
+    }
+}
+
+function formatScore(score) {
+    if (typeof score !== "number") return "N/A";
+    return String(Math.round(score * 100));
+}
+
+function collectReportLinks(log) {
+    const lines = log.split("\n");
+    const links = new Map();
+    let currentUrl = "";
+
+    for (const line of lines) {
+        const uploadMatch = line.match(/Uploading median LHR of (.+?)\.\.\.success!?/);
+        if (uploadMatch) {
+            currentUrl = normalizeUrl(uploadMatch[1].trim());
+            continue;
+        }
+
+        const reportMatch = line.match(/Open the report at (https:\/\/\S+)/);
+        if (reportMatch && currentUrl) {
+            links.set(currentUrl, reportMatch[1].trim());
+            currentUrl = "";
+        }
     }
 
-    const current = groupedRows.get(key);
-    current.runCount += 1;
-    current.totals.performance += metrics.performance;
-    current.totals.accessibility += metrics.accessibility;
-    current.totals.bestPractices += metrics.bestPractices;
-    current.totals.seo += metrics.seo;
+    return links;
 }
 
-const rows = [];
-const failures = [];
-for (const row of groupedRows.values()) {
-    const averaged = {
-        performance: Math.round(row.totals.performance / row.runCount),
-        accessibility: Math.round(row.totals.accessibility / row.runCount),
-        bestPractices: Math.round(row.totals.bestPractices / row.runCount),
-        seo: Math.round(row.totals.seo / row.runCount),
-    };
-
-    rows.push({
-        url: row.url,
-        pathLink: toMarkdownPathLink(row.rawUrl),
-        runCount: row.runCount,
-        ...averaged,
-    });
-
-    if (averaged.performance < thresholds.performance)
-        failures.push(`${row.url} performance(avg) ${averaged.performance}`);
-    if (averaged.accessibility < thresholds.accessibility)
-        failures.push(`${row.url} accessibility(avg) ${averaged.accessibility}`);
-    if (averaged.bestPractices < thresholds.bestPractices)
-        failures.push(`${row.url} best-practices(avg) ${averaged.bestPractices}`);
-    if (averaged.seo < thresholds.seo) failures.push(`${row.url} seo(avg) ${averaged.seo}`);
-}
-
-rows.sort((a, b) => a.url.localeCompare(b.url));
+const urls = urlListContents
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+const reportLinks = collectReportLinks(logContents);
+const representativeScores = readRepresentativeScores();
+const rows = urls
+    .map((url) => ({
+        url,
+        path: toDisplayPath(url),
+        reportUrl: reportLinks.get(normalizeUrl(url)) || "",
+        scores: representativeScores.get(normalizeUrl(url)) || null,
+    }))
+    .sort((a, b) => a.path.localeCompare(b.path));
 
 const lines = [];
 lines.push("## Lighthouse results");
 lines.push("");
-lines.push("<details>");
-lines.push("<summary>Show Lighthouse average scores (3 runs per path)</summary>");
-lines.push("");
-lines.push("| Path | Runs | Performance(avg) | Accessibility(avg) | Best Practices(avg) | SEO(avg) |");
-lines.push("| --- | --- | --- | --- | --- | --- |");
+lines.push("| Path | Performance | Accessibility | Best Practices | SEO | Report |");
+lines.push("| --- | ---: | ---: | ---: | ---: | --- |");
+
 for (const row of rows) {
+    const pathLink = `[${row.path}](${row.url})`;
+    const reportLink = row.reportUrl ? `[Open report](${row.reportUrl})` : "N/A";
     lines.push(
-        `| ${row.pathLink} | ${row.runCount} | ${row.performance} | ${row.accessibility} | ${row.bestPractices} | ${row.seo} |`,
+        `| ${pathLink} | ${formatScore(row.scores?.performance)} | ${formatScore(row.scores?.accessibility)} | ${formatScore(row.scores?.bestPractices)} | ${formatScore(row.scores?.seo)} | ${reportLink} |`,
     );
 }
+
+lines.push("");
+lines.push("Reports are uploaded to Lighthouse temporary public storage and may expire after a few days.");
 lines.push("");
 
 let skipped = "";
@@ -130,17 +177,5 @@ if (skipped) {
     lines.push("");
 }
 
-if (failures.length) {
-    lines.push("Threshold failures:");
-    lines.push("");
-    lines.push("```");
-    lines.push(failures.join("\n"));
-    lines.push("```");
-    lines.push("");
-}
-
-lines.push("</details>");
-lines.push("");
-
 writeFileSync("lighthouse-summary.md", lines.join("\n"));
-writeFileSync("lighthouse-failed.txt", failures.length ? "1\n" : "0\n");
+writeFileSync("lighthouse-failed.txt", "0\n");

@@ -65,7 +65,13 @@ export const Route = createFileRoute("/")({
                 href: caveatLatin400Woff2,
                 crossOrigin: "anonymous",
             },
-            ...sweets.slice(0, 2).map((sweet) => ({
+            ...sweets.slice(0, 1).map((sweet) => ({
+                rel: "preload" as const,
+                as: "image" as const,
+                href: sweet.src,
+                type: "image/avif",
+            })),
+            ...sweets.slice(1).map((sweet) => ({
                 rel: "prefetch" as const,
                 as: "image" as const,
                 href: sweet.src,

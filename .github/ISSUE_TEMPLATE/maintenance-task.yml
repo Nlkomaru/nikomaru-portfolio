@@ -1,0 +1,44 @@
+name: Maintenance task
+description: Track tooling, CI, documentation, or repository maintenance work.
+title: "[Chore] "
+labels:
+  - chore
+  - not-reviewed
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the maintenance task in one sentence.
+      placeholder: Example: Align repository labels and issue templates with the team standard
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason
+      description: Explain why this work is needed now.
+    validations:
+      required: true
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      description: List the concrete work items.
+      placeholder: |
+        - [ ] Add .github/labels.json
+        - [ ] Add sync-label workflow
+        - [ ] Install lefthook and wire biome check
+    validations:
+      required: true
+  - type: textarea
+    id: done-definition
+    attributes:
+      label: Definition of done
+      description: Describe how completion will be verified.
+      placeholder: |
+        - [ ] Labels can be synchronized from GitHub Actions
+        - [ ] New issues can be created from templates
+        - [ ] pre-commit runs pnpm run check
+    validations:
+      required: true

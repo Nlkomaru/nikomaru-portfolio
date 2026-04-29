@@ -177,7 +177,7 @@ jobs:
 
       - name: Run Lighthouse
         run: |
-          ./.github/workflows/scripts/lighthouse-run.sh lighthouse-urls.txt lighthouse 6 3
+          ./.github/workflows/scripts/lighthouse-run.sh lighthouse-urls.txt .lighthouserc.generated.json lighthouse.log
 
       - name: Summarize Lighthouse
         continue-on-error: true
