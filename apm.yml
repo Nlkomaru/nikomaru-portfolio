@@ -1,0 +1,27 @@
+name: nikomaru-portfolio
+version: 1.0.0
+description: Agent configuration for the Nikomaru portfolio project
+includes: auto
+
+dependencies:
+  apm: []
+  mcp:
+    - name: playwright
+      registry: false
+      transport: stdio
+      command: npx
+      args:
+        - -y
+        - "@playwright/mcp@0.0.71"
+        - --output-dir
+        - .playwright-mcp/artifacts
+    - name: figma
+      registry: false
+      transport: stdio
+      command: npx
+      args:
+        - -y
+        - mcp-remote@0.1.38
+        - https://mcp.figma.com/mcp
+
+scripts: {}

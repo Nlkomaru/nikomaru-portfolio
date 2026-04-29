@@ -4,6 +4,14 @@
     "navSlides": "スライド",
     "slidesTitle": "作製したスライド一覧",
     "slidesDescription": "Nikomaruが作製したスライドの一覧ページです。",
+    "talks": {
+        "archiveEyebrow": "— アーカイブ",
+        "archiveTitle": "発表の記録",
+        "archiveDescription": "これまで共有してきたスライドの記録 — 発表のアーカイブ。",
+        "searchPlaceholder": "アーカイブを検索...",
+        "footerLeft": "CC BY 4.0 Written by Nikomaru",
+        "footerRight": "End / Of / List"
+    },
     "languageLabel": "言語",
     "languageSwitchToJa": "日本語",
     "languageSwitchToEn": "English",

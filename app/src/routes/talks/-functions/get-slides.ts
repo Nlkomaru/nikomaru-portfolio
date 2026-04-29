@@ -1,5 +1,6 @@
 import { env } from "cloudflare:workers";
 import { createServerFn } from "@tanstack/react-start";
+import type { Slide } from "../-types/slide";
 
 type SlideInfoV2 = {
     $schema: string;
@@ -32,7 +33,20 @@ export const getSlides = createServerFn({ method: "GET" }).handler(async () => {
     return data
         .filter((v) => v.type !== "private")
         .sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())
-        .sort(
-            (a, b) => new Date(b.presentation?.date ?? "").getTime() - new Date(a.presentation?.date ?? "").getTime(),
-        );
+        .sort((a, b) => new Date(b.presentation?.date ?? "").getTime() - new Date(a.presentation?.date ?? "").getTime())
+        .map<Slide>((v) => ({
+            id: v.id,
+            title: v.title,
+            // R2の最初のページ画像をサムネイルとして利用する
+            image: `/slide/${v.id}/picture/1.png`,
+            // サムネ・タイトルは常にアプリ内の Slide ビューワへ
+            slideUrl: `/slide/${v.id}`,
+            // 発表イベント名の行だけ外部 URL（イベントページ等）
+            presentationUrl: v.presentation?.url,
+            lastUpdate: v.lastUpdated,
+            presentationDate: v.presentation?.date,
+            presentationName: v.presentation?.name,
+            tags: v.tags ?? [],
+            type: v.type,
+        }));
 });

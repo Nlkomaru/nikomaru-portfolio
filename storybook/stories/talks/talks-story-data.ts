@@ -1,0 +1,40 @@
+import type { Slide } from "@/routes/talks/-types/slide";
+
+export const talksStorySlides: Slide[] = [
+    {
+        id: "typescript-never",
+        title: "Demystifying the never Type in TypeScript",
+        image: "https://picsum.photos/seed/typescript-never/960/540",
+        slideUrl: "/slide/typescript-never",
+        presentationUrl: "https://2024.tskaigi.org/talks/nikomaru",
+        lastUpdate: "2024-05-15",
+        presentationDate: "2024-05-11",
+        presentationName: "TSKaigi 2024",
+        tags: ["TypeScript", "Conference"],
+        type: "public",
+    },
+    {
+        id: "react-server-components",
+        title: "Designing Boundaries for React Server Components",
+        image: "https://picsum.photos/seed/react-server-components/960/540",
+        slideUrl: "/slide/react-server-components",
+        presentationUrl: "https://example.com/react-server-components",
+        lastUpdate: "2024-10-02",
+        presentationDate: "2024-09-28",
+        presentationName: "Frontend Meetup Tokyo",
+        tags: ["React", "Architecture"],
+        type: "public",
+    },
+    {
+        id: "testing-ui-motion",
+        title: "Testing Motion-heavy UI without Losing Confidence",
+        image: "https://picsum.photos/seed/testing-ui-motion/960/540",
+        slideUrl: "/slide/testing-ui-motion",
+        presentationUrl: undefined,
+        lastUpdate: "2025-02-19",
+        presentationDate: "2025-02-18",
+        presentationName: "UI Test Night",
+        tags: ["Testing", "Motion"],
+        type: "public",
+    },
+];

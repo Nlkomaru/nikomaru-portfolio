@@ -5,6 +5,14 @@
     "homeGreeting": "Hi, I'm\u00A0Nikomaru",
     "slidesTitle": "Slides I've Made",
     "slidesDescription": "A list of slides created by nikomaru.",
+    "talks": {
+        "archiveEyebrow": "— Archive",
+        "archiveTitle": "Presentation history",
+        "archiveDescription": "A record of the decks I've shared — presentation archive.",
+        "searchPlaceholder": "Search archive...",
+        "footerLeft": "CC BY 4.0 Written by Nikomaru",
+        "footerRight": "End / Of / List"
+    },
     "languageLabel": "Language",
     "languageSwitchToJa": "日本語",
     "languageSwitchToEn": "English",
