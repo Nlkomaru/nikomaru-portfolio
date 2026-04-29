@@ -72,5 +72,24 @@ for (const line of extraPathContents.split("\n")) {
 
 const urls = [...paths].sort().map((path) => `${baseUrl}${path}`);
 
+function toMatrixId(path) {
+    if (path === "/") {
+        return "root";
+    }
+
+    return path
+        .replace(/^\/+|\/+$/g, "")
+        .replace(/[^a-zA-Z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .toLowerCase();
+}
+
+const matrix = [...paths].sort().map((path) => ({
+    id: toMatrixId(path),
+    path,
+    url: `${baseUrl}${path}`,
+}));
+
 writeFileSync("lighthouse-urls.txt", `${urls.join("\n")}\n`);
 writeFileSync("lighthouse-skipped.txt", `${skipped.sort().join("\n")}\n`);
+writeFileSync("lighthouse-matrix.json", `${JSON.stringify(matrix, null, 4)}\n`);

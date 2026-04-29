@@ -35,7 +35,7 @@ export const globalCss = defineGlobalStyles({
         color: "fg.default",
         bg: "bg.canvas",
         lineHeight: "1.5",
-        colorPalette: "cyan",
+        colorPalette: "red",
     },
     body: {
         minHeight: "100%",
@@ -50,7 +50,7 @@ export const globalCss = defineGlobalStyles({
         color: "fg.muted/80",
     },
     "*::selection": {
-        bg: "cyan.500/40",
+        bg: "red.500/40",
     },
     "a[data-inline-link]": {
         color: "fg.default",
