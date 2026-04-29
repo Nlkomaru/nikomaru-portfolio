@@ -114,8 +114,6 @@ export default function SlideCardBody({ slide, indexLabel, dateLabel }: SlideCar
                     ) : slide.presentationName ? (
                         <p className={styles.linkText}>{slide.presentationName}</p>
                     ) : null}
-
-                    {slide.tags.length > 0 ? <p className={styles.linkText}>{slide.tags.join(", ")}</p> : null}
                 </div>
             </div>
         </>

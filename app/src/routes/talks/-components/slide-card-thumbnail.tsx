@@ -21,6 +21,7 @@ const slideCardThumbnailStyles = sva({
             flexShrink: 0,
             aspectRatio: "16 / 9",
             bg: "bg.muted",
+            borderRadius: "md",
             overflow: "hidden",
             lineHeight: 0,
             textDecoration: "none",

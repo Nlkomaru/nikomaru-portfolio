@@ -15,6 +15,7 @@ const talksYearGroupStyles = sva({
             alignItems: "center",
             justifyContent: "space-between",
             w: "full",
+            pr: { base: "1", md: "2" },
         },
         yearLabel: {
             fontFamily: "heading",

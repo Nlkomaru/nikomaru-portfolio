@@ -56,7 +56,7 @@ const talksPageStyles = sva({
         headerTitle: {
             fontFamily: "heading",
             fontWeight: "semibold",
-            fontSize: { base: "12", md: "4xl" },
+            fontSize: { base: "4xl", md: "5xl" },
             lineHeight: "1.05",
             letterSpacing: "-0.025em",
             color: "fg.default",
