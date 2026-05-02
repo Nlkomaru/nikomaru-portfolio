@@ -50,7 +50,7 @@ export const globalCss = defineGlobalStyles({
         color: "fg.muted/80",
     },
     "*::selection": {
-        bg: "red.500/40",
+        bg: "blue.500/40",
     },
     "a[data-inline-link]": {
         color: "fg.default",

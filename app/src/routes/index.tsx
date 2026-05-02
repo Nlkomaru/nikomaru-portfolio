@@ -3,7 +3,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { m } from "../paraglide/messages";
 import { getLocale } from "../paraglide/runtime";
-import { sweets } from "./-components/baking-gallery";
 import { IntroP3 } from "./-components/intro-p3";
 
 const appPageStyles = sva({
@@ -11,12 +10,11 @@ const appPageStyles = sva({
     base: {
         root: {
             minH: {
-                // dvh tracks the dynamic viewport, avoiding jitter from address bar show/hide
                 base: "calc(100dvh - 3.5rem)",
                 md: "100dvh",
             },
             bg: "bg.canvas",
-            px: { base: "8", md: "20" },
+            px: { base: "6", md: "20" },
             display: "flex",
             flexDirection: "column",
             gap: "6",
@@ -28,7 +26,7 @@ const appPageStyles = sva({
         greeting: {
             display: "flex",
             flexDirection: "row",
-            gap: "6",
+            gap: { base: "4", md: "6" },
             alignItems: "center",
         },
         greetingText: {
@@ -46,6 +44,11 @@ const appPageStyles = sva({
             fontSize: "md",
             flexDirection: "column",
             gap: "4",
+            "& p": {
+                wordBreak: "normal",
+                overflowWrap: "anywhere",
+                lineBreak: "strict",
+            },
         },
     },
 });
@@ -65,18 +68,6 @@ export const Route = createFileRoute("/")({
                 href: caveatLatin400Woff2,
                 crossOrigin: "anonymous",
             },
-            ...sweets.slice(0, 1).map((sweet) => ({
-                rel: "preload" as const,
-                as: "image" as const,
-                href: sweet.src,
-                type: "image/avif",
-            })),
-            ...sweets.slice(1).map((sweet) => ({
-                rel: "prefetch" as const,
-                as: "image" as const,
-                href: sweet.src,
-                type: "image/avif",
-            })),
         ],
     }),
 });

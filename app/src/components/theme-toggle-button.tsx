@@ -15,14 +15,11 @@ const themeToggleButtonStyles = sva({
             h: "10",
             w: "10",
             borderRadius: "full",
-            borderWidth: "1px",
-            borderColor: "border.subtle",
             bg: "bg.canvas",
             color: "fg.default",
-            transition: "background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease",
+            transition: "background-color 0.2s ease, transform 0.2s ease",
             _hover: {
                 bg: "bg.subtle",
-                borderColor: "border.outline",
             },
             _active: {
                 transform: "scale(0.98)",

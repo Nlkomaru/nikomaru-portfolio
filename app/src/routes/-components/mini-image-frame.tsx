@@ -1,4 +1,5 @@
 import { sva } from "styled-system/css";
+import { getBlurhashBackground } from "../-functions/blurhash-background";
 
 const MINI_IMAGE_W = 9 * 3;
 const MINI_IMAGE_H = 9 * 2;
@@ -37,15 +38,25 @@ const miniImageFrameStyles = sva({
 type MiniImageFrameProps = {
     src: string;
     alt: string;
+    blurhash: string;
 };
 
-export function MiniImageFrame({ src, alt }: MiniImageFrameProps) {
+export function MiniImageFrame({ src, alt, blurhash }: MiniImageFrameProps) {
     const styles = miniImageFrameStyles();
 
     return (
         <div className={styles.root}>
             <div className={styles.frame} />
-            <img src={src} alt={alt} width={MINI_IMAGE_W} height={MINI_IMAGE_H} className={styles.image} />
+            <img
+                src={src}
+                alt={alt}
+                width={MINI_IMAGE_W}
+                height={MINI_IMAGE_H}
+                decoding="async"
+                loading="lazy"
+                className={styles.image}
+                style={getBlurhashBackground(blurhash)}
+            />
         </div>
     );
 }

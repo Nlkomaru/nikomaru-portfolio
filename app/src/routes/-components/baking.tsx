@@ -1,5 +1,6 @@
 import { sva } from "styled-system/css";
 import { MiniImageFrame } from "./mini-image-frame";
+import { sweets } from "./sweets";
 
 const bakingStyles = sva({
     slots: ["root", "stack", "back", "front"],
@@ -32,15 +33,25 @@ const bakingStyles = sva({
 
 export function Baking() {
     const styles = bakingStyles();
+    const backSweet = sweets.find((sweet) => sweet.title === "Napoleon pie");
+    const frontSweet = sweets.find((sweet) => sweet.title === "Bonbon au chocolat");
+
+    if (!backSweet?.miniPreviewSrc || !frontSweet?.miniPreviewSrc) {
+        return null;
+    }
 
     return (
         <div className={styles.root}>
             <div className={styles.stack}>
                 <div className={styles.back}>
-                    <MiniImageFrame src="/sweets/mini-preview/napoleon-pie.avif" alt="Napoleon pie" />
+                    <MiniImageFrame src={backSweet.miniPreviewSrc} alt={backSweet.alt} blurhash={backSweet.blurhash} />
                 </div>
                 <div className={styles.front}>
-                    <MiniImageFrame src="/sweets/mini-preview/bonbon-au-chocolat.avif" alt="Bonbon au chocolat" />
+                    <MiniImageFrame
+                        src={frontSweet.miniPreviewSrc}
+                        alt={frontSweet.alt}
+                        blurhash={frontSweet.blurhash}
+                    />
                 </div>
             </div>
         </div>
