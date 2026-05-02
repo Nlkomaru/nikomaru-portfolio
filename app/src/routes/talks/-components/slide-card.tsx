@@ -44,7 +44,6 @@ interface SlideCardProps {
     slide: Slide;
     // 年内のインデックス（00始まり、2桁ゼロ詰めで表示）
     index: number;
-    priority?: boolean;
 }
 
 // 短い「FEB 12」形式の日付ラベルを生成する。プレゼン日が無ければ最終更新日を使う。
@@ -67,7 +66,7 @@ function formatMeta(slide: Slide): string {
     return `${slide.pageCount}P`;
 }
 
-export default function SlideCard({ slide, index, priority = false }: SlideCardProps) {
+export default function SlideCard({ slide, index }: SlideCardProps) {
     const styles = slideCardStyles();
 
     const indexLabel = String(index + 1).padStart(2, "0");
@@ -81,7 +80,7 @@ export default function SlideCard({ slide, index, priority = false }: SlideCardP
                     <SlideCardBody slide={slide} indexLabel={indexLabel} dateLabel={dateLabel} />
                 </div>
                 <div className={styles.right}>
-                    <SlideCardThumbnail slide={slide} priority={priority} metaLabel={metaLabel} />
+                    <SlideCardThumbnail slide={slide} metaLabel={metaLabel} />
                 </div>
             </div>
         </div>

@@ -22,7 +22,6 @@ const meta: Meta<typeof SlideCard> = {
     args: {
         slide: talksStorySlides[0],
         index: 0,
-        priority: true,
     },
 };
 
@@ -36,6 +35,5 @@ export const WithoutPresentationLink: Story = {
     args: {
         slide: talksStorySlides[2],
         index: 2,
-        priority: false,
     },
 };

@@ -64,11 +64,10 @@ const slideCardThumbnailStyles = sva({
 
 interface SlideCardThumbnailProps {
     slide: Slide;
-    priority: boolean;
     metaLabel: string;
 }
 
-export default function SlideCardThumbnail({ slide, priority, metaLabel }: SlideCardThumbnailProps) {
+export default function SlideCardThumbnail({ slide, metaLabel }: SlideCardThumbnailProps) {
     const styles = slideCardThumbnailStyles();
     const fallbackStyle = slide.thumbnailBlurhash ? getBlurhashBackground(slide.thumbnailBlurhash) : undefined;
 
@@ -83,9 +82,9 @@ export default function SlideCardThumbnail({ slide, priority, metaLabel }: Slide
                         alt=""
                         width={576}
                         height={324}
-                        loading={priority ? "eager" : "lazy"}
-                        decoding={priority ? "sync" : "async"}
-                        fetchPriority={priority ? "high" : "auto"}
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="auto"
                         className={styles.image}
                     />
                 ) : null}
