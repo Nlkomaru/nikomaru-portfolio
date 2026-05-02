@@ -4,28 +4,7 @@ import { useState } from "react";
 import { sva } from "styled-system/css";
 import { Baking } from "./baking";
 import { ImageFrame } from "./image-frame";
-
-export const sweets = [
-    {
-        src: "/sweets/bonbon-au-chocolat.avif",
-        alt: "Bonbon au chocolat",
-        title: "Bonbon au chocolat",
-        loading: "eager",
-    },
-    {
-        src: "/sweets/petit-strawberry-tart.avif",
-        alt: "Petit strawberry tart",
-        title: "Petit strawberry tart",
-        loading: "lazy",
-    },
-    { src: "/sweets/souffle-pancakes.avif", alt: "Soufflé pancakes", title: "Soufflé pancakes", loading: "lazy" },
-    { src: "/sweets/chocolate-tart.avif", alt: "Chocolate tart", title: "Chocolate tart", loading: "lazy" },
-    { src: "/sweets/strawberry-tart.avif", alt: "Strawberry tart", title: "Strawberry tart", loading: "lazy" },
-    { src: "/sweets/shortcake.avif", alt: "Shortcake", title: "Shortcake", loading: "lazy" },
-    { src: "/sweets/napoleon-pie.avif", alt: "Napoleon pie", title: "Napoleon pie", loading: "lazy" },
-    { src: "/sweets/creme-brulee.avif", alt: "Crème brûlée", title: "Crème brûlée", loading: "lazy" },
-    { src: "/sweets/mont-blanc-tart.avif", alt: "Mont blanc tart", title: "Mont blanc tart", loading: "lazy" },
-] as const;
+import { sweets } from "./sweets";
 
 const swipeConfidenceThreshold = 8_000;
 const swipeDistanceThreshold = 90;
@@ -114,8 +93,8 @@ const bakingGalleryStyles = sva({
         },
         close: {
             position: "fixed",
-            top: "2",
-            right: "3",
+            top: "3",
+            right: "4",
             zIndex: 52,
             display: "inline-flex",
             alignItems: "center",
@@ -217,8 +196,8 @@ export function BakingGallery() {
                 <Dialog.Positioner className={styles.positioner}>
                     <Dialog.CloseTrigger className={styles.close} aria-label="Close baking gallery">
                         <svg
-                            width="24"
-                            height="24"
+                            width="20"
+                            height="20"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
@@ -285,6 +264,7 @@ export function BakingGallery() {
                                             alt={sweet.alt}
                                             title={sweet.title}
                                             loading={sweet.loading}
+                                            blurhash={sweet.blurhash}
                                         />
                                     </motion.div>
                                 );

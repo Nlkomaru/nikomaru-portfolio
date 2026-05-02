@@ -1,4 +1,5 @@
 import { sva } from "styled-system/css";
+import { getBlurhashBackground } from "../-functions/blurhash-background";
 
 const imageFrameStyles = sva({
     slots: ["root", "media", "image", "title"],
@@ -52,9 +53,10 @@ type ImageFrameProps = {
     alt: string;
     title: string;
     loading: "eager" | "lazy";
+    blurhash: string;
 };
 
-export function ImageFrame({ src, alt, title, loading }: ImageFrameProps) {
+export function ImageFrame({ src, alt, title, loading, blurhash }: ImageFrameProps) {
     const styles = imageFrameStyles();
 
     return (
@@ -67,6 +69,7 @@ export function ImageFrame({ src, alt, title, loading }: ImageFrameProps) {
                     loading={loading}
                     draggable={false}
                     className={styles.image}
+                    style={getBlurhashBackground(blurhash)}
                 />
             </div>
             <figcaption className={styles.title}>{title}</figcaption>

@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { sva } from "styled-system/css";
 import { deLocalizeHref, getLocale, setLocale } from "../paraglide/runtime";
+import { navigationItems } from "./navigation-items";
 import { ThemeToggleButton } from "./theme-toggle-button";
 
 const desktopNavbarStyles = sva({
@@ -52,15 +53,12 @@ const desktopNavbarStyles = sva({
             px: "2",
             py: "2",
             borderRadius: "full",
-            borderWidth: "1px",
-            borderColor: "transparent",
-            transition: "background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease",
+            transition: "background-color 0.2s ease, transform 0.2s ease",
             fontSize: "0.7rem",
             letterSpacing: "0.2em",
             color: "fg.default",
             _hover: {
                 bg: "bg.subtle",
-                borderColor: "border.outline",
             },
             _active: {
                 transform: "scale(0.98)",
@@ -132,14 +130,6 @@ export function DesktopNavbar() {
     const localeSearch = { ...routerState.location.search, __locale: targetLocale };
     const currentPath = deLocalizeHref(routerState.location.pathname);
 
-    const navItems = [
-        { label: "Index", to: "/" },
-        { label: "Talks", to: "/talks" },
-        { label: "Projects", to: "/projects" },
-        { label: "About", to: "/about" },
-        { label: "Pictures", to: "/pictures" },
-    ] as const;
-
     const styles = desktopNavbarStyles();
 
     return (
@@ -151,7 +141,7 @@ export function DesktopNavbar() {
             </Link>
 
             <div className={styles.navList}>
-                {navItems.map((item, index) => {
+                {navigationItems.map((item, index) => {
                     const isActive = currentPath === item.to;
                     const itemStyles = desktopNavbarItemStyles({
                         state: isActive ? "active" : "inactive",
