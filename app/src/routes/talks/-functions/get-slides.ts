@@ -15,6 +15,11 @@ type SlideInfoV2 = {
     lastUpdated: string;
     type: "draft" | "public" | "private";
     tags: string[];
+    pictures?: Array<{
+        path: string;
+        blurhash?: string;
+        blur?: string;
+    }>;
     sourcePath: string;
 };
 
@@ -34,19 +39,26 @@ export const getSlides = createServerFn({ method: "GET" }).handler(async () => {
         .filter((v) => v.type !== "private")
         .sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())
         .sort((a, b) => new Date(b.presentation?.date ?? "").getTime() - new Date(a.presentation?.date ?? "").getTime())
-        .map<Slide>((v) => ({
-            id: v.id,
-            title: v.title,
-            // R2の最初のページ画像をサムネイルとして利用する
-            image: `/slide/${v.id}/picture/1.png`,
-            // サムネ・タイトルは常にアプリ内の Slide ビューワへ
-            slideUrl: `/slide/${v.id}`,
-            // 発表イベント名の行だけ外部 URL（イベントページ等）
-            presentationUrl: v.presentation?.url,
-            lastUpdate: v.lastUpdated,
-            presentationDate: v.presentation?.date,
-            presentationName: v.presentation?.name,
-            tags: v.tags ?? [],
-            type: v.type,
-        }));
+        .map<Slide>((v) => {
+            const thumbnail = v.pictures?.[0];
+
+            return {
+                id: v.id,
+                title: v.title,
+                // 新しい slide-info は pictures 配列を持つので、その先頭をサムネイルに使う。
+                thumbnailImage: thumbnail ? `/slide/${v.id}/${thumbnail.path}` : undefined,
+                // 一部データの揺れも吸収できるよう blur もフォールバックで読む。
+                thumbnailBlurhash: thumbnail?.blurhash ?? thumbnail?.blur,
+                pageCount: v.pictures?.length ?? 0,
+                // サムネ・タイトルは常にアプリ内の Slide ビューワへ
+                slideUrl: `/slide/${v.id}`,
+                // 発表イベント名の行だけ外部 URL（イベントページ等）
+                presentationUrl: v.presentation?.url,
+                lastUpdate: v.lastUpdated,
+                presentationDate: v.presentation?.date,
+                presentationName: v.presentation?.name,
+                tags: v.tags ?? [],
+                type: v.type,
+            };
+        });
 });

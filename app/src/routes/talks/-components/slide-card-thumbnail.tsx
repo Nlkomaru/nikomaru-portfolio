@@ -1,8 +1,9 @@
 import { sva } from "styled-system/css";
+import { getBlurhashBackground } from "@/routes/-functions/blurhash-background";
 import type { Slide } from "../-types/slide";
 
 const slideCardThumbnailStyles = sva({
-    slots: ["metaText", "imageLink", "image"],
+    slots: ["metaText", "imageLink", "image", "fallback"],
     base: {
         metaText: {
             display: { base: "none", md: "block" },
@@ -52,6 +53,12 @@ const slideCardThumbnailStyles = sva({
             transition: "opacity 0.18s ease, transform 0.18s ease",
             pointerEvents: "none",
         },
+        fallback: {
+            position: "absolute",
+            inset: 0,
+            bg: "bg.muted",
+            pointerEvents: "none",
+        },
     },
 });
 
@@ -63,21 +70,25 @@ interface SlideCardThumbnailProps {
 
 export default function SlideCardThumbnail({ slide, priority, metaLabel }: SlideCardThumbnailProps) {
     const styles = slideCardThumbnailStyles();
+    const fallbackStyle = slide.thumbnailBlurhash ? getBlurhashBackground(slide.thumbnailBlurhash) : undefined;
 
     return (
         <>
             <span className={styles.metaText}>{metaLabel}</span>
             <a href={slide.slideUrl} className={styles.imageLink} aria-label={`${slide.title} — open slides`}>
-                <img
-                    src={slide.image}
-                    alt=""
-                    width={576}
-                    height={324}
-                    loading={priority ? "eager" : "lazy"}
-                    decoding={priority ? "sync" : "async"}
-                    fetchPriority={priority ? "high" : "auto"}
-                    className={styles.image}
-                />
+                <span className={styles.fallback} style={fallbackStyle} aria-hidden="true" />
+                {slide.thumbnailImage ? (
+                    <img
+                        src={slide.thumbnailImage}
+                        alt=""
+                        width={576}
+                        height={324}
+                        loading={priority ? "eager" : "lazy"}
+                        decoding={priority ? "sync" : "async"}
+                        fetchPriority={priority ? "high" : "auto"}
+                        className={styles.image}
+                    />
+                ) : null}
             </a>
         </>
     );

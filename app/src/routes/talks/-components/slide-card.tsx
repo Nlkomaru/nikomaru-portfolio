@@ -62,10 +62,9 @@ function formatShortDate(slide: Slide): string {
     return `${month} ${day}`;
 }
 
-// 右側のメタ情報「TAG · NUM」を生成する。tagが無ければ種別ラベルにフォールバック。
+// 右側のメタ情報にはページ数を表示する。
 function formatMeta(slide: Slide): string {
-    const primaryTag = slide.tags[0] ?? slide.type;
-    return primaryTag.toUpperCase();
+    return `${slide.pageCount}P`;
 }
 
 export default function SlideCard({ slide, index, priority = false }: SlideCardProps) {
