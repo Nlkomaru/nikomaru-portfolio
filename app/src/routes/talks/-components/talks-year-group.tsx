@@ -59,7 +59,7 @@ export default function TalksYearGroup({ year, slides, countLabel }: TalksYearGr
             </div>
             <div className={styles.body}>
                 {slides.map((slide, index) => (
-                    <SlideCard key={slide.id} slide={slide} index={index} priority={index === 0} />
+                    <SlideCard key={slide.id} slide={slide} index={index} />
                 ))}
             </div>
         </section>

@@ -4,7 +4,9 @@ export const talksStorySlides: Slide[] = [
     {
         id: "typescript-never",
         title: "Demystifying the never Type in TypeScript",
-        image: "https://picsum.photos/seed/typescript-never/960/540",
+        thumbnailImage: "https://picsum.photos/seed/typescript-never/960/540",
+        thumbnailBlurhash: "mGSY{r%KD%?b~p9Gk8ayt7xtofWB_4xtRkoyt5D*oeof~qxtM|ay",
+        pageCount: 11,
         slideUrl: "/slide/typescript-never",
         presentationUrl: "https://2024.tskaigi.org/talks/nikomaru",
         lastUpdate: "2024-05-15",
@@ -16,7 +18,9 @@ export const talksStorySlides: Slide[] = [
     {
         id: "react-server-components",
         title: "Designing Boundaries for React Server Components",
-        image: "https://picsum.photos/seed/react-server-components/960/540",
+        thumbnailImage: "https://picsum.photos/seed/react-server-components/960/540",
+        thumbnailBlurhash: "mLSPX_t7M{-;?bRjRjay-;j[WBWB_3WBWBWBofj[WBay~qj[ayof",
+        pageCount: 24,
         slideUrl: "/slide/react-server-components",
         presentationUrl: "https://example.com/react-server-components",
         lastUpdate: "2024-10-02",
@@ -28,7 +32,9 @@ export const talksStorySlides: Slide[] = [
     {
         id: "testing-ui-motion",
         title: "Testing Motion-heavy UI without Losing Confidence",
-        image: "https://picsum.photos/seed/testing-ui-motion/960/540",
+        thumbnailImage: "https://picsum.photos/seed/testing-ui-motion/960/540",
+        thumbnailBlurhash: "mWQT4Mt7xu%M?bRjj[of%MRjj[of~qWBRjt7%MWBWBof4nRjxua|",
+        pageCount: 8,
         slideUrl: "/slide/testing-ui-motion",
         presentationUrl: undefined,
         lastUpdate: "2025-02-19",

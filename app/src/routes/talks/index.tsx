@@ -87,7 +87,7 @@ const talksPageStyles = sva({
             display: "flex",
             alignItems: "center",
             gap: "3",
-            w: { base: "52", md: "72" },
+            w: { base: "48", md: "72" },
             h: "9",
             pl: "3",
             pr: "2",
