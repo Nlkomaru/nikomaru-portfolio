@@ -1,0 +1,127 @@
+{
+    "dir": "2026-03-08_kawagoe",
+    "image_count": 10,
+    "warning_count": 0,
+    "images": [
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/1.webp",
+            "src_raw": "2026-03-08_kawagoe/1.ARW",
+            "avif": "2026-03-08_kawagoe/images/1.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VYECUyIoIo-q9Y_4s;aybIRiNf%MxaM{xat7WXj[t6kD",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/10.webp",
+            "src_raw": "2026-03-08_kawagoe/10.ARW",
+            "avif": "2026-03-08_kawagoe/images/10.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VsF5z3xaofRjt7~WoMbHWBs;-;M|WCayofogIoWBofay",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/2.webp",
+            "src_raw": "2026-03-08_kawagoe/2.ARW",
+            "avif": "2026-03-08_kawagoe/images/2.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VtEMXm9FWBj[j[~qD%Rjj[j[-=RiM{j[kBt7t6M{WVof",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/3.webp",
+            "src_raw": "2026-03-08_kawagoe/3.ARW",
+            "avif": "2026-03-08_kawagoe/images/3.avif",
+            "width": 2160,
+            "height": 3240,
+            "blurhash": "VbB|Nk?ct7WBog~q?bozWAof?v-;axRjkC%MtRRjRjj]",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/4.webp",
+            "src_raw": "2026-03-08_kawagoe/4.ARW",
+            "avif": "2026-03-08_kawagoe/images/4.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VY9%^_aIxu%Mx]?waIt8xvxu-?acofxvt7xvawaxt8j[",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/5.webp",
+            "src_raw": "2026-03-08_kawagoe/5.ARW",
+            "avif": "2026-03-08_kawagoe/images/5.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VpE.kaM{RjofRj~WR*Rjj[Rk-qt6R*WCjsf,xtj[WBof",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/6.webp",
+            "src_raw": "2026-03-08_kawagoe/6.ARW",
+            "avif": "2026-03-08_kawagoe/images/6.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VNAAXV9F%MWBjZ~q9FxuWBWB~q9Ft7ayWB^+D*j[j]Rj",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/7.webp",
+            "src_raw": "2026-03-08_kawagoe/7.ARW",
+            "avif": "2026-03-08_kawagoe/images/7.avif",
+            "width": 2160,
+            "height": 3240,
+            "blurhash": "VSAd1P%MD%Rj%M~q%MD%Rjxu_3%MM{Rjt7-;%2jYWBWB",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/8.webp",
+            "src_raw": "2026-03-08_kawagoe/8.ARW",
+            "avif": "2026-03-08_kawagoe/images/8.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VnEy3--pM{j[t7~W%MM{ofs:?HxaNGofj[t7WCR*ofWB",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-08_kawagoe/output/webp/9.webp",
+            "src_raw": "2026-03-08_kawagoe/9.ARW",
+            "avif": "2026-03-08_kawagoe/images/9.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VYD07O?b9F4nRj~q-;D%D%Rj-;xuM{RjWBt7j[axt7of",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        }
+    ]
+}

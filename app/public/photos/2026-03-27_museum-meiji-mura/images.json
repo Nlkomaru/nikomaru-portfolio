@@ -1,0 +1,151 @@
+{
+    "dir": "2026-03-27_museum-meiji-mura",
+    "image_count": 12,
+    "warning_count": 0,
+    "images": [
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/00.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/00.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/00.avif",
+            "width": 2160,
+            "height": 3240,
+            "blurhash": "V44e$Xx@H[VvjI%xtPMzRQjcDjV[tQbEkCD8R7%extf#",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/01.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/01.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/01.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "V8B._o9]4oM|IqVYS1$*tQR+0LRj-:xuV@^*oMbHM|IV",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/02.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/02.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/02.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VC7Ub%slDgWXIT9Df+tRWCxunLWCkYoeogkDfPf6j[ax",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/03.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/03.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/03.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "V47A#fg3b{%MEM~qXS?a%LIpAdX8^%%1slx]Riafs:s,",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/04.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/04.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/04.avif",
+            "width": 2160,
+            "height": 3240,
+            "blurhash": "VpB|szj[WUkCj@T#WVs,oeoLx_ofofj@a{NKofkCWCWC",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/05.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/05.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/05.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VQB{}lWC0LbF%LRkoes:RkWVE1j@xus:axs-ayR+t7of",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/06.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/06.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/06.avif",
+            "width": 2160,
+            "height": 3240,
+            "blurhash": "VFAl:[%1E3M|NH-Uf6bHfkaz0gM|-nxts:t7kCWBWBoe",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/07.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/07.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/07.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "ViA^kLs*kDozog%joHW?kCflXBfibca}jsWXf+WqWXax",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/08.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/08.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/08.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VFBMlYs:NLR*Io0;WBs=oft7E7WCxuj]t7bxs:WAWBM|",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/10.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/10.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/10.avif",
+            "width": 2160,
+            "height": 3240,
+            "blurhash": "VFC$l|-pWYxuR.?Ks;s:oKW=D$smxYRij[9sM_n#n#oL",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/11.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/11.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/11.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VRA,hDNGs+kEoeTOslR%o#WBO^j?jYkDjsx{WXs:a}j[",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-03-27_museum-meiji-mura/output/webp/12.webp",
+            "src_raw": "2026-03-27_museum-meiji-mura/12.ARW",
+            "avif": "2026-03-27_museum-meiji-mura/images/12.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "VC9Z[g^+%ModjY0L4:IVRkof-:%3xukCWBs,jEV@WAjZ",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        }
+    ]
+}
