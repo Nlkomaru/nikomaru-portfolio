@@ -1,0 +1,79 @@
+{
+    "dir": "2026-04-09_night-cherry-blossoms",
+    "image_count": 6,
+    "warning_count": 0,
+    "images": [
+        {
+            "src_webp": "2026-04-09_night-cherry-blossoms/output/webp/DSC01558.webp",
+            "src_raw": "2026-04-09_night-cherry-blossoms/DSC01558.ARW",
+            "avif": "2026-04-09_night-cherry-blossoms/images/DSC01558.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "V85qYWj[0~WY^4W;a}n%fkW;10a$^5j@5mwffPODjZs9",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-04-09_night-cherry-blossoms/output/webp/DSC01573.webp",
+            "src_raw": "2026-04-09_night-cherry-blossoms/DSC01573.ARW",
+            "avif": "2026-04-09_night-cherry-blossoms/images/DSC01573.avif",
+            "width": 2160,
+            "height": 3240,
+            "blurhash": "V654]qE0WUj]NG?JM_WUj[WAInoNf6bFs:53%3ofWAs;",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-04-09_night-cherry-blossoms/output/webp/DSC01579.webp",
+            "src_raw": "2026-04-09_night-cherry-blossoms/DSC01579.ARW",
+            "avif": "2026-04-09_night-cherry-blossoms/images/DSC01579.avif",
+            "width": 2160,
+            "height": 3240,
+            "blurhash": "V12#+W9}Io$zS$={EjaxxDNeEMoL%1NdNG5T-9$*I[ni",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-04-09_night-cherry-blossoms/output/webp/DSC01622.webp",
+            "src_raw": "2026-04-09_night-cherry-blossoms/DSC01622.ARW",
+            "avif": "2026-04-09_night-cherry-blossoms/images/DSC01622.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "V767caEN5S}rSz$%NbNH$%W;5S$%=x5ln%5S$%-U9]sA",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-04-09_night-cherry-blossoms/output/webp/DSC01627.webp",
+            "src_raw": "2026-04-09_night-cherry-blossoms/DSC01627.ARW",
+            "avif": "2026-04-09_night-cherry-blossoms/images/DSC01627.avif",
+            "width": 2160,
+            "height": 3240,
+            "blurhash": "VB7^f6-pE2IpR*E1WBs.WUa{0e9txt-VxZ?H%2WXR*WC",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        },
+        {
+            "src_webp": "2026-04-09_night-cherry-blossoms/output/webp/DSC01663.webp",
+            "src_raw": "2026-04-09_night-cherry-blossoms/DSC01663.ARW",
+            "avif": "2026-04-09_night-cherry-blossoms/images/DSC01663.avif",
+            "width": 3240,
+            "height": 2160,
+            "blurhash": "V97wf^0Moeoet6xtM|xaRkoe9uxZ%1NGofNGs:ofR*of",
+            "camera_make": "SONY",
+            "camera_model": "ILCE-7C",
+            "lens_model": "28-70mm F2.8 DG DN | Contemporary 021",
+            "warnings": []
+        }
+    ]
+}

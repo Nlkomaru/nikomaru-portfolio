@@ -1,0 +1,49 @@
+{
+    "dirs": [
+        {
+            "dir": "2026-02-26_gifu",
+            "source": "2026-02-26_gifu",
+            "image_count": 7,
+            "warning_count": 0,
+            "images_json": "2026-02-26_gifu/images.json"
+        },
+        {
+            "dir": "2026-03-05_tohoku",
+            "source": "2026-03-05_tohoku",
+            "image_count": 19,
+            "warning_count": 0,
+            "images_json": "2026-03-05_tohoku/images.json"
+        },
+        {
+            "dir": "2026-03-08_kawagoe",
+            "source": "2026-03-08_kawagoe",
+            "image_count": 10,
+            "warning_count": 0,
+            "images_json": "2026-03-08_kawagoe/images.json"
+        },
+        {
+            "dir": "2026-03-27_museum-meiji-mura",
+            "source": "2026-03-27_museum-meiji-mura",
+            "image_count": 12,
+            "warning_count": 0,
+            "images_json": "2026-03-27_museum-meiji-mura/images.json"
+        },
+        {
+            "dir": "2026-03-28_kanazawa",
+            "source": "2026-03-28_kanazawa",
+            "image_count": 10,
+            "warning_count": 0,
+            "images_json": "2026-03-28_kanazawa/images.json"
+        },
+        {
+            "dir": "2026-04-09_night-cherry-blossoms",
+            "source": "2026-04-09_night-cherry-blossoms",
+            "image_count": 6,
+            "warning_count": 0,
+            "images_json": "2026-04-09_night-cherry-blossoms/images.json"
+        }
+    ],
+    "dir_count": 6,
+    "image_count": 64,
+    "warning_count": 0
+}

@@ -3,5 +3,5 @@ export const navigationItems = [
     { label: "Talks", to: "/talks" },
     { label: "Projects", to: "/projects" },
     { label: "About", to: "/about" },
-    { label: "Pictures", to: "/pictures" },
+    { label: "Photos", to: "/photos" },
 ] as const;

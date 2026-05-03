@@ -37,7 +37,7 @@ export function IntroP3() {
                     </span>
                 </span>{" "}
                 お菓子作りや、最近カメラを購入したことをきっかけに始めた
-                <Link to="/pictures" data-inline-link>
+                <Link to="/photos" data-inline-link>
                     写真撮影
                 </Link>
                 などが趣味です。試行錯誤しながら学ぶこと、そして技術と創作の両方に喜びを見いだすことを大切にしています。
@@ -54,7 +54,7 @@ export function IntroP3() {
                 </span>
             </span>{" "}
             baking or{" "}
-            <Link to="/pictures" data-inline-link>
+            <Link to="/photos" data-inline-link>
                 taking photos
             </Link>
             . I started photography after buying a camera recently, and I enjoy creating things with care—learning
