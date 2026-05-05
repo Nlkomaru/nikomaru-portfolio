@@ -46,13 +46,6 @@ const talksPageStyles = sva({
             flexDirection: "column",
             gap: "10",
         },
-        headerEyebrow: {
-            color: "fg.muted",
-            fontFamily: "mono",
-            fontSize: "0.6875rem",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-        },
         headerTitle: {
             fontFamily: "heading",
             fontWeight: "semibold",
@@ -208,7 +201,6 @@ function SlidesPage() {
         <div className={styles.root}>
             <div className={styles.container}>
                 <header className={styles.header}>
-                    <p className={styles.headerEyebrow}>{m["talks.archiveEyebrow"]()}</p>
                     <h1 className={styles.headerTitle}>{m["talks.archiveTitle"]()}</h1>
                     <p className={styles.headerDescription}>{m["talks.archiveDescription"]()}</p>
                 </header>

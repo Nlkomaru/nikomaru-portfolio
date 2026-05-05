@@ -15,7 +15,6 @@ const mobileHeaderStyles = sva({
             zIndex: 40,
             h: "16",
             w: "full",
-
             bg: "bg.canvas/60",
             backdropFilter: "blur(6px)",
         },

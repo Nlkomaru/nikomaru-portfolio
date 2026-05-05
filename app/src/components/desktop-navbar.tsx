@@ -6,7 +6,7 @@ import { navigationItems } from "./navigation-items";
 import { ThemeToggleButton } from "./theme-toggle-button";
 
 const desktopNavbarStyles = sva({
-    slots: ["nav", "brand", "navList", "bottomControls", "localeLink"],
+    slots: ["nav", "brand", "navList", "navLink", "navIcon", "navLabel", "bottomControls", "localeLink"],
     base: {
         nav: {
             position: "fixed",
@@ -36,7 +36,71 @@ const desktopNavbarStyles = sva({
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "6",
+            gap: "2",
+        },
+        navLink: {
+            position: "relative",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            h: "10",
+            w: "10",
+            borderRadius: "full",
+            color: "fg.subtle",
+            transition: "background-color 0.2s ease, color 0.2s ease, transform 0.2s ease",
+            _hover: {
+                bg: "bg.subtle",
+                '& [data-slot="nav-label"]': {
+                    opacity: 1,
+                    transform: "translate(0, -50%)",
+                },
+            },
+            _active: {
+                transform: "scale(0.98)",
+            },
+            _focusVisible: {
+                outline: "2px solid",
+                outlineColor: "border.outline",
+                outlineOffset: "2px",
+            },
+            '&[data-active="true"]': {
+                bg: "bg.subtle",
+                color: "fg.default",
+                '& [data-slot="nav-icon"]': {
+                    opacity: 1,
+                    transform: "scale(1.08)",
+                },
+            },
+        },
+        navIcon: {
+            h: "4.5",
+            w: "4.5",
+            opacity: 0.55,
+            strokeWidth: 1.8,
+            transition: "transform 0.3s ease, opacity 0.2s ease",
+        },
+        navLabel: {
+            position: "absolute",
+            top: "50%",
+            left: "12",
+            bg: "bg.canvas/60",
+            backdropFilter: "blur(6px)",
+            borderRadius: "full",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: "border/30",
+            p: "1",
+            px: "2",
+            transform: "translate(-0.25rem, -50%)",
+            whiteSpace: "nowrap",
+            fontSize: "0.75rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.25em",
+            fontWeight: "medium",
+            color: "fg.muted",
+            opacity: 0,
+            pointerEvents: "none",
+            transition: "opacity 0.3s ease, transform 0.3s ease",
         },
         bottomControls: {
             display: "flex",
@@ -72,56 +136,6 @@ const desktopNavbarStyles = sva({
     },
 });
 
-const desktopNavbarItemStyles = sva({
-    slots: ["link", "dot", "label"],
-    base: {
-        link: {
-            position: "relative",
-            display: "block",
-            _hover: {
-                '& [data-slot="nav-label"]': {
-                    opacity: 1,
-                },
-            },
-        },
-        dot: {
-            h: "2",
-            w: "2",
-            borderRadius: "full",
-            transition: "all 0.5s ease",
-        },
-        label: {
-            position: "absolute",
-            top: "50%",
-            left: "6",
-            transform: "translateY(-50%)",
-            whiteSpace: "nowrap",
-            fontSize: "0.625rem",
-            textTransform: "uppercase",
-            letterSpacing: "0.25em",
-            color: "fg.muted",
-            opacity: 0,
-            transition: "opacity 0.3s ease",
-        },
-    },
-    variants: {
-        state: {
-            active: {
-                dot: {
-                    bg: "fg.default",
-                    opacity: 1,
-                },
-            },
-            inactive: {
-                dot: {
-                    bg: "fg.subtle",
-                    opacity: 0.45,
-                },
-            },
-        },
-    },
-});
-
 export function DesktopNavbar() {
     const routerState = useRouterState();
     const locale = getLocale();
@@ -143,17 +157,18 @@ export function DesktopNavbar() {
             <div className={styles.navList}>
                 {navigationItems.map((item, index) => {
                     const isActive = currentPath === item.to;
-                    const itemStyles = desktopNavbarItemStyles({
-                        state: isActive ? "active" : "inactive",
-                    });
+                    const Icon = item.icon;
 
                     return (
-                        <Link key={item.to} to={item.to} className={itemStyles.link}>
-                            <div
-                                className={itemStyles.dot}
-                                style={{ transform: isActive ? "scale(1.3)" : "scale(1)" }}
-                            />
-                            <span className={itemStyles.label} data-slot="nav-label">
+                        <Link
+                            key={item.to}
+                            to={item.to}
+                            className={styles.navLink}
+                            aria-label={item.label}
+                            data-active={isActive}
+                        >
+                            <Icon className={styles.navIcon} data-slot="nav-icon" aria-hidden="true" />
+                            <span className={styles.navLabel} data-slot="nav-label">
                                 {String(index + 1).padStart(2, "0")}—{item.label}
                             </span>
                         </Link>

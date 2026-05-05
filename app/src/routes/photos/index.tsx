@@ -15,7 +15,7 @@ const photoPageStyles = sva({
             maxW: "104rem",
             mx: "auto",
             px: { base: "6", md: "12" },
-            py: { base: "6", md: "10" },
+            py: { base: "6", md: "20" },
             display: "flex",
             flexDirection: "column",
             gap: "8",
@@ -24,13 +24,6 @@ const photoPageStyles = sva({
             display: "flex",
             flexDirection: "column",
             gap: "10",
-        },
-        headerEyebrow: {
-            color: "fg.muted",
-            fontFamily: "mono",
-            fontSize: "0.6875rem",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
         },
         headerTitle: {
             fontFamily: "heading",
