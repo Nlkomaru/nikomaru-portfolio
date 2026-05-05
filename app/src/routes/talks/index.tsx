@@ -33,7 +33,7 @@ const talksPageStyles = sva({
             color: "fg.default",
         },
         container: {
-            maxW: "7xl",
+            maxW: "104rem",
             mx: "auto",
             px: { base: "6", md: "12" },
             py: { base: "12", md: "20" },

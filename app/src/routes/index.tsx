@@ -41,7 +41,10 @@ const appPageStyles = sva({
         intro: {
             color: "fg.subtle",
             display: "flex",
-            fontSize: "md",
+            fontSize: {
+                base: "md",
+                md: "lg",
+            },
             flexDirection: "column",
             gap: "4",
             "& p": {
