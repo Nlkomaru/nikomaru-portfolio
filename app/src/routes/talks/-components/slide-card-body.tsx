@@ -89,7 +89,6 @@ interface SlideCardBodyProps {
 export default function SlideCardBody({ slide, indexLabel, dateLabel }: SlideCardBodyProps) {
     const styles = slideCardBodyStyles();
     const hasPresentationLink = slide.presentationName && slide.presentationUrl;
-    const presentationOpensInNewTab = slide.presentationUrl ? /^https?:\/\//.test(slide.presentationUrl) : false;
 
     return (
         <>
@@ -100,15 +99,15 @@ export default function SlideCardBody({ slide, indexLabel, dateLabel }: SlideCar
                 <span className={styles.dateText}>{dateLabel}</span>
             </div>
             <div className={styles.textCol}>
-                <a href={slide.slideUrl} className={styles.titleText}>
+                <a href={slide.slideUrl} className={styles.titleText} target={"_blank"} rel={"noopener noreferrer"}>
                     {slide.title}
                 </a>
                 <div className={styles.linkRow}>
                     {hasPresentationLink ? (
                         <a
                             href={slide.presentationUrl}
-                            target={presentationOpensInNewTab ? "_blank" : undefined}
-                            rel={presentationOpensInNewTab ? "noopener noreferrer" : undefined}
+                            target={"_blank"}
+                            rel={"noopener noreferrer"}
                             className={styles.textLink}
                         >
                             {slide.presentationName}
