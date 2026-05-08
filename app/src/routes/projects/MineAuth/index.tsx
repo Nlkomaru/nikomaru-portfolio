@@ -103,6 +103,6 @@ function MineAuthPage() {
                     ))}
                 </div>
             </div>
-    </div >
-    )
+        </div>
+    );
 }
