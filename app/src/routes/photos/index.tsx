@@ -14,7 +14,7 @@ const photoPageStyles = sva({
         container: {
             maxW: "104rem",
             mx: "auto",
-            px: { base: "6", md: "12" },
+            px: { base: "4", md: "12" },
             py: { base: "6", md: "20" },
             display: "flex",
             flexDirection: "column",

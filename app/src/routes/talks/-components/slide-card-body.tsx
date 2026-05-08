@@ -100,7 +100,9 @@ export default function SlideCardBody({ slide, indexLabel, dateLabel }: SlideCar
                 <span className={styles.dateText}>{dateLabel}</span>
             </div>
             <div className={styles.textCol}>
-                <p className={styles.titleText}>{slide.title}</p>
+                <a href={slide.slideUrl} className={styles.titleText}>
+                    {slide.title}
+                </a>
                 <div className={styles.linkRow}>
                     {hasPresentationLink ? (
                         <a

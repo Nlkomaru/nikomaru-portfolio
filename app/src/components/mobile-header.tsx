@@ -24,7 +24,7 @@ const mobileHeaderStyles = sva({
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            px: "4",
+            px: "2",
             gap: "4",
         },
         brand: {
