@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { m } from "../paraglide/messages";
 import { getLocale } from "../paraglide/runtime";
-import { IntroBudouxText } from "./-components/intro-budoux-text";
 import { IntroP2 } from "./-components/intro-p2";
 import { IntroP3 } from "./-components/intro-p3";
 
@@ -50,11 +49,11 @@ const appPageStyles = sva({
             flexDirection: "column",
             gap: "4",
             "& p": {
-                overflowWrap: "anywhere",
+                overflowWrap: "break-word",
                 lineBreak: "strict",
             },
             '& p[lang="ja"]': {
-                wordBreak: "keep-all",
+                wordBreak: "auto-phrase",
             },
         },
     },
@@ -99,9 +98,7 @@ function AppPage() {
                 <p className={styles.greetingText}>{m.homeGreeting()}</p>
             </div>
             <div className={styles.intro}>
-                <p lang={locale}>
-                    <IntroBudouxText locale={locale} text={m["top.introP1"]()} />
-                </p>
+                <p lang={locale}>{m["top.introP1"]()}</p>
                 <IntroP2 />
                 <IntroP3 />
             </div>

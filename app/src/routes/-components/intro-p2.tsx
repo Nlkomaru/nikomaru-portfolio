@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { getLocale } from "../../paraglide/runtime";
-import { IntroBudouxText } from "./intro-budoux-text";
 
 const introP2Styles = sva({
     slots: ["noWrap"],
@@ -20,36 +19,34 @@ export function IntroP2() {
     if (locale === "ja") {
         return (
             <p lang={locale}>
-                <IntroBudouxText
-                    locale={locale}
-                    text="認可・認証やデザインシステムなど様々な分野に興味があり、特にアクセシビリティにも配慮したUIや体験づくりを探求しています。"
-                />
-                <Link to="/projects/$project" params={{ project: "MineAuth" }} data-inline-link>
-                    MineAuth
-                </Link>
-                <IntroBudouxText locale={locale} text="では" />
+                認可・認証やデザインシステムなど様々な分野に興味があり、特にアクセシビリティにも配慮したUIや体験づくりを探求しています。
+                <span className={styles.noWrap}>
+                    <Link to="/projects/$project" params={{ project: "MineAuth" }} data-inline-link>
+                        MineAuth
+                    </Link>
+                    では
+                </span>
                 {oauthLabel}
-                <IntroBudouxText locale={locale} text="をはじめとする認証基盤やAPI設計に取り組み、" />
+                をはじめとする認証基盤やAPI設計に取り組み、
                 <Link to="/projects/$project" params={{ project: "MoriPath" }} data-inline-link>
                     MoriPath
                 </Link>
-                <IntroBudouxText locale={locale} text="や" />
+                や
                 <Link to="/projects/$project" params={{ project: "Chlorophyll" }} data-inline-link>
                     Chlorophyll
                 </Link>
-                <IntroBudouxText locale={locale} text="ではモダンなWeb開発やUIの基盤づくりを進めています。" />
+                ではモダンなWeb開発やUIの基盤づくりを進めています。
             </p>
         );
     }
 
     return (
         <p lang={locale}>
-            I&apos;m interested in a wide range of areas, including authorization, authentication, and design systems,
-            and I&apos;m especially exploring UI and experience design with accessibility in mind. In{" "}
+            I&apos;m interested in auth, design systems, and accessible UI. In{" "}
             <Link to="/projects/$project" params={{ project: "MineAuth" }} data-inline-link>
                 MineAuth
             </Link>
-            , I work on authentication infrastructure, including {oauthLabel}, and API design. In{" "}
+            , I work on {oauthLabel}, auth infrastructure, and API design. In{" "}
             <Link to="/projects/$project" params={{ project: "MoriPath" }} data-inline-link>
                 MoriPath
             </Link>{" "}

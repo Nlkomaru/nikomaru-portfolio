@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { getLocale } from "../../paraglide/runtime";
 import { BakingGallery } from "./baking-gallery";
-import { IntroBudouxText } from "./intro-budoux-text";
 
 const introP3Styles = sva({
     slots: ["baking", "bakingInner"],
@@ -31,20 +30,17 @@ export function IntroP3() {
     if (locale === "ja") {
         return (
             <p lang={locale}>
-                <IntroBudouxText locale={locale} text="また、プログラミング以外には、" />
+                また、プログラミング以外には、
                 <span className={styles.baking}>
                     <span className={styles.bakingInner}>
                         <BakingGallery />
                     </span>
                 </span>{" "}
-                <IntroBudouxText locale={locale} text="お菓子作りや、最近カメラを購入したことをきっかけに始めた" />
+                お菓子作りや、最近カメラを購入したことをきっかけに始めた
                 <Link to="/photos" data-inline-link>
                     写真撮影
                 </Link>
-                <IntroBudouxText
-                    locale={locale}
-                    text="などが趣味です。様々なことに触れながら、新しいことに積極的に挑戦することを心がけています。"
-                />
+                などが趣味です。様々なことに触れながら、新しいことに積極的に挑戦することを心がけています。
             </p>
         );
     }
