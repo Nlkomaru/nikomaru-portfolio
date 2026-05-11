@@ -1,7 +1,6 @@
 ---
 slug: MineAuth
 title: MineAuth
-serialNumber: "002"
 abstract: >-
   An OAuth 2.1 / OpenID Connect provider built for the Minecraft ecosystem —
   turning player identity into a first-class, standards-compliant primitive for
@@ -15,13 +14,13 @@ metaItems:
     description: 2024 — Present
   - term: Status
     description: Active
-  - term: Live
-    description: mineauth.example.com
-    href: https://mineauth.example.com
+  - term: Document
+    description: https://mineauth.plugin.morino.party
+    href: https://mineauth.plugin.morino.party
     external: true
   - term: Source
-    description: github.com/Nlkomaru/mineauth
-    href: https://github.com/Nlkomaru/mineauth
+    description: https://github.com/morinoparty/mineauth
+    href: https://github.com/morinoparty/mineauth
     external: true
 coverImage:
   src: /projects/mineauth/community.png
