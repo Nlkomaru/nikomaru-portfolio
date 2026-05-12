@@ -1,27 +1,6 @@
 import { env } from "cloudflare:workers";
 import { createServerFn } from "@tanstack/react-start";
-import type { Slide } from "../-types/slide";
-
-type SlideInfoV2 = {
-    $schema: string;
-    id: string;
-    title: string;
-    created: string;
-    presentation: null | {
-        date: string;
-        name: string;
-        url: string;
-    };
-    lastUpdated: string;
-    type: "draft" | "public" | "private";
-    tags: string[];
-    pictures?: Array<{
-        path: string;
-        blurhash?: string;
-        blur?: string;
-    }>;
-    sourcePath: string;
-};
+import { type SlideInfoV2, toSlides } from "./slide-info";
 
 // R2からスライド一覧のメタデータのみを取得（画像はプロキシURL経由でブラウザが直接読み込む）
 export const getSlides = createServerFn({ method: "GET" }).handler(async () => {
@@ -35,30 +14,5 @@ export const getSlides = createServerFn({ method: "GET" }).handler(async () => {
 
     const data = (await res.json()) as SlideInfoV2[];
 
-    return data
-        .filter((v) => v.type !== "private")
-        .sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())
-        .sort((a, b) => new Date(b.presentation?.date ?? "").getTime() - new Date(a.presentation?.date ?? "").getTime())
-        .map<Slide>((v) => {
-            const thumbnail = v.pictures?.[0];
-
-            return {
-                id: v.id,
-                title: v.title,
-                // 新しい slide-info は pictures 配列を持つので、その先頭をサムネイルに使う。
-                thumbnailImage: thumbnail ? `/slide/${v.id}/${thumbnail.path}` : undefined,
-                // 一部データの揺れも吸収できるよう blur もフォールバックで読む。
-                thumbnailBlurhash: thumbnail?.blurhash ?? thumbnail?.blur,
-                pageCount: v.pictures?.length ?? 0,
-                // サムネ・タイトルは常にアプリ内の Slide ビューワへ
-                slideUrl: `/slide/${v.id}`,
-                // 発表イベント名の行だけ外部 URL（イベントページ等）
-                presentationUrl: v.presentation?.url,
-                lastUpdate: v.lastUpdated,
-                presentationDate: v.presentation?.date,
-                presentationName: v.presentation?.name,
-                tags: v.tags ?? [],
-                type: v.type,
-            };
-        });
+    return toSlides(data);
 });

@@ -10,7 +10,7 @@
         "panda:codegen": "panda codegen",
         "paraglide:compile": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide",
         "preview": "pnpm run build && vite preview",
-        "test": "vitest run",
+        "test": "vitest run --config vitest.config.ts",
         "deploy": "pnpm run build && wrangler deploy",
         "cf-typegen": "wrangler types"
     },

@@ -1,31 +1,8 @@
 import { env } from "cloudflare:workers";
 import { createFileRoute } from "@tanstack/react-router";
+import { isSlideTopHtmlResponse, isStaticAsset, resolveSlideR2Url } from "./-functions/slide-route-helper";
 
 const STATIC_CACHE_CONTROL = "public, max-age=86400, s-maxage=604800";
-
-function resolveR2Url(splat: string, segments: string[]): string {
-    // /slide/:id → :id/index.html
-    if (segments.length === 1) {
-        if (segments[0].endsWith("slidev-exported.pdf")) {
-            return `${env.R2_PUBLIC_URL}${segments[0].replace("slidev-exported.pdf", "/slidev-exported.pdf")}`;
-        }
-        return `${env.R2_PUBLIC_URL}${splat}/index.html`;
-    }
-    // /slide/:id/:pageNum → :id/index.html（SPA内ページ遷移）
-    if (segments.length === 2 && !Number.isNaN(Number(segments[1]))) {
-        return `${env.R2_PUBLIC_URL}${segments[0]}/index.html`;
-    }
-    return `${env.R2_PUBLIC_URL}${splat}`;
-}
-
-function isStaticAsset(contentType: string): boolean {
-    return (
-        contentType.startsWith("image/") ||
-        contentType.includes("css") ||
-        contentType.includes("javascript") ||
-        contentType.includes("font")
-    );
-}
 
 // HTML属性に安全に埋め込むためのエスケープ処理。
 // OGP用のmetaタグはユーザーが共有するURLに直接出るため、念のため最低限のサニタイズを行う。
@@ -113,18 +90,14 @@ export const Route = createFileRoute("/slide/$")({
                 headers.append("CF-Access-Client-Id", env.CF_ACCESS_CLIENT_ID);
                 headers.append("CF-Access-Client-Secret", env.CF_ACCESS_CLIENT_SECRET);
 
-                const slideUrl = resolveR2Url(splat, segments);
+                const slideUrl = resolveSlideR2Url(env.R2_PUBLIC_URL, splat, segments);
                 const res = await fetch(slideUrl, { headers });
 
                 const contentType = res.headers.get("content-type") || "";
 
                 // スライドのトップ HTML (`/slide/:id` または `/slide/:id/:pageNum`) には OGP メタを注入する。
                 // SNS でシェアされた際に Slidev のページ画像をサムネイルとして表示させるための処置。
-                const isSlideTopHtml =
-                    contentType.includes("text/html") &&
-                    res.ok &&
-                    (segments.length === 1 || (segments.length === 2 && !Number.isNaN(Number(segments[1]))));
-                if (isSlideTopHtml) {
+                if (isSlideTopHtmlResponse(contentType, res.ok, segments)) {
                     const slideTitle = await fetchSlideTitle(segments[0], headers);
                     return injectSlideOgpMeta(res, request.url, segments[0], slideTitle);
                 }
