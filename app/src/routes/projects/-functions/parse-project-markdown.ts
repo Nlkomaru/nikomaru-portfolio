@@ -4,7 +4,7 @@ import type { ProjectImage } from "../-types/project";
 // 1段落分の本文 + その段落に紐づくオプションのメタ情報。
 // 段落の前に YAML ブロックを置くと、その値が次の段落に適用される。
 export interface ProjectSection {
-    /** 本文（プレーンテキスト） */
+    /** 本文（Markdown） */
     text: string;
     /** 段落の左右に並べる図版 */
     image?: ProjectImage;

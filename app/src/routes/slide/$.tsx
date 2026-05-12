@@ -72,11 +72,14 @@ function injectSlideOgpMeta(
     const metaTags = [
         `<meta property="og:url" content="${escapeHtmlAttribute(pageUrl)}">`,
         `<meta property="og:type" content="article">`,
+        `<meta property="site_name" content="Nikomaru Portfolio">`,
         `<meta property="og:image" content="${escapeHtmlAttribute(ogImage)}">`,
+        `<meta property="og:image:alt" content="${escapeHtmlAttribute(slideTitle ?? "")}">`,
         `<meta property="og:image:width" content="1920">`,
         `<meta property="og:image:height" content="1080">`,
         `<meta name="twitter:card" content="summary_large_image">`,
         `<meta name="twitter:image" content="${escapeHtmlAttribute(ogImage)}">`,
+        `<meta name="twitter:site" content="@nikomaru0102">`,
         // slide-info-list.json から取得できた場合のみ og:title / twitter:title を上書きする。
         ...(slideTitle
             ? [

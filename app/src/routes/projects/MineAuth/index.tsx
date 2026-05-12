@@ -19,7 +19,9 @@ const mineAuthPageStyles = sva({
         "sectionContainer",
         "section",
         "sectionWithImage",
+        "sectionImageFrame",
         "sectionImage",
+        "sectionTitle",
         "paragraph",
     ],
     base: {
@@ -41,17 +43,18 @@ const mineAuthPageStyles = sva({
             h: { base: "16rem", md: "28rem" },
             objectFit: "cover",
         },
-        // talks / photos と同じ最大幅 104rem の中央寄せコンテナ
+        // トップ画像以外の本文ブロックは少し細めにして読みやすさを保つ。
         container: {
             w: "full",
-            maxW: "104rem",
+            maxW: "7xl",
             mx: "auto",
         },
         sectionContainer: {
             display: "flex",
             flexDirection: "column",
             gap: "16",
-            width: "6xl",
+            px: "8",
+            w: "full",
             mx: "auto",
         },
         // セクションは grid で組む。モバイルは縦積み、デスクトップは2カラム。
@@ -66,11 +69,25 @@ const mineAuthPageStyles = sva({
         sectionWithImage: {
             gridTemplateColumns: { base: "1fr", lg: "repeat(2, minmax(0, 1fr))" },
         },
+        sectionImageFrame: {
+            px: { base: "4", md: "8" },
+        },
         sectionImage: {
             w: "full",
             h: "auto",
             objectFit: "cover",
-            borderRadius: "md",
+            borderRadius: "lg",
+            border: "1px solid",
+            borderColor: "border.default",
+        },
+        sectionTitle: {
+            fontFamily: "heading",
+            fontSize: { base: "1.5rem", md: "1.875rem" },
+            fontWeight: "600",
+            lineHeight: "1.25",
+            letterSpacing: "-0.02em",
+            color: "fg.default",
+            mb: "4",
         },
         paragraph: {
             fontFamily: "body",
@@ -78,7 +95,6 @@ const mineAuthPageStyles = sva({
             fontSize: "1rem",
             lineHeight: "1.75",
             color: "fg.default",
-            maxW: "4xl",
         },
     },
 });

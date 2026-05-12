@@ -3,6 +3,7 @@
     "private": true,
     "scripts": {
         "dev": "pnpm --filter @nikomaru-portfolio/app dev",
+        "dev:tunnel": "pnpm --filter @nikomaru-portfolio/app dev:tunnel",
         "build": "pnpm --filter @nikomaru-portfolio/app build",
         "preview": "pnpm --filter @nikomaru-portfolio/app preview",
         "test": "pnpm --filter @nikomaru-portfolio/app test",
