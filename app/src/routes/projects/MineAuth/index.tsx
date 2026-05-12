@@ -15,7 +15,7 @@ const mineAuthPageStyles = sva({
         "root",
         "main",
         "topImage",
-        "container",
+        "contentContainer",
         "sectionContainer",
         "section",
         "sectionWithImage",
@@ -36,6 +36,8 @@ const mineAuthPageStyles = sva({
             gap: { base: "8", md: "12" },
             px: { base: "4", md: "12" },
             py: { base: "12", md: "16" },
+            maxW: "7xl",
+            mx: "auto",
         },
         // ページ最上部のフルブリードのカバー画像
         topImage: {
@@ -44,20 +46,14 @@ const mineAuthPageStyles = sva({
             objectFit: "cover",
         },
         // トップ画像以外の本文ブロックは少し細めにして読みやすさを保つ。
-        container: {
+        contentContainer: {
             w: "full",
-            maxW: "7xl",
             mx: "auto",
         },
         sectionContainer: {
             display: "flex",
             flexDirection: "column",
             gap: "16",
-            px: {
-                md: "8",
-            },
-            w: "full",
-            mx: "auto",
         },
         // セクションは grid で組む。モバイルは縦積み、デスクトップは2カラム。
         // 画像なしのときは1カラム（コンテナ幅いっぱい）にする。
@@ -71,8 +67,7 @@ const mineAuthPageStyles = sva({
         sectionWithImage: {
             gridTemplateColumns: { base: "1fr", lg: "repeat(2, minmax(0, 1fr))" },
         },
-        sectionImageFrame: {
-        },
+        sectionImageFrame: {},
         sectionImage: {
             w: "full",
             h: "auto",
@@ -106,15 +101,16 @@ export const Route = createFileRoute("/projects/MineAuth/")({
 
 function MineAuthPage() {
     const styles = mineAuthPageStyles();
+    const sectionContainerClassName = `${styles.contentContainer} ${styles.sectionContainer}`;
 
     return (
         <div className={styles.root}>
             <img src={project.coverImage.src} alt={project.coverImage.alt} className={styles.topImage} />
 
             <div className={styles.main}>
-                <ProjectDetailHeader project={project} className={styles.container} />
+                <ProjectDetailHeader project={project} className={styles.contentContainer} />
 
-                <div className={styles.sectionContainer}>
+                <div className={sectionContainerClassName}>
                     {sections.map((section) => (
                         <SectionView key={section.text.slice(0, 32)} section={section} styles={styles} />
                     ))}
