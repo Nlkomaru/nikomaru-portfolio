@@ -36,27 +36,12 @@ jobs:
         shell: bash
         run: |
           set +e
-          pnpm run test 2>&1 | tee test-result.log
-          status=${PIPESTATUS[0]}
-
-          {
-            echo "<details>"
-            echo "<summary>Test Result</summary>"
-            echo
-
-            if [ "$status" -eq 0 ]; then
-              echo "✅ \`pnpm run test\` passed."
-            else
-              echo "❌ \`pnpm run test\` failed."
-            fi
-
-            echo
-            echo '```text'
-            cat test-result.log
-            echo '```'
-            echo
-            echo "</details>"
-          } > test-result.md
+          (
+            cd app
+            pnpm exec vitest run --config vitest.config.ts --reporter=json --outputFile=../test-result.json
+          )
+          status=$?
+          node .github/workflows/scripts/test-result-summarize.mjs test-result.json test-result.md "$status"
 
           exit "$status"
 
