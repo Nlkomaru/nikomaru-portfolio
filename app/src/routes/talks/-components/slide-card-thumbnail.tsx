@@ -74,7 +74,13 @@ export default function SlideCardThumbnail({ slide, metaLabel }: SlideCardThumbn
     return (
         <>
             <span className={styles.metaText}>{metaLabel}</span>
-            <a href={slide.slideUrl} className={styles.imageLink} aria-label={`${slide.title} — open slides`}>
+            <a
+                href={slide.slideUrl}
+                className={styles.imageLink}
+                target={"_blank"}
+                rel={"noopener noreferrer"}
+                aria-label={`${slide.title} — open slides`}
+            >
                 <span className={styles.fallback} style={fallbackStyle} aria-hidden="true" />
                 {slide.thumbnailImage ? (
                     <img

@@ -13,10 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as TalksIndexRouteImport } from './routes/talks/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
 import { Route as PhotosIndexRouteImport } from './routes/photos/index'
-import { Route as ContactIndexRouteImport } from './routes/contact/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as SlideSplatRouteImport } from './routes/slide/$'
 import { Route as ProjectsProjectRouteImport } from './routes/projects/$project'
+import { Route as ProjectsMineAuthIndexRouteImport } from './routes/projects/MineAuth/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -38,11 +38,6 @@ const PhotosIndexRoute = PhotosIndexRouteImport.update({
   path: '/photos/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ContactIndexRoute = ContactIndexRouteImport.update({
-  id: '/contact/',
-  path: '/contact/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AboutIndexRoute = AboutIndexRouteImport.update({
   id: '/about/',
   path: '/about/',
@@ -58,26 +53,31 @@ const ProjectsProjectRoute = ProjectsProjectRouteImport.update({
   path: '/projects/$project',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsMineAuthIndexRoute = ProjectsMineAuthIndexRouteImport.update({
+  id: '/projects/MineAuth/',
+  path: '/projects/MineAuth/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/projects/$project': typeof ProjectsProjectRoute
   '/slide/$': typeof SlideSplatRoute
   '/about/': typeof AboutIndexRoute
-  '/contact/': typeof ContactIndexRoute
   '/photos/': typeof PhotosIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/talks/': typeof TalksIndexRoute
+  '/projects/MineAuth/': typeof ProjectsMineAuthIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/projects/$project': typeof ProjectsProjectRoute
   '/slide/$': typeof SlideSplatRoute
   '/about': typeof AboutIndexRoute
-  '/contact': typeof ContactIndexRoute
   '/photos': typeof PhotosIndexRoute
   '/projects': typeof ProjectsIndexRoute
   '/talks': typeof TalksIndexRoute
+  '/projects/MineAuth': typeof ProjectsMineAuthIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -85,10 +85,10 @@ export interface FileRoutesById {
   '/projects/$project': typeof ProjectsProjectRoute
   '/slide/$': typeof SlideSplatRoute
   '/about/': typeof AboutIndexRoute
-  '/contact/': typeof ContactIndexRoute
   '/photos/': typeof PhotosIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/talks/': typeof TalksIndexRoute
+  '/projects/MineAuth/': typeof ProjectsMineAuthIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -97,30 +97,30 @@ export interface FileRouteTypes {
     | '/projects/$project'
     | '/slide/$'
     | '/about/'
-    | '/contact/'
     | '/photos/'
     | '/projects/'
     | '/talks/'
+    | '/projects/MineAuth/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/projects/$project'
     | '/slide/$'
     | '/about'
-    | '/contact'
     | '/photos'
     | '/projects'
     | '/talks'
+    | '/projects/MineAuth'
   id:
     | '__root__'
     | '/'
     | '/projects/$project'
     | '/slide/$'
     | '/about/'
-    | '/contact/'
     | '/photos/'
     | '/projects/'
     | '/talks/'
+    | '/projects/MineAuth/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -128,10 +128,10 @@ export interface RootRouteChildren {
   ProjectsProjectRoute: typeof ProjectsProjectRoute
   SlideSplatRoute: typeof SlideSplatRoute
   AboutIndexRoute: typeof AboutIndexRoute
-  ContactIndexRoute: typeof ContactIndexRoute
   PhotosIndexRoute: typeof PhotosIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
   TalksIndexRoute: typeof TalksIndexRoute
+  ProjectsMineAuthIndexRoute: typeof ProjectsMineAuthIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,13 +164,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PhotosIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contact/': {
-      id: '/contact/'
-      path: '/contact'
-      fullPath: '/contact/'
-      preLoaderRoute: typeof ContactIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/about/': {
       id: '/about/'
       path: '/about'
@@ -192,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsProjectRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/MineAuth/': {
+      id: '/projects/MineAuth/'
+      path: '/projects/MineAuth'
+      fullPath: '/projects/MineAuth/'
+      preLoaderRoute: typeof ProjectsMineAuthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -200,10 +200,10 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsProjectRoute: ProjectsProjectRoute,
   SlideSplatRoute: SlideSplatRoute,
   AboutIndexRoute: AboutIndexRoute,
-  ContactIndexRoute: ContactIndexRoute,
   PhotosIndexRoute: PhotosIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
   TalksIndexRoute: TalksIndexRoute,
+  ProjectsMineAuthIndexRoute: ProjectsMineAuthIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

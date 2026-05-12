@@ -15,7 +15,6 @@ const mobileHeaderStyles = sva({
             zIndex: 40,
             h: "16",
             w: "full",
-
             bg: "bg.canvas/60",
             backdropFilter: "blur(6px)",
         },
@@ -25,7 +24,7 @@ const mobileHeaderStyles = sva({
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            px: "4",
+            px: "2",
             gap: "4",
         },
         brand: {

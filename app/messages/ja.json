@@ -17,7 +17,7 @@
     "languageSwitchToEn": "English",
     "contact": {
         "heading": "お話しましょう",
-        "summary": "現在学生につき、アルバイトやインターンを探しています。多忙のため、返信に少し時間がかかることがあります。",
+        "summary": "現在学生につき、アルバイトやインターンを探しています。多忙につき、返信に少し時間がかかる場合があります。",
         "basedIn": "拠点",
         "location": "長野県, 日本",
         "locationSub": "世界中で活動可能",
@@ -27,6 +27,6 @@
     },
     "homeGreeting": "こんにちは、にこまるです",
     "top": {
-        "introP1": "現在、日本の大学で学生をしています。Kotlin、TypeScript、Reactを中心に、Minecraftのプラグイン開発やWebアプリケーションの開発に取り組んでいます。"
+        "introP1": "現在、信州大学工学部の4年生で、コンピュータサイエンスを専攻しています。Kotlin、TypeScript、Reactを中心に、Minecraftのプラグイン開発やWebアプリケーションの開発に取り組んでいます。"
     }
 }

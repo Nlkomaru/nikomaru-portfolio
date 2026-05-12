@@ -5,6 +5,7 @@
     "scripts": {
         "prepare": "panda codegen",
         "dev": "vite dev --port 3000 --host --open",
+        "dev:tunnel": "sh -c 'vite dev --port 3000 --host 0.0.0.0 & vite_pid=$!; trap \"kill $vite_pid 2>/dev/null\" EXIT INT TERM; cloudflared tunnel --url http://localhost:3000'",
         "build": "vite build",
         "panda:codegen": "panda codegen",
         "paraglide:compile": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide",
@@ -34,7 +35,8 @@
         "next-themes": "^0.4.6",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
-        "vite-tsconfig-paths": "^5.1.4"
+        "vite-tsconfig-paths": "^5.1.4",
+        "yaml": "^2.8.4"
     },
     "devDependencies": {
         "@pandacss/dev": "^1.9.1",

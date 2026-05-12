@@ -29,7 +29,7 @@ const photoGalleryStyles = sva({
         grid: {
             display: "grid",
             gridTemplateColumns: { base: "repeat(2, minmax(0, 1fr))", md: "repeat(4, minmax(0, 1fr))" },
-            gap: { base: "3", md: "4" },
+            gap: "2"
         },
         item: {
             listStyle: "none",

@@ -29,7 +29,7 @@ export function IntroP3() {
     const styles = introP3Styles();
     if (locale === "ja") {
         return (
-            <p>
+            <p lang={locale}>
                 また、プログラミング以外には、
                 <span className={styles.baking}>
                     <span className={styles.bakingInner}>
@@ -40,25 +40,25 @@ export function IntroP3() {
                 <Link to="/photos" data-inline-link>
                     写真撮影
                 </Link>
-                などが趣味です。試行錯誤しながら学ぶこと、そして技術と創作の両方に喜びを見いだすことを大切にしています。
+                などが趣味です。様々なことに触れながら、新しいことに積極的に挑戦することを心がけています。
             </p>
         );
     }
 
     return (
-        <p>
-            When I&apos;m not coding, I&apos;m usually{" "}
+        <p lang={locale}>
+            Outside of programming, I enjoy{" "}
             <span className={styles.baking}>
                 <span className={styles.bakingInner}>
                     <BakingGallery />
                 </span>
             </span>{" "}
-            baking or{" "}
+            baking and{" "}
             <Link to="/photos" data-inline-link>
-                taking photos
+                photography
             </Link>
-            . I started photography after buying a camera recently, and I enjoy creating things with care—learning
-            through trial and error along the way.
+            , which I started after buying a camera recently. I try to stay curious across different fields and actively
+            take on new challenges.
         </p>
     );
 }

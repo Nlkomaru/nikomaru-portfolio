@@ -11,6 +11,13 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 import { urlPatternsWithFallback } from "./src/i18n/translated-pathnames";
 
 const config = defineConfig({
+    server: {
+        host: "0.0.0.0",
+        port: 3000,
+        strictPort: true,
+        // Cloudflare Tunnel 経由で dev server に届く Host ヘッダーを許可する。
+        allowedHosts: [".trycloudflare.com", ".nikomaru.dev"],
+    },
     css: {
         postcss: {
             plugins: [pandacss, autoprefixer],

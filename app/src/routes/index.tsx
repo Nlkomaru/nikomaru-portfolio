@@ -1,8 +1,9 @@
 import caveatLatin400Woff2 from "@fontsource/caveat/files/caveat-latin-400-normal.woff2?url";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { m } from "../paraglide/messages";
 import { getLocale } from "../paraglide/runtime";
+import { IntroP2 } from "./-components/intro-p2";
 import { IntroP3 } from "./-components/intro-p3";
 
 const appPageStyles = sva({
@@ -14,7 +15,7 @@ const appPageStyles = sva({
                 md: "100dvh",
             },
             bg: "bg.canvas",
-            px: { base: "6", md: "20" },
+            px: { base: "4", md: "20" },
             display: "flex",
             flexDirection: "column",
             gap: "6",
@@ -41,13 +42,18 @@ const appPageStyles = sva({
         intro: {
             color: "fg.subtle",
             display: "flex",
-            fontSize: "md",
+            fontSize: {
+                base: "md",
+                md: "lg",
+            },
             flexDirection: "column",
             gap: "4",
             "& p": {
-                wordBreak: "normal",
-                overflowWrap: "anywhere",
+                overflowWrap: "break-word",
                 lineBreak: "strict",
+            },
+            '& p[lang="ja"]': {
+                wordBreak: "auto-phrase",
             },
         },
     },
@@ -92,44 +98,8 @@ function AppPage() {
                 <p className={styles.greetingText}>{m.homeGreeting()}</p>
             </div>
             <div className={styles.intro}>
-                <p>{m["top.introP1"]()}</p>
-                <p>
-                    {locale === "ja" ? (
-                        <>
-                            認可認証やデザインシステムといった幅広い分野に興味があります。
-                            <Link to="/projects/$project" params={{ project: "MineAuth" }} data-inline-link>
-                                MineAuth
-                            </Link>
-                            というプロジェクトでは、OAuth2 / OpenID
-                            Connectおよび関連するAPI設計に取り組んでいます。また、
-                            <Link to="/projects/$project" params={{ project: "MoriPath" }} data-inline-link>
-                                MoriPath
-                            </Link>
-                            や
-                            <Link to="/projects/$project" params={{ project: "Chlorophyll" }} data-inline-link>
-                                Chlorophyll
-                            </Link>
-                            といったプロジェクトでは、モダンなWeb開発やUIの基盤、デザインシステムの探求を行っています。
-                        </>
-                    ) : (
-                        <>
-                            I&apos;m especially interested in authentication and developer-facing systems. In{" "}
-                            <Link to="/projects/$project" params={{ project: "MineAuth" }} data-inline-link>
-                                MineAuth
-                            </Link>
-                            , I work on OAuth2 / OpenID Connect and related API design. I&apos;ve also built projects
-                            such as{" "}
-                            <Link to="/projects/$project" params={{ project: "MoriPath" }} data-inline-link>
-                                MoriPath
-                            </Link>{" "}
-                            and{" "}
-                            <Link to="/projects/$project" params={{ project: "Chlorophyll" }} data-inline-link>
-                                Chlorophyll
-                            </Link>
-                            , where I explore modern web development, UI foundations, and design systems.
-                        </>
-                    )}
-                </p>
+                <p lang={locale}>{m["top.introP1"]()}</p>
+                <IntroP2 />
                 <IntroP3 />
             </div>
         </div>
