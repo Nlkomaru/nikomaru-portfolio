@@ -35,7 +35,18 @@ const logContents = (() => {
 })();
 
 if (!logContents.trim()) {
-    writeFileSync("lighthouse-summary.md", "No Lighthouse reports were generated.\n");
+    writeFileSync(
+        "lighthouse-summary.md",
+        [
+            "<details>",
+            "<summary>Lighthouse Summary</summary>",
+            "",
+            "No Lighthouse reports were generated.",
+            "",
+            "</details>",
+            "",
+        ].join("\n"),
+    );
     writeFileSync("lighthouse-failed.txt", "1\n");
     process.exit(0);
 }
@@ -175,6 +186,9 @@ const rows = urls
     .sort((a, b) => a.path.localeCompare(b.path));
 
 const lines = [];
+lines.push("<details>");
+lines.push("<summary>Lighthouse Summary</summary>");
+lines.push("");
 lines.push("## Lighthouse results");
 lines.push("");
 lines.push("| Path | Performance | Accessibility | Best Practices | SEO | Report |");
@@ -211,6 +225,9 @@ if (skipped) {
     lines.push("```");
     lines.push("");
 }
+
+lines.push("</details>");
+lines.push("");
 
 writeFileSync("lighthouse-summary.md", lines.join("\n"));
 writeFileSync("lighthouse-failed.txt", "0\n");

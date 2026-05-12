@@ -32,6 +32,27 @@ jobs:
       - name: Check
         run: pnpm run check
 
+      - name: Test
+        shell: bash
+        run: |
+          set +e
+          (
+            cd app
+            pnpm exec vitest run --config vitest.config.ts --reporter=json --outputFile=../test-result.json
+          )
+          status=$?
+          node .github/workflows/scripts/test-result-summarize.mjs test-result.json test-result.md "$status"
+
+          exit "$status"
+
+      - name: Upload test result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-result
+          path: test-result.md
+          if-no-files-found: ignore
+
   deploy-app-preview:
     needs: check
     env:
@@ -260,16 +281,25 @@ jobs:
           path: lighthouse-summary.md
 
   comment:
-    needs: [deploy-app-preview, deploy-storybook-preview, lighthouse-summary]
+    needs: [check, deploy-app-preview, deploy-storybook-preview, lighthouse-summary]
+    if: always()
     runs-on: ubuntu-latest
     name: Comment Preview URLs
     steps:
       - uses: actions/checkout@v4
 
       - name: Download Lighthouse summary
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           name: lighthouse-summary
+          path: .
+
+      - name: Download test result
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: test-result
           path: .
 
       - name: Create comment file
@@ -279,12 +309,37 @@ jobs:
         run: |
           cat << EOF > comment.md
           ## Deploy preview
-          - App Preview URL: $APP_PREVIEW_URL
-          - Storybook Preview URL: $STORYBOOK_PREVIEW_URL
           EOF
+
+          if [ -n "$APP_PREVIEW_URL" ]; then
+            echo "- App Preview URL: $APP_PREVIEW_URL" >> comment.md
+          else
+            echo "- App Preview URL: Not available" >> comment.md
+          fi
+
+          if [ -n "$STORYBOOK_PREVIEW_URL" ]; then
+            echo "- Storybook Preview URL: $STORYBOOK_PREVIEW_URL" >> comment.md
+          else
+            echo "- Storybook Preview URL: Not available" >> comment.md
+          fi
+
+          echo >> comment.md
 
           if [ -f lighthouse-summary.md ]; then
             cat lighthouse-summary.md >> comment.md
+          fi
+
+          if [ -f test-result.md ]; then
+            cat test-result.md >> comment.md
+          else
+            cat << EOF >> comment.md
+          <details>
+          <summary>Test Result</summary>
+
+          Test result artifact was not generated.
+
+          </details>
+          EOF
           fi
 
       - name: Create PR comment
