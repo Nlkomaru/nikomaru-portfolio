@@ -1,16 +1,7 @@
 import type { ProjectSection } from "../../-functions/parse-project-markdown";
 
 type SectionViewStyles = Partial<
-    Record<
-        | "container"
-        | "section"
-        | "sectionWithImage"
-        | "sectionImageFrame"
-        | "sectionImage"
-        | "sectionTitle"
-        | "paragraph",
-        string
-    >
+    Record<"section" | "sectionWithImage" | "sectionImageFrame" | "sectionImage" | "sectionTitle" | "paragraph", string>
 >;
 
 type SectionViewProps = {
@@ -48,9 +39,7 @@ function renderMarkdownBlock(markdown: string, styles: SectionViewStyles) {
 // 1セクション分のレンダリング。layout に応じて画像と本文の並びを切り替える。
 export default function SectionView({ section, styles }: SectionViewProps) {
     const hasImage = Boolean(section.image && section.layout);
-    const rootClass = [styles.container, styles.section, hasImage ? styles.sectionWithImage : undefined]
-        .filter(Boolean)
-        .join(" ");
+    const rootClass = [styles.section, hasImage ? styles.sectionWithImage : undefined].filter(Boolean).join(" ");
     const textElement = <div>{renderMarkdownBlock(section.text, styles)}</div>;
 
     if (!hasImage || !section.image) {
