@@ -53,7 +53,9 @@ const mineAuthPageStyles = sva({
             display: "flex",
             flexDirection: "column",
             gap: "16",
-            px: "8",
+            px: {
+                md: "8",
+            },
             w: "full",
             mx: "auto",
         },
@@ -70,13 +72,12 @@ const mineAuthPageStyles = sva({
             gridTemplateColumns: { base: "1fr", lg: "repeat(2, minmax(0, 1fr))" },
         },
         sectionImageFrame: {
-            px: { base: "4", md: "8" },
         },
         sectionImage: {
             w: "full",
             h: "auto",
             objectFit: "cover",
-            borderRadius: "lg",
+            borderRadius: "xl",
             border: "1px solid",
             borderColor: "border.default",
         },
