@@ -21,7 +21,7 @@ const desktopNavbarStyles = sva({
             justifyContent: "space-between",
             borderRightWidth: "1px",
             borderRightStyle: "solid",
-            borderRightColor: "border.subtle",
+            borderRightColor: "border",
             bg: "bg.canvas",
             py: "6",
         },
@@ -61,7 +61,7 @@ const desktopNavbarStyles = sva({
             },
             '&[data-active="true"]': {
                 bg: "bg.subtle",
-                color: "fg",
+                color: "fg.subtle",
                 '& [data-slot="nav-icon"]': {
                     opacity: 1,
                     transform: "scale(1.08)",
@@ -69,10 +69,10 @@ const desktopNavbarStyles = sva({
             },
         },
         navIcon: {
-            h: "4.5",
-            w: "4.5",
-            opacity: 0.55,
-            strokeWidth: 1.8,
+            h: "5",
+            w: "5",
+            opacity: 0.45,
+            strokeWidth: 2,
             transition: "transform 0.3s ease, opacity 0.2s ease",
         },
         navLabel: {
@@ -93,6 +93,9 @@ const desktopNavbarStyles = sva({
             opacity: 0,
             pointerEvents: "none",
             transition: "opacity 0.2s ease",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: "border",  
         },
         bottomControls: {
             display: "flex",
@@ -106,8 +109,6 @@ const desktopNavbarStyles = sva({
             justifyContent: "center",
             h: "10",
             w: "10",
-            px: "2",
-            py: "2",
             borderRadius: "full",
             transition: "background-color 0.2s ease, transform 0.2s ease",
             fontSize: "0.7rem",
@@ -118,6 +119,7 @@ const desktopNavbarStyles = sva({
             },
             _active: {
                 transform: "scale(0.98)",
+                color: "fg.subtle",
             },
             _focusVisible: {
                 outline: "2px solid",

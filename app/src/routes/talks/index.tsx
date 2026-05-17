@@ -67,7 +67,7 @@ const talksPageStyles = sva({
             gap: "4",
             w: "full",
             borderBottomWidth: "1px",
-            borderColor: "border.muted",
+            borderColor: "border",
         },
         controlsCount: {
             color: "fg.muted",
