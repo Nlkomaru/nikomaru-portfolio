@@ -1,4 +1,4 @@
-import type { Project } from "@/routes/projects/-types/project";
+import type { Project } from "@/routes/(site)/_main/projects/-types/project";
 
 export const mineAuthStoryProject: Project = {
     slug: "MineAuth",

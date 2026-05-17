@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "@/components/ui/provider";
-import ProjectDetailHeader from "@/routes/projects/-components/project-detail-header";
+import ProjectDetailHeader from "@/routes/(site)/_main/projects/-components/project-detail-header";
 import { mineAuthStoryProject } from "./project-story-data";
 
 const meta: Meta<typeof ProjectDetailHeader> = {
-    title: "routes/projects/ProjectDetailHeader",
+    title: "routes/(site)/_main/projects/ProjectDetailHeader",
     component: ProjectDetailHeader,
     tags: ["autodocs"],
     parameters: {

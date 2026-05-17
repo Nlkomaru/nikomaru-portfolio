@@ -1,4 +1,4 @@
-import { getBlurhashBackground } from "../../-functions/blurhash-background";
+import { getBlurhashBackground } from "../../../../-functions/blurhash-background";
 import type { PhotoDirectory, PhotoDirectoryIndex } from "../-types/photo-gallery";
 
 const PHOTO_INDEX_PATH = "/photos/index.json";

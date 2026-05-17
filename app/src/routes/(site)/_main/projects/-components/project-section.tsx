@@ -1,11 +1,11 @@
 import { sva } from "styled-system/css";
-import { m } from "../../../paraglide/messages";
+import { m } from "../../../../../paraglide/messages";
 import type { ProjectSection as ProjectSectionData } from "../-functions/parse-project-markdown";
 import ProjectImagePreview from "./project-image-preview";
 import ProjectMarkdown from "./project-markdown";
 
 const projectSectionStyles = sva({
-    slots: ["section", "sectionWithImage", "imageFrame", "imageCaption"],
+    slots: ["section", "sectionWithImage", "imageFrame", "imageCaption", "leftImageCellImage", "leftImageCellMarkdown"],
     base: {
         section: {
             display: "grid",
@@ -27,6 +27,14 @@ const projectSectionStyles = sva({
         imageCaption: {
             fontSize: "xs",
             color: "fg.muted",
+        },
+        leftImageCellImage: {
+            minW: "0",
+            order: { base: 2, lg: 1 },
+        },
+        leftImageCellMarkdown: {
+            minW: "0",
+            order: { base: 1, lg: 2 },
         },
     },
 });
@@ -63,8 +71,8 @@ export default function ProjectSection({ section, imageNumber }: ProjectSectionP
         <section className={rootClassName}>
             {section.layout === "left-image" ? (
                 <>
-                    {imageElement}
-                    {markdownElement}
+                    <div className={styles.leftImageCellImage}>{imageElement}</div>
+                    <div className={styles.leftImageCellMarkdown}>{markdownElement}</div>
                 </>
             ) : (
                 <>

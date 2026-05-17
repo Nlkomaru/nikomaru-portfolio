@@ -31,18 +31,18 @@ const photoPageStyles = sva({
             fontSize: { base: "3xl", md: "4xl" },
             lineHeight: "1.05",
             letterSpacing: "-0.025em",
-            color: "fg",
+            color: "fg.subtle",
         },
         headerDescription: {
             maxW: "xl",
-            color: "fg.subtle",
+            color: "fg",
             fontSize: { base: "md", md: "lg" },
             lineHeight: "1.65",
         },
     },
 });
 
-export const Route = createFileRoute("/photos/")({
+export const Route = createFileRoute("/(site)/_main/photos/")({
     ssr: false,
     loader: () => getPhotoEntries(),
     staleTime: 1000 * 60 * 5,

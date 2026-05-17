@@ -1,4 +1,4 @@
-import type { Locale } from "../../../paraglide/runtime";
+import type { Locale } from "../../../../../paraglide/runtime";
 import mineAuthEnMarkdown from "../-content/MineAuth/en.md?raw";
 import mineAuthJaMarkdown from "../-content/MineAuth/ja.md?raw";
 import { type ProjectSlug, projectSlugs } from "../-content/project-slugs";

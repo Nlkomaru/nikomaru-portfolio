@@ -99,7 +99,7 @@ const aboutPageStyles = sva({
     },
 });
 
-export const Route = createFileRoute("/about/")({
+export const Route = createFileRoute("/(site)/_main/about/")({
     component: AboutPage,
 });
 

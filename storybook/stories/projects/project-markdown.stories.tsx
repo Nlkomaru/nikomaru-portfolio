@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "@/components/ui/provider";
-import ProjectMarkdown from "@/routes/projects/-components/project-markdown";
+import ProjectMarkdown from "@/routes/(site)/_main/projects/-components/project-markdown";
 import { markdownStoryContent } from "./project-story-data";
 
 const meta: Meta<typeof ProjectMarkdown> = {
-    title: "routes/projects/ProjectMarkdown",
+    title: "routes/(site)/_main/projects/ProjectMarkdown",
     component: ProjectMarkdown,
     tags: ["autodocs"],
     parameters: {

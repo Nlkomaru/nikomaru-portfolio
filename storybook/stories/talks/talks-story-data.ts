@@ -1,4 +1,4 @@
-import type { Slide } from "@/routes/talks/-types/slide";
+import type { Slide } from "@/routes/(site)/_main/talks/-types/slide";
 
 export const talksStorySlides: Slide[] = [
     {

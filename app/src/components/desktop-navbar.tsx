@@ -102,6 +102,7 @@ const desktopNavbarStyles = sva({
             flexDirection: "column",
             alignItems: "center",
             gap: "4",
+            color: "fg.subtle",
         },
         localeLink: {
             display: "inline-flex",
@@ -111,9 +112,9 @@ const desktopNavbarStyles = sva({
             w: "10",
             borderRadius: "full",
             transition: "background-color 0.2s ease, transform 0.2s ease",
-            fontSize: "0.7rem",
+            fontSize: "0.75rem",
+            fontWeight: "500",
             letterSpacing: "0.2em",
-            color: "fg",
             _hover: {
                 bg: "bg.subtle",
             },

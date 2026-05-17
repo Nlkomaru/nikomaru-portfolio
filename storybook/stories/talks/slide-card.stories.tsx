@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "@/components/ui/provider";
-import SlideCard from "@/routes/talks/-components/slide-card";
+import SlideCard from "@/routes/(site)/_main/talks/-components/slide-card";
 import { talksStorySlides } from "./talks-story-data";
 
 const meta: Meta<typeof SlideCard> = {
-    title: "routes/talks/SlideCard",
+    title: "routes/(site)/_main/talks/SlideCard",
     component: SlideCard,
     tags: ["autodocs"],
     parameters: {

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "@/components/ui/provider";
-import TalksYearGroup from "@/routes/talks/-components/talks-year-group";
+import TalksYearGroup from "@/routes/(site)/_main/talks/-components/talks-year-group";
 import { talksStorySlides } from "./talks-story-data";
 
 const meta: Meta<typeof TalksYearGroup> = {
-    title: "routes/talks/TalksYearGroup",
+    title: "routes/(site)/_main/talks/TalksYearGroup",
     component: TalksYearGroup,
     tags: ["autodocs"],
     parameters: {

@@ -193,7 +193,7 @@ const works = [
     },
 ];
 
-export const Route = createFileRoute("/projects/")({
+export const Route = createFileRoute("/(site)/_main/projects/")({
     component: WorksPage,
 });
 

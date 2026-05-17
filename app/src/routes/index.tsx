@@ -33,8 +33,9 @@ const appPageStyles = sva({
         greetingText: {
             fontSize: "2xl",
             fontWeight: "bold",
-            color: "fg",
             wordBreak: "keep-all",
+            color: "fg.subtle",
+            lineHeight: "1.5",
         },
         icon: {
             borderRadius: "full",

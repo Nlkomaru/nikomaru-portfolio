@@ -1,5 +1,5 @@
 import { sva } from "styled-system/css";
-import { m } from "../../../paraglide/messages";
+import { m } from "../../../../../paraglide/messages";
 import type { Project } from "../-types/project";
 import ProjectMetaList from "./project-meta-list";
 
@@ -21,7 +21,7 @@ const projectDetailHeaderStyles = sva({
             fontSize: { base: "3rem", md: "4rem", lg: "4.5rem" },
             lineHeight: "0.95",
             letterSpacing: "-0.025em",
-            color: "fg",
+            color: "fg.subtle",
         },
         detailGrid: {
             display: "grid",
