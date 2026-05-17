@@ -40,7 +40,7 @@ const projectDetailHeaderStyles = sva({
             fontSize: "xl",
             fontWeight: "600",
             lineHeight: "1.3",
-            color: "fg",
+            color: "fg.subtle",
         },
         abstractText: {
             fontFamily: "body",

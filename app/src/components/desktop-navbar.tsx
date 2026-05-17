@@ -95,7 +95,7 @@ const desktopNavbarStyles = sva({
             transition: "opacity 0.2s ease",
             borderWidth: "1px",
             borderStyle: "solid",
-            borderColor: "border",  
+            borderColor: "border",
         },
         bottomControls: {
             display: "flex",

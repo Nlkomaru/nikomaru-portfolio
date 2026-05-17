@@ -47,13 +47,14 @@ export const Route = createFileRoute("/projects/$project/")({
             throw notFound();
         }
 
-        return parseProjectMarkdown<Project>(getProjectMarkdown(params.project, getLocale()));
+        return { slug: params.project };
     },
     head: ({ loaderData }) => {
-        const project = loaderData?.frontmatter;
-        if (!project) {
+        if (!loaderData) {
             return {};
         }
+
+        const { frontmatter: project } = getLocalizedProject(loaderData.slug);
 
         return {
             meta: [
@@ -107,7 +108,8 @@ export const Route = createFileRoute("/projects/$project/")({
 });
 
 function ProjectDetailPage() {
-    const { frontmatter: project, sections } = Route.useLoaderData();
+    const { slug } = Route.useLoaderData();
+    const { frontmatter: project, sections } = getLocalizedProject(slug);
     const styles = projectDetailPageStyles();
     const sectionContainerClassName = `${styles.contentContainer} ${styles.sectionContainer}`;
     let imageNumber = 0;
@@ -135,4 +137,9 @@ function ProjectDetailPage() {
             </div>
         </div>
     );
+}
+
+// Markdown は locale ごとに別ファイルなので、描画時点の locale から毎回選び直す。
+function getLocalizedProject(slug: Parameters<typeof getProjectMarkdown>[0]) {
+    return parseProjectMarkdown<Project>(getProjectMarkdown(slug, getLocale()));
 }

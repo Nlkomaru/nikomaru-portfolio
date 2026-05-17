@@ -53,7 +53,7 @@ export const globalCss = defineGlobalStyles({
         bg: "red.500/40",
     },
     "a[data-inline-link]": {
-        color: "black",
+        color: "fg.subtle",
         textDecorationLine: "underline",
         textDecorationStyle: "solid",
         textDecorationThickness: "2px",

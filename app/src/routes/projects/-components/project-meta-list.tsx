@@ -26,7 +26,7 @@ const projectMetaListStyles = sva({
             fontSize: "10px",
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            color: "fg.muted",
+            color: "fg.subtle",
         },
         description: {
             fontFamily: "body",
