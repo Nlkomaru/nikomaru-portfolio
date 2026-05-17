@@ -21,7 +21,7 @@ const desktopNavbarStyles = sva({
             justifyContent: "space-between",
             borderRightWidth: "1px",
             borderRightStyle: "solid",
-            borderRightColor: "border.subtle",
+            borderRightColor: "border",
             bg: "bg.canvas",
             py: "6",
         },
@@ -29,7 +29,7 @@ const desktopNavbarStyles = sva({
             fontSize: "0.625rem",
             textTransform: "uppercase",
             letterSpacing: "0.3em",
-            color: "fg.default",
+            color: "fg.subtle",
             fontFamily: '"Space Mono", monospace',
         },
         navList: {
@@ -47,16 +47,12 @@ const desktopNavbarStyles = sva({
             w: "10",
             borderRadius: "full",
             color: "fg.subtle",
-            transition: "background-color 0.2s ease, color 0.2s ease, transform 0.2s ease",
+            transition: "background-color 0.2s ease, color 0.2s ease",
             _hover: {
                 bg: "bg.subtle",
                 '& [data-slot="nav-label"]': {
                     opacity: 1,
-                    transform: "translate(0, -50%)",
                 },
-            },
-            _active: {
-                transform: "scale(0.98)",
             },
             _focusVisible: {
                 outline: "2px solid",
@@ -65,7 +61,7 @@ const desktopNavbarStyles = sva({
             },
             '&[data-active="true"]': {
                 bg: "bg.subtle",
-                color: "fg.default",
+                color: "fg.subtle",
                 '& [data-slot="nav-icon"]': {
                     opacity: 1,
                     transform: "scale(1.08)",
@@ -73,25 +69,21 @@ const desktopNavbarStyles = sva({
             },
         },
         navIcon: {
-            h: "4.5",
-            w: "4.5",
-            opacity: 0.55,
-            strokeWidth: 1.8,
+            h: "5",
+            w: "5",
+            opacity: 0.45,
+            strokeWidth: 2,
             transition: "transform 0.3s ease, opacity 0.2s ease",
         },
         navLabel: {
             position: "absolute",
             top: "50%",
             left: "12",
-            bg: "bg.canvas/60",
-            backdropFilter: "blur(6px)",
+            bg: "bg.canvas",
             borderRadius: "full",
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "border/30",
             p: "1",
             px: "2",
-            transform: "translate(-0.25rem, -50%)",
+            transform: "translateY(-50%)",
             whiteSpace: "nowrap",
             fontSize: "0.75rem",
             textTransform: "uppercase",
@@ -100,7 +92,10 @@ const desktopNavbarStyles = sva({
             color: "fg.muted",
             opacity: 0,
             pointerEvents: "none",
-            transition: "opacity 0.3s ease, transform 0.3s ease",
+            transition: "opacity 0.2s ease",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: "border",
         },
         bottomControls: {
             display: "flex",
@@ -114,18 +109,17 @@ const desktopNavbarStyles = sva({
             justifyContent: "center",
             h: "10",
             w: "10",
-            px: "2",
-            py: "2",
             borderRadius: "full",
             transition: "background-color 0.2s ease, transform 0.2s ease",
             fontSize: "0.7rem",
             letterSpacing: "0.2em",
-            color: "fg.default",
+            color: "fg",
             _hover: {
                 bg: "bg.subtle",
             },
             _active: {
                 transform: "scale(0.98)",
+                color: "fg.subtle",
             },
             _focusVisible: {
                 outline: "2px solid",
@@ -156,7 +150,7 @@ export function DesktopNavbar() {
 
             <div className={styles.navList}>
                 {navigationItems.map((item, index) => {
-                    const isActive = currentPath === item.to;
+                    const isActive = item.to === "/" ? currentPath === item.to : currentPath.startsWith(item.to);
                     const Icon = item.icon;
 
                     return (

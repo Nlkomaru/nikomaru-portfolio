@@ -12,6 +12,9 @@ const monoStyle = {
     fontFamily: "'Space Mono', monospace",
 } as const;
 
+const brandAccentText = "var(--colors-color-palette-fg)";
+const brandAccentSolid = "var(--colors-color-palette-solid)";
+
 const worksPageStyles = sva({
     slots: ["root", "hero", "eyebrow", "title", "list"],
     base: {
@@ -33,7 +36,7 @@ const worksPageStyles = sva({
         },
         title: {
             fontSize: { base: "2.5rem", md: "5rem" },
-            color: "fg.default",
+            color: "fg",
         },
         list: {
             px: { base: "8", md: "12" },
@@ -167,7 +170,6 @@ const works = [
         title: "MineAuth",
         category: "Project",
         year: "2025",
-        color: "#e74c3c",
         image: "https://images.unsplash.com/photo-1769283979195-d418a41ae2ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicnV0YWxpc3QlMjBhcmNoaXRlY3R1cmUlMjBjb25jcmV0ZXxlbnwxfHx8fDE3NzIxMTQ4OTV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
         description: "Authentication toolkit for Minecraft-related apps and services.",
     },
@@ -177,7 +179,6 @@ const works = [
         title: "Chlorophyll",
         category: "Project",
         year: "2025",
-        color: "#9b59b6",
         image: "https://images.unsplash.com/photo-1618902410393-6fe0a34bb79e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuZW9uJTIwbGlnaHRzJTIwZGFyayUyMGN5YmVycHVua3xlbnwxfHx8fDE3NzIxNjA1NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
         description: "A fast, minimal UI system focusing on clarity and accessibility.",
     },
@@ -187,7 +188,6 @@ const works = [
         title: "MoriPath",
         category: "Project",
         year: "2025",
-        color: "#2ecc71",
         image: "https://images.unsplash.com/photo-1656332694386-3dd2734e63c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHNjdWxwdHVyZSUyMG1vZGVybiUyMGFydHxlbnwxfHx8fDE3NzIxNjA1NzF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
         description: "A pathfinding/graph toolkit exploring algorithms and visual explanations.",
     },
@@ -231,7 +231,10 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                         <div
                             className={styles.mediaOverlay}
                             style={{
-                                background: hovered ? `linear-gradient(135deg, ${work.color}15, transparent)` : "none",
+                                background: hovered
+                                    ? `linear-gradient(135deg, ${brandAccentSolid}, transparent)`
+                                    : "none",
+                                opacity: hovered ? 0.12 : 0,
                             }}
                         />
                     </div>
@@ -240,7 +243,7 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                         className={styles.count}
                         style={{
                             ...monoStyle,
-                            color: hovered ? work.color : "rgba(31,41,55,0.4)",
+                            color: hovered ? brandAccentText : "rgba(31,41,55,0.4)",
                         }}
                     >
                         {String(index + 1).padStart(2, "0")} / {String(works.length).padStart(2, "0")}
@@ -252,7 +255,7 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                         className={styles.meta}
                         style={{
                             ...monoStyle,
-                            color: hovered ? work.color : "var(--colors-fg-muted)",
+                            color: hovered ? brandAccentText : "var(--colors-fg-muted)",
                         }}
                     >
                         {work.category} - {work.year}
@@ -285,13 +288,13 @@ function WorkItem({ work, index }: { work: (typeof works)[0]; index: number }) {
                             animate={{ width: hovered ? 48 : 24 }}
                             transition={{ duration: 0.5 }}
                             className={styles.actionLine}
-                            style={{ backgroundColor: hovered ? work.color : "rgba(31,41,55,0.16)" }}
+                            style={{ backgroundColor: hovered ? brandAccentSolid : "rgba(31,41,55,0.16)" }}
                         />
                         <span
                             className={styles.actionText}
                             style={{
                                 ...monoStyle,
-                                color: hovered ? work.color : "rgba(31,41,55,0.45)",
+                                color: hovered ? brandAccentText : "rgba(31,41,55,0.45)",
                             }}
                         >
                             View project

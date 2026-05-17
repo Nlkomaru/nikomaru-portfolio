@@ -1,20 +1,35 @@
-[15:41:06.141] [INFO] storybook v10.3.4
-[15:41:06.557] [DEBUG] Getting package.json info for /home/nikomaru/myself/nikomaru-portfolio/storybook/package.json...
-[15:41:07.707] [INFO] Starting...
-[15:41:07.751] [WARN] No story files found for the specified pattern: [34mstories/**/*.mdx[39m
-[15:41:07.910] [DEBUG] Starting preview..
-[15:41:07.924] [ERROR] Failed to build the preview
-[15:41:07.925] [ERROR] [38;2;241;97;97mError: Build failed with 1 error:
-../node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:1217:27: ERROR: [plugin: externalize-deps] Missing "./postcss.js" specifier in "@pandacss/dev" package[39m
-    at failureErrorWithLog (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:1467:15)
-    at /home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:926:25
-    at runOnEndCallbacks (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:1307:45)
-    at buildResponseToResult (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:924:7)
-    at /home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:951:16
-    at responseCallbacks.<computed> (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:603:9)
-    at handleIncomingPacket (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:658:12)
-    at Socket.readFromStdout (/home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js:581:7)
-    at Socket.emit (node:events:508:28)
-    at addChunk (node:internal/streams/readable:559:12)
-[15:41:07.928] [WARN] Broken build, fix the error above.
+[13:16:07.783] [INFO] storybook v10.3.4
+[13:16:09.159] [DEBUG] Getting package.json info for /home/nikomaru/myself/nikomaru-portfolio/storybook/package.json...
+[13:16:09.174] [WARN] Could not resolve addon "@storybook/addon-docs", skipping. Is it installed?
+[13:16:09.179] [WARN] Could not resolve addon "@storybook/addon-designs", skipping. Is it installed?
+[13:16:09.182] [ERROR] [38;2;241;97;97mSB_CORE-SERVER_0002 (CriticalPresetLoadError): Storybook failed to load the following preset: @storybook/react-vite/preset.
+
+Please check whether your setup is correct, the Storybook dependencies (and their peer dependencies) are installed correctly and there are no package version clashes.
+
+If you believe this is a bug, please open an issue on Github.
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@storybook/react-vite' imported from /home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/storybook@10.3.4_@testing-library+dom@10.4.1_prettier@3.8.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/storybook/dist/_node-chunks/chunk-QAXH75FV.js
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:316:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:858:18)
+    at defaultResolve (node:internal/modules/esm/resolve:990:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at Hooks.resolve (node:internal/modules/esm/hooks:240:30)
+    at MessagePort.handleMessage (node:internal/modules/esm/worker:201:24)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:827:20)
+    at MessagePort.<anonymous> (node:internal/per_context/messageport:23:28)
+
+More info: 
+[39m
+    at loadPreset (file:///home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/storybook@10.3.4_@testing-library+dom@10.4.1_prettier@3.8.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/storybook/dist/_node-chunks/chunk-3LP2BDDH.js:10081:13)
+    at async Promise.all (index 0)
+    at async loadPresets (file:///home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/storybook@10.3.4_@testing-library+dom@10.4.1_prettier@3.8.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/storybook/dist/_node-chunks/chunk-3LP2BDDH.js:10090:73)
+    at async getPresets (file:///home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/storybook@10.3.4_@testing-library+dom@10.4.1_prettier@3.8.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/storybook/dist/_node-chunks/chunk-3LP2BDDH.js:10121:23)
+    at async buildDevStandalone (file:///home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/storybook@10.3.4_@testing-library+dom@10.4.1_prettier@3.8.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/storybook/dist/core-server/index.js:7967:52)
+    at async withTelemetry (file:///home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/storybook@10.3.4_@testing-library+dom@10.4.1_prettier@3.8.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/storybook/dist/_node-chunks/chunk-HUYNFPPD.js:225:12)
+    at async dev (file:///home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/storybook@10.3.4_@testing-library+dom@10.4.1_prettier@3.8.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/storybook/dist/bin/core.js:2736:3)
+    at async _Command.<anonymous> (file:///home/nikomaru/myself/nikomaru-portfolio/node_modules/.pnpm/storybook@10.3.4_@testing-library+dom@10.4.1_prettier@3.8.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/storybook/dist/bin/core.js:2806:92)
+[13:16:09.188] [WARN] Broken build, fix the error above.
 You may need to refresh the browser.
+[13:16:09.191] [WARN] Could not resolve addon "@storybook/addon-docs", skipping. Is it installed?
+[13:16:09.192] [WARN] Could not resolve addon "@storybook/addon-designs", skipping. Is it installed?

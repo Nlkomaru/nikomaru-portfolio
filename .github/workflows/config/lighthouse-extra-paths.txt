@@ -1,1 +1,2 @@
 /slide/frontend-color-ja
+/projects/MineAuth

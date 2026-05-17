@@ -25,7 +25,7 @@ const aboutPageStyles = sva({
             px: { base: "8", md: "20" },
             pt: { base: "24", md: "28" },
             pb: "20",
-            color: "fg.default",
+            color: "fg",
         },
         eyebrow: {
             mb: "4",

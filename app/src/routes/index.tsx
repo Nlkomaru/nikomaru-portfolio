@@ -21,7 +21,7 @@ const appPageStyles = sva({
             gap: "6",
             maxW: "4xl",
             mx: "auto",
-            color: "fg.default",
+            color: "fg",
             justifyContent: "center",
         },
         greeting: {
@@ -33,14 +33,13 @@ const appPageStyles = sva({
         greetingText: {
             fontSize: "2xl",
             fontWeight: "bold",
-            color: "fg.default",
+            color: "fg",
             wordBreak: "keep-all",
         },
         icon: {
             borderRadius: "full",
         },
         intro: {
-            color: "fg.subtle",
             display: "flex",
             fontSize: {
                 base: "md",
@@ -51,9 +50,6 @@ const appPageStyles = sva({
             "& p": {
                 overflowWrap: "break-word",
                 lineBreak: "strict",
-            },
-            '& p[lang="ja"]': {
-                wordBreak: "auto-phrase",
             },
         },
     },

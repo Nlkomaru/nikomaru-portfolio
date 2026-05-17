@@ -9,7 +9,7 @@ const photoPageStyles = sva({
         root: {
             minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
             bg: "bg.canvas",
-            color: "fg.default",
+            color: "fg",
         },
         container: {
             maxW: "104rem",
@@ -31,7 +31,7 @@ const photoPageStyles = sva({
             fontSize: { base: "3xl", md: "4xl" },
             lineHeight: "1.05",
             letterSpacing: "-0.025em",
-            color: "fg.default",
+            color: "fg",
         },
         headerDescription: {
             maxW: "xl",

@@ -14,13 +14,13 @@ export const linkRecipe = defineRecipe({
     variants: {
         variant: {
             underline: {
-                color: "colorPalette.fg",
+                color: "black",
                 textDecoration: "underline",
                 textUnderlineOffset: "3px",
                 textDecorationColor: "currentColor/20",
             },
             plain: {
-                color: "colorPalette.fg",
+                color: "black",
                 _hover: {
                     textDecoration: "underline",
                     textUnderlineOffset: "3px",

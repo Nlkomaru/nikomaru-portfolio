@@ -2,6 +2,7 @@ import "./preview.css";
 import type { Decorator, Preview } from "@storybook/react-vite";
 import * as React from "react";
 import { themes } from "storybook/theming";
+import { Provider } from "@/components/ui/provider";
 import { registerAPCACheck } from "./a11y";
 import { withDummyRouter } from "./dummy-router";
 
@@ -24,7 +25,9 @@ const withTheme: Decorator = (Story, context) => {
 
     return (
         <div style={{ backgroundColor: "var(--chakra-colors-bg-default)", padding: "1rem" }}>
-            <Story />
+            <Provider enableColorScheme={true}>
+                <Story />
+            </Provider>
         </div>
     );
 };

@@ -30,7 +30,7 @@ const talksPageStyles = sva({
         root: {
             minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
             bg: "bg.canvas",
-            color: "fg.default",
+            color: "fg",
         },
         container: {
             maxW: "104rem",
@@ -52,7 +52,7 @@ const talksPageStyles = sva({
             fontSize: { base: "3xl", md: "4xl" },
             lineHeight: "1.05",
             letterSpacing: "-0.025em",
-            color: "fg.default",
+            color: "fg",
         },
         headerDescription: {
             maxW: "xl",
@@ -67,7 +67,7 @@ const talksPageStyles = sva({
             gap: "4",
             w: "full",
             borderBottomWidth: "1px",
-            borderColor: "border.muted",
+            borderColor: "border",
         },
         controlsCount: {
             color: "fg.muted",
@@ -98,7 +98,7 @@ const talksPageStyles = sva({
             bg: "transparent",
             border: "none",
             outline: "none",
-            color: "fg.default",
+            color: "fg",
             fontSize: { base: "sm", md: "md" },
             _placeholder: {
                 color: "fg.subtle",

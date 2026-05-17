@@ -3,6 +3,7 @@
 export interface ProjectImage {
     src: string;
     alt: string;
+    caption?: string;
 }
 
 export interface ProjectMetaItem {
@@ -16,14 +17,21 @@ export interface ProjectMetaItem {
     external?: boolean;
 }
 
+export interface ProjectOpenGraph {
+    title: string;
+    description: string;
+    /** SNS クローラ互換のため PNG を使う。 */
+    image: string;
+    imageAlt: string;
+}
+
 export interface Project {
     /** ルーティングで使う slug（URL の /projects/$project と一致する） */
     slug: string;
-    /** "Project / 002" の "002" 部分。プロジェクト一覧での通し番号。 */
-    serialNumber: string;
     title: string;
     abstract: string;
     /** Definition List に表示するメタ情報。リンク（live / source 等）もここに含める。 */
     metaItems: ProjectMetaItem[];
     coverImage: ProjectImage;
+    openGraph: ProjectOpenGraph;
 }
