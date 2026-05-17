@@ -21,6 +21,34 @@ const extraPathsFile = join(cwd, ".github", "workflows", "config", "lighthouse-e
 const paths = new Set();
 const skipped = [];
 
+/**
+ * TanStack Router のファイルパス（`.tsx` なし、POSIX）から公開 URL のパスへ変換する。
+ * `(segment)` のルートグループと `_layout` 系のパスなしレイアウトは URL に含めない。
+ * @param {string} routePath — 例: `(site)/_main/about/` または `index`
+ * @returns {string | null} `/.../` 形式、レイアウトのみで URL が無い場合は null
+ */
+function tanstackRoutePathToPublicPath(routePath) {
+    const posix = routePath.replace(/\\/g, "/");
+    if (posix === "index") {
+        return "/";
+    }
+    const trimmedIndex = posix.replace(/\/index\/?$/, "/");
+    const segments = trimmedIndex.split("/").filter(Boolean);
+    const urlSegments = segments.filter((segment) => {
+        if (segment.startsWith("(") && segment.endsWith(")")) {
+            return false;
+        }
+        if (segment.startsWith("_")) {
+            return false;
+        }
+        return true;
+    });
+    if (urlSegments.length === 0) {
+        return null;
+    }
+    return `/${urlSegments.join("/")}/`.replace(/\/{2,}/g, "/");
+}
+
 function walk(dir) {
     const relDir = relative(routesDir, dir);
     const segments = relDir === "" ? [] : relDir.split(/[\\/]/);
@@ -49,7 +77,12 @@ function walk(dir) {
             continue;
         }
 
-        const normalized = routePath === "index" ? "/" : `/${routePath}`.replace(/\/{2,}/g, "/");
+        const normalized = tanstackRoutePathToPublicPath(routePath);
+        if (normalized === null) {
+            skipped.push(routePath);
+            continue;
+        }
+
         paths.add(normalized);
     }
 }

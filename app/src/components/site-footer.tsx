@@ -3,17 +3,7 @@ import { sva } from "styled-system/css";
 import { m } from "../paraglide/messages";
 
 const siteFooterStyles = sva({
-    slots: [
-        "root",
-        "inner",
-        "social",
-        "socialLink",
-        "socialIcon",
-        "creditBlock",
-        "creditOwner",
-        "creditLicense",
-        "creditLink",
-    ],
+    slots: ["root", "inner", "social", "socialLink", "socialIcon", "creditBlock", "creditOwner", "creditLicense"],
     base: {
         root: {
             w: "full",
@@ -72,15 +62,6 @@ const siteFooterStyles = sva({
             fontSize: "xs",
             lineHeight: "1.65",
         },
-        creditLink: {
-            color: "fg.subtle",
-            textDecoration: "underline",
-            textUnderlineOffset: "0.15em",
-            transition: "color 0.2s ease",
-            _hover: {
-                color: "fg",
-            },
-        },
     },
 });
 
@@ -110,13 +91,21 @@ export function SiteFooter() {
             <div className={styles.inner}>
                 <div className={styles.creditBlock}>
                     <p className={styles.creditOwner}>
-                        <span>©</span> Nikomaru
+                        <span>©</span>{" "}
+                        <a
+                            href="https://github.com/nlkomaru"
+                            data-inline-link
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Nikomaru
+                        </a>
                     </p>
                     <p className={styles.creditLicense}>
                         {m["siteFooter.licenseLead"]()}
                         <a
                             href="https://creativecommons.org/licenses/by/4.0/"
-                            className={styles.creditLink}
+                            data-inline-link
                             target="_blank"
                             rel="noopener noreferrer"
                         >

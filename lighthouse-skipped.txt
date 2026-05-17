@@ -1,0 +1,3 @@
+(site)/_main
+(site)/_main/projects/$project/
+(site)/_main/slide/$

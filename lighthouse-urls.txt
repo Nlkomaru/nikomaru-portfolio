@@ -1,0 +1,7 @@
+http://localhost/
+http://localhost/about/
+http://localhost/photos/
+http://localhost/projects/
+http://localhost/projects/MineAuth
+http://localhost/slide/frontend-color-ja
+http://localhost/talks/
