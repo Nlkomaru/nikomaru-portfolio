@@ -23,7 +23,7 @@ const talksYearGroupStyles = sva({
             fontSize: { base: "3xl", md: "4xl", lg: "5xl" },
             lineHeight: "1",
             letterSpacing: "-0.035em",
-            color: "fg.default",
+            color: "fg",
         },
         count: {
             color: "fg.subtle",

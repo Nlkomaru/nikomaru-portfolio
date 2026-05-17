@@ -32,7 +32,7 @@ export const globalCss = defineGlobalStyles({
     },
     html: {
         minHeight: "100%",
-        color: "fg.default",
+        color: "fg",
         bg: "bg.canvas",
         lineHeight: "1.5",
         colorPalette: "red",
@@ -41,8 +41,8 @@ export const globalCss = defineGlobalStyles({
         minHeight: "100%",
         margin: 0,
         padding: 0,
+        color: "fg",
         background: "bg.canvas",
-        color: "fg.default",
         fontFamily:
             '"Poppins", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
     },
@@ -53,7 +53,7 @@ export const globalCss = defineGlobalStyles({
         bg: "red.500/40",
     },
     "a[data-inline-link]": {
-        color: "fg.default",
+        color: "black",
         textDecorationLine: "underline",
         textDecorationStyle: "solid",
         textDecorationThickness: "2px",
@@ -61,8 +61,8 @@ export const globalCss = defineGlobalStyles({
         textDecorationColor: "border.outline",
         transition: "color 0.2s ease, text-decoration-color 0.2s ease",
         "&:hover": {
-            color: "fg.default",
-            textDecorationColor: "fg.default",
+            color: "fg",
+            textDecorationColor: "fg",
         },
         "&:focus-visible": {
             outline: "2px solid",

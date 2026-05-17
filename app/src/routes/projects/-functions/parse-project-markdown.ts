@@ -1,14 +1,13 @@
 import { parse as parseYaml } from "yaml";
 import type { ProjectImage } from "../-types/project";
 
-// 1段落分の本文 + その段落に紐づくオプションのメタ情報。
-// 段落の前に YAML ブロックを置くと、その値が次の段落に適用される。
+// 1つの Markdown セクションに対して、任意で図版レイアウトを付与できる。
 export interface ProjectSection {
-    /** 本文（Markdown） */
+    /** セクション本文。通常の Markdown として描画する。 */
     text: string;
-    /** 段落の左右に並べる図版 */
+    /** セクション横に並べる図版。 */
     image?: ProjectImage;
-    /** 図版を段落のどちらに置くか。未指定なら画像なしのテキストのみ */
+    /** 図版を置く位置。未指定なら通常の Markdown セクション。 */
     layout?: "left-image" | "right-image";
 }
 
@@ -17,32 +16,32 @@ export interface ParsedProjectMarkdown<TFrontmatter> {
     frontmatter: TFrontmatter;
     /** 本文 markdown（frontmatter を除いた残り） */
     body: string;
-    /** 本文を `---` で区切ったセクション配列 */
+    /** `---` ごとに区切った本文セクション。 */
     sections: ProjectSection[];
 }
 
 const FRONTMATTER_PATTERN = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
-// 単独行の `---`（3つ以上のハイフン）でセクションを区切る。
 const SECTION_SPLITTER = /\r?\n-{3,}\r?\n/;
 
-// セクションメタのスキーマ。markdown body 中の YAML ブロックで使う。
 interface SectionMeta {
     image?: ProjectImage;
     layout?: "left-image" | "right-image";
 }
 
-// 与えられたブロックがセクションメタの YAML かを判定する。
-// YAML として object を返し、かつ既知キー（image / layout）を持つ場合のみ true。
+// image/layout のどちらかを含む YAML ブロックだけを旧 section meta として扱う。
 function tryParseSectionMeta(block: string): SectionMeta | null {
     try {
         const parsed = parseYaml(block);
-        if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
-            const candidate = parsed as Record<string, unknown>;
-            if ("image" in candidate || "layout" in candidate) {
-                return candidate as SectionMeta;
-            }
+        if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+            return null;
         }
-        return null;
+
+        const candidate = parsed as Record<string, unknown>;
+        if (!("image" in candidate) && !("layout" in candidate)) {
+            return null;
+        }
+
+        return candidate as SectionMeta;
     } catch {
         return null;
     }
@@ -57,8 +56,6 @@ export function parseProjectMarkdown<TFrontmatter>(raw: string): ParsedProjectMa
 
     const [, yamlSource, body] = match;
     const frontmatter = parseYaml(yamlSource) as TFrontmatter;
-
-    // body を `---` で分割し、(任意の YAML メタ) → テキスト の流れでセクションを組み立てる。
     const blocks = body
         .split(SECTION_SPLITTER)
         .map((block) => block.trim())
@@ -70,10 +67,11 @@ export function parseProjectMarkdown<TFrontmatter>(raw: string): ParsedProjectMa
     for (const block of blocks) {
         const meta = tryParseSectionMeta(block);
         if (meta) {
-            // YAML メタブロックは次の本文ブロックと結合するため一時保持する。
+            // 旧記法では meta ブロックの直後の本文へレイアウトを適用する。
             pendingMeta = meta;
             continue;
         }
+
         sections.push({
             text: block,
             image: pendingMeta?.image,

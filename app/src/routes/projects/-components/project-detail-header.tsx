@@ -1,65 +1,53 @@
 import { sva } from "styled-system/css";
+import { m } from "../../../paraglide/messages";
 import type { Project } from "../-types/project";
 import ProjectMetaList from "./project-meta-list";
 
-// プロジェクト詳細ページの2カラムヘッダ。
-// 左カラム: 「Project / 002」 + タイトル + Definition List
-// 右カラム: 「— Abstract」 + 説明文
+// タイトルの下に、メタ情報と概要文を並べるプロジェクト詳細ヘッダ。
 const projectDetailHeaderStyles = sva({
-    slots: ["root", "primaryColumn", "secondaryColumn", "eyebrow", "title", "abstractLabel", "abstractText"],
+    slots: ["root", "title", "detailGrid", "abstractBlock", "abstractTitle", "abstractText"],
     base: {
         root: {
-            // 黒の太いラインで区切る、Figmaの「Header」コンテナを再現する
-            display: "grid",
-            gridTemplateColumns: { base: "1fr", lg: "repeat(2, minmax(0, 1fr))" },
-            columnGap: { lg: "16" },
-            rowGap: { base: "10", lg: "0" },
+            display: "flex",
+            flexDirection: "column",
+            gap: { base: "8", lg: "10" },
             pb: { base: "8", lg: "10" },
             borderBottomWidth: "1px",
-            borderColor: "fg.default",
-        },
-        primaryColumn: {
-            display: "flex",
-            flexDirection: "column",
-            gap: "6",
-        },
-        secondaryColumn: {
-            display: "flex",
-            flexDirection: "column",
-            gap: "4",
-            // デスクトップでは Abstract をやや下に下げて視覚的なリズムを作る
-            pt: { base: "0", lg: "16" },
-        },
-        eyebrow: {
-            fontFamily: "mono",
-            fontSize: "11px",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "fg.muted",
+            borderColor: "fg",
         },
         title: {
             fontFamily: "heading",
             fontWeight: "600",
-            py: { base: "0", lg: "4" },
-            // Figmaでは 72px / line-height 0.95 / tracking -0.025em
             fontSize: { base: "3rem", md: "4rem", lg: "4.5rem" },
             lineHeight: "0.95",
             letterSpacing: "-0.025em",
-            color: "fg.default",
+            color: "fg",
         },
-        abstractLabel: {
-            fontFamily: "mono",
-            fontSize: "10px",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            color: "fg.muted",
+        detailGrid: {
+            display: "grid",
+            gridTemplateColumns: { base: "1fr", lg: "repeat(2, minmax(0, 1fr))" },
+            columnGap: { lg: "16" },
+            rowGap: { base: "8", lg: "0" },
+            alignItems: "start",
+        },
+        abstractBlock: {
+            display: "flex",
+            flexDirection: "column",
+            gap: "2",
+        },
+        abstractTitle: {
+            fontFamily: "heading",
+            fontSize: "xl",
+            fontWeight: "600",
+            lineHeight: "1.3",
+            color: "fg",
         },
         abstractText: {
             fontFamily: "body",
             fontWeight: "400",
             fontSize: { base: "1rem", lg: "1.125rem" },
             lineHeight: "1.65",
-            color: "fg.default",
+            color: "fg",
         },
     },
 });
@@ -75,15 +63,13 @@ export default function ProjectDetailHeader({ project, className }: ProjectDetai
 
     return (
         <header className={`${styles.root}${className ? ` ${className}` : ""}`}>
-            <div className={styles.primaryColumn}>
-                <h1 className={styles.title}>{project.title}</h1>
-
+            <h1 className={styles.title}>{project.title}</h1>
+            <div className={styles.detailGrid}>
                 <ProjectMetaList items={project.metaItems} />
-            </div>
-
-            <div className={styles.secondaryColumn}>
-                <p className={styles.abstractLabel}>— Abstract</p>
-                <p className={styles.abstractText}>{project.abstract}</p>
+                <div className={styles.abstractBlock}>
+                    <h2 className={styles.abstractTitle}>{m["projects.abstractTitle"]()}</h2>
+                    <p className={styles.abstractText}>{project.abstract}</p>
+                </div>
             </div>
         </header>
     );

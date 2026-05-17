@@ -32,7 +32,7 @@ const notFoundStyles = sva({
         root: {
             minH: "100dvh",
             bg: "bg.canvas",
-            color: "fg.default",
+            color: "fg",
             pt: { base: "14", md: "0" },
         },
         section: {
@@ -75,7 +75,7 @@ const notFoundStyles = sva({
             fontSize: "0.625rem",
             textTransform: "uppercase",
             letterSpacing: "0.28em",
-            color: "fg.default",
+            color: "fg",
             transition: "background-color 0.2s ease, border-color 0.2s ease",
             _hover: {
                 bg: "bg.subtle",

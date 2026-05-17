@@ -13,7 +13,7 @@
   - テーマ状態は`next-themes`で管理してください。
   - Chakra UIのtheme tokenとrecipeを優先して利用してください。
   - ex ) `bg.canvas`
-  - ex ) `fg.default`
+  - ex ) `fg`
   - ex ) `colorPalette.solid`
 - Storybookを活用して、コンポーネントの動作確認およびドキュメント化を行ってください。
   - 参考: [Storybook公式ドキュメント](https://storybook.js.org/docs/react/get-started/introduction)

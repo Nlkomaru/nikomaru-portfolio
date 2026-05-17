@@ -9,6 +9,18 @@ import autoprefixer from "autoprefixer";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import { urlPatternsWithFallback } from "./src/i18n/translated-pathnames";
+import { projectSlugs } from "./src/routes/projects/-content/project-slugs";
+
+const projectPrerenderPages = projectSlugs.flatMap((slug) => [
+    {
+        path: `/projects/${slug}`,
+        prerender: { enabled: true },
+    },
+    {
+        path: `/ja/projects/${slug}`,
+        prerender: { enabled: true },
+    },
+]);
 
 const config = defineConfig({
     server: {
@@ -44,7 +56,7 @@ const config = defineConfig({
         tanstackStart({
             prerender: {
                 enabled: true,
-                // Limit prerender scope strictly to '/'
+                // 明示したページだけを静的生成し、意図しないリンク巡回は避ける。
                 autoStaticPathsDiscovery: false,
                 crawlLinks: false,
                 failOnError: true,
@@ -54,6 +66,7 @@ const config = defineConfig({
                     path: "/",
                     prerender: { enabled: true },
                 },
+                ...projectPrerenderPages,
             ],
         }),
         viteReact(),

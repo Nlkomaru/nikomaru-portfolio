@@ -13,6 +13,7 @@ export function Provider({ children, ...props }: ProviderProps) {
         <ThemeProvider
             attribute="class"
             defaultTheme="dark"
+            enableColorScheme={true}
             enableSystem={false}
             disableTransitionOnChange
             {...props}

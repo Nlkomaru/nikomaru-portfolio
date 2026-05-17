@@ -29,7 +29,7 @@ const desktopNavbarStyles = sva({
             fontSize: "0.625rem",
             textTransform: "uppercase",
             letterSpacing: "0.3em",
-            color: "fg.default",
+            color: "fg.subtle",
             fontFamily: '"Space Mono", monospace',
         },
         navList: {
@@ -47,16 +47,12 @@ const desktopNavbarStyles = sva({
             w: "10",
             borderRadius: "full",
             color: "fg.subtle",
-            transition: "background-color 0.2s ease, color 0.2s ease, transform 0.2s ease",
+            transition: "background-color 0.2s ease, color 0.2s ease",
             _hover: {
                 bg: "bg.subtle",
                 '& [data-slot="nav-label"]': {
                     opacity: 1,
-                    transform: "translate(0, -50%)",
                 },
-            },
-            _active: {
-                transform: "scale(0.98)",
             },
             _focusVisible: {
                 outline: "2px solid",
@@ -65,7 +61,7 @@ const desktopNavbarStyles = sva({
             },
             '&[data-active="true"]': {
                 bg: "bg.subtle",
-                color: "fg.default",
+                color: "fg",
                 '& [data-slot="nav-icon"]': {
                     opacity: 1,
                     transform: "scale(1.08)",
@@ -83,15 +79,11 @@ const desktopNavbarStyles = sva({
             position: "absolute",
             top: "50%",
             left: "12",
-            bg: "bg.canvas/60",
-            backdropFilter: "blur(6px)",
+            bg: "bg.canvas",
             borderRadius: "full",
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "border/30",
             p: "1",
             px: "2",
-            transform: "translate(-0.25rem, -50%)",
+            transform: "translateY(-50%)",
             whiteSpace: "nowrap",
             fontSize: "0.75rem",
             textTransform: "uppercase",
@@ -100,7 +92,7 @@ const desktopNavbarStyles = sva({
             color: "fg.muted",
             opacity: 0,
             pointerEvents: "none",
-            transition: "opacity 0.3s ease, transform 0.3s ease",
+            transition: "opacity 0.2s ease",
         },
         bottomControls: {
             display: "flex",
@@ -120,7 +112,7 @@ const desktopNavbarStyles = sva({
             transition: "background-color 0.2s ease, transform 0.2s ease",
             fontSize: "0.7rem",
             letterSpacing: "0.2em",
-            color: "fg.default",
+            color: "fg",
             _hover: {
                 bg: "bg.subtle",
             },
@@ -156,7 +148,7 @@ export function DesktopNavbar() {
 
             <div className={styles.navList}>
                 {navigationItems.map((item, index) => {
-                    const isActive = currentPath === item.to;
+                    const isActive = item.to === "/" ? currentPath === item.to : currentPath.startsWith(item.to);
                     const Icon = item.icon;
 
                     return (
