@@ -27,4 +27,5 @@ todos.json
 memo.txt
 sample/
 
-./*.png
+# PNG のみリポジトリ直下（サブディレクトリは対象外）
+/*.png

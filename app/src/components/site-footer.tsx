@@ -110,8 +110,7 @@ export function SiteFooter() {
             <div className={styles.inner}>
                 <div className={styles.creditBlock}>
                     <p className={styles.creditOwner}>
-                        <span>©</span>{" "}
-                        Nikomaru
+                        <span>©</span> Nikomaru
                     </p>
                     <p className={styles.creditLicense}>
                         {m["siteFooter.licenseLead"]()}
