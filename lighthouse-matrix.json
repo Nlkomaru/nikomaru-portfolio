@@ -1,0 +1,37 @@
+[
+    {
+        "id": "root",
+        "path": "/",
+        "url": "http://localhost/"
+    },
+    {
+        "id": "about",
+        "path": "/about/",
+        "url": "http://localhost/about/"
+    },
+    {
+        "id": "photos",
+        "path": "/photos/",
+        "url": "http://localhost/photos/"
+    },
+    {
+        "id": "projects",
+        "path": "/projects/",
+        "url": "http://localhost/projects/"
+    },
+    {
+        "id": "projects-mineauth",
+        "path": "/projects/MineAuth",
+        "url": "http://localhost/projects/MineAuth"
+    },
+    {
+        "id": "slide-frontend-color-ja",
+        "path": "/slide/frontend-color-ja",
+        "url": "http://localhost/slide/frontend-color-ja"
+    },
+    {
+        "id": "talks",
+        "path": "/talks/",
+        "url": "http://localhost/talks/"
+    }
+]
