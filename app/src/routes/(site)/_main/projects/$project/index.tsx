@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
-import { getLocale } from "../../../paraglide/runtime";
+import { getLocale } from "../../../../../paraglide/runtime";
 import ProjectDetailHeader from "../-components/project-detail-header";
 import ProjectSection from "../-components/project-section";
 import { getProjectMarkdown, isProjectSlug } from "../-functions/get-project-markdown";
@@ -41,7 +41,7 @@ const projectDetailPageStyles = sva({
     },
 });
 
-export const Route = createFileRoute("/projects/$project/")({
+export const Route = createFileRoute("/(site)/_main/projects/$project/")({
     loader: ({ params }) => {
         if (!isProjectSlug(params.project)) {
             throw notFound();

@@ -34,5 +34,10 @@
         "image": {
             "figureLabel": "Figure "
         }
+    },
+    "siteFooter": {
+        "licenseLead": "Unless otherwise noted, content on this site is licensed under ",
+        "licenseLinkLabel": "Creative Commons BY 4.0",
+        "licenseTrail": "."
     }
 }

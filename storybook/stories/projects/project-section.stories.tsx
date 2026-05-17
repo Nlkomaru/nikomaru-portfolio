@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "@/components/ui/provider";
-import ProjectSection from "@/routes/projects/-components/project-section";
-import type { ProjectSection as ProjectSectionData } from "@/routes/projects/-functions/parse-project-markdown";
+import ProjectSection from "@/routes/(site)/_main/projects/-components/project-section";
+import type { ProjectSection as ProjectSectionData } from "@/routes/(site)/_main/projects/-functions/parse-project-markdown";
 import { imageSectionMarkdown, textOnlySectionMarkdown } from "./project-story-data";
 
 const textOnlySection: ProjectSectionData = {
@@ -24,7 +24,7 @@ const rightImageSection: ProjectSectionData = {
 };
 
 const meta: Meta<typeof ProjectSection> = {
-    title: "routes/projects/ProjectSection",
+    title: "routes/(site)/_main/projects/ProjectSection",
     component: ProjectSection,
     tags: ["autodocs"],
     parameters: {

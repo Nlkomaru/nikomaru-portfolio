@@ -75,7 +75,7 @@ function injectSlideOgpMeta(
     return rewriter.transform(response);
 }
 
-export const Route = createFileRoute("/slide/$")({
+export const Route = createFileRoute("/(site)/_main/slide/$")({
     server: {
         handlers: {
             GET: async ({ request, params }) => {

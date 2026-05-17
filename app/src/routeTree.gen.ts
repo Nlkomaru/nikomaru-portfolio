@@ -10,76 +10,83 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as TalksIndexRouteImport } from './routes/talks/index'
-import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
-import { Route as PhotosIndexRouteImport } from './routes/photos/index'
-import { Route as AboutIndexRouteImport } from './routes/about/index'
-import { Route as SlideSplatRouteImport } from './routes/slide/$'
-import { Route as ProjectsProjectIndexRouteImport } from './routes/projects/$project/index'
+import { Route as siteMainRouteImport } from './routes/(site)/_main'
+import { Route as siteMainTalksIndexRouteImport } from './routes/(site)/_main/talks/index'
+import { Route as siteMainProjectsIndexRouteImport } from './routes/(site)/_main/projects/index'
+import { Route as siteMainPhotosIndexRouteImport } from './routes/(site)/_main/photos/index'
+import { Route as siteMainAboutIndexRouteImport } from './routes/(site)/_main/about/index'
+import { Route as siteMainSlideSplatRouteImport } from './routes/(site)/_main/slide/$'
+import { Route as siteMainProjectsProjectIndexRouteImport } from './routes/(site)/_main/projects/$project/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TalksIndexRoute = TalksIndexRouteImport.update({
+const siteMainRoute = siteMainRouteImport.update({
+  id: '/(site)/_main',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const siteMainTalksIndexRoute = siteMainTalksIndexRouteImport.update({
   id: '/talks/',
   path: '/talks/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => siteMainRoute,
 } as any)
-const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
+const siteMainProjectsIndexRoute = siteMainProjectsIndexRouteImport.update({
   id: '/projects/',
   path: '/projects/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => siteMainRoute,
 } as any)
-const PhotosIndexRoute = PhotosIndexRouteImport.update({
+const siteMainPhotosIndexRoute = siteMainPhotosIndexRouteImport.update({
   id: '/photos/',
   path: '/photos/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => siteMainRoute,
 } as any)
-const AboutIndexRoute = AboutIndexRouteImport.update({
+const siteMainAboutIndexRoute = siteMainAboutIndexRouteImport.update({
   id: '/about/',
   path: '/about/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => siteMainRoute,
 } as any)
-const SlideSplatRoute = SlideSplatRouteImport.update({
+const siteMainSlideSplatRoute = siteMainSlideSplatRouteImport.update({
   id: '/slide/$',
   path: '/slide/$',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => siteMainRoute,
 } as any)
-const ProjectsProjectIndexRoute = ProjectsProjectIndexRouteImport.update({
-  id: '/projects/$project/',
-  path: '/projects/$project/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const siteMainProjectsProjectIndexRoute =
+  siteMainProjectsProjectIndexRouteImport.update({
+    id: '/projects/$project/',
+    path: '/projects/$project/',
+    getParentRoute: () => siteMainRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/slide/$': typeof SlideSplatRoute
-  '/about/': typeof AboutIndexRoute
-  '/photos/': typeof PhotosIndexRoute
-  '/projects/': typeof ProjectsIndexRoute
-  '/talks/': typeof TalksIndexRoute
-  '/projects/$project/': typeof ProjectsProjectIndexRoute
+  '/slide/$': typeof siteMainSlideSplatRoute
+  '/about/': typeof siteMainAboutIndexRoute
+  '/photos/': typeof siteMainPhotosIndexRoute
+  '/projects/': typeof siteMainProjectsIndexRoute
+  '/talks/': typeof siteMainTalksIndexRoute
+  '/projects/$project/': typeof siteMainProjectsProjectIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/slide/$': typeof SlideSplatRoute
-  '/about': typeof AboutIndexRoute
-  '/photos': typeof PhotosIndexRoute
-  '/projects': typeof ProjectsIndexRoute
-  '/talks': typeof TalksIndexRoute
-  '/projects/$project': typeof ProjectsProjectIndexRoute
+  '/slide/$': typeof siteMainSlideSplatRoute
+  '/about': typeof siteMainAboutIndexRoute
+  '/photos': typeof siteMainPhotosIndexRoute
+  '/projects': typeof siteMainProjectsIndexRoute
+  '/talks': typeof siteMainTalksIndexRoute
+  '/projects/$project': typeof siteMainProjectsProjectIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/slide/$': typeof SlideSplatRoute
-  '/about/': typeof AboutIndexRoute
-  '/photos/': typeof PhotosIndexRoute
-  '/projects/': typeof ProjectsIndexRoute
-  '/talks/': typeof TalksIndexRoute
-  '/projects/$project/': typeof ProjectsProjectIndexRoute
+  '/(site)/_main': typeof siteMainRouteWithChildren
+  '/(site)/_main/slide/$': typeof siteMainSlideSplatRoute
+  '/(site)/_main/about/': typeof siteMainAboutIndexRoute
+  '/(site)/_main/photos/': typeof siteMainPhotosIndexRoute
+  '/(site)/_main/projects/': typeof siteMainProjectsIndexRoute
+  '/(site)/_main/talks/': typeof siteMainTalksIndexRoute
+  '/(site)/_main/projects/$project/': typeof siteMainProjectsProjectIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -103,22 +110,18 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/slide/$'
-    | '/about/'
-    | '/photos/'
-    | '/projects/'
-    | '/talks/'
-    | '/projects/$project/'
+    | '/(site)/_main'
+    | '/(site)/_main/slide/$'
+    | '/(site)/_main/about/'
+    | '/(site)/_main/photos/'
+    | '/(site)/_main/projects/'
+    | '/(site)/_main/talks/'
+    | '/(site)/_main/projects/$project/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SlideSplatRoute: typeof SlideSplatRoute
-  AboutIndexRoute: typeof AboutIndexRoute
-  PhotosIndexRoute: typeof PhotosIndexRoute
-  ProjectsIndexRoute: typeof ProjectsIndexRoute
-  TalksIndexRoute: typeof TalksIndexRoute
-  ProjectsProjectIndexRoute: typeof ProjectsProjectIndexRoute
+  siteMainRoute: typeof siteMainRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -130,59 +133,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/talks/': {
-      id: '/talks/'
+    '/(site)/_main': {
+      id: '/(site)/_main'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof siteMainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(site)/_main/talks/': {
+      id: '/(site)/_main/talks/'
       path: '/talks'
       fullPath: '/talks/'
-      preLoaderRoute: typeof TalksIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof siteMainTalksIndexRouteImport
+      parentRoute: typeof siteMainRoute
     }
-    '/projects/': {
-      id: '/projects/'
+    '/(site)/_main/projects/': {
+      id: '/(site)/_main/projects/'
       path: '/projects'
       fullPath: '/projects/'
-      preLoaderRoute: typeof ProjectsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof siteMainProjectsIndexRouteImport
+      parentRoute: typeof siteMainRoute
     }
-    '/photos/': {
-      id: '/photos/'
+    '/(site)/_main/photos/': {
+      id: '/(site)/_main/photos/'
       path: '/photos'
       fullPath: '/photos/'
-      preLoaderRoute: typeof PhotosIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof siteMainPhotosIndexRouteImport
+      parentRoute: typeof siteMainRoute
     }
-    '/about/': {
-      id: '/about/'
+    '/(site)/_main/about/': {
+      id: '/(site)/_main/about/'
       path: '/about'
       fullPath: '/about/'
-      preLoaderRoute: typeof AboutIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof siteMainAboutIndexRouteImport
+      parentRoute: typeof siteMainRoute
     }
-    '/slide/$': {
-      id: '/slide/$'
+    '/(site)/_main/slide/$': {
+      id: '/(site)/_main/slide/$'
       path: '/slide/$'
       fullPath: '/slide/$'
-      preLoaderRoute: typeof SlideSplatRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof siteMainSlideSplatRouteImport
+      parentRoute: typeof siteMainRoute
     }
-    '/projects/$project/': {
-      id: '/projects/$project/'
+    '/(site)/_main/projects/$project/': {
+      id: '/(site)/_main/projects/$project/'
       path: '/projects/$project'
       fullPath: '/projects/$project/'
-      preLoaderRoute: typeof ProjectsProjectIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof siteMainProjectsProjectIndexRouteImport
+      parentRoute: typeof siteMainRoute
     }
   }
 }
 
+interface siteMainRouteChildren {
+  siteMainSlideSplatRoute: typeof siteMainSlideSplatRoute
+  siteMainAboutIndexRoute: typeof siteMainAboutIndexRoute
+  siteMainPhotosIndexRoute: typeof siteMainPhotosIndexRoute
+  siteMainProjectsIndexRoute: typeof siteMainProjectsIndexRoute
+  siteMainTalksIndexRoute: typeof siteMainTalksIndexRoute
+  siteMainProjectsProjectIndexRoute: typeof siteMainProjectsProjectIndexRoute
+}
+
+const siteMainRouteChildren: siteMainRouteChildren = {
+  siteMainSlideSplatRoute: siteMainSlideSplatRoute,
+  siteMainAboutIndexRoute: siteMainAboutIndexRoute,
+  siteMainPhotosIndexRoute: siteMainPhotosIndexRoute,
+  siteMainProjectsIndexRoute: siteMainProjectsIndexRoute,
+  siteMainTalksIndexRoute: siteMainTalksIndexRoute,
+  siteMainProjectsProjectIndexRoute: siteMainProjectsProjectIndexRoute,
+}
+
+const siteMainRouteWithChildren = siteMainRoute._addFileChildren(
+  siteMainRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SlideSplatRoute: SlideSplatRoute,
-  AboutIndexRoute: AboutIndexRoute,
-  PhotosIndexRoute: PhotosIndexRoute,
-  ProjectsIndexRoute: ProjectsIndexRoute,
-  TalksIndexRoute: TalksIndexRoute,
-  ProjectsProjectIndexRoute: ProjectsProjectIndexRoute,
+  siteMainRoute: siteMainRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

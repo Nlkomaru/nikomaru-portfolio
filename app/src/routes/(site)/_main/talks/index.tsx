@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { sva } from "styled-system/css";
-import { m } from "../../paraglide/messages";
+import { m } from "../../../../paraglide/messages";
 import TalksYearGroup from "./-components/talks-year-group";
 import { getSlides } from "./-functions/get-slides";
 import type { Slide } from "./-types/slide";
@@ -22,21 +22,21 @@ const talksPageStyles = sva({
         "searchIcon",
         "searchInput",
         "yearList",
-        "footer",
-        "footerText",
         "empty",
     ],
     base: {
         root: {
+            w: "full",
+            // レイアウト移行後も本文の最小高さを従来どおり確保する（flex: 1 + minH: 0 だと basis 0 気味に潰れて見えることがある）。
             minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
-            bg: "bg.canvas",
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
             color: "fg",
         },
         container: {
-            maxW: "104rem",
-            mx: "auto",
             px: { base: "4", md: "12" },
-            py: { base: "12", md: "20" },
+            pt: { base: "12", md: "20" },
             display: "flex",
             flexDirection: "column",
             gap: { base: "14", md: "20" },
@@ -52,11 +52,11 @@ const talksPageStyles = sva({
             fontSize: { base: "3xl", md: "4xl" },
             lineHeight: "1.05",
             letterSpacing: "-0.025em",
-            color: "fg",
+            color: "fg.subtle",
         },
         headerDescription: {
             maxW: "xl",
-            color: "fg.subtle",
+            color: "fg",
             fontSize: { base: "md", md: "lg" },
             lineHeight: "1.65",
         },
@@ -84,8 +84,8 @@ const talksPageStyles = sva({
             h: "9",
             pl: "3",
             pr: "2",
-            borderBottomWidth: "1px",
-            borderColor: "border.default",
+            // borderBottomWidth: "1px",
+            // borderColor: "border.default",
         },
         searchIcon: {
             flexShrink: 0,
@@ -109,24 +109,6 @@ const talksPageStyles = sva({
             flexDirection: "column",
             gap: { base: "14", md: "20" },
         },
-        footer: {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            w: "full",
-            pt: "8",
-            px: { base: "1", md: "2" },
-
-            borderTopWidth: "1px",
-            borderColor: "border.muted",
-        },
-        footerText: {
-            color: "fg.muted",
-            fontFamily: "mono",
-            fontSize: "xs",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-        },
         empty: {
             color: "fg.muted",
             fontFamily: "mono",
@@ -137,7 +119,7 @@ const talksPageStyles = sva({
     },
 });
 
-export const Route = createFileRoute("/talks/")({
+export const Route = createFileRoute("/(site)/_main/talks/")({
     loader: () => getSlides(),
     staleTime: 1000 * 60 * 5,
     component: SlidesPage,
@@ -234,11 +216,6 @@ function SlidesPage() {
                         ))
                     )}
                 </div>
-
-                <footer className={styles.footer}>
-                    <span className={styles.footerText}>{m["talks.footerLeft"]()}</span>
-                    <span className={styles.footerText}>{m["talks.footerRight"]()}</span>
-                </footer>
             </div>
         </div>
     );

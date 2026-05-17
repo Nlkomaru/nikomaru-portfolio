@@ -34,5 +34,10 @@
         "image": {
             "figureLabel": "図"
         }
+    },
+    "siteFooter": {
+        "licenseLead": "特に記載がない限り、このサイトのコンテンツは ",
+        "licenseLinkLabel": "クリエイティブ・コモンズ 表示 4.0 国際（CC BY 4.0）",
+        "licenseTrail": " の条件のもとで提供されています。"
     }
 }
