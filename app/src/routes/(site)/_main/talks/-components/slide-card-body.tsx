@@ -67,7 +67,6 @@ const slideCardBodyStyles = sva({
         textLink: {
             fontSize: { base: "xs", md: "sm" },
             lineHeight: "1.45",
-            color: "fg",
             textDecorationLine: "underline",
             textDecorationStyle: "solid",
             textDecorationThickness: "1.5px",
@@ -81,7 +80,6 @@ const slideCardBodyStyles = sva({
                 borderRadius: "xs",
             },
             _hover: {
-                color: "fg",
                 textDecorationColor: "fg",
             },
         },

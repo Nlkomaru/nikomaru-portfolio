@@ -58,7 +58,7 @@ const preview: Preview = {
             },
         },
         backgrounds: {
-            // bg.default をwithThemeデコレータで直接bodyに適用するため無効化
+            // bg をwithThemeデコレータで直接bodyに適用するため無効化
             disable: true,
         },
         a11y: {

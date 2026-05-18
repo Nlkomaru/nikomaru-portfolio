@@ -32,7 +32,6 @@ const mobileHeaderStyles = sva({
             fontSize: "0.75rem",
             textTransform: "uppercase",
             letterSpacing: "0.25em",
-            color: "fg",
             fontFamily: '"Space Mono", monospace',
             flex: 1,
         },
@@ -49,8 +48,8 @@ const mobileHeaderStyles = sva({
             w: "10",
             borderRadius: "full",
             bg: "bg.canvas",
-            color: "fg",
             transition: "background-color 0.2s ease, transform 0.2s ease",
+            fontFamily: "mono",
             fontSize: "0.75rem",
             letterSpacing: "0.2em",
             _hover: {

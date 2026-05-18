@@ -22,16 +22,16 @@ metaItems:
     href: https://github.com/morinoparty/mineauth
     external: true
 coverImage:
-  src: /projects/mineauth/community.avif
+  src: ./assets/community.avif
   alt: MineAuth Community
 openGraph:
   title: MineAuth
   description: MineAuth is a plugin that provides an OAuth 2/OpenID Connect authentication platform running on a Minecraft server.
-  image: /projects/mineauth/community.png
+  image: ./assets/community.png
   imageAlt: MineAuth Community
 ---
 image:
-  src: /projects/mineauth/moripath.avif
+  src: ./assets/moripath.avif
   alt: MoriPath
   caption: Screenshot of MoriPath
 layout: left-image
@@ -50,7 +50,7 @@ I also considered established solutions such as [Keycloak](https://www.keycloak.
 
 ---
 image:
-  src: /projects/mineauth/scalar.avif
+  src: ./assets/scalar.avif
   alt: MineAuth API documentation with Scalar.
   caption: API documentation generated with Scalar
 layout: right-image

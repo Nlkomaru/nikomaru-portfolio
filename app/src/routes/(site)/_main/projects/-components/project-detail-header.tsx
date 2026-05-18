@@ -1,11 +1,12 @@
 import { sva } from "styled-system/css";
 import { m } from "../../../../../paraglide/messages";
 import type { Project } from "../-types/project";
+import ProjectMarkdown from "./project-markdown";
 import ProjectMetaList from "./project-meta-list";
 
 // タイトルの下に、メタ情報と概要文を並べるプロジェクト詳細ヘッダ。
 const projectDetailHeaderStyles = sva({
-    slots: ["root", "title", "detailGrid", "abstractBlock", "abstractTitle", "abstractText"],
+    slots: ["root", "title", "detailGrid", "abstractBlock", "abstractMarkdownRoot", "abstractTitle"],
     base: {
         root: {
             display: "flex",
@@ -35,19 +36,16 @@ const projectDetailHeaderStyles = sva({
             flexDirection: "column",
             gap: "2",
         },
+        abstractMarkdownRoot: {
+            fontSize: { base: "1rem", lg: "1.125rem" },
+            lineHeight: "1.65",
+        },
         abstractTitle: {
             fontFamily: "heading",
             fontSize: "xl",
             fontWeight: "600",
             lineHeight: "1.3",
             color: "fg.subtle",
-        },
-        abstractText: {
-            fontFamily: "body",
-            fontWeight: "400",
-            fontSize: { base: "1rem", lg: "1.125rem" },
-            lineHeight: "1.65",
-            color: "fg",
         },
     },
 });
@@ -68,7 +66,7 @@ export default function ProjectDetailHeader({ project, className }: ProjectDetai
                 <ProjectMetaList items={project.metaItems} />
                 <div className={styles.abstractBlock}>
                     <h2 className={styles.abstractTitle}>{m["projects.abstractTitle"]()}</h2>
-                    <p className={styles.abstractText}>{project.abstract}</p>
+                    <ProjectMarkdown markdown={project.abstract} className={styles.abstractMarkdownRoot} />
                 </div>
             </div>
         </header>

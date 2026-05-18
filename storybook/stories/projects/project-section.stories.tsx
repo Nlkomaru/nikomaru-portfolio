@@ -11,7 +11,7 @@ const textOnlySection: ProjectSectionData = {
 const leftImageSection: ProjectSectionData = {
     text: imageSectionMarkdown,
     image: {
-        src: "/projects/mineauth/scalar.png",
+        src: "https://picsum.photos/seed/mineauth-scalar-section/960/540",
         alt: "MineAuth API documentation with Scalar",
         caption: "MineAuth API documentation with Scalar",
     },

@@ -44,8 +44,8 @@ const projectMetaListStyles = sva({
             textDecorationColor: "border.outline",
             transition: "color 0.2s ease, text-decoration-color 0.2s ease",
             _hover: {
-                color: "fg",
-                textDecorationColor: "fg",
+                color: "fg.subtle",
+                textDecorationColor: "colorPalette.border",
             },
             _focusVisible: {
                 outline: "2px solid",

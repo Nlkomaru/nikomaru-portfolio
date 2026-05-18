@@ -19,6 +19,7 @@
         "@cloudflare/vite-plugin": "^1.13.8",
         "@emotion/react": "^11.14.0",
         "@fontsource/caveat": "^5.2.8",
+        "@fontsource/jetbrains-mono": "^5.2.8",
         "@fontsource/noto-sans-jp": "^5.2.9",
         "@fontsource/poppins": "^5.2.7",
         "@fontsource/space-mono": "^5.2.9",

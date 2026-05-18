@@ -1,3 +1,5 @@
+import { existsSync, readdirSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
@@ -9,7 +11,28 @@ import autoprefixer from "autoprefixer";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import { urlPatternsWithFallback } from "./src/i18n/translated-pathnames";
-import { projectSlugs } from "./src/routes/(site)/_main/projects/-content/project-slugs";
+
+// project-slugs.ts と同じ規則: `-content/<Slug>/ja.md` があるディレクトリだけを対象にする。
+// vite.config は import.meta.glob を束縛しないため、ここでは fs で読み取る。
+const projectsContentRoot = fileURLToPath(new URL("./src/routes/(site)/_main/projects/-content", import.meta.url));
+
+function collectProjectSlugsForPrerender(): string[] {
+    if (!existsSync(projectsContentRoot)) {
+        return [];
+    }
+    return readdirSync(projectsContentRoot)
+        .filter((entryName) => {
+            const entryPath = join(projectsContentRoot, entryName);
+            try {
+                return statSync(entryPath).isDirectory() && existsSync(join(entryPath, "ja.md"));
+            } catch {
+                return false;
+            }
+        })
+        .sort((a, b) => a.localeCompare(b));
+}
+
+const projectSlugs = collectProjectSlugsForPrerender();
 
 const projectPrerenderPages = projectSlugs.flatMap((slug) => [
     {
@@ -23,6 +46,8 @@ const projectPrerenderPages = projectSlugs.flatMap((slug) => [
 ]);
 
 const config = defineConfig({
+    // import.meta.glob で ?raw 以外の .md を拾う経路やツールチェーン向けのフォールバック。
+    assetsInclude: ["**/*.md"],
     server: {
         host: "0.0.0.0",
         port: 3000,

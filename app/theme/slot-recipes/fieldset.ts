@@ -15,7 +15,6 @@ export const fieldsetSlotRecipe = defineSlotRecipe({
             width: "full",
         },
         legend: {
-            color: "fg",
             fontWeight: "medium",
             _disabled: {
                 opacity: "0.5",

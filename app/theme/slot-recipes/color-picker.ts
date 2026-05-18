@@ -37,7 +37,6 @@ export const colorPickerSlotRecipe = defineSlotRecipe({
             gap: "1.5",
         },
         label: {
-            color: "fg",
             fontWeight: "medium",
             textStyle: "sm",
             _disabled: {

@@ -32,7 +32,6 @@ const talksPageStyles = sva({
             flexGrow: 1,
             display: "flex",
             flexDirection: "column",
-            color: "fg",
         },
         container: {
             px: { base: "4", md: "12" },
@@ -56,7 +55,6 @@ const talksPageStyles = sva({
         },
         headerDescription: {
             maxW: "xl",
-            color: "fg",
             fontSize: { base: "md", md: "lg" },
             lineHeight: "1.65",
         },

@@ -11,7 +11,6 @@ const siteShellStyles = sva({
             display: "flex",
             flexDirection: "column",
             bg: "bg.canvas",
-            color: "fg",
         },
         main: {
             flex: "1",

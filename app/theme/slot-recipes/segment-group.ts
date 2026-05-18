@@ -30,7 +30,6 @@ export const segmentGroupSlotRecipe = defineSlotRecipe({
             userSelect: "none",
             fontSize: "sm",
             position: "relative",
-            color: "fg",
             borderRadius: "var(--segment-radius)",
             _disabled: {
                 opacity: "0.5",

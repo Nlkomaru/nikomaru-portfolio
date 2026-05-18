@@ -24,7 +24,6 @@ export const codeBlockSlotRecipe = defineSlotRecipe({
             rounded: "var(--code-block-radius)",
             overflow: "hidden",
             bg: "bg",
-            color: "fg",
             borderWidth: "1px",
             "--code-block-max-height": "320px",
             "--code-block-bg": "colors.bg",
