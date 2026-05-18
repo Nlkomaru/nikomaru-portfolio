@@ -1,3 +1,4 @@
+import { Input, InputGroup } from "@chakra-ui/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -18,9 +19,7 @@ const talksPageStyles = sva({
         "headerDescription",
         "controls",
         "controlsCount",
-        "search",
         "searchIcon",
-        "searchInput",
         "yearList",
         "empty",
     ],
@@ -74,33 +73,9 @@ const talksPageStyles = sva({
             letterSpacing: "0.1em",
             textTransform: "uppercase",
         },
-        search: {
-            display: "flex",
-            alignItems: "center",
-            gap: "3",
-            w: { base: "48", md: "72" },
-            h: "9",
-            pl: "3",
-            pr: "2",
-            // borderBottomWidth: "1px",
-            // borderColor: "border.default",
-        },
         searchIcon: {
             flexShrink: 0,
             color: "fg.subtle",
-            w: "4",
-            h: "4",
-        },
-        searchInput: {
-            w: "full",
-            bg: "transparent",
-            border: "none",
-            outline: "none",
-            color: "fg",
-            fontSize: { base: "sm", md: "md" },
-            _placeholder: {
-                color: "fg.subtle",
-            },
         },
         yearList: {
             display: "flex",
@@ -187,17 +162,22 @@ function SlidesPage() {
 
                 <div className={styles.controls}>
                     <span className={styles.controlsCount}>{formatCountLabel(publicSlides.length, "Items")}</span>
-                    <div className={styles.search}>
-                        <Search className={styles.searchIcon} aria-hidden="true" />
-                        <input
+                    <InputGroup
+                        flexShrink={0}
+                        maxW="100%"
+                        startElement={<Search size={14} className={styles.searchIcon} aria-hidden />}
+                        w={{ base: "12rem", md: "18rem" }}
+                    >
+                        <Input
                             type="search"
+                            variant="flushed"
+                            size="lg"
                             value={query}
                             onChange={(event) => setQuery(event.target.value)}
                             placeholder={m["talks.searchPlaceholder"]()}
-                            className={styles.searchInput}
                             aria-label={m["talks.searchPlaceholder"]()}
                         />
-                    </div>
+                    </InputGroup>
                 </div>
 
                 <div className={styles.yearList}>
