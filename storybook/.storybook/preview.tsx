@@ -6,7 +6,7 @@ import { Provider } from "@/components/ui/provider";
 import { registerAPCACheck } from "./a11y";
 import { withDummyRouter } from "./dummy-router";
 
-const apca = registerAPCACheck("bronze");
+const apca = registerAPCACheck("silver");
 
 // テーマと背景色を適用するデコレータ
 const withTheme: Decorator = (Story, context) => {
