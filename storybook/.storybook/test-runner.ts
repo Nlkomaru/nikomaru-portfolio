@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path";
 import type { TestRunnerConfig } from "@storybook/test-runner";
 import type { Result } from "axe-core";
 import { checkA11y, configureAxe, getViolations, injectAxe } from "axe-playwright";
-import { registerAPCACheck } from "./a11y";
+import { registerAPCACheck } from "./a11y/index.ts";
 
 const a11yReportPath = resolve(process.cwd(), "reports/a11y-violations.jsonl");
 const apca = registerAPCACheck("silver");

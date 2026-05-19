@@ -1,4 +1,4 @@
-import APCACheck, { type ConformanceThresholdFn } from "./apca";
+import APCACheck, { type ConformanceThresholdFn } from "./apca.ts";
 
 const silverPlusAPCALookupTable = [
     // See https://readtech.org/ARC/tests/visual-readability-contrast/?tn=criterion (May 22, 2022)
