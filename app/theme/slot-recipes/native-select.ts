@@ -76,7 +76,6 @@ export const nativeSelectSlotRecipe = defineSlotRecipe({
             plain: {
                 field: {
                     bg: "transparent",
-                    color: "fg",
                     focusRingWidth: "2px",
                 },
             },

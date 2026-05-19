@@ -14,12 +14,6 @@ export const colors = defineSemanticTokens.colors({
                 _dark: "{colors.black}",
             },
         },
-        default: {
-            value: {
-                _light: "{colors.white}",
-                _dark: "{colors.gray.950}",
-            },
-        },
         subtle: {
             value: {
                 _light: "{colors.gray.50}",
@@ -78,7 +72,7 @@ export const colors = defineSemanticTokens.colors({
     fg: {
         DEFAULT: {
             value: {
-                _light: "{colors.gray.600}",
+                _light: "{colors.gray.700}",
                 _dark: "{colors.gray.300}",
             },
         },

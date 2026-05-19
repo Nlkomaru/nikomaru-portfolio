@@ -34,7 +34,6 @@ const mobileNavigationMenuStyles = sva({
             w: "10",
             borderRadius: "full",
             bg: "bg.canvas",
-            color: "fg",
             transition: "background-color 0.2s ease, transform 0.2s ease",
             _hover: {
                 bg: "bg.subtle",
@@ -62,7 +61,6 @@ const mobileNavigationMenuStyles = sva({
         content: {
             minH: "100dvh",
             bg: "bg.canvas",
-            color: "fg",
             display: "flex",
             flexDirection: "column",
         },
@@ -88,7 +86,6 @@ const mobileNavigationMenuStyles = sva({
             lineHeight: "1.5",
             textTransform: "uppercase",
             letterSpacing: "0.25em",
-            color: "fg",
             fontFamily: '"Space Mono", monospace',
             flex: 1,
             minW: 0,
@@ -102,7 +99,6 @@ const mobileNavigationMenuStyles = sva({
             w: "10",
             borderRadius: "full",
             bg: "bg.canvas",
-            color: "fg",
             transition: "background-color 0.2s ease, transform 0.2s ease",
             _hover: {
                 bg: "bg.subtle",
@@ -153,11 +149,9 @@ const mobileNavigationMenuStyles = sva({
             borderBottomStyle: "solid",
             borderBottomColor: "border.subtle",
             py: "4",
-            color: "fg",
             textDecoration: "none",
-            transition: "transform 0.2s ease, border-color 0.2s ease, color 0.2s ease",
+            transition: "transform 0.2s ease, border-color 0.2s ease",
             _hover: {
-                color: "fg",
                 borderBottomColor: "border.outline",
                 transform: "translateX(4px)",
             },
@@ -172,7 +166,7 @@ const mobileNavigationMenuStyles = sva({
             letterSpacing: "0.3em",
             textTransform: "uppercase",
             color: "fg.muted",
-            fontFamily: '"Space Mono", monospace',
+            fontFamily: "mono",
         },
         menuLabel: {
             fontSize: "clamp(1.75rem, 8vw, 2.5rem)",

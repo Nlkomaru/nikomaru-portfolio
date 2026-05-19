@@ -1,3 +1,4 @@
+import jetbrainsMonoLatin400Woff2 from "@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2?url";
 import poppinsLatin400Woff2 from "@fontsource/poppins/files/poppins-latin-400-normal.woff2?url";
 import poppinsLatin600Woff2 from "@fontsource/poppins/files/poppins-latin-600-normal.woff2?url";
 import spaceMonoLatin400Woff2 from "@fontsource/space-mono/files/space-mono-latin-400-normal.woff2?url";
@@ -32,7 +33,6 @@ const notFoundStyles = sva({
         root: {
             minH: "100dvh",
             bg: "bg.canvas",
-            color: "fg",
             pt: { base: "14", md: "0" },
         },
         section: {
@@ -69,13 +69,12 @@ const notFoundStyles = sva({
             gap: "3",
             borderWidth: "1px",
             borderColor: "border.default",
-            bg: "bg.default",
+            bg: "bg",
             px: "5",
             py: "3",
             fontSize: "0.625rem",
             textTransform: "uppercase",
             letterSpacing: "0.28em",
-            color: "fg",
             transition: "background-color 0.2s ease, border-color 0.2s ease",
             _hover: {
                 bg: "bg.subtle",
@@ -98,11 +97,11 @@ export const Route = createRootRoute({
                 content: "width=device-width, initial-scale=1",
             },
             {
-                title: m.metaSiteTitle(),
+                title: m["meta.siteTitle"](),
             },
             {
                 name: "description",
-                content: m.metaSiteDescription(),
+                content: m["meta.siteDescription"](),
             },
         ],
         links: [
@@ -118,6 +117,13 @@ export const Route = createRootRoute({
                 as: "font",
                 type: "font/woff2",
                 href: poppinsLatin600Woff2,
+                crossOrigin: "anonymous",
+            },
+            {
+                rel: "preload",
+                as: "font",
+                type: "font/woff2",
+                href: jetbrainsMonoLatin400Woff2,
                 crossOrigin: "anonymous",
             },
             {
@@ -184,7 +190,13 @@ function NotFoundComponent() {
                 <h1 className={styles.title} style={{ fontFamily: '"Cormorant Garamond", serif', fontWeight: 300 }}>
                     This page doesn&apos;t exist.
                 </h1>
-                <p className={styles.description} style={{ fontFamily: '"Space Mono", monospace' }}>
+                <p
+                    className={styles.description}
+                    style={{
+                        fontFamily:
+                            '"JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                    }}
+                >
                     The route may have moved, or it was never published. Return to the index and continue from there.
                 </p>
                 <div className={styles.linkWrap}>

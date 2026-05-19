@@ -5,6 +5,7 @@ import ProjectDetailHeader from "../-components/project-detail-header";
 import ProjectSection from "../-components/project-section";
 import { getProjectMarkdown, isProjectSlug } from "../-functions/get-project-markdown";
 import { parseProjectMarkdown } from "../-functions/parse-project-markdown";
+import { resolveParsedProjectAssets } from "../-functions/resolve-project-content-assets";
 import type { Project } from "../-types/project";
 
 const projectDetailPageStyles = sva({
@@ -13,7 +14,6 @@ const projectDetailPageStyles = sva({
         root: {
             minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
             bg: "bg.canvas",
-            color: "fg",
         },
         main: {
             display: "flex",
@@ -141,5 +141,6 @@ function ProjectDetailPage() {
 
 // Markdown は locale ごとに別ファイルなので、描画時点の locale から毎回選び直す。
 function getLocalizedProject(slug: Parameters<typeof getProjectMarkdown>[0]) {
-    return parseProjectMarkdown<Project>(getProjectMarkdown(slug, getLocale()));
+    const parsed = parseProjectMarkdown<Project>(getProjectMarkdown(slug, getLocale()));
+    return resolveParsedProjectAssets(slug, parsed);
 }

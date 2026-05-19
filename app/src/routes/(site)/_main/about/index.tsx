@@ -25,7 +25,6 @@ const aboutPageStyles = sva({
             px: { base: "8", md: "20" },
             pt: { base: "24", md: "28" },
             pb: "20",
-            color: "fg",
         },
         eyebrow: {
             mb: "4",
@@ -46,7 +45,7 @@ const aboutPageStyles = sva({
             aspectRatio: "3 / 4",
             borderWidth: "1px",
             borderColor: "border.default",
-            bg: "bg.default",
+            bg: "bg",
             p: "6",
             boxShadow: "sm",
         },
@@ -88,7 +87,7 @@ const aboutPageStyles = sva({
         skillPill: {
             borderWidth: "1px",
             borderColor: "border.default",
-            bg: "bg.default",
+            bg: "bg",
             px: "4",
             py: "2",
             fontSize: "xs",

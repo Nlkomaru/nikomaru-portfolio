@@ -21,7 +21,6 @@ const appPageStyles = sva({
             gap: "6",
             maxW: "4xl",
             mx: "auto",
-            color: "fg",
             justifyContent: "center",
         },
         greeting: {
@@ -92,10 +91,10 @@ function AppPage() {
                     decoding="async"
                     fetchPriority="high"
                 />
-                <p className={styles.greetingText}>{m.homeGreeting()}</p>
+                <p className={styles.greetingText}>{m["home.greeting"]()}</p>
             </div>
             <div className={styles.intro}>
-                <p lang={locale}>{m["top.introP1"]()}</p>
+                <p lang={locale}>{m["home.introP1"]()}</p>
                 <IntroP2 />
                 <IntroP3 />
             </div>

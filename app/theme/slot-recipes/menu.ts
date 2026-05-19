@@ -25,7 +25,6 @@ export const menuSlotRecipe = defineSlotRecipe({
             "--menu-bg": "colors.bg.panel",
             bg: "var(--menu-bg)",
             boxShadow: "lg",
-            color: "fg",
             maxHeight: "var(--available-height)",
             "--menu-z-index": "zIndex.popover",
             zIndex: "calc(var(--menu-z-index) + var(--layer-index, 0))",
@@ -43,7 +42,6 @@ export const menuSlotRecipe = defineSlotRecipe({
         },
         item: {
             textDecoration: "none",
-            color: "fg",
             userSelect: "none",
             borderRadius: "l1",
             width: "100%",

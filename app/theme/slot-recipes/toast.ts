@@ -27,7 +27,6 @@ export const toastSlotRecipe = defineSlotRecipe({
                 transitionTimingFunction: "cubic-bezier(0.06, 0.71, 0.55, 1)",
             },
             bg: "bg.panel",
-            color: "fg",
             boxShadow: "xl",
             "--toast-trigger-bg": "colors.bg.muted",
             "&[data-type=warning]": {

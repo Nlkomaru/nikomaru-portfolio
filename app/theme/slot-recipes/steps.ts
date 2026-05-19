@@ -29,7 +29,6 @@ export const stepsSlotRecipe = defineSlotRecipe({
         },
         title: {
             fontWeight: "medium",
-            color: "fg",
         },
         description: {
             color: "fg.muted",

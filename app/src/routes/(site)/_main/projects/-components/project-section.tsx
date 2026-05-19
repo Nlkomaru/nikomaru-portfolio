@@ -25,7 +25,7 @@ const projectSectionStyles = sva({
             gap: "3",
         },
         imageCaption: {
-            fontSize: "xs",
+            fontSize: "sm",
             color: "fg.muted",
         },
         leftImageCellImage: {

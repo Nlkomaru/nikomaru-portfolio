@@ -36,7 +36,7 @@ export const mineAuthStoryProject: Project = {
         },
     ],
     coverImage: {
-        src: "/projects/mineauth/community.png",
+        src: "https://picsum.photos/seed/mineauth-community/1200/800",
         alt: "MineAuth Community",
     },
 };
@@ -59,7 +59,7 @@ MineAuth provides [OAuth 2](https://oauth.net/2/) and [OpenID Connect](https://o
 | Authorization code flow | Supported |
 | Add-on API registration | Supported |
 
-![MineAuth API documentation with Scalar](/projects/mineauth/scalar.png)
+![MineAuth API documentation with Scalar](https://picsum.photos/seed/mineauth-scalar-md/960/540)
 `;
 
 export const textOnlySectionMarkdown = `

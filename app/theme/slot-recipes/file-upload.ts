@@ -87,7 +87,6 @@ export const fileUploadSlotRecipe = defineSlotRecipe({
             },
         },
         itemName: {
-            color: "fg",
             fontWeight: "medium",
             lineClamp: "1",
         },

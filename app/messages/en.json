@@ -1,33 +1,16 @@
 {
-    "metaSiteTitle": "Nikomaru - Full Stack Developer",
-    "metaSiteDescription": "nikomaru's portfolio site",
-    "navSlides": "Slides",
-    "homeGreeting": "Hi, I'm\u00A0Nikomaru",
-    "slidesTitle": "Slides I've Made",
-    "slidesDescription": "A list of slides created by nikomaru.",
+    "meta": {
+        "siteTitle": "Nikomaru - Full Stack Developer",
+        "siteDescription": "nikomaru's portfolio site"
+    },
+    "home": {
+        "greeting": "Hi, I'm\u00A0Nikomaru",
+        "introP1": "I'm currently a fourth-year Computer Science student in the Faculty of Engineering at Shinshu University. I mainly work with Kotlin, TypeScript, and React, building Minecraft plugins and web applications."
+    },
     "talks": {
-        "archiveEyebrow": "— Archive",
         "archiveTitle": "Presentation history",
         "archiveDescription": "A record of the decks I've shared — presentation archive.",
-        "searchPlaceholder": "Search archive...",
-        "footerLeft": "CC BY 4.0 Written by Nikomaru",
-        "footerRight": "End / Of / List"
-    },
-    "languageLabel": "Language",
-    "languageSwitchToJa": "日本語",
-    "languageSwitchToEn": "English",
-    "contact": {
-        "heading": "Let's Talk",
-        "summary": "I am currently a student and looking for part-time or internship opportunities. Replies may take a little longer during busy periods.",
-        "basedIn": "Based in",
-        "location": "Nagano, Japan",
-        "locationSub": "Available worldwide",
-        "social": "Social",
-        "available": "Available for work",
-        "availabilityNote": "Currently accepting new projects for Q2 2026 and beyond."
-    },
-    "top": {
-        "introP1": "I'm currently a fourth-year Computer Science student in the Faculty of Engineering at Shinshu University. I mainly work with Kotlin, TypeScript, and React, building Minecraft plugins and web applications."
+        "searchPlaceholder": "Search archive..."
     },
     "projects": {
         "abstractTitle": "Overview",

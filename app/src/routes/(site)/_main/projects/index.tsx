@@ -9,7 +9,8 @@ const serifDisplayStyle = {
 } as const;
 
 const monoStyle = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily:
+        '"JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
 } as const;
 
 const brandAccentText = "var(--colors-color-palette-fg)";
@@ -36,7 +37,6 @@ const worksPageStyles = sva({
         },
         title: {
             fontSize: { base: "2.5rem", md: "5rem" },
-            color: "fg",
         },
         list: {
             px: { base: "8", md: "12" },

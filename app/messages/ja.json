@@ -1,33 +1,16 @@
 {
-    "metaSiteTitle": "Nikomaru - Full Stack Developer",
-    "metaSiteDescription": "Nikomaruのポートフォリオサイト",
-    "navSlides": "スライド",
-    "slidesTitle": "作製したスライド一覧",
-    "slidesDescription": "Nikomaruが作製したスライドの一覧ページです。",
-    "talks": {
-        "archiveEyebrow": "— アーカイブ",
-        "archiveTitle": "発表の記録",
-        "archiveDescription": "これまで共有してきたスライドの記録 — 発表のアーカイブ。",
-        "searchPlaceholder": "アーカイブを検索...",
-        "footerLeft": "CC BY 4.0 Written by Nikomaru",
-        "footerRight": "End / Of / List"
+    "meta": {
+        "siteTitle": "Nikomaru - Full Stack Developer",
+        "siteDescription": "Nikomaruのポートフォリオサイト"
     },
-    "languageLabel": "言語",
-    "languageSwitchToJa": "日本語",
-    "languageSwitchToEn": "English",
-    "contact": {
-        "heading": "お話しましょう",
-        "summary": "現在学生につき、アルバイトやインターンを探しています。多忙につき、返信に少し時間がかかる場合があります。",
-        "basedIn": "拠点",
-        "location": "長野県, 日本",
-        "locationSub": "世界中で活動可能",
-        "social": "ソーシャル",
-        "available": "対応可能",
-        "availabilityNote": "2026年Q2以降の新規プロジェクト相談を受け付けています。"
-    },
-    "homeGreeting": "こんにちは、にこまるです",
-    "top": {
+    "home": {
+        "greeting": "こんにちは、にこまるです",
         "introP1": "現在、信州大学工学部の4年生で、コンピュータサイエンスを専攻しています。Kotlin、TypeScript、Reactを中心に、Minecraftのプラグイン開発やWebアプリケーションの開発に取り組んでいます。"
+    },
+    "talks": {
+        "archiveTitle": "発表の記録",
+        "archiveDescription": "これまでに登壇したLT会やカンファレンスでのスライドなど",
+        "searchPlaceholder": "アーカイブを検索..."
     },
     "projects": {
         "abstractTitle": "概要",

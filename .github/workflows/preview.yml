@@ -169,6 +169,68 @@ jobs:
 
           echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
 
+  storybook-a11y:
+    needs: check
+    runs-on: ubuntu-latest
+    name: Storybook A11y
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Playwright browser
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm --filter ./storybook exec playwright install chromium --with-deps
+
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm --filter ./storybook exec playwright install-deps chromium
+
+      - name: Build storybook
+        run: pnpm --filter ./storybook build
+
+      - name: Run Storybook A11y test
+        shell: bash
+        run: |
+          set +e
+          rm -rf storybook/reports
+          pnpm --filter ./storybook test:runner
+          status=$?
+          node .github/workflows/scripts/a11y-result-summarize.mjs storybook/reports/junit.xml a11y-result.md "$status" storybook/reports/a11y-violations.jsonl
+          cat a11y-result.md >> "$GITHUB_STEP_SUMMARY"
+
+          exit "$status"
+
+      - name: Upload A11y result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-result
+          path: |
+            a11y-result.md
+            storybook/reports/junit.xml
+            storybook/reports/a11y-violations.jsonl
+          if-no-files-found: ignore
+
   lighthouse-app:
     needs: deploy-app-preview
     runs-on: ubuntu-latest
@@ -281,7 +343,7 @@ jobs:
           path: lighthouse-summary.md
 
   comment:
-    needs: [check, deploy-app-preview, deploy-storybook-preview, lighthouse-summary]
+    needs: [check, deploy-app-preview, deploy-storybook-preview, storybook-a11y, lighthouse-summary]
     if: always()
     runs-on: ubuntu-latest
     name: Comment Preview URLs
@@ -300,6 +362,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test-result
+          path: .
+
+      - name: Download A11y result
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: a11y-result
           path: .
 
       - name: Create comment file
@@ -337,6 +406,19 @@ jobs:
           <summary>Test Result</summary>
 
           Test result artifact was not generated.
+
+          </details>
+          EOF
+          fi
+
+          if [ -f a11y-result.md ]; then
+            cat a11y-result.md >> comment.md
+          else
+            cat << EOF >> comment.md
+          <details>
+          <summary>A11y Test Result</summary>
+
+          A11y test result artifact was not generated.
 
           </details>
           EOF

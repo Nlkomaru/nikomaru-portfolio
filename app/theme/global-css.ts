@@ -61,8 +61,8 @@ export const globalCss = defineGlobalStyles({
         textDecorationColor: "border.outline",
         transition: "color 0.2s ease, text-decoration-color 0.2s ease",
         "&:hover": {
-            color: "fg",
-            textDecorationColor: "fg",
+            color: "fg.subtle",
+            textDecorationColor: "colorPalette.600",
         },
         "&:focus-visible": {
             outline: "2px solid",

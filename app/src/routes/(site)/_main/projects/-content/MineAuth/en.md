@@ -22,16 +22,16 @@ metaItems:
     href: https://github.com/morinoparty/mineauth
     external: true
 coverImage:
-  src: /projects/mineauth/community.avif
+  src: ./assets/community.avif
   alt: MineAuth Community
 openGraph:
   title: MineAuth
   description: MineAuth is a plugin that provides an OAuth 2/OpenID Connect authentication platform running on a Minecraft server.
-  image: /projects/mineauth/community.png
+  image: ./assets/community.png
   imageAlt: MineAuth Community
 ---
 image:
-  src: /projects/mineauth/moripath.avif
+  src: ./assets/moripath.avif
   alt: MoriPath
   caption: Screenshot of MoriPath
 layout: left-image
@@ -40,17 +40,20 @@ layout: left-image
 ## Background
 
 MineAuth was developed to introduce SSO to a Minecraft server and let web applications and external services handle player data safely.
-[Morino Party](https://morino.party), the community I belong to, operates a Minecraft server along with a website, an official wiki, and a user-facing application called [MoriPath](/projects/MoriPath) that is still under development. MoriPath needed an API that could expose user-specific information for viewing and operation from the application. I also expected player identity to be useful for future wiki administration, such as tracking which server member wrote or edited a page. Those needs led me to build MineAuth as a shared authentication platform with single sign-on.
+
+[Morino Party](https://morino.party), the community I belong to, operates a Minecraft server along with a website, an official wiki, and a user-facing application called [MoriPath](./MoriPath) that is still under development. MoriPath needed an externally accessible API so each user could view and manage their own information from the application. I also thought player authentication would be useful for future wiki administration, such as tracking which server member wrote or edited a page. Those needs led me to build MineAuth as an authentication platform with single sign-on.
 
 ---
 
 ## Authentication Platform
 
-I also considered established solutions such as [Keycloak](https://www.keycloak.org/) and [Ory Hydra](https://www.ory.com/hydra). They are reliable options with proven security records as OIDC providers. However, when integrating them with a Minecraft server, they would require operating separate servers or external databases and connecting them back to Minecraft-specific player data, which made the overall architecture more complex. MineAuth keeps the ideas of existing authentication platforms while running directly as a Minecraft plugin, allowing it to work closely with player information and permissions already present on the server.
+I also considered established solutions such as [Keycloak](https://www.keycloak.org/) and [Ory Hydra](https://www.ory.com/hydra). They are reliable options with proven security records as OIDC providers. However, when integrating them with a Minecraft server, they would require operating separate servers or external databases and connecting them back to Minecraft-specific player data, which would make the overall architecture more complex.
+
+Minecraft also has the concept of permissions for actions such as running commands, and I thought integrating with that model would make server operations smoother. Many Minecraft servers use [LuckPerms](https://luckperms.net/) as their permissions management plugin. MineAuth integrates with LuckPerms as well, enabling consistent permission management both inside and outside Minecraft.
 
 ---
 image:
-  src: /projects/mineauth/scalar.avif
+  src: ./assets/scalar.avif
   alt: MineAuth API documentation with Scalar.
   caption: API documentation generated with Scalar
 layout: right-image

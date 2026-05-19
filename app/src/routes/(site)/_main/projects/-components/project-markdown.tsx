@@ -25,14 +25,13 @@ const projectMarkdownStyles = sva({
         root: {
             display: "flex",
             flexDirection: "column",
-            gap: "2",
             fontFamily: "body",
             fontSize: "1rem",
-            lineHeight: "1.75",
-            color: "fg",
+            lineHeight: "tall",
         },
         heading2: {
             fontFamily: "heading",
+            pb: "2",
             fontSize: { base: "1.5rem", md: "1.875rem" },
             fontWeight: "600",
             lineHeight: "1.25",
@@ -40,6 +39,7 @@ const projectMarkdownStyles = sva({
         },
         heading3: {
             fontFamily: "heading",
+            pb: "2",
             fontSize: { base: "1.25rem", md: "1.5rem" },
             fontWeight: "600",
             lineHeight: "1.3",
@@ -53,7 +53,7 @@ const projectMarkdownStyles = sva({
             color: "fg.subtle",
         },
         paragraph: {
-            color: "fg",
+            // textIndent: "1em",
         },
         link: {
             color: "fg.subtle",
@@ -65,13 +65,7 @@ const projectMarkdownStyles = sva({
             transition: "color 0.2s ease, text-decoration-color 0.2s ease",
             _hover: {
                 color: "fg.subtle",
-                textDecorationColor: "fg",
-            },
-            _focusVisible: {
-                outline: "2px solid",
-                outlineColor: "border.outline",
-                outlineOffset: "2px",
-                borderRadius: "xs",
+                textDecorationColor: "colorPalette.border",
             },
         },
         list: {
@@ -125,13 +119,16 @@ const projectMarkdownStyles = sva({
 
 type ProjectMarkdownProps = {
     markdown: string;
+    /** `root` スロットに追加するクラス（概要ブロックなど別タイポにしたいとき）。 */
+    className?: string;
 };
 
-export default function ProjectMarkdown({ markdown }: ProjectMarkdownProps) {
+export default function ProjectMarkdown({ markdown, className }: ProjectMarkdownProps) {
     const styles = projectMarkdownStyles();
+    const rootClassName = className ? `${styles.root} ${className}` : styles.root;
 
     return (
-        <div className={styles.root}>
+        <div className={rootClassName}>
             <Markdown
                 remarkPlugins={[remarkGfm]}
                 components={{
