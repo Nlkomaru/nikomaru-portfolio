@@ -6,7 +6,7 @@ abstract: >-
   Panda CSS と Ark UI を土台に、Webプロダクトやドキュメントサイト全体で配色・タイポグラフィ・コンポーネントの見た目を揃えることを目的としています。
 metaItems:
   - term: Role
-    description: Developer
+    description: Developer・Designer
   - term: Stack
     description: React · TypeScript · Panda CSS · Ark UI
   - term: Year
@@ -32,18 +32,24 @@ openGraph:
   imageAlt: Chlorophyll のテーマをイメージしたビジュアル（世界樹）
 ---
 image:
-  src: ./assets/chlorophyll.avif
-  alt: Chlorophyll のブランド画像
-  caption: Chlorophyll のビジュアルアイデンティティ
+  src: ./assets/MoripaApps.png
+  alt: もりのパーティで運用中のサイトおよびアプリ
+  caption: もりのパーティで運用中のサイトおよびアプリ
 layout: left-image
 ---
 
 ## 制作背景
 
-コミュニティ運営では、公式サイト・社内ツール・ドキュメントなど複数の画面が増えていく一方で、それぞれ別々のスタイルが混在しやすくなります。私が所属する[もりのパーティ](https://morino.party)でも、Webサイトやリニューアル中の公式Wiki、[Moripath](/projects/Moripath)と呼ばれるアプリケーションなどで、ブランドイメージを統一するために共通のトークンとコンポーネントを用意したいと考えていました。
+コミュニティ運営では、公式サイト・社内ツール・ドキュメントなど複数の画面が増えていく一方で、それぞれ別々のスタイルが混在しやすくなります。私が所属する[もりのパーティ](https://morino.party)でも、Webサイトやリニューアル中の公式Wiki、[Moripath](./MoriPath)と呼ばれるアプリケーションなどで、ブランドイメージを統一するために共通のトークンとコンポーネントを用意したいと考えていました。
 
 そこで、[Panda CSS](https://panda-css.com/) でテーマとプリセットをまとめ、[Ark UI](https://ark-ui.com/) をヘッドレス層として React コンポーネントを組み立てる Chlorophyll を進めています。単なる UI キットではなく、**セマンティックトークン（System Tokens）が参照トークン（Reference Tokens）にマッピングされる**構造で、配色や余白・タイポグラフィの決め方をドキュメント化し、実装とデザインの共通言語にしたいと考えています。これにより、AIなどを利用したデザイン支援や、デザイナーとエンジニアのコラボレーションを促進していけると考えました。
 
+---
+image:
+  src: ./assets/chlorophyll.avif
+  alt: Chlorophyll のブランド画像
+  caption: Chlorophyll のビジュアルアイデンティティ
+layout: right-image
 ---
 
 ## デザイントークンとドキュメント
@@ -57,11 +63,11 @@ image:
   src: ./assets/storybook.avif
   alt: Chlorophyll の Storybook 画面
   caption: Storybook でのコンポーネント確認画面(APCAによるコントラストチェック)
-layout: right-image
+layout: left-image
 ---
 
-## アクセシビリティおよびCI
+## UI品質検証とCI
 
-画面側では `@moripa/chlorophyll` 系のパッケージとしてコンポーネントを提供し、[Storybook](https://github.com/morinoparty/chlorophyll/tree/main/storybook) での確認やテストも進めています（詳細は [GitHub リポジトリ](https://github.com/morinoparty/chlorophyll) を参照）。現時点では **Work In Progress** としつつ、プリセット・コンポーネント・ドキュメントを三位一体で育てる方針です。
+コンポーネントの作成および評価のためにStorybookを使用しています。Storybookでは、[アクセシビリティテストのためのアドオン](https://storybook.js.org/docs/writing-tests/accessibility-testing)があり、axe-coreライブラリをベースに構築されています。Chlorophyllでは、axe-coreのcolor contrast checkを従来のWCAG 2.xベースの判定から[APCA（Accessible Perceptual Contrast Algorithm）](https://git.myndex.com/)へoverrideし、より知覚に近いコントラスト評価を行えるようにしています。
 
-公開ドキュメント・ソース・Issue はすべてオープンにしており、Morino Party のプロダクトだけでなく、同様のスタックで UI を揃えたい場合の参照にもなるよう整備しています。
+この検証はローカルのStorybook上での確認だけでなく、GitHub Actions上でも実行しています。CIではA11yテストに加えてVRT（Visual Regression Testing）も回し、コンポーネントやトークンを変更した際に、アクセシビリティと見た目の差分を継続的に評価できるようにしています。デザインシステムとして提供するUIの品質を保ちながら、変更の影響を確認しつつ改善できる体制を整えています。

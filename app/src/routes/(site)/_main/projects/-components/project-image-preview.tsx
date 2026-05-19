@@ -94,7 +94,7 @@ const projectImagePreviewStyles = sva({
         dialogImage: {
             display: "block",
             maxW: "full",
-            maxH: "90dvh",
+            maxH: "95dvh",
             w: "auto",
             h: "auto",
             objectFit: "contain",
