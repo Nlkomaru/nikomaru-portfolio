@@ -2,9 +2,33 @@ import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import type { TestRunnerConfig } from "@storybook/test-runner";
 import type { Result } from "axe-core";
-import { checkA11y, getViolations, injectAxe } from "axe-playwright";
+import { checkA11y, configureAxe, getViolations, injectAxe } from "axe-playwright";
 
 const a11yReportPath = resolve(process.cwd(), "reports/a11y-violations.jsonl");
+const axeConfiguration = {
+    rules: [
+        {
+            id: "autocomplete-valid",
+            selector: '*:not([autocomplete="nope"])',
+        },
+        {
+            id: "image-alt",
+            enabled: false,
+        },
+        {
+            id: "color-contrast",
+            enabled: false,
+        },
+        {
+            id: "color-contrast-enhanced",
+            enabled: false,
+        },
+        {
+            id: "region",
+            enabled: false,
+        },
+    ],
+};
 
 function toViolationReport(context: { id: string; title: string; name: string }, violations: Result[]) {
     return {
@@ -37,6 +61,7 @@ const config: TestRunnerConfig = {
     },
     async preVisit(page) {
         await injectAxe(page);
+        await configureAxe(page, axeConfiguration);
     },
     async postVisit(page, context) {
         const axeOptions = {

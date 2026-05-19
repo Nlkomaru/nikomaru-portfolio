@@ -62,7 +62,7 @@ const preview: Preview = {
             disable: true,
         },
         a11y: {
-            test: "todo",
+            test: "error",
             context: "body",
             config: {
                 checks: [...apca.checks],
@@ -81,6 +81,11 @@ const preview: Preview = {
                     },
                     {
                         id: "color-contrast-enhanced",
+                        enabled: false,
+                    },
+                    // Storybook stories render isolated components, not complete pages with landmarks.
+                    {
+                        id: "region",
                         enabled: false,
                     },
                     ...apca.rules,
