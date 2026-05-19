@@ -1,4 +1,4 @@
-import APCACheck, { type ConformanceThresholdFn } from "./apca.ts";
+import APCACheck, { type ConformanceThresholdFn } from "./apca";
 
 // APCA Bronze Level Conformance
 // https://readtech.org/ARC/tests/visual-readability-contrast/?tn=criterion

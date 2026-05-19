@@ -1,4 +1,4 @@
-import APCACheck from "./apca.ts";
+import APCACheck from "./apca";
 
 export const custom = APCACheck("custom", (fontSize: string) => {
     const size = Number.parseFloat(fontSize);

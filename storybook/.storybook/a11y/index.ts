@@ -1,7 +1,7 @@
-import type { ConformanceLevel } from "./apca.ts";
-import { bronze } from "./bronze.ts";
-import { custom } from "./custom.ts";
-import { silver } from "./silver.ts";
+import type { ConformanceLevel } from "./apca";
+import { bronze } from "./bronze";
+import { custom } from "./custom";
+import { silver } from "./silver";
 
 export function registerAPCACheck(conformanceLevel: ConformanceLevel) {
     switch (conformanceLevel) {
