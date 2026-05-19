@@ -1,6 +1,13 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 
-const [, , inputPath = "storybook/reports/junit.xml", outputPath = "a11y-result.md", exitStatus = "1"] = process.argv;
+const [
+    ,
+    ,
+    inputPath = "storybook/reports/junit.xml",
+    outputPath = "a11y-result.md",
+    exitStatus = "1",
+    violationsPath = "storybook/reports/a11y-violations.jsonl",
+] = process.argv;
 
 function escapeTableCell(value) {
     return String(value ?? "")
@@ -102,6 +109,22 @@ function toCount(value) {
     return Number.parseInt(value ?? "0", 10) || 0;
 }
 
+function readViolationReports() {
+    if (!existsSync(violationsPath)) return [];
+
+    return readFileSync(violationsPath, "utf8")
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .flatMap((line) => {
+            try {
+                return [JSON.parse(line)];
+            } catch {
+                return [];
+            }
+        });
+}
+
 if (!existsSync(inputPath)) {
     writeFileSync(outputPath, buildMissingResultSummary());
     process.exit(0);
@@ -116,6 +139,7 @@ const skipped = toCount(rootAttributes.skipped);
 const passed = Math.max(0, total - failed - skipped);
 const statusLabel = exitStatus === "0" ? "✅ Passed" : "❌ Failed";
 const failedCases = collectFailedCases(testCases);
+const violationReports = readViolationReports();
 const lines = [];
 
 lines.push("<details>");
@@ -129,7 +153,44 @@ lines.push("| Passed | Failed | Skipped | Total |");
 lines.push("| ---: | ---: | ---: | ---: |");
 lines.push(`| ${passed} | ${failed} | ${skipped} | ${total} |`);
 
-if (failedCases.length > 0) {
+if (violationReports.length > 0) {
+    lines.push("");
+    lines.push("### Accessibility violations");
+    lines.push("");
+    lines.push("| Story | Rule | Impact | Target | Message |");
+    lines.push("| --- | --- | --- | --- | --- |");
+
+    let renderedRows = 0;
+    for (const report of violationReports) {
+        const story = `${report.title ?? ""} / ${report.name ?? ""}`.trim();
+        for (const violation of report.violations ?? []) {
+            const nodes = violation.nodes ?? [];
+            const targets = nodes
+                .flatMap((node) => node.target ?? [])
+                .map((target) => String(target))
+                .slice(0, 3)
+                .join("<br>");
+            const failureSummary = nodes.map((node) => node.failureSummary).find(Boolean);
+            const message = failureSummary || violation.help || violation.description || "N/A";
+
+            lines.push(
+                `| ${escapeTableCell(story || report.storyId || "Unknown story")} | ${escapeTableCell(violation.id)} | ${escapeTableCell(violation.impact || "N/A")} | ${escapeTableCell(targets || "N/A")} | ${escapeTableCell(message)} |`,
+            );
+            renderedRows += 1;
+
+            if (renderedRows >= 20) break;
+        }
+        if (renderedRows >= 20) break;
+    }
+
+    const totalRows = violationReports.reduce((sum, report) => sum + (report.violations?.length ?? 0), 0);
+    if (totalRows > 20) {
+        lines.push("");
+        lines.push(
+            `_And ${totalRows - 20} more violation(s). See the uploaded \`a11y-violations.jsonl\` for full details._`,
+        );
+    }
+} else if (failedCases.length > 0) {
     lines.push("");
     lines.push("### Failed accessibility checks");
     lines.push("");

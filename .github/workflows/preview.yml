@@ -215,7 +215,7 @@ jobs:
           set +e
           pnpm --filter ./storybook test:runner
           status=$?
-          node .github/workflows/scripts/a11y-result-summarize.mjs storybook/reports/junit.xml a11y-result.md "$status"
+          node .github/workflows/scripts/a11y-result-summarize.mjs storybook/reports/junit.xml a11y-result.md "$status" storybook/reports/a11y-violations.jsonl
           cat a11y-result.md >> "$GITHUB_STEP_SUMMARY"
 
           exit "$status"
@@ -228,6 +228,7 @@ jobs:
           path: |
             a11y-result.md
             storybook/reports/junit.xml
+            storybook/reports/a11y-violations.jsonl
           if-no-files-found: ignore
 
   lighthouse-app:
