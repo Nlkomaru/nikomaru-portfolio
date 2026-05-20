@@ -35,8 +35,7 @@ function parseAttributes(source) {
 }
 
 function summarizeFailureMessage(message) {
-    const ansiEscape = String.fromCharCode(27);
-    const text = decodeXml(message).replace(new RegExp(`${ansiEscape}\\[[0-9;]*m`, "gu"), "");
+    const text = stripAnsi(decodeXml(message));
     const violationMatch = text.match(/\d+ accessibility violation[s]? (?:was|were) detected/iu);
     if (violationMatch) {
         return violationMatch[0];
@@ -49,6 +48,11 @@ function summarizeFailureMessage(message) {
         .filter((line) => !line.startsWith("at "));
 
     return lines.slice(0, 3).join("\n").slice(0, 500);
+}
+
+function stripAnsi(value) {
+    const ansiEscape = String.fromCharCode(27);
+    return String(value ?? "").replace(new RegExp(`${ansiEscape}\\[[0-9;]*m`, "gu"), "");
 }
 
 function buildMissingResultSummary() {
@@ -85,15 +89,11 @@ function getTestCaseBlocks(xml) {
 
 function collectFailedCases(testCases) {
     return testCases.flatMap((testcase) => {
-        const failureMatch = testcase.body.match(/<(failure|error)\b([^>]*)>([\s\S]*?)<\/\1>/u);
-        const selfClosingFailureMatch = testcase.body.match(/<(failure|error)\b([^>]*)\/>/u);
-        const match = failureMatch ?? selfClosingFailureMatch;
-        if (!match) return [];
+        const failure = getFailureDetails(testcase);
+        if (!failure) return [];
 
-        const failureAttributes = parseAttributes(match[2]);
-        const bodyMessage = failureMatch ? decodeXml(match[3].replace(/<[^>]*>/gu, "").trim()) : "";
         const classname = testcase.attributes.classname ?? "";
-        const message = summarizeFailureMessage(failureAttributes.message || bodyMessage);
+        const message = summarizeFailureMessage(failure.attributes.message || failure.text);
 
         return [
             {
@@ -102,6 +102,49 @@ function collectFailedCases(testCases) {
                 message,
             },
         ];
+    });
+}
+
+function getFailureDetails(testcase) {
+    const failureMatch = testcase.body.match(/<(failure|error)\b([^>]*)>([\s\S]*?)<\/\1>/u);
+    const selfClosingFailureMatch = testcase.body.match(/<(failure|error)\b([^>]*)\/>/u);
+    const match = failureMatch ?? selfClosingFailureMatch;
+    if (!match) return null;
+
+    return {
+        attributes: parseAttributes(match[2]),
+        text: failureMatch ? stripAnsi(decodeXml(match[3].replace(/<[^>]*>/gu, "").trim())) : "",
+    };
+}
+
+function collectA11yViolationsFromJunit(testCases) {
+    return testCases.flatMap((testcase) => {
+        const failure = getFailureDetails(testcase);
+        if (!failure?.text.includes("StorybookTestRunnerError")) return [];
+
+        const blockPattern =
+            /Expected the HTML found at \$\('([^']+)'\) to have no violations:([\s\S]*?)(?=\nExpected the HTML found at \$\('|(?:\n-{10,})|(?:\n\s*Browser logs:)|(?:\n\s*at <anonymous>)|$)/gu;
+
+        return [...failure.text.matchAll(blockPattern)].flatMap((match) => {
+            const [, target, block] = match;
+            const ruleMatch = block.match(/\((color-contrast-apca-[^)]+)\)/u);
+            if (!ruleMatch) return [];
+
+            const fixMatch = block.match(
+                /Fix all of the following:\s*([\s\S]*?)(?=\n\s*You can find more information|\n\s*…|$)/u,
+            );
+            const message = fixMatch?.[1]?.trim() || "APCA violation details were truncated in the JUnit report.";
+
+            return [
+                {
+                    story: testcase.attributes.classname ?? "Unknown story",
+                    testName: testcase.attributes.name ?? "Unknown test",
+                    rule: ruleMatch[1],
+                    target,
+                    message,
+                },
+            ];
+        });
     });
 }
 
@@ -139,6 +182,7 @@ const skipped = toCount(rootAttributes.skipped);
 const passed = Math.max(0, total - failed - skipped);
 const statusLabel = exitStatus === "0" ? "✅ Passed" : "❌ Failed";
 const failedCases = collectFailedCases(testCases);
+const junitA11yViolations = collectA11yViolationsFromJunit(testCases);
 const violationReports = readViolationReports();
 const lines = [];
 
@@ -188,6 +232,25 @@ if (violationReports.length > 0) {
         lines.push("");
         lines.push(
             `_And ${totalRows - 20} more violation(s). See the uploaded \`a11y-violations.jsonl\` for full details._`,
+        );
+    }
+} else if (junitA11yViolations.length > 0) {
+    lines.push("");
+    lines.push("### APCA violations");
+    lines.push("");
+    lines.push("| Story | Rule | Target | Message |");
+    lines.push("| --- | --- | --- | --- |");
+
+    for (const violation of junitA11yViolations.slice(0, 20)) {
+        lines.push(
+            `| ${escapeTableCell(violation.story)} | ${escapeTableCell(violation.rule)} | ${escapeTableCell(violation.target)} | ${escapeTableCell(violation.message)} |`,
+        );
+    }
+
+    if (junitA11yViolations.length > 20) {
+        lines.push("");
+        lines.push(
+            `_And ${junitA11yViolations.length - 20} more APCA violation(s). See the JUnit report for full details._`,
         );
     }
 } else if (failedCases.length > 0) {
