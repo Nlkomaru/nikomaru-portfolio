@@ -14,7 +14,8 @@
         "deploy:storybook": "pnpm --filter ./storybook deploy",
         "cf-typegen": "pnpm --filter @nikomaru-portfolio/app cf-typegen",
         "storybook": "pnpm --filter ./storybook dev",
-        "build-storybook": "pnpm --filter ./storybook build"
+        "build-storybook": "pnpm --filter ./storybook build",
+        "test:runner": "pnpm --filter ./storybook test:runner"
     },
     "packageManager": "pnpm@10.33.2",
     "devDependencies": {
