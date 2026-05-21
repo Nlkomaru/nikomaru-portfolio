@@ -122,7 +122,7 @@ function ProjectDetailPage() {
                 <ProjectDetailHeader project={project} className={styles.contentContainer} />
 
                 <div className={sectionContainerClassName}>
-                    {sections.map((section) => {
+                    {sections.map((section, sectionIndex) => {
                         const currentImageNumber = section.image ? ++imageNumber : undefined;
 
                         return (
@@ -130,6 +130,7 @@ function ProjectDetailPage() {
                                 key={section.text.slice(0, 48)}
                                 section={section}
                                 imageNumber={currentImageNumber}
+                                showDividerBefore={sectionIndex > 0}
                             />
                         );
                     })}
