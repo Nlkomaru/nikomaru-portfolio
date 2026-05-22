@@ -12,11 +12,15 @@ const projectCardStyles = sva({
             display: "block",
             minH: "0",
             overflow: "hidden",
-            borderRadius: "sm",
+            borderRadius: "md",
             borderWidth: "1px",
             borderColor: "border.default",
-            bg: "bg",
+            filter: "grayscale(100%)",
+            "& img": {
+                transform: "scale(1.2)",
+            },
             _hover: {
+                filter: "none",
                 "& img": {
                     transform: "scale(1.04)",
                 },
@@ -82,8 +86,8 @@ const projectCardStyles = sva({
         placement: {
             largeStart: {
                 root: {
-                    aspectRatio: { base: "4 / 3", md: "auto" },
-                    gridColumn: { md: "1 / span 2" },
+                    aspectRatio: { base: "1 / 1", md: "auto" },
+                    gridColumn: { base: "span 2", md: "1 / span 2" },
                     gridRow: { md: "1 / span 2" },
                 },
                 name: {
@@ -92,9 +96,9 @@ const projectCardStyles = sva({
             },
             largeEnd: {
                 root: {
-                    aspectRatio: { base: "4 / 3", md: "auto" },
-                    gridColumn: { md: "2 / span 2" },
-                    gridRow: { md: "1 / span 2" },
+                    aspectRatio: { base: "1 / 1", md: "auto" },
+                    gridColumn: { base: "span 2", md: "3 / span 2" },
+                    gridRow: { md: "2 / span 2" },
                 },
                 name: {
                     fontSize: { base: "3xl", md: "5xl" },
@@ -105,7 +109,7 @@ const projectCardStyles = sva({
                     aspectRatio: { base: "1 / 1", md: "auto" },
                 },
                 name: {
-                    fontSize: { base: "2xl", md: "3xl" },
+                    fontSize: { base: "lg", sm: "2xl", md: "3xl" },
                 },
             },
         },

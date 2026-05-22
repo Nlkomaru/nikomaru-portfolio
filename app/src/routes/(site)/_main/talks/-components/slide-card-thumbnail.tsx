@@ -32,12 +32,12 @@ const slideCardThumbnailStyles = sva({
             outline: "none",
             transition: "transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease",
             _hover: {
-                transform: "translateY(-1px)",
-                boxShadow: "md",
-                "& img": {
-                    opacity: 1,
-                    transform: "scale(1.03)",
-                },
+                // transform: "translateY(-1px)",
+                boxShadow: "sm",
+                // "& img": {
+                //     opacity: 1,
+                //     transform: "scale(1.03)",
+                // },
             },
             _focusVisible: {
                 boxShadow: "0 0 0 2px token(colors.bg.canvas), 0 0 0 4px token(colors.border.outline)",

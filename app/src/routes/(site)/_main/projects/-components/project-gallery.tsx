@@ -2,10 +2,10 @@ import { sva } from "styled-system/css";
 import type { ProjectIndexItem } from "../-types/project";
 import ProjectCard from "./project-card";
 
-const projectCountPerPattern = 3;
+const projectCountPerPattern = 6;
 
 interface ProjectChunk {
-    layout: "largeEnd" | "largeStart";
+    density: "compact" | "mosaic";
     projects: ProjectIndexItem[];
 }
 
@@ -19,11 +19,27 @@ const projectGalleryStyles = sva({
         },
         pattern: {
             display: "grid",
-            gap: { base: "4", md: "6" },
-            gridTemplateColumns: { base: "1fr", md: "repeat(3, minmax(0, 1fr))" },
-            gridTemplateRows: { md: "repeat(2, minmax(0, 1fr))" },
-            aspectRatio: { md: "3 / 2" },
+            gap: { base: "4", md: "4" },
+            gridTemplateColumns: { base: "repeat(2, minmax(0, 1fr))" },
             gridAutoFlow: { md: "dense" },
+        },
+    },
+    variants: {
+        density: {
+            compact: {
+                pattern: {
+                    gridTemplateColumns: { md: "repeat(3, minmax(0, 1fr))" },
+                    gridTemplateRows: { md: "repeat(2, minmax(0, 1fr))" },
+                    aspectRatio: { md: "3 / 2" },
+                },
+            },
+            mosaic: {
+                pattern: {
+                    gridTemplateColumns: { md: "repeat(4, minmax(0, 1fr))" },
+                    gridTemplateRows: { md: "repeat(3, minmax(0, 1fr))" },
+                    aspectRatio: { md: "4 / 3" },
+                },
+            },
         },
     },
 });
@@ -32,7 +48,7 @@ export default function ProjectGallery({ projects }: { projects: readonly Projec
     return (
         <div className={projectGalleryStyles().root}>
             {chunkProjects(projects).map((projectChunk) => {
-                const styles = projectGalleryStyles();
+                const styles = projectGalleryStyles({ density: projectChunk.density });
 
                 return (
                     <div className={styles.pattern} key={getProjectChunkKey(projectChunk.projects)}>
@@ -54,10 +70,10 @@ function chunkProjects(projects: readonly ProjectIndexItem[]): ProjectChunk[] {
     const chunks: ProjectChunk[] = [];
 
     for (let index = 0; index < projects.length; index += projectCountPerPattern) {
-        const chunkOrder = index / projectCountPerPattern;
+        const projectChunk = projects.slice(index, index + projectCountPerPattern);
         chunks.push({
-            layout: chunkOrder % 2 === 0 ? "largeStart" : "largeEnd",
-            projects: projects.slice(index, index + projectCountPerPattern),
+            density: projectChunk.length >= 4 ? "mosaic" : "compact",
+            projects: projectChunk,
         });
     }
 
@@ -65,13 +81,16 @@ function chunkProjects(projects: readonly ProjectIndexItem[]): ProjectChunk[] {
 }
 
 function getProjectCardPlacement(projectChunk: ProjectChunk, index: number): "largeEnd" | "largeStart" | "small" {
-    if (projectChunk.projects.length < projectCountPerPattern) {
+    if (index === 0) {
+        return "largeStart";
+    }
+    if (projectChunk.density === "mosaic" && index === 3) {
+        return "largeEnd";
+    }
+    if (projectChunk.density === "compact") {
         return index === 0 ? "largeStart" : "small";
     }
-    if (projectChunk.layout === "largeStart") {
-        return index === 0 ? "largeStart" : "small";
-    }
-    return index === projectCountPerPattern - 1 ? "largeEnd" : "small";
+    return "small";
 }
 
 function getProjectChunkKey(projects: readonly ProjectIndexItem[]): string {
