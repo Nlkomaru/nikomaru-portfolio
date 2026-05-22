@@ -39,7 +39,76 @@ export const mineAuthStoryProject: Project = {
         src: "https://picsum.photos/seed/mineauth-community/1200/800",
         alt: "MineAuth Community",
     },
+    openGraph: {
+        title: "MineAuth",
+        description: "An OAuth 2 / OpenID Connect provider for Minecraft servers.",
+        image: "https://picsum.photos/seed/mineauth-community-og/1200/630",
+        imageAlt: "MineAuth Community",
+    },
 };
+
+export const projectCardStoryItems = [
+    {
+        slug: "MineAuth",
+        title: "MineAuth",
+        category: "Minecraft Plugin · Authorize",
+        year: "2024 — Present",
+        image: {
+            src: "https://picsum.photos/seed/project-card-mineauth/1200/800",
+            alt: "MineAuth project preview",
+        },
+    },
+    {
+        slug: "Chlorophyll",
+        title: "Chlorophyll",
+        category: "Design System",
+        year: "2025 — Present",
+        image: {
+            src: "https://picsum.photos/seed/project-card-chlorophyll/1200/800",
+            alt: "Chlorophyll project preview",
+        },
+    },
+    {
+        slug: "MoriPath",
+        title: "MoriPath",
+        category: "Web App",
+        year: "2025 — Present",
+        image: {
+            src: "https://picsum.photos/seed/project-card-moripath/1200/800",
+            alt: "MoriPath project preview",
+        },
+    },
+    {
+        slug: "RaceAssist",
+        title: "RaceAssist",
+        category: "Minecraft Plugin · Race",
+        year: "2021 — 2024",
+        image: {
+            src: "https://picsum.photos/seed/project-card-raceassist/1200/800",
+            alt: "RaceAssist project preview",
+        },
+    },
+    {
+        slug: "MineStamp",
+        title: "MineStamp",
+        category: "Minecraft Plugin · Emoji",
+        year: "2023 — 2024",
+        image: {
+            src: "https://picsum.photos/seed/project-card-minestamp/1200/800",
+            alt: "MineStamp project preview",
+        },
+    },
+    {
+        slug: "MoripaFishing",
+        title: "MoripaFishing",
+        category: "Minecraft Plugin · Fishing",
+        year: "2025 — Present",
+        image: {
+            src: "https://picsum.photos/seed/project-card-moripafishing/1200/800",
+            alt: "MoripaFishing project preview",
+        },
+    },
+] as const;
 
 export const markdownStoryContent = `
 ## Authentication platform

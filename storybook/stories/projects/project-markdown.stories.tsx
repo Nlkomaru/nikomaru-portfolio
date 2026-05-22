@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "@/components/ui/provider";
-import ProjectMarkdown from "@/routes/(site)/_main/projects/-components/project-markdown";
+import ProjectMarkdown from "@/routes/(site)/_main/projects/$project/-components/project-markdown";
 import { markdownStoryContent } from "./project-story-data";
 
 const meta: Meta<typeof ProjectMarkdown> = {

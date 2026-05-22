@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "@/components/ui/provider";
-import ProjectSection from "@/routes/(site)/_main/projects/-components/project-section";
 import type { ProjectSection as ProjectSectionData } from "@/routes/(site)/_main/projects/-functions/parse-project-markdown";
+import ProjectSection from "@/routes/(site)/_main/projects/$project/-components/project-section";
 import { imageSectionMarkdown, textOnlySectionMarkdown } from "./project-story-data";
 
 const textOnlySection: ProjectSectionData = {

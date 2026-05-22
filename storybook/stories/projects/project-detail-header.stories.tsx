@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "@/components/ui/provider";
-import ProjectDetailHeader from "@/routes/(site)/_main/projects/-components/project-detail-header";
+import ProjectDetailHeader from "@/routes/(site)/_main/projects/$project/-components/project-detail-header";
 import { mineAuthStoryProject } from "./project-story-data";
 
 const meta: Meta<typeof ProjectDetailHeader> = {
