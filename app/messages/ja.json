@@ -13,6 +13,8 @@
         "searchPlaceholder": "アーカイブを検索..."
     },
     "projects": {
+        "archiveTitle": "プロジェクト一覧",
+        "archiveDescription": "MinecraftプラグインやWebアプリケーションなど、これまでに制作したプロジェクト",
         "abstractTitle": "概要",
         "image": {
             "figureLabel": "図"

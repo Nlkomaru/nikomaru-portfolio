@@ -1,6 +1,6 @@
 import { sva } from "styled-system/css";
-import { m } from "../../../../../paraglide/messages";
-import type { Project } from "../-types/project";
+import { m } from "../../../../../../paraglide/messages";
+import type { Project } from "../../-types/project";
 import ProjectMarkdown from "./project-markdown";
 import ProjectMetaList from "./project-meta-list";
 

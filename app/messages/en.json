@@ -13,6 +13,8 @@
         "searchPlaceholder": "Search archive..."
     },
     "projects": {
+        "archiveTitle": "Projects",
+        "archiveDescription": "A selection of Minecraft plugins, web applications, design systems, and other projects I've built.",
         "abstractTitle": "Overview",
         "image": {
             "figureLabel": "Figure "

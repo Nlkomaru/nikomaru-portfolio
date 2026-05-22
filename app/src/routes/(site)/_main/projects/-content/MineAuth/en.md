@@ -14,11 +14,11 @@ metaItems:
   - term: Status
     description: Active
   - term: Document
-    description: https://mineauth.plugin.morino.party
+    description: mineauth.plugin.morino.party
     href: https://mineauth.plugin.morino.party
     external: true
   - term: Source
-    description: https://github.com/morinoparty/mineauth
+    description: morinoparty/mineauth
     href: https://github.com/morinoparty/mineauth
     external: true
 coverImage:
@@ -41,7 +41,7 @@ layout: left-image
 
 MineAuth was developed to introduce SSO to a Minecraft server and let web applications and external services handle player data safely.
 
-[Morino Party](https://morino.party), the community I belong to, operates a Minecraft server along with a website, an official wiki, and a user-facing application called [MoriPath](./MoriPath) that is still under development. MoriPath needed an externally accessible API so each user could view and manage their own information from the application. I also thought player authentication would be useful for future wiki administration, such as tracking which server member wrote or edited a page. Those needs led me to build MineAuth as an authentication platform with single sign-on.
+[Morino Party](https://morino.party), the community I belong to, operates a Minecraft server along with related systems such as a website, an official wiki, and a user-facing application called [MoriPath](./MoriPath), which is still under development. MoriPath needed an externally accessible API so each user could view and operate on their own information from the application. I also thought player authentication would be useful for future wiki administration, such as tracking which player on the server wrote or edited a page. Those needs led me to build MineAuth as an authentication platform with single sign-on.
 
 ---
 
@@ -61,4 +61,6 @@ layout: right-image
 
 ## Extensibility
 
-MineAuth is designed not only for authentication, but also as a platform that lets external plugins add APIs as add-ons. Other plugins can register API endpoints with MineAuth and expose their own data or operations through MineAuth's authentication and authorization flow. This removes the need for every plugin to implement its own authentication layer and lets the Minecraft server use MineAuth as a shared API foundation. Scalar makes the added endpoints easier to inspect through generated API documentation, while OpenTelemetry tracing helps follow API requests and internal processing. The project brings together SSO, OIDC, an extensible API platform, and observability in the context of a Minecraft plugin.
+MineAuth is designed not only for authentication, but also as a platform that lets external plugins add APIs as add-ons. Other plugins can register API endpoints with MineAuth and expose their own data or operations through MineAuth's authentication and authorization flow. This removes the need for every plugin to implement its own authentication layer and lets the Minecraft server use MineAuth as a shared API foundation.
+
+Scalar makes the added endpoints easier to inspect through generated API documentation, while OpenTelemetry tracing helps follow API requests and internal processing. The project brings together SSO, OIDC, an extensible API platform, and observability in the context of a Minecraft plugin.

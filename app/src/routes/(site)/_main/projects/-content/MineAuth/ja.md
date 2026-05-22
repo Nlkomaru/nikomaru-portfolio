@@ -14,11 +14,11 @@ metaItems:
   - term: Status
     description: Active
   - term: Document
-    description: https://mineauth.plugin.morino.party
+    description: mineauth.plugin.morino.party
     href: https://mineauth.plugin.morino.party
     external: true
   - term: Source
-    description: https://github.com/morinoparty/mineauth
+    description: morinoparty/mineauth
     href: https://github.com/morinoparty/mineauth
     external: true
 coverImage:

@@ -21,7 +21,17 @@ function StoryRouteRenderer() {
 }
 
 const rootRoute = createRootRoute();
-const supportedPaths = ["/", "/slides", "/talks", "/about", "/contact", "/projects", "/pictures", "/slide/$"] as const;
+const supportedPaths = [
+    "/",
+    "/slides",
+    "/talks",
+    "/about",
+    "/contact",
+    "/projects",
+    "/projects/$project",
+    "/pictures",
+    "/slide/$",
+] as const;
 const childRoutes = supportedPaths.map((path) =>
     createRoute({
         getParentRoute: () => rootRoute,

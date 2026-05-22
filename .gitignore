@@ -23,6 +23,7 @@ todos.json
 
 **/storybook-static
 **/styled-system/
+**/storybook/reports/*
 
 memo.txt
 sample/
