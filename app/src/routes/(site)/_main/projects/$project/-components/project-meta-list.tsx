@@ -1,6 +1,6 @@
 import { Activity, Calendar, FileText, Github, Info, Layers, type LucideIcon, UserRound } from "lucide-react";
 import { sva } from "styled-system/css";
-import type { ProjectMetaItem } from "../-types/project";
+import type { ProjectMetaItem } from "../../-types/project";
 
 // プロジェクト詳細ヘッダの Definition List。
 // Figmaでは「Role / Stack / Year / Status」のラベル+値が罫線で区切られている。

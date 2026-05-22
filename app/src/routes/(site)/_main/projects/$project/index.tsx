@@ -1,12 +1,12 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { getLocale } from "../../../../../paraglide/runtime";
-import ProjectDetailHeader from "../-components/project-detail-header";
-import ProjectSection from "../-components/project-section";
 import { getProjectMarkdown, isProjectSlug } from "../-functions/get-project-markdown";
 import { parseProjectMarkdown } from "../-functions/parse-project-markdown";
 import { resolveParsedProjectAssets } from "../-functions/resolve-project-content-assets";
 import type { Project } from "../-types/project";
+import ProjectDetailHeader from "./-components/project-detail-header";
+import ProjectSection from "./-components/project-section";
 
 const projectDetailPageStyles = sva({
     slots: ["root", "main", "topImage", "contentContainer", "sectionContainer"],

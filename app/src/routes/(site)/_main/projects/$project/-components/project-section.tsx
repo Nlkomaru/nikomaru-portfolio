@@ -1,6 +1,6 @@
 import { sva } from "styled-system/css";
-import { m } from "../../../../../paraglide/messages";
-import type { ProjectSection as ProjectSectionData } from "../-functions/parse-project-markdown";
+import { m } from "../../../../../../paraglide/messages";
+import type { ProjectSection as ProjectSectionData } from "../../-functions/parse-project-markdown";
 import ProjectImagePreview from "./project-image-preview";
 import ProjectMarkdown from "./project-markdown";
 

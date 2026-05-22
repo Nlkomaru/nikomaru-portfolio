@@ -29,9 +29,19 @@ export interface Project {
     /** ルーティングで使う slug（URL の /projects/$project と一致する） */
     slug: string;
     title: string;
+    /** 一覧カードで表示する分類。未指定の場合は "Project" として扱う。 */
+    category?: string;
     abstract: string;
     /** Definition List に表示するメタ情報。リンク（live / source 等）もここに含める。 */
     metaItems: ProjectMetaItem[];
     coverImage: ProjectImage;
     openGraph: ProjectOpenGraph;
+}
+
+export interface ProjectIndexItem {
+    slug: Project["slug"];
+    title: Project["title"];
+    category: string;
+    image: ProjectImage;
+    year?: string;
 }
