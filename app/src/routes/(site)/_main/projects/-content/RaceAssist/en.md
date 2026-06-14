@@ -24,6 +24,7 @@ metaItems:
 coverImage:
   src: ./assets/race-place.avif
   alt: RaceAssist race venue
+  blurhash: 'UYG]ds${%Nx^p3xcxss+Imt5RPMxoNjJt7t7'
 openGraph:
   title: RaceAssist
   description: A Minecraft plugin for running horse racing events on a server.

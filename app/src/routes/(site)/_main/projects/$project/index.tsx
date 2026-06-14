@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { getLocale } from "../../../../../paraglide/runtime";
+import { getBlurhashBackground } from "../../../../-functions/blurhash-background";
 import { getProjectMarkdown, isProjectSlug } from "../-functions/get-project-markdown";
 import { parseProjectMarkdown } from "../-functions/parse-project-markdown";
 import { resolveParsedProjectAssets } from "../-functions/resolve-project-content-assets";
@@ -116,7 +117,13 @@ function ProjectDetailPage() {
 
     return (
         <div className={styles.root}>
-            <img src={project.coverImage.src} alt={project.coverImage.alt} className={styles.topImage} />
+            <img
+                src={project.coverImage.src}
+                alt={project.coverImage.alt}
+                decoding="async"
+                className={styles.topImage}
+                style={getBlurhashBackground(project.coverImage.blurhash)}
+            />
 
             <div className={styles.main}>
                 <ProjectDetailHeader project={project} className={styles.contentContainer} />

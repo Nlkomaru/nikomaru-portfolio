@@ -6,7 +6,7 @@ abstract: >-
   MineAuthと連携し、ログインしたプレイヤーがオンライン状況・どんぐり残高(ゲーム内通貨)・保護ブロック・クエストなどをMinecraftサーバー外から確認、操作できるようにするために制作しています。
 metaItems:
   - term: Role
-    description: Developer・Designer
+    description: Developer・Designer (Partial)
   - term: Stack
     description: React · TypeScript · TanStack Start · Cloudflare Workers
   - term: Year
@@ -20,6 +20,7 @@ metaItems:
 coverImage:
   src: ./assets/app-showcase.avif
   alt: MoriPath の画面デザイン
+  blurhash: 'UIKLpv?v4-00tlNF?IkV00xuiwD%~Xxa00IU'
 openGraph:
   title: MoriPath
   description: もりのパーティのMinecraftサーバー向けに、MineAuthと連携してプレイヤー情報やサーバー機能を扱うWebアプリケーションです。

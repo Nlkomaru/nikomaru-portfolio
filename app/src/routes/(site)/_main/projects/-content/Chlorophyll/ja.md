@@ -24,6 +24,7 @@ metaItems:
 coverImage:
   src: ./assets/sekaiju.png
   alt: Chlorophyll のテーマを想起させるキービジュアル
+  blurhash: 'UbFi}t?w.8Mw%%tStRV?IWMwMxt7xwV?n~oz'
 openGraph:
   title: Chlorophyll
   description: >-

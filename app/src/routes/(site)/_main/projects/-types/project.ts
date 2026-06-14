@@ -6,6 +6,10 @@ export interface ProjectImage {
     caption?: string;
 }
 
+export interface ProjectBlurhashImage extends ProjectImage {
+    blurhash: string;
+}
+
 export interface ProjectMetaItem {
     /** "Role" / "Stack" 等のラベル */
     term: string;
@@ -20,7 +24,6 @@ export interface ProjectMetaItem {
 export interface ProjectOpenGraph {
     title: string;
     description: string;
-    /** SNS クローラ互換のため PNG を使う。 */
     image: string;
     imageAlt: string;
 }
@@ -34,7 +37,7 @@ export interface Project {
     abstract: string;
     /** Definition List に表示するメタ情報。リンク（live / source 等）もここに含める。 */
     metaItems: ProjectMetaItem[];
-    coverImage: ProjectImage;
+    coverImage: ProjectBlurhashImage;
     openGraph: ProjectOpenGraph;
 }
 
@@ -42,6 +45,6 @@ export interface ProjectIndexItem {
     slug: Project["slug"];
     title: Project["title"];
     category: string;
-    image: ProjectImage;
+    image: ProjectBlurhashImage;
     year?: string;
 }

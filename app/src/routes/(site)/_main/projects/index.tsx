@@ -7,21 +7,11 @@ import chlorophyllImageSrc from "./-content/Chlorophyll/assets/chlorophyll.avif?
 import mineAuthImageSrc from "./-content/MineAuth/assets/community.png?url";
 import mineStampImageSrc from "./-content/MineStamp/assets/player-with-emoji.avif?url";
 import moriPathImageSrc from "./-content/MoriPath/assets/app-showcase.png?url";
-import moripaFishingImageSrc from "./-content/MoripaFishing/assets/cover.png?url";
+import moripaFishingImageSrc from "./-content/MoripaFishing/assets/cover.jpg?url";
 import raceAssistImageSrc from "./-content/RaceAssist/assets/race-place.avif?url";
 import type { ProjectIndexItem } from "./-types/project";
 
 const projects = [
-    {
-        slug: "MoriPath",
-        title: "MoriPath",
-        category: "Web App",
-        year: "2025 — Present",
-        image: {
-            src: moriPathImageSrc,
-            alt: "MoriPath の画面デザイン",
-        },
-    },
     {
         slug: "MineAuth",
         title: "MineAuth",
@@ -30,6 +20,7 @@ const projects = [
         image: {
             src: mineAuthImageSrc,
             alt: "MineAuth Community",
+            blurhash: "UVF#HaIt9coe~9M}IWWW--V[RkR+%KjIV]Wo",
         },
     },
     {
@@ -40,6 +31,7 @@ const projects = [
         image: {
             src: chlorophyllImageSrc,
             alt: "Chlorophyll のテーマを想起させるキービジュアル",
+            blurhash: "UCQANz5PxY?bW+xaIpODWF~W?b-;?u%29Y%N",
         },
     },
     {
@@ -50,8 +42,21 @@ const projects = [
         image: {
             src: raceAssistImageSrc,
             alt: "RaceAssist のコース管理を想起させるキービジュアル",
+            blurhash: "UYG]ds${%Nx^p3xcxss+Imt5RPMxoNjJt7t7",
         },
     },
+    {
+        slug: "MoriPath",
+        title: "MoriPath",
+        category: "Web App",
+        year: "2025 — Present",
+        image: {
+            src: moriPathImageSrc,
+            alt: "MoriPath の画面デザイン",
+            blurhash: "UIKLpv?v4-00tlNF?IkV00xuiwD%~Xxa00In",
+        },
+    },
+
     {
         slug: "MineStamp",
         title: "MineStamp",
@@ -60,6 +65,7 @@ const projects = [
         image: {
             src: mineStampImageSrc,
             alt: "MineStamp の絵文字表示を想起させるキービジュアル",
+            blurhash: "ULDvvLx{E1MwS,S*o#M^%jbeM_ocXBo2oHoc",
         },
     },
     {
@@ -70,6 +76,7 @@ const projects = [
         image: {
             src: moripaFishingImageSrc,
             alt: "MoripaFishing の機能を想起させるキービジュアル",
+            blurhash: "UKC%.[PfDgInIzq|Vqr=lotQR2NF?cM{sjbt",
         },
     },
 ] satisfies ProjectIndexItem[];
@@ -87,7 +94,7 @@ const projectsPageStyles = sva({
         },
         container: {
             px: { base: "4", md: "12" },
-            pt: { base: "12", md: "20" },
+            py: { base: "12", md: "20" },
             display: "flex",
             flexDirection: "column",
             gap: { base: "14", md: "20" },

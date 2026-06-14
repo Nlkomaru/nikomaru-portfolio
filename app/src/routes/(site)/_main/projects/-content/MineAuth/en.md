@@ -24,6 +24,7 @@ metaItems:
 coverImage:
   src: ./assets/community.avif
   alt: MineAuth Community
+  blurhash: 'UVF#HaIt9coe~9M}IWWW--V[RkR+%KjIV]Wo'
 openGraph:
   title: MineAuth
   description: MineAuth is a plugin that provides an OAuth 2/OpenID Connect authentication platform running on a Minecraft server.

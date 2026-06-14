@@ -6,7 +6,7 @@ abstract: >-
   By integrating with MineAuth, it lets logged-in players check and operate on online status, donguri balances (in-game currency), protected blocks, quests, and other server data from outside the Minecraft server.
 metaItems:
   - term: Role
-    description: Developer · Designer
+    description: Developer · Designer (Partial)
   - term: Stack
     description: React · TypeScript · TanStack Start · Cloudflare Workers
   - term: Year
@@ -20,6 +20,7 @@ metaItems:
 coverImage:
   src: ./assets/app-showcase.avif
   alt: MoriPath screen design
+  blurhash: 'UIKLpv?v4-00tlNF?IkV00xuiwD%~Xxa00IU'
 openGraph:
   title: MoriPath
   description: A web application for the Morino Party Minecraft server that integrates with MineAuth to work with player information and server features.

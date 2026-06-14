@@ -24,6 +24,7 @@ metaItems:
 coverImage:
   src: ./assets/player-with-emoji.avif
   alt: MineStamp でプレイヤーの頭上に絵文字を表示している画面
+  blurhash: 'ULDvvLx{E1MwS,S*o#M^%jbeM_ocXBo2oHoc'
 openGraph:
   title: MineStamp
   description: Minecraft内のプレイヤーの頭上にUnicode絵文字を表示するためのプラグインです。

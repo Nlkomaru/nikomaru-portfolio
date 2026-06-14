@@ -24,6 +24,7 @@ metaItems:
 coverImage:
   src: ./assets/player-with-emoji.avif
   alt: MineStamp displaying emoji above a player
+  blurhash: 'ULDvvLx{E1MwS,S*o#M^%jbeM_ocXBo2oHoc'
 openGraph:
   title: MineStamp
   description: A Minecraft plugin for displaying Unicode emoji stamps above players.

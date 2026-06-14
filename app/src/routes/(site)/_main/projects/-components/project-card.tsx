@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
+import { getBlurhashBackground } from "@/routes/-functions/blurhash-background";
 import type { ProjectIndexItem } from "../-types/project";
 
 type ProjectCardPlacement = "largeEnd" | "largeStart" | "small";
@@ -15,12 +16,10 @@ const projectCardStyles = sva({
             borderRadius: "md",
             borderWidth: "1px",
             borderColor: "border.default",
-            filter: "grayscale(100%)",
             "& img": {
                 transform: "scale(1.2)",
             },
             _hover: {
-                filter: "none",
                 "& img": {
                     transform: "scale(1.04)",
                 },
@@ -127,7 +126,13 @@ export default function ProjectCard({
 
     return (
         <Link to="/projects/$project" params={{ project: project.slug }} className={styles.root}>
-            <img src={project.image.src} alt={project.image.alt} className={styles.image} />
+            <img
+                src={project.image.src}
+                alt={project.image.alt}
+                decoding="async"
+                className={styles.image}
+                style={getBlurhashBackground(project.image.blurhash)}
+            />
             <div className={styles.shade} data-project-shade="" />
             <div className={styles.content}>
                 {project.year ? <p className={styles.year}>{project.year}</p> : null}
