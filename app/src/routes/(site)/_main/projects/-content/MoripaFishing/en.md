@@ -22,16 +22,17 @@ metaItems:
     href: https://github.com/morinoparty/MoripaFishing
     external: true
 coverImage:
-  src: ./assets/cover.png
+  src: ./assets/cover.jpg
   alt: Key visual for MoripaFishing features
+  blurhash: 'UKC%.[PfDgInIzq|Vqr=lotQR2NF?cM{sjbt'
 openGraph:
   title: MoripaFishing
   description: A Minecraft fishing plugin with configurable fish, rarities, and condition-based catches.
-  image: ./assets/cover.png
+  image: ./assets/cover.jpg
   imageAlt: Key visual for MoripaFishing features
 ---
 image:
-  src: ./assets/cover.png
+  src: ./assets/cover.jpg
   alt: Key visual for MoripaFishing features
   caption: MoripaFishing key visual
 layout: left-image
@@ -50,9 +51,3 @@ The goal is to turn fishing into a flexible server activity that can connect exp
 The project is split into `api` and `app` modules. The `api` module contains data structures and extension points for fish, rarities, and events. The `app` module handles configuration loading, fishing event processing, and administrator commands.
 
 Fish and rarity definitions are handled as JSON configuration so server operators can tune the experience without changing code. The implementation also keeps future expansion in mind, such as player fishing records and integrations with other server systems.
-
----
-
-## Documentation
-
-Commands and configuration details are documented on the project site. Because Minecraft plugins are often operated by server administrators after installation, MoripaFishing keeps operational documentation separate from the source README.

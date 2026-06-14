@@ -24,6 +24,7 @@ metaItems:
 coverImage:
   src: ./assets/community.avif
   alt: MineAuth Community
+  blurhash: 'UVF#HaIt9coe~9M}IWWW--V[RkR+%KjIV]Wo'
 openGraph:
   title: MineAuth
   description: MineAuthは、マインクラフトサーバー上で動作するOAuth 2/OpenID Connectの認証基盤を提供するプラグインです。
