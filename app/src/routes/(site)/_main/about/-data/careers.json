@@ -1,0 +1,41 @@
+[
+    {
+        "id": "shinshu-university",
+        "startDate": "2023-04",
+        "endDate": null,
+        "title": {
+            "en": "Shinshu University, Department of Electrical and Computer Engineering",
+            "ja": "信州大学 工学部 電子情報システム工学科 在学中"
+        },
+        "description": {
+            "en": "Studying computer science and engineering, with graduation expected in March 2027.",
+            "ja": "コンピュータサイエンスと心理学、教育学など幅広い分野を学んでいます。2027年3月卒業予定です。"
+        }
+    },
+    {
+        "id": "morino-party",
+        "startDate": "2021-12",
+        "endDate": null,
+        "title": {
+            "en": "Morino Party, Software Developer",
+            "ja": "もりのパーティ ソフトウェア開発"
+        },
+        "description": {
+            "en": "Developing and operating Minecraft plugins, web applications, APIs, and shared design systems for the community.",
+            "ja": "コミュニティ向けのMinecraftプラグイン、Webアプリケーション、API、共通デザインシステムを開発・運用しています。"
+        }
+    },
+    {
+        "id": "aichi-prefectural-aichi-high-school-of-technology-and-engineering",
+        "startDate": "2020-04",
+        "endDate": "2023-03",
+        "title": {
+            "en": "Graduated from Aichi Prefectural Aichi High School of Technology and Engineering",
+            "ja": "愛知県立愛知総合工科高等学校 卒業"
+        },
+        "description": {
+            "en": "Completed upper secondary education in March 2023.",
+            "ja": "工業高校出身で、情報技術及び、電気電子について学んでいました。2023年3月に卒業しました。"
+        }
+    }
+]

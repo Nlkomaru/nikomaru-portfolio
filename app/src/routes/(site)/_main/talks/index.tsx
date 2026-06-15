@@ -34,7 +34,7 @@ const talksPageStyles = sva({
         },
         container: {
             px: { base: "4", md: "12" },
-            pt: { base: "12", md: "20" },
+            py: { base: "12", md: "20" },
             display: "flex",
             flexDirection: "column",
             gap: { base: "14", md: "20" },
@@ -166,12 +166,12 @@ function SlidesPage() {
                         flexShrink={0}
                         maxW="100%"
                         startElement={<Search size={14} className={styles.searchIcon} aria-hidden />}
-                        w={{ base: "12rem", md: "18rem" }}
+                        w={{ base: "11rem", md: "18rem" }}
                     >
                         <Input
                             type="search"
                             variant="flushed"
-                            size="lg"
+                            size={{ base: "sm", md: "lg" }}
                             value={query}
                             onChange={(event) => setQuery(event.target.value)}
                             placeholder={m["talks.searchPlaceholder"]()}
