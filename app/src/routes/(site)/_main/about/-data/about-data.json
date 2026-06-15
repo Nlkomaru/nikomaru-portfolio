@@ -1,0 +1,46 @@
+{
+    "profile": {
+        "en": {
+            "pageTitle": "About",
+            "metaDescription": "About Nikomaru, a computer science student and software developer working across web applications and Minecraft server technology.",
+            "title": "I turn ideas into software that works in practice.",
+            "paragraphs": [
+                "I'm Nikomaru, a fourth-year Computer Science student in the Faculty of Engineering at Shinshu University. I build Minecraft plugins with Kotlin and web applications with TypeScript and React.",
+                "At Morino Party, I work across the systems that connect the game server and the web. This includes authentication and APIs built with Hono and Cloudflare Workers, as well as user-facing applications built with TanStack Start.",
+                "I also maintain development and delivery workflows with Docker and GitHub Actions. My goal is to build software that remains understandable for maintainers and straightforward for the people using it."
+            ],
+            "highlights": [
+                "Minecraft plugins that support community gameplay",
+                "Authentication and APIs connecting game and web",
+                "Web interfaces designed for continued operation"
+            ],
+            "careerTitle": "Career & learning",
+            "careerDescription": "My education and community involvement.",
+            "qualificationTitle": "Qualifications & certifications",
+            "qualificationDescription": "Certifications and examinations I have completed.",
+            "qualificationEmptyLabel": "Qualification details are being prepared.",
+            "presentLabel": "Present"
+        },
+        "ja": {
+            "pageTitle": "私について",
+            "metaDescription": "信州大学でコンピュータサイエンスを学びながら、WebアプリケーションとMinecraftサーバー周辺の開発に取り組むNikomaruのプロフィール。",
+            "title": "アイデアを、実際に使えるソフトウェアにする。",
+            "paragraphs": [
+                "Nikomaruです。信州大学工学部でコンピュータサイエンスを学びながら、KotlinによるMinecraftプラグイン開発と、TypeScript・ReactによるWebアプリケーション開発に取り組んでいます。",
+                "「もりのパーティ」では、ゲームサーバーとWebをつなぐ仕組みを担当しています。HonoやCloudflare Workersを使った認証・APIから、TanStack Startを使ったユーザー向け画面まで、必要な範囲を横断して設計・実装しています。",
+                "DockerやGitHub Actionsを使った開発・運用環境も含め、公開後に保守しやすく、利用者にとって迷いにくいソフトウェアを作ることを大切にしています。"
+            ],
+            "highlights": [
+                "コミュニティを支えるMinecraftプラグイン",
+                "ゲームとWebをつなぐ認証・API",
+                "継続運用を見据えたWebインターフェース"
+            ],
+            "careerTitle": "経歴と学び",
+            "careerDescription": "学歴とコミュニティでの活動歴です。",
+            "qualificationTitle": "資格・認定",
+            "qualificationDescription": "取得した資格と合格した試験です。",
+            "qualificationEmptyLabel": "資格情報は準備中です。",
+            "presentLabel": "現在"
+        }
+    }
+}

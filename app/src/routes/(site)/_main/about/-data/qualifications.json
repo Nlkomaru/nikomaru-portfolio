@@ -1,0 +1,62 @@
+[
+    {
+        "id": "toeic-listening-and-reading-715",
+        "acquiredAt": "2026-06-02",
+        "name": {
+            "en": "TOEIC Listening & Reading 715",
+            "ja": "TOEIC L&R 715"
+        },
+        "issuer": {
+            "en": "The Institute for International Business Communication (IIBC)",
+            "ja": "国際ビジネスコミュニケーション協会（IIBC）"
+        }
+    },
+    {
+        "id": "test-of-world-heritage-study-2nd-grade",
+        "acquiredAt": "2026-03-13",
+        "name": {
+            "en": "World Heritage Test, Level 2",
+            "ja": "世界遺産検定 2級"
+        },
+        "issuer": {
+            "en": "The World Heritage Academy",
+            "ja": "世界遺産アカデミー"
+        }
+    },
+    {
+        "id": "applied-information-technology-engineer-examination",
+        "acquiredAt": "2023-06-29",
+        "name": {
+            "en": "Applied Information Technology Engineer Examination",
+            "ja": "応用情報技術者試験"
+        },
+        "issuer": {
+            "en": "Information-technology Promotion Agency, Japan (IPA)",
+            "ja": "情報処理推進機構（IPA）"
+        }
+    },
+    {
+        "id": "fundamental-information-technology-engineer-examination",
+        "acquiredAt": "2022-06-27",
+        "name": {
+            "en": "Fundamental Information Technology Engineer Examination",
+            "ja": "基本情報技術者試験"
+        },
+        "issuer": {
+            "en": "Information-technology Promotion Agency, Japan (IPA)",
+            "ja": "情報処理推進機構（IPA）"
+        }
+    },
+    {
+        "id": "test-of-world-heritage-study-3rd-grade",
+        "acquiredAt": "2019-07-01",
+        "name": {
+            "en": "World Heritage Test, Level 3",
+            "ja": "世界遺産検定 3級"
+        },
+        "issuer": {
+            "en": "The World Heritage Academy",
+            "ja": "世界遺産アカデミー"
+        }
+    }
+]
