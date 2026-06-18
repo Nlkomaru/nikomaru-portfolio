@@ -145,12 +145,7 @@ export default function ProjectCard({
     const styles = projectCardStyles({ placement });
 
     return (
-        <motion.div
-            className={styles.root}
-            variants={projectCardMotion}
-            whileHover={{ y: -4 }}
-            transition={{ duration: 0.26, ease: "easeOut" }}
-        >
+        <motion.div className={styles.root} variants={projectCardMotion}>
             <Link to="/projects/$project" params={{ project: project.slug }} className={styles.link}>
                 <img
                     src={project.image.src}
