@@ -1,6 +1,7 @@
 import { Input, InputGroup } from "@chakra-ui/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
+import { motion } from "motion/react";
 import { useMemo, useState } from "react";
 import { sva } from "styled-system/css";
 import { m } from "../../../../paraglide/messages";
@@ -92,6 +93,35 @@ const talksPageStyles = sva({
     },
 });
 
+const talksHeaderMotion = {
+    hidden: { opacity: 0, y: 18 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.72, ease: "easeOut" },
+    },
+};
+
+const talksControlsMotion = {
+    hidden: { opacity: 0, y: 12 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: { delay: 0.14, duration: 0.64, ease: "easeOut" },
+    },
+};
+
+const talksYearListMotion = {
+    hidden: { opacity: 1 },
+    show: {
+        opacity: 1,
+        transition: {
+            delayChildren: 0.22,
+            staggerChildren: 0.34,
+        },
+    },
+};
+
 export const Route = createFileRoute("/(site)/_main/talks/")({
     loader: () => getSlides(),
     staleTime: 1000 * 60 * 5,
@@ -155,12 +185,12 @@ function SlidesPage() {
     return (
         <div className={styles.root}>
             <div className={styles.container}>
-                <header className={styles.header}>
+                <motion.header className={styles.header} variants={talksHeaderMotion} initial="hidden" animate="show">
                     <h1 className={styles.headerTitle}>{m["talks.archiveTitle"]()}</h1>
                     <p className={styles.headerDescription}>{m["talks.archiveDescription"]()}</p>
-                </header>
+                </motion.header>
 
-                <div className={styles.controls}>
+                <motion.div className={styles.controls} variants={talksControlsMotion} initial="hidden" animate="show">
                     <span className={styles.controlsCount}>{formatCountLabel(publicSlides.length, "Items")}</span>
                     <InputGroup
                         flexShrink={0}
@@ -178,9 +208,9 @@ function SlidesPage() {
                             aria-label={m["talks.searchPlaceholder"]()}
                         />
                     </InputGroup>
-                </div>
+                </motion.div>
 
-                <div className={styles.yearList}>
+                <motion.div className={styles.yearList} variants={talksYearListMotion} initial="hidden" animate="show">
                     {groups.length === 0 ? (
                         <p className={styles.empty}>— No entries —</p>
                     ) : (
@@ -193,7 +223,7 @@ function SlidesPage() {
                             />
                         ))
                     )}
-                </div>
+                </motion.div>
             </div>
         </div>
     );

@@ -5,6 +5,8 @@
     },
     "home": {
         "greeting": "こんにちは、にこまるです",
+        "greetingLead": "こんにちは、",
+        "greetingName": "にこまるです",
         "introP1": "現在、信州大学工学部の4年生で、コンピュータサイエンスを専攻しています。Kotlin、TypeScript、Reactを中心に、Minecraftのプラグイン開発やWebアプリケーションの開発に取り組んでいます。"
     },
     "talks": {

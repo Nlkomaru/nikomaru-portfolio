@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { sva } from "styled-system/css";
 import type { ProjectIndexItem } from "../-types/project";
 import ProjectCard from "./project-card";
@@ -44,6 +45,16 @@ const projectGalleryStyles = sva({
     },
 });
 
+const projectPatternMotion = {
+    hidden: { opacity: 1 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.11,
+        },
+    },
+};
+
 export default function ProjectGallery({ projects }: { projects: readonly ProjectIndexItem[] }) {
     return (
         <div className={projectGalleryStyles().root}>
@@ -51,7 +62,14 @@ export default function ProjectGallery({ projects }: { projects: readonly Projec
                 const styles = projectGalleryStyles({ density: projectChunk.density });
 
                 return (
-                    <div className={styles.pattern} key={getProjectChunkKey(projectChunk.projects)}>
+                    <motion.div
+                        className={styles.pattern}
+                        key={getProjectChunkKey(projectChunk.projects)}
+                        variants={projectPatternMotion}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, margin: "-10% 0px" }}
+                    >
                         {projectChunk.projects.map((project, index) => (
                             <ProjectCard
                                 key={project.slug}
@@ -59,7 +77,7 @@ export default function ProjectGallery({ projects }: { projects: readonly Projec
                                 placement={getProjectCardPlacement(projectChunk, index)}
                             />
                         ))}
-                    </div>
+                    </motion.div>
                 );
             })}
         </div>

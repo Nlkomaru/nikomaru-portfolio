@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { sva } from "styled-system/css";
 import type { Slide } from "../-types/slide";
 import SlideCard from "./slide-card";
@@ -42,6 +43,19 @@ const talksYearGroupStyles = sva({
     },
 });
 
+const talksYearGroupMotion = {
+    hidden: { opacity: 0, y: 24 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.7,
+            ease: "easeOut",
+            staggerChildren: 0.085,
+        },
+    },
+};
+
 interface TalksYearGroupProps {
     year: number;
     slides: Slide[];
@@ -52,7 +66,7 @@ export default function TalksYearGroup({ year, slides, countLabel }: TalksYearGr
     const styles = talksYearGroupStyles();
 
     return (
-        <section className={styles.group}>
+        <motion.section className={styles.group} variants={talksYearGroupMotion}>
             <div className={styles.header}>
                 <h2 className={styles.yearLabel}>{year}</h2>
                 <span className={styles.count}>{countLabel}</span>
@@ -62,6 +76,6 @@ export default function TalksYearGroup({ year, slides, countLabel }: TalksYearGr
                     <SlideCard key={slide.id} slide={slide} index={index} />
                 ))}
             </div>
-        </section>
+        </motion.section>
     );
 }

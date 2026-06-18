@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "motion/react";
 import { sva } from "styled-system/css";
 import { PhotoGallery } from "./-components/photo-gallery";
 import { getPhotoEntries } from "./-functions/get-photo-entries";
@@ -40,6 +41,15 @@ const photoPageStyles = sva({
     },
 });
 
+const photoHeaderMotion = {
+    hidden: { opacity: 0, y: 18 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut" },
+    },
+};
+
 export const Route = createFileRoute("/(site)/_main/photos/")({
     ssr: false,
     loader: () => getPhotoEntries(),
@@ -54,9 +64,9 @@ function PhotoPage() {
     return (
         <main className={styles.root}>
             <section className={styles.container}>
-                <header className={styles.header}>
+                <motion.header className={styles.header} variants={photoHeaderMotion} initial="hidden" animate="show">
                     <h1 className={styles.headerTitle}>Photos</h1>
-                </header>
+                </motion.header>
                 <PhotoGallery photos={photos} />
             </section>
         </main>

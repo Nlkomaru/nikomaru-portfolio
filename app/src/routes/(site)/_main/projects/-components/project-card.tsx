@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { motion } from "motion/react";
 import { sva } from "styled-system/css";
 import { getBlurhashBackground } from "@/routes/-functions/blurhash-background";
 import type { ProjectIndexItem } from "../-types/project";
@@ -6,11 +7,20 @@ import type { ProjectIndexItem } from "../-types/project";
 type ProjectCardPlacement = "largeEnd" | "largeStart" | "small";
 
 const projectCardStyles = sva({
-    slots: ["root", "image", "shade", "content", "category", "year", "name"],
+    slots: ["root", "link", "image", "shade", "content", "category", "year", "name"],
     base: {
         root: {
             position: "relative",
+            minH: "0",
+            overflow: "hidden",
+            borderRadius: "md",
+        },
+        link: {
+            position: "absolute",
+            inset: 0,
             display: "block",
+            h: "full",
+            w: "full",
             minH: "0",
             overflow: "hidden",
             borderRadius: "md",
@@ -115,6 +125,16 @@ const projectCardStyles = sva({
     },
 });
 
+const projectCardMotion = {
+    hidden: { opacity: 0, y: 28, scale: 0.98 },
+    show: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.64, ease: "easeOut" },
+    },
+};
+
 export default function ProjectCard({
     project,
     placement,
@@ -125,20 +145,27 @@ export default function ProjectCard({
     const styles = projectCardStyles({ placement });
 
     return (
-        <Link to="/projects/$project" params={{ project: project.slug }} className={styles.root}>
-            <img
-                src={project.image.src}
-                alt={project.image.alt}
-                decoding="async"
-                className={styles.image}
-                style={getBlurhashBackground(project.image.blurhash)}
-            />
-            <div className={styles.shade} data-project-shade="" />
-            <div className={styles.content}>
-                {project.year ? <p className={styles.year}>{project.year}</p> : null}
-                <h2 className={styles.name}>{project.title}</h2>
-                <p className={styles.category}>{project.category}</p>
-            </div>
-        </Link>
+        <motion.div
+            className={styles.root}
+            variants={projectCardMotion}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.26, ease: "easeOut" }}
+        >
+            <Link to="/projects/$project" params={{ project: project.slug }} className={styles.link}>
+                <img
+                    src={project.image.src}
+                    alt={project.image.alt}
+                    decoding="async"
+                    className={styles.image}
+                    style={getBlurhashBackground(project.image.blurhash)}
+                />
+                <div className={styles.shade} data-project-shade="" />
+                <div className={styles.content}>
+                    {project.year ? <p className={styles.year}>{project.year}</p> : null}
+                    <h2 className={styles.name}>{project.title}</h2>
+                    <p className={styles.category}>{project.category}</p>
+                </div>
+            </Link>
+        </motion.div>
     );
 }
