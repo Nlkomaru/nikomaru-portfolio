@@ -3,43 +3,115 @@
         "en": {
             "pageTitle": "About",
             "metaDescription": "About Nikomaru, a computer science student and software developer working across web applications and Minecraft server technology.",
-            "title": "I turn ideas into software that works in practice.",
+            "avatarAlt": "Nikomaru icon",
+            "sectionTitles": {
+                "about": "About me",
+                "hobby": "Hobbies",
+                "future": "Next"
+            },
             "paragraphs": [
                 "I'm Nikomaru, a fourth-year Computer Science student in the Faculty of Engineering at Shinshu University. I build Minecraft plugins with Kotlin and web applications with TypeScript and React.",
                 "At Morino Party, I work across the systems that connect the game server and the web. This includes authentication and APIs built with Hono and Cloudflare Workers, as well as user-facing applications built with TanStack Start.",
                 "I also maintain development and delivery workflows with Docker and GitHub Actions. My goal is to build software that remains understandable for maintainers and straightforward for the people using it."
             ],
-            "highlights": [
-                "Minecraft plugins that support community gameplay",
-                "Authentication and APIs connecting game and web",
-                "Web interfaces designed for continued operation"
+            "stories": [
+                {
+                    "id": "baking",
+                    "title": "Baking as another way to build",
+                    "paragraphs": [
+                        "Outside programming, I make sweets. I like the process of breaking a recipe down, controlling temperature and timing, and adjusting small details until the result feels right.",
+                        "That habit is close to how I write software: observe, change one thing, and make the next version easier to understand.",
+                        "Baking is also a useful way to think about the people who receive what I make. A small difference in texture, shape, or timing can change the whole impression, so I try to look at the result from the outside, not only from the process that produced it."
+                    ],
+                    "image": {
+                        "src": "/sweets/bonbon-au-chocolat.avif",
+                        "alt": "Bonbon au chocolat made as a baking project",
+                        "caption": "Bonbon au chocolat"
+                    }
+                },
+                {
+                    "id": "photography",
+                    "title": "Looking for structure in everyday scenes",
+                    "paragraphs": [
+                        "I also started photography after buying a camera. I often point it at buildings, light, and repeated patterns that are easy to overlook while walking.",
+                        "Photography gives me another way to practice composition, spacing, and attention to detail, which also feeds back into how I think about interfaces.",
+                        "I like finding a clear frame inside a busy scene. Deciding what to include, what to leave out, and where the eye should move feels close to designing a screen or organizing information in code."
+                    ],
+                    "image": {
+                        "src": "/photos/2026-03-28_kanazawa/images/_DSC1198.avif",
+                        "alt": "A glass-and-steel architectural pattern photographed in Kanazawa",
+                        "caption": "Kanazawa, 2026"
+                    }
+                }
+            ],
+            "futureParagraphs": [
+                "After graduation, I want to keep working where software, education, and communities meet. I am especially interested in systems that stay useful after release, not only in the moment they are built.",
+                "I am expected to receive a first-class junior high school teacher license in Mathematics and first-class high school teacher licenses in Mathematics, Information, and Industrial Technology in March 2027.",
+                "I want to keep building software that is easy to learn and easy to continue using. The teacher-training course made me think more about how people understand unfamiliar ideas, and I want to bring that perspective into product and interface design."
             ],
             "careerTitle": "Career & learning",
             "careerDescription": "My education and community involvement.",
             "qualificationTitle": "Qualifications & certifications",
             "qualificationDescription": "Certifications and examinations I have completed.",
             "qualificationEmptyLabel": "Qualification details are being prepared.",
+            "qualificationExpectedLabel": "expected",
             "presentLabel": "Present"
         },
         "ja": {
             "pageTitle": "私について",
             "metaDescription": "信州大学でコンピュータサイエンスを学びながら、WebアプリケーションとMinecraftサーバー周辺の開発に取り組むNikomaruのプロフィール。",
-            "title": "アイデアを、実際に使えるソフトウェアにする。",
+            "avatarAlt": "Nikomaruのアイコン",
+            "sectionTitles": {
+                "about": "私について",
+                "hobby": "趣味",
+                "future": "今後"
+            },
             "paragraphs": [
                 "Nikomaruです。信州大学工学部でコンピュータサイエンスを学びながら、KotlinによるMinecraftプラグイン開発と、TypeScript・ReactによるWebアプリケーション開発に取り組んでいます。",
                 "「もりのパーティ」では、ゲームサーバーとWebをつなぐ仕組みを担当しています。HonoやCloudflare Workersを使った認証・APIから、TanStack Startを使ったユーザー向け画面まで、必要な範囲を横断して設計・実装しています。",
                 "DockerやGitHub Actionsを使った開発・運用環境も含め、公開後に保守しやすく、利用者にとって迷いにくいソフトウェアを作ることを大切にしています。"
             ],
-            "highlights": [
-                "コミュニティを支えるMinecraftプラグイン",
-                "ゲームとWebをつなぐ認証・API",
-                "継続運用を見据えたWebインターフェース"
+            "stories": [
+                {
+                    "id": "baking",
+                    "title": "お菓子作り",
+                    "paragraphs": [
+                        "プログラミング以外では、お菓子作りもしています。手順を分解して、温度や時間、見た目のバランスを少しずつ調整していくところが好きです。",
+                        "観察して、ひとつ変えて、次はもっと良くする。コードを書くときと近い感覚で、形に残る小さな成果物を作っています。",
+                        "お菓子作りでは、作り手側の手順だけでなく、受け取る人からどう見えるかも大事にしています。食感、形、温度、見た目の少しの差で印象が変わるところが面白く、ものづくりの感覚にもつながっています。"
+                    ],
+                    "image": {
+                        "src": "/sweets/bonbon-au-chocolat.avif",
+                        "alt": "作ったボンボンショコラ",
+                        "caption": "Bonbon au chocolat"
+                    }
+                },
+                {
+                    "id": "photography",
+                    "title": "写真",
+                    "paragraphs": [
+                        "最近カメラを買ってから、写真も撮っています。街や建築、光の当たり方など、普段見過ごしがちな構造を見つけるのが好きです。",
+                        "余白、視線の流れ、細部への注意を考える練習にもなるので、趣味でありながらUIを見る感覚にもつながっています。",
+                        "情報が多い景色の中から、何を入れて何を外すかを考える時間が好きです。視線が自然に動く構図を探すことは、画面設計やコードの構造を整理するときの考え方にも近いと感じています。"
+                    ],
+                    "image": {
+                        "src": "/photos/2026-03-28_kanazawa/images/_DSC1198.avif",
+                        "alt": "金沢で撮影したガラスと鉄骨の建築パターン",
+                        "caption": "Kanazawa, 2026"
+                    }
+                }
+            ],
+            "futureParagraphs": [
+                "卒業後も、ソフトウェア・教育・コミュニティが重なる場所で開発を続けたいと考えています。作った瞬間だけではなく、公開後も使われ続ける仕組みに関心があります。",
+                "中学校教諭一種免許状（数学）と高等学校教諭一種免許状（数学・情報・工業）は、2027年3月に取得予定です。学んだことを伝える力も、今後の開発に活かしていきたいです。",
+                "教職課程で学んだ、初めて触れる内容をどう理解してもらうかという視点は、ソフトウェアにも活かせると考えています。使い始めやすく、少しずつ理解できて、長く使い続けられるものを作っていきたいです。"
             ],
             "careerTitle": "経歴と学び",
             "careerDescription": "学歴とコミュニティでの活動歴です。",
             "qualificationTitle": "資格・認定",
             "qualificationDescription": "取得した資格と合格した試験です。",
             "qualificationEmptyLabel": "資格情報は準備中です。",
+            "qualificationExpectedLabel": "取得予定",
             "presentLabel": "現在"
         }
     }

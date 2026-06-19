@@ -7,7 +7,6 @@ const careerTimelineStyles = sva({
     slots: [
         "root",
         "header",
-        "eyebrow",
         "title",
         "description",
         "list",
@@ -31,19 +30,12 @@ const careerTimelineStyles = sva({
             flexDirection: "column",
             gap: "4",
         },
-        eyebrow: {
-            color: "fg.muted",
-            fontFamily: "mono",
-            fontSize: "2xs",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-        },
         title: {
             color: "fg.subtle",
             fontFamily: "heading",
             fontSize: { base: "3xl", md: "5xl" },
             fontWeight: "semibold",
-            letterSpacing: "-0.025em",
+            letterSpacing: "0",
             lineHeight: "1.2",
         },
         description: {
@@ -128,7 +120,7 @@ const careerTimelineStyles = sva({
             color: "fg.subtle",
             fontSize: { base: "md", md: "lg" },
             fontWeight: "medium",
-            letterSpacing: "-0.015em",
+            letterSpacing: "0",
             lineHeight: "1.4",
         },
         itemDescription: {
@@ -153,7 +145,6 @@ export default function CareerTimeline({ title, description, presentLabel, local
     return (
         <section className={styles.root} aria-labelledby="career-heading">
             <header className={styles.header}>
-                <p className={styles.eyebrow}>— Career</p>
                 <h2 id="career-heading" className={styles.title}>
                     {title}
                 </h2>

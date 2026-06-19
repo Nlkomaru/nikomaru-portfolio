@@ -7,7 +7,6 @@ const qualificationListStyles = sva({
     slots: [
         "root",
         "header",
-        "eyebrow",
         "title",
         "description",
         "list",
@@ -31,19 +30,12 @@ const qualificationListStyles = sva({
             gap: "4",
             pt: { md: "8" },
         },
-        eyebrow: {
-            color: "fg.muted",
-            fontFamily: "mono",
-            fontSize: "2xs",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-        },
         title: {
             color: "fg.subtle",
             fontFamily: "heading",
             fontSize: { base: "3xl", md: "5xl" },
             fontWeight: "semibold",
-            letterSpacing: "-0.025em",
+            letterSpacing: "0",
             lineHeight: "1.2",
         },
         description: {
@@ -100,7 +92,7 @@ const qualificationListStyles = sva({
             color: "fg.subtle",
             fontSize: { base: "md", md: "lg" },
             fontWeight: "medium",
-            letterSpacing: "-0.015em",
+            letterSpacing: "0",
             lineHeight: "1.5",
         },
         issuer: {
@@ -122,17 +114,38 @@ interface QualificationListProps {
     title: string;
     description: string;
     emptyLabel: string;
+    expectedLabel: string;
     locale: Locale;
     items: LocalizedQualification[];
 }
 
-export default function QualificationList({ title, description, emptyLabel, locale, items }: QualificationListProps) {
+function formatQualificationDate(item: LocalizedQualification, locale: Locale, expectedLabel: string): string {
+    const date = item.expectedAt ?? item.acquiredAt;
+
+    if (!date) {
+        throw new Error(`Qualification date is missing: ${item.id}`);
+    }
+
+    if (item.expectedAt) {
+        return `${formatAboutDate(date, locale)} ${expectedLabel}`;
+    }
+
+    return formatAboutDate(date, locale);
+}
+
+export default function QualificationList({
+    title,
+    description,
+    emptyLabel,
+    expectedLabel,
+    locale,
+    items,
+}: QualificationListProps) {
     const styles = qualificationListStyles();
 
     return (
         <section className={styles.root} aria-labelledby="qualification-heading">
             <header className={styles.header}>
-                <p className={styles.eyebrow}>— Certifications</p>
                 <h2 id="qualification-heading" className={styles.title}>
                     {title}
                 </h2>
@@ -146,7 +159,9 @@ export default function QualificationList({ title, description, emptyLabel, loca
                     {items.map((item, index) => (
                         <li key={item.id} className={styles.item}>
                             <span className={styles.number}>{String(index + 1).padStart(2, "0")}</span>
-                            <time className={styles.date}>{formatAboutDate(item.acquiredAt, locale)}</time>
+                            <time className={styles.date} dateTime={item.acquiredAt ?? item.expectedAt}>
+                                {formatQualificationDate(item, locale, expectedLabel)}
+                            </time>
                             <div className={styles.content}>
                                 <h3 className={styles.name}>{item.name}</h3>
                                 <p className={styles.issuer}>{item.issuer}</p>
