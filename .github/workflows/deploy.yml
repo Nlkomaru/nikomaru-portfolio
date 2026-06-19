@@ -61,17 +61,36 @@ jobs:
       - name: Build app
         run: pnpm run build
 
+      - name: Write Worker secrets file
+        run: |
+          node <<'EOF'
+          const fs = require("node:fs");
+
+          const secretNames = [
+            "CF_ACCESS_CLIENT_ID",
+            "CF_ACCESS_CLIENT_SECRET",
+            "R2_PUBLIC_URL",
+          ];
+          const missingSecretNames = secretNames.filter((name) => !process.env[name]);
+
+          if (missingSecretNames.length > 0) {
+            throw new Error(`Missing secrets: ${missingSecretNames.join(", ")}`);
+          }
+
+          const secrets = Object.fromEntries(
+            secretNames.map((name) => [name, process.env[name]]),
+          );
+
+          fs.writeFileSync("app/.deploy-secrets.json", JSON.stringify(secrets));
+          EOF
+
       - name: Deploy app
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
+          command: deploy --secrets-file .deploy-secrets.json
           workingDirectory: app
-          secrets: |
-            CF_ACCESS_CLIENT_ID
-            CF_ACCESS_CLIENT_SECRET
-            R2_PUBLIC_URL
         env:
           CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
@@ -106,6 +125,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          environment: production
           command: deploy
           workingDirectory: storybook
