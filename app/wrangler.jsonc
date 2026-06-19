@@ -16,6 +16,10 @@
         {
             "pattern": "nikomaru.dev",
             "custom_domain": true
+        },
+        {
+            "pattern": "www.nikomaru.dev",
+            "custom_domain": true
         }
     ]
 }
