@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { sva } from "styled-system/css";
 import { m } from "../../../../../paraglide/messages";
 
@@ -25,13 +26,22 @@ const projectsHeaderStyles = sva({
     },
 });
 
+const projectsHeaderMotion = {
+    hidden: { opacity: 0, y: 18 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut" },
+    },
+};
+
 export default function ProjectsHeader() {
     const styles = projectsHeaderStyles();
 
     return (
-        <header className={styles.root}>
+        <motion.header className={styles.root} variants={projectsHeaderMotion} initial="hidden" animate="show">
             <h1 className={styles.title}>{m["projects.archiveTitle"]()}</h1>
             <p className={styles.description}>{m["projects.archiveDescription"]()}</p>
-        </header>
+        </motion.header>
     );
 }

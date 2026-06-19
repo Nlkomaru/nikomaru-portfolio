@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { sva } from "styled-system/css";
 import { getLocale } from "../../../../paraglide/runtime";
 import AboutIntroduction from "./-components/about-introduction";
+import AboutPersonalSections from "./-components/about-personal-sections";
 import CareerTimeline from "./-components/career-timeline";
 import QualificationList from "./-components/qualification-list";
 import aboutData from "./-data/about-data.json";
@@ -13,7 +14,8 @@ const aboutPageStyles = sva({
     slots: ["root", "container", "details"],
     base: {
         root: {
-            w: "full",
+            maxW: "7xl",
+            mx: "auto",
             minH: { base: "calc(100dvh - 3.5rem)", md: "100dvh" },
             flexGrow: 1,
             bg: "bg.canvas",
@@ -21,14 +23,15 @@ const aboutPageStyles = sva({
         container: {
             display: "flex",
             flexDirection: "column",
-            gap: { base: "20", md: "28" },
+            gap: { base: "18", md: "26" },
             px: { base: "4", md: "12" },
             py: { base: "12", md: "20" },
         },
         details: {
             display: "flex",
             flexDirection: "column",
-            gap: { base: "20", md: "24" },
+            pt: { base: "16", md: "20" },
+            gap: { base: "16", md: "20" },
         },
     },
 });
@@ -70,9 +73,16 @@ function AboutPage() {
         <main className={styles.root}>
             <div className={styles.container}>
                 <AboutIntroduction
-                    title={profile.title}
+                    avatarAlt={profile.avatarAlt}
+                    aboutTitle={profile.sectionTitles.about}
                     paragraphs={profile.paragraphs}
-                    highlights={profile.highlights}
+                />
+
+                <AboutPersonalSections
+                    hobbyTitle={profile.sectionTitles.hobby}
+                    stories={profile.stories}
+                    futureTitle={profile.sectionTitles.future}
+                    futureParagraphs={profile.futureParagraphs}
                 />
 
                 <div className={styles.details}>
@@ -91,6 +101,7 @@ function AboutPage() {
                         title={profile.qualificationTitle}
                         description={profile.qualificationDescription}
                         emptyLabel={profile.qualificationEmptyLabel}
+                        expectedLabel={profile.qualificationExpectedLabel}
                         locale={locale}
                         items={qualifications.map((qualification) => ({
                             ...qualification,

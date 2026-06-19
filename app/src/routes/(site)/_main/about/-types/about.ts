@@ -5,15 +5,33 @@ export type LocalizedText = Record<Locale, string>;
 export interface AboutProfile {
     pageTitle: string;
     metaDescription: string;
-    title: string;
+    avatarAlt: string;
+    sectionTitles: {
+        about: string;
+        hobby: string;
+        future: string;
+    };
     paragraphs: string[];
-    highlights: string[];
+    stories: AboutStory[];
+    futureParagraphs: string[];
     careerTitle: string;
     careerDescription: string;
     qualificationTitle: string;
     qualificationDescription: string;
     qualificationEmptyLabel: string;
+    qualificationExpectedLabel: string;
     presentLabel: string;
+}
+
+export interface AboutStory {
+    id: string;
+    title: string;
+    paragraphs: string[];
+    image: {
+        src: string;
+        alt: string;
+        caption: string;
+    };
 }
 
 export interface Career {
@@ -29,12 +47,13 @@ export interface LocalizedCareer extends Omit<Career, "title" | "description"> {
     description: string;
 }
 
-export interface Qualification {
+type QualificationDate = { acquiredAt: string; expectedAt?: never } | { acquiredAt?: never; expectedAt: string };
+
+export type Qualification = QualificationDate & {
     id: string;
-    acquiredAt: string;
     name: LocalizedText;
     issuer: LocalizedText;
-}
+};
 
 export interface LocalizedQualification extends Omit<Qualification, "name" | "issuer"> {
     name: string;

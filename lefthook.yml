@@ -1,5 +1,7 @@
 pre-commit:
   parallel: true
   commands:
+    cleanup-playwright-png:
+      run: rm -f -- ./*.png
     biome-check:
       run: pnpm run check

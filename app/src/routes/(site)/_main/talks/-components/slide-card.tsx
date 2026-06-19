@@ -1,3 +1,5 @@
+import { motion, useInView } from "motion/react";
+import { useCallback, useRef, useState } from "react";
 import { sva } from "styled-system/css";
 import type { Slide } from "../-types/slide";
 import SlideCardBody from "./slide-card-body";
@@ -40,6 +42,15 @@ const slideCardStyles = sva({
     },
 });
 
+const slideCardMotion = {
+    hidden: { opacity: 0, x: -16 },
+    show: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.6, ease: "easeOut" },
+    },
+};
+
 interface SlideCardProps {
     slide: Slide;
     // 年内のインデックス（00始まり、2桁ゼロ詰めで表示）
@@ -68,21 +79,32 @@ function formatMeta(slide: Slide): string {
 
 export default function SlideCard({ slide, index }: SlideCardProps) {
     const styles = slideCardStyles();
+    const rootRef = useRef<HTMLDivElement | null>(null);
+    const [ready, setReady] = useState(!slide.thumbnailImage);
+    const markReady = useCallback(() => setReady(true), []);
+    const inView = useInView(rootRef, { once: true, margin: "-8% 0px" });
 
     const indexLabel = String(index + 1).padStart(2, "0");
     const dateLabel = formatShortDate(slide);
     const metaLabel = formatMeta(slide);
 
     return (
-        <div className={`group ${styles.root}`}>
+        <motion.div
+            ref={rootRef}
+            className={`group ${styles.root}`}
+            variants={slideCardMotion}
+            initial="hidden"
+            animate={ready && inView ? "show" : "hidden"}
+            layout="position"
+        >
             <div className={styles.main}>
                 <div className={styles.left}>
                     <SlideCardBody slide={slide} indexLabel={indexLabel} dateLabel={dateLabel} />
                 </div>
                 <div className={styles.right}>
-                    <SlideCardThumbnail slide={slide} metaLabel={metaLabel} />
+                    <SlideCardThumbnail slide={slide} metaLabel={metaLabel} onReady={markReady} />
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

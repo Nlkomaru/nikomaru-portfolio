@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { sva } from "styled-system/css";
 import { getBlurhashBackground } from "@/routes/-functions/blurhash-background";
 import type { Slide } from "../-types/slide";
@@ -65,11 +66,20 @@ const slideCardThumbnailStyles = sva({
 interface SlideCardThumbnailProps {
     slide: Slide;
     metaLabel: string;
+    onReady?: () => void;
 }
 
-export default function SlideCardThumbnail({ slide, metaLabel }: SlideCardThumbnailProps) {
+export default function SlideCardThumbnail({ slide, metaLabel, onReady }: SlideCardThumbnailProps) {
     const styles = slideCardThumbnailStyles();
+    const imageRef = useRef<HTMLImageElement | null>(null);
     const fallbackStyle = slide.thumbnailBlurhash ? getBlurhashBackground(slide.thumbnailBlurhash) : undefined;
+
+    useEffect(() => {
+        const image = imageRef.current;
+        if (image?.complete && image.naturalWidth > 0) {
+            onReady?.();
+        }
+    }, [onReady]);
 
     return (
         <>
@@ -84,6 +94,7 @@ export default function SlideCardThumbnail({ slide, metaLabel }: SlideCardThumbn
                 <span className={styles.fallback} style={fallbackStyle} aria-hidden="true" />
                 {slide.thumbnailImage ? (
                     <img
+                        ref={imageRef}
                         src={slide.thumbnailImage}
                         alt=""
                         width={576}
@@ -92,6 +103,8 @@ export default function SlideCardThumbnail({ slide, metaLabel }: SlideCardThumbn
                         decoding="async"
                         fetchPriority="auto"
                         className={styles.image}
+                        onLoad={onReady}
+                        onError={onReady}
                     />
                 ) : null}
             </a>

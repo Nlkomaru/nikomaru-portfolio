@@ -1,5 +1,6 @@
 import { Dialog, Portal } from "@chakra-ui/react";
 import { X } from "lucide-react";
+import { motion } from "motion/react";
 import { useState } from "react";
 import { sva } from "styled-system/css";
 import { getPhotoBackgroundStyle } from "../-functions/get-photo-entries";
@@ -147,12 +148,38 @@ const photoGalleryStyles = sva({
     },
 });
 
+const photoGridMotion = {
+    hidden: { opacity: 1 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.045,
+        },
+    },
+};
+
+const photoItemMotion = {
+    hidden: { opacity: 0, y: 20, scale: 0.98 },
+    show: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.58, ease: "easeOut" },
+    },
+};
+
 type PhotoGalleryProps = {
     photos: PhotoEntry[];
 };
 
 type PhotoGalleryGridProps = {
     photos: PhotoEntry[];
+    onSelect: (photo: PhotoEntry) => void;
+};
+
+type PhotoGalleryItemProps = {
+    photo: PhotoEntry;
+    index: number;
     onSelect: (photo: PhotoEntry) => void;
 };
 
@@ -186,26 +213,43 @@ function PhotoGalleryGrid({ photos, onSelect }: PhotoGalleryGridProps) {
     const styles = photoGalleryStyles();
 
     return (
-        <ul className={styles.grid}>
+        <motion.ul className={styles.grid} variants={photoGridMotion} initial="hidden" animate="show">
             {photos.map((photo, index) => (
-                <li key={photo.id} className={styles.item}>
-                    <button type="button" className={styles.button} onClick={() => onSelect(photo)}>
-                        <div className={styles.frame}>
-                            <img
-                                src={photo.src}
-                                alt={photo.alt}
-                                width={photo.width}
-                                height={photo.height}
-                                loading={index < 8 ? "eager" : "lazy"}
-                                decoding="async"
-                                className={styles.image}
-                                style={getPhotoBackgroundStyle(photo.blurhash)}
-                            />
-                        </div>
-                    </button>
-                </li>
+                <PhotoGallery.Item key={photo.id} photo={photo} index={index} onSelect={onSelect} />
             ))}
-        </ul>
+        </motion.ul>
+    );
+}
+
+function PhotoGalleryItem({ photo, index, onSelect }: PhotoGalleryItemProps) {
+    const styles = photoGalleryStyles();
+    const [loaded, setLoaded] = useState(false);
+
+    return (
+        <motion.li
+            className={styles.item}
+            variants={photoItemMotion}
+            initial="hidden"
+            animate={loaded ? "show" : "hidden"}
+            whileHover={loaded ? { y: -3 } : undefined}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+        >
+            <button type="button" className={styles.button} onClick={() => onSelect(photo)}>
+                <div className={styles.frame}>
+                    <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        width={photo.width}
+                        height={photo.height}
+                        loading={index < 8 ? "eager" : "lazy"}
+                        decoding="async"
+                        className={styles.image}
+                        style={getPhotoBackgroundStyle(photo.blurhash)}
+                        onLoad={() => setLoaded(true)}
+                    />
+                </div>
+            </button>
+        </motion.li>
     );
 }
 
@@ -244,5 +288,6 @@ function PhotoGalleryLightbox({ open, photo, onOpenChange }: PhotoGalleryLightbo
 
 export const PhotoGallery = Object.assign(PhotoGalleryRoot, {
     Grid: PhotoGalleryGrid,
+    Item: PhotoGalleryItem,
     Lightbox: PhotoGalleryLightbox,
 });

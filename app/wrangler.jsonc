@@ -14,7 +14,7 @@
     "preview_urls": true,
     "routes": [
         {
-            "pattern": "next.nikomaru.dev",
+            "pattern": "nikomaru.dev",
             "custom_domain": true
         }
     ]

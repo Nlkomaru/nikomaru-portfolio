@@ -1,5 +1,29 @@
 [
     {
+        "id": "junior-high-school-teacher-license-mathematics-first-class",
+        "expectedAt": "2027-03",
+        "name": {
+            "en": "First-class Junior High School Teacher License (Mathematics)",
+            "ja": "中学校教諭一種免許状（数学）"
+        },
+        "issuer": {
+            "en": "Teacher-training course",
+            "ja": "教職課程"
+        }
+    },
+    {
+        "id": "high-school-teacher-license-mathematics-information-industry-first-class",
+        "expectedAt": "2027-03",
+        "name": {
+            "en": "First-class High School Teacher License (Mathematics, Information, Industrial Technology)",
+            "ja": "高等学校教諭一種免許状（数学・情報・工業）"
+        },
+        "issuer": {
+            "en": "Teacher-training course",
+            "ja": "教職課程"
+        }
+    },
+    {
         "id": "toeic-listening-and-reading-715",
         "acquiredAt": "2026-06-02",
         "name": {
