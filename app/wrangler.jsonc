@@ -4,7 +4,7 @@
  */
 {
     "$schema": "node_modules/wrangler/config-schema.json",
-    "name": "next-nikomaru-portfolio",
+    "name": "nikomaru-portfolio"
     "compatibility_date": "2025-09-02",
     "compatibility_flags": ["nodejs_compat"],
     "main": "./worker.ts",
