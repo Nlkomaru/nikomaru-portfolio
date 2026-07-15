@@ -2,18 +2,32 @@ import type { Locale } from "../../../../../paraglide/runtime";
 
 export type LocalizedText = Record<Locale, string>;
 
-export interface AboutProfile {
+export interface AboutSectionTitles {
+    about: string;
+    hobby: string;
+    future: string;
+}
+
+export interface AboutImage {
+    src: string;
+    alt: string;
+    caption: string;
+}
+
+// story のうち、Markdown 本文を除いた構造化データ（frontmatter 由来）。
+export interface AboutStoryMeta {
+    id: string;
+    title: string;
+    image: AboutImage;
+}
+
+// about 記事 markdown の frontmatter（本文以外の構造化データ）。
+export interface AboutFrontmatter {
     pageTitle: string;
     metaDescription: string;
     avatarAlt: string;
-    sectionTitles: {
-        about: string;
-        hobby: string;
-        future: string;
-    };
-    paragraphs: string[];
-    stories: AboutStory[];
-    futureParagraphs: string[];
+    sectionTitles: AboutSectionTitles;
+    stories: AboutStoryMeta[];
     careerTitle: string;
     careerDescription: string;
     qualificationTitle: string;
@@ -23,15 +37,28 @@ export interface AboutProfile {
     presentLabel: string;
 }
 
-export interface AboutStory {
-    id: string;
-    title: string;
-    paragraphs: string[];
-    image: {
-        src: string;
-        alt: string;
-        caption: string;
-    };
+export interface AboutProfile {
+    pageTitle: string;
+    metaDescription: string;
+    avatarAlt: string;
+    sectionTitles: AboutSectionTitles;
+    /** 冒頭の自己紹介（Markdown）。 */
+    intro: string;
+    stories: AboutStory[];
+    /** 「今後」セクション本文（Markdown）。 */
+    future: string;
+    careerTitle: string;
+    careerDescription: string;
+    qualificationTitle: string;
+    qualificationDescription: string;
+    qualificationEmptyLabel: string;
+    qualificationExpectedLabel: string;
+    presentLabel: string;
+}
+
+export interface AboutStory extends AboutStoryMeta {
+    /** story 本文（Markdown）。 */
+    body: string;
 }
 
 export interface Career {

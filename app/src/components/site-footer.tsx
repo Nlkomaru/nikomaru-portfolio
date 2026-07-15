@@ -36,7 +36,7 @@ const siteFooterStyles = sva({
             h: "12",
             borderRadius: "md",
             color: "var(--social-color)",
-            transition: "background-color 0.25s ease, transform 0.25s ease",
+            transition: "background-color 0.25s ease",
             "&[data-brand='github']": {
                 "--social-color": "#8b5cf6",
             },
@@ -48,10 +48,6 @@ const siteFooterStyles = sva({
             },
             _hover: {
                 bg: "color-mix(in srgb, var(--social-color) 12%, transparent)",
-                transform: "translateY(-2px)",
-                "& [data-social-icon]": {
-                    transform: "scale(1.08)",
-                },
             },
             _focusVisible: {
                 outlineWidth: "2px",
@@ -63,10 +59,6 @@ const siteFooterStyles = sva({
         socialIcon: {
             w: "4",
             h: "4",
-            transition: "transform 0.25s ease",
-            "@media (prefers-reduced-motion: reduce)": {
-                transition: "none",
-            },
         },
         creditBlock: {
             display: "flex",

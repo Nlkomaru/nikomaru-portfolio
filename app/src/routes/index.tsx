@@ -77,7 +77,7 @@ const introContainerMotion = {
         opacity: 1,
         transition: {
             delayChildren: 0.12,
-            staggerChildren: 0.2,
+            staggerChildren: 0.3,
         },
     },
 };
@@ -87,7 +87,7 @@ const introItemMotion = {
     show: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.72, ease: "easeOut" },
+        transition: { duration: 1, ease: "easeOut" },
     },
 };
 

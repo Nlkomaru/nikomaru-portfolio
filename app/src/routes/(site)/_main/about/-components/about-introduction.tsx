@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
 import { sva } from "styled-system/css";
+import AboutMarkdown from "./about-markdown";
 
 const aboutIntroductionStyles = sva({
-    slots: ["root", "title", "body", "avatar", "copy", "paragraph"],
+    slots: ["root", "title", "body", "avatar"],
     base: {
         root: {
             display: "flex",
@@ -29,24 +30,16 @@ const aboutIntroductionStyles = sva({
             mr: { base: "4", md: "9" },
             mb: { base: "2", sm: "3" },
         },
-        copy: {
-            display: "contents",
-        },
-        paragraph: {
-            color: "fg",
-            fontSize: { base: "sm", md: "md" },
-            lineHeight: { base: "1.85", md: "1.9" },
-        },
     },
 });
 
 interface AboutIntroductionProps {
     avatarAlt: string;
     aboutTitle: string;
-    paragraphs: string[];
+    intro: string;
 }
 
-export default function AboutIntroduction({ avatarAlt, aboutTitle, paragraphs }: AboutIntroductionProps) {
+export default function AboutIntroduction({ avatarAlt, aboutTitle, intro }: AboutIntroductionProps) {
     const styles = aboutIntroductionStyles();
 
     return (
@@ -71,13 +64,7 @@ export default function AboutIntroduction({ avatarAlt, aboutTitle, paragraphs }:
                     decoding="async"
                     fetchPriority="high"
                 />
-                <div className={styles.copy}>
-                    {paragraphs.map((paragraph) => (
-                        <p key={paragraph} className={styles.paragraph}>
-                            {paragraph}
-                        </p>
-                    ))}
-                </div>
+                <AboutMarkdown markdown={intro} />
             </div>
         </motion.section>
     );
