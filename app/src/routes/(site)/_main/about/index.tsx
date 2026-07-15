@@ -5,10 +5,10 @@ import AboutIntroduction from "./-components/about-introduction";
 import AboutPersonalSections from "./-components/about-personal-sections";
 import CareerTimeline from "./-components/career-timeline";
 import QualificationList from "./-components/qualification-list";
-import aboutData from "./-data/about-data.json";
 import careersData from "./-data/careers.json";
 import qualificationsData from "./-data/qualifications.json";
-import type { AboutData, Career, LocalizedText, Qualification } from "./-types/about";
+import { aboutData } from "./-functions/get-about-content";
+import type { Career, LocalizedText, Qualification } from "./-types/about";
 
 const aboutPageStyles = sva({
     slots: ["root", "container", "details"],
@@ -36,7 +36,7 @@ const aboutPageStyles = sva({
     },
 });
 
-const data = aboutData as AboutData;
+const data = aboutData;
 const careers = careersData as Career[];
 const qualifications = qualificationsData as Qualification[];
 
@@ -75,14 +75,14 @@ function AboutPage() {
                 <AboutIntroduction
                     avatarAlt={profile.avatarAlt}
                     aboutTitle={profile.sectionTitles.about}
-                    paragraphs={profile.paragraphs}
+                    intro={profile.intro}
                 />
 
                 <AboutPersonalSections
                     hobbyTitle={profile.sectionTitles.hobby}
                     stories={profile.stories}
                     futureTitle={profile.sectionTitles.future}
-                    futureParagraphs={profile.futureParagraphs}
+                    future={profile.future}
                 />
 
                 <div className={styles.details}>

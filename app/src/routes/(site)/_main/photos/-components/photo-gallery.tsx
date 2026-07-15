@@ -40,7 +40,7 @@ const photoGalleryStyles = sva({
             w: "full",
             overflow: "hidden",
             bg: "bg.canvas",
-            cursor: "pointer",
+            cursor: "zoom-in",
             textAlign: "left",
             transition: "box-shadow 0.25s ease",
             _hover: {
@@ -231,7 +231,6 @@ function PhotoGalleryItem({ photo, index, onSelect }: PhotoGalleryItemProps) {
             variants={photoItemMotion}
             initial="hidden"
             animate={loaded ? "show" : "hidden"}
-            whileHover={loaded ? { y: -3 } : undefined}
             transition={{ duration: 0.22, ease: "easeOut" }}
         >
             <button type="button" className={styles.button} onClick={() => onSelect(photo)}>

@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { sva } from "styled-system/css";
 import type { AboutStory } from "../-types/about";
+import AboutMarkdown from "./about-markdown";
 
 const aboutPersonalSectionsStyles = sva({
     slots: [
@@ -12,7 +13,6 @@ const aboutPersonalSectionsStyles = sva({
         "topicCopyReverse",
         "topicTitle",
         "copy",
-        "paragraph",
         "media",
         "mediaReverse",
         "image",
@@ -69,11 +69,6 @@ const aboutPersonalSectionsStyles = sva({
             flexDirection: "column",
             pt: "2",
         },
-        paragraph: {
-            color: "fg",
-            fontSize: { base: "sm", md: "md" },
-            lineHeight: { base: "1.85", md: "1.9" },
-        },
         media: {
             minW: 0,
             display: "flex",
@@ -110,14 +105,14 @@ interface AboutPersonalSectionsProps {
     hobbyTitle: string;
     stories: AboutStory[];
     futureTitle: string;
-    futureParagraphs: string[];
+    future: string;
 }
 
 export default function AboutPersonalSections({
     hobbyTitle,
     stories,
     futureTitle,
-    futureParagraphs,
+    future,
 }: AboutPersonalSectionsProps) {
     const styles = aboutPersonalSectionsStyles();
 
@@ -143,11 +138,7 @@ export default function AboutPersonalSections({
                         {futureTitle}
                     </h3>
                     <div className={styles.copy}>
-                        {futureParagraphs.map((paragraph) => (
-                            <p key={paragraph} className={styles.paragraph}>
-                                {paragraph}
-                            </p>
-                        ))}
+                        <AboutMarkdown markdown={future} />
                     </div>
                 </div>
             </section>
@@ -169,11 +160,7 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
                     {story.title}
                 </h4>
                 <div className={styles.copy}>
-                    {story.paragraphs.map((paragraph) => (
-                        <p key={paragraph} className={styles.paragraph}>
-                            {paragraph}
-                        </p>
-                    ))}
+                    <AboutMarkdown markdown={story.body} />
                 </div>
             </div>
 
