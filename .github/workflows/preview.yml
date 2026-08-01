@@ -56,8 +56,6 @@ jobs:
   deploy-app-preview:
     needs: check
     env:
-      CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
-      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
       R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
     runs-on: ubuntu-latest
     name: Deploy App Preview
@@ -65,6 +63,14 @@ jobs:
       deployment_url: ${{ steps.resolve-app-preview-url.outputs.deployment_url }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Get secrets from Bitwarden Secrets Manager
+        uses: bitwarden/sm-action@v2
+        with:
+          access_token: ${{ secrets.NIKOMARU_BITWARDEN_SECRET_MANAGER_ACCESS_TOKEN }}
+          secrets: |
+            2bad9e23-82af-4fba-b514-b49900e1632f > CLOUDFLARE_ACCOUNT_ID
+            38859cc8-866a-4b67-9d7f-b49900de6b64 > CLOUDFLARE_API_KEY
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
@@ -87,8 +93,8 @@ jobs:
         id: deploy-preview
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ env.CLOUDFLARE_API_KEY }}
+          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
           command: versions upload --message "Deployed preview by GitHub Actions branch ${{ github.ref_name }}"
           workingDirectory: app
 
@@ -136,6 +142,14 @@ jobs:
       - name: Install
         run: pnpm install
 
+      - name: Get secrets from Bitwarden Secrets Manager
+        uses: bitwarden/sm-action@v2
+        with:
+          access_token: ${{ secrets.NIKOMARU_BITWARDEN_SECRET_MANAGER_ACCESS_TOKEN }}
+          secrets: |
+            2bad9e23-82af-4fba-b514-b49900e1632f > CLOUDFLARE_ACCOUNT_ID
+            38859cc8-866a-4b67-9d7f-b49900de6b64 > CLOUDFLARE_API_KEY
+
       - name: Build storybook
         run: pnpm --filter ./storybook build
 
@@ -143,8 +157,8 @@ jobs:
         id: deploy-storybook-preview
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ env.CLOUDFLARE_API_KEY }}
+          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
           command: versions upload --message "Deployed storybook preview by GitHub Actions branch ${{ github.ref_name }}"
           workingDirectory: storybook
 

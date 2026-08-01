@@ -87,8 +87,13 @@ export const Route = createFileRoute("/(site)/_main/slide/$")({
                 }
 
                 const headers = new Headers();
-                headers.append("CF-Access-Client-Id", env.CF_ACCESS_CLIENT_ID);
-                headers.append("CF-Access-Client-Secret", env.CF_ACCESS_CLIENT_SECRET);
+                // CF_ACCESS_CLIENT_ID / SECRET は Secrets Store バインディングのため .get() で非同期取得する
+                const [clientId, clientSecret] = await Promise.all([
+                    env.CF_ACCESS_CLIENT_ID.get(),
+                    env.CF_ACCESS_CLIENT_SECRET.get(),
+                ]);
+                headers.append("CF-Access-Client-Id", clientId);
+                headers.append("CF-Access-Client-Secret", clientSecret);
 
                 const slideUrl = resolveSlideR2Url(env.R2_PUBLIC_URL, splat, segments);
                 const res = await fetch(slideUrl, { headers });
