@@ -24,6 +24,18 @@
         }
     },
     {
+        "id": "test-in-color-coordination",
+        "acquiredAt": "2026-07-17",
+        "name": {
+            "en": "A.F.T. Color Certification Level 2",
+            "ja": "色彩検定 2級"
+        },
+        "issuer": {
+            "en": "The Color Certification Association",
+            "ja": "公益社団法人 色彩検定協会"
+        }
+    },
+    {
         "id": "toeic-listening-and-reading-715",
         "acquiredAt": "2026-06-02",
         "name": {
