@@ -21,5 +21,17 @@
             "pattern": "www.nikomaru.dev",
             "custom_domain": true
         }
+    ],
+    "secrets_store_secrets": [
+        {
+            "binding": "CF_ACCESS_CLIENT_ID",
+            "store_id": "d36d5a11ea07462c83bb21a0e9ccb811",
+            "secret_name": "shared_CLOUDFLARE_ACCESS_CLIENT_ID"
+        },
+        {
+            "binding": "CF_ACCESS_CLIENT_SECRET",
+            "store_id": "d36d5a11ea07462c83bb21a0e9ccb811",
+            "secret_name": "shared_CLOUDFLARE_ACCESS_CLIENT_SECRET"
+        }
     ]
 }

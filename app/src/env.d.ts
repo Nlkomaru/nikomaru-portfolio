@@ -1,7 +1,7 @@
 declare namespace Cloudflare {
     interface Env {
-        CF_ACCESS_CLIENT_ID: string;
-        CF_ACCESS_CLIENT_SECRET: string;
+        CF_ACCESS_CLIENT_ID: SecretsStoreSecret;
+        CF_ACCESS_CLIENT_SECRET: SecretsStoreSecret;
         R2_PUBLIC_URL: string;
     }
 }
