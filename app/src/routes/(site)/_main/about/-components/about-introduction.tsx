@@ -56,7 +56,7 @@ export default function AboutIntroduction({ avatarAlt, aboutTitle, intro }: Abou
             <div className={styles.body}>
                 <img
                     className={styles.avatar}
-                    src="/profile-icon.avif"
+                    src="/icon/profile-icon.avif"
                     alt={avatarAlt}
                     width={512}
                     height={512}
