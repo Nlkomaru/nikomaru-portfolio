@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as siteMainRouteImport } from './routes/(site)/_main'
 import { Route as siteMainTalksIndexRouteImport } from './routes/(site)/_main/talks/index'
@@ -18,6 +19,11 @@ import { Route as siteMainAboutIndexRouteImport } from './routes/(site)/_main/ab
 import { Route as siteMainSlideSplatRouteImport } from './routes/(site)/_main/slide/$'
 import { Route as siteMainProjectsProjectIndexRouteImport } from './routes/(site)/_main/projects/$project/index'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -61,6 +67,7 @@ const siteMainProjectsProjectIndexRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/slide/$': typeof siteMainSlideSplatRoute
   '/about/': typeof siteMainAboutIndexRoute
   '/photos/': typeof siteMainPhotosIndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/slide/$': typeof siteMainSlideSplatRoute
   '/about': typeof siteMainAboutIndexRoute
   '/photos': typeof siteMainPhotosIndexRoute
@@ -80,6 +88,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/(site)/_main': typeof siteMainRouteWithChildren
   '/(site)/_main/slide/$': typeof siteMainSlideSplatRoute
   '/(site)/_main/about/': typeof siteMainAboutIndexRoute
@@ -92,6 +101,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/sitemap.xml'
     | '/slide/$'
     | '/about/'
     | '/photos/'
@@ -101,6 +111,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/sitemap.xml'
     | '/slide/$'
     | '/about'
     | '/photos'
@@ -110,6 +121,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/sitemap.xml'
     | '/(site)/_main'
     | '/(site)/_main/slide/$'
     | '/(site)/_main/about/'
@@ -121,11 +133,19 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   siteMainRoute: typeof siteMainRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -209,6 +229,7 @@ const siteMainRouteWithChildren = siteMainRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   siteMainRoute: siteMainRouteWithChildren,
 }
 export const routeTree = rootRouteImport

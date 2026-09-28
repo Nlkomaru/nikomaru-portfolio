@@ -8,18 +8,18 @@ metaItems:
   - term: Role
     description: Developer
   - term: Stack
-    description: Kotlin · Paper API · ProtocolLib · Object Storage
+    description: Kotlin · Paper API · PacketEvents · Object Storage
   - term: Year
     description: 2023 — 2024
   - term: Status
     description: Released
   - term: Document
-    description: minestamp.plugin.nikomaru.page
-    href: https://minestamp.plugin.nikomaru.page
+    description: minestamp.plugin.morino.party
+    href: https://minestamp.plugin.morino.party/
     external: true
   - term: Source
-    description: Nlkomaru/MineStamp
-    href: https://github.com/Nlkomaru/MineStamp
+    description: morinoparty/MineStamp
+    href: https://github.com/morinoparty/MineStamp
     external: true
 coverImage:
   src: ./assets/player-with-emoji.avif
@@ -50,7 +50,7 @@ In-game, the emoji appears like a stamp above the player. MineStamp is strongest
 
 ## Implementation and operations
 
-MineStamp uses ProtocolLib to control the visual display seen by Minecraft clients. It supports almost all Unicode emoji and includes multilingual messages for `en_US` and `ja_JP`.
+MineStamp uses PacketEvents to send the packets that render stamps for Minecraft clients. It supports almost all Unicode emoji and includes multilingual messages for `en_US` and `ja_JP`.
 
 The plugin also supports multi-server setups through object storage such as S3, MinIO, and Cloudflare R2. This makes the stamp data usable across a networked Minecraft environment rather than only on a single server.
 

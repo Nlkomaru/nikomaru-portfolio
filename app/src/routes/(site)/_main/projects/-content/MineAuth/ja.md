@@ -18,8 +18,8 @@ metaItems:
     href: https://mineauth.plugin.morino.party
     external: true
   - term: Source
-    description: morinoparty/mineauth
-    href: https://github.com/morinoparty/mineauth
+    description: morinoparty/MineAuth
+    href: https://github.com/morinoparty/MineAuth
     external: true
 coverImage:
   src: ./assets/community.avif

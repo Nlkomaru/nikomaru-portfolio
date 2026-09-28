@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { sva } from "styled-system/css";
@@ -136,16 +137,31 @@ export default function ProjectMarkdown({ markdown, className }: ProjectMarkdown
                     h3: ({ children }) => <h3 className={styles.heading3}>{children}</h3>,
                     h4: ({ children }) => <h4 className={styles.heading4}>{children}</h4>,
                     p: ({ children }) => <p className={styles.paragraph}>{children}</p>,
-                    a: ({ children, href }) => (
-                        <a
-                            href={href}
-                            className={styles.link}
-                            target={href?.startsWith("http") ? "_blank" : undefined}
-                            rel={href?.startsWith("http") ? "noreferrer" : undefined}
-                        >
-                            {children}
-                        </a>
-                    ),
+                    a: ({ children, href }) => {
+                        // Article-to-article links must not resolve below the current detail URL.
+                        if (href?.startsWith("./")) {
+                            return (
+                                <Link
+                                    to="/projects/$project"
+                                    params={{ project: href.slice(2) }}
+                                    className={styles.link}
+                                >
+                                    {children}
+                                </Link>
+                            );
+                        }
+
+                        return (
+                            <a
+                                href={href}
+                                className={styles.link}
+                                target={href?.startsWith("http") ? "_blank" : undefined}
+                                rel={href?.startsWith("http") ? "noreferrer" : undefined}
+                            >
+                                {children}
+                            </a>
+                        );
+                    },
                     ul: ({ children }) => <ul className={styles.list}>{children}</ul>,
                     ol: ({ children }) => <ol className={styles.orderedList}>{children}</ol>,
                     li: ({ children }) => <li className={styles.listItem}>{children}</li>,
