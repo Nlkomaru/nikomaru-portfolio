@@ -22,6 +22,10 @@ This site is built on the following technology stack.
 - `lefthook` installs a `pre-commit` hook and runs `pnpm run check` automatically before commits.
 - GitHub Actions run the same check flow in CI and include the label sync workflow for `.github/labels.json`.
 
+## Sitemap
+
+`/sitemap.xml` lists English and Japanese public pages and project detail pages with a Japanese Markdown article, plus the non-private slides in the R2 slide list. It is generated on request so newly published slides appear without rebuilding the app. `/robots.txt` advertises the sitemap.
+
 ## APM
 
 This repository includes an `apm.yml` manifest for MCP setup.

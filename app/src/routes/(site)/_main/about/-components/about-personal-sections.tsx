@@ -14,7 +14,7 @@ const aboutPersonalSectionsStyles = sva({
         "topicTitle",
         "copy",
         "media",
-        "mediaReverse",
+        "mediaFrame",
         "image",
         "caption",
         "future",
@@ -41,12 +41,13 @@ const aboutPersonalSectionsStyles = sva({
                 base: "8",
                 md: "4",
             },
-            alignItems: "start",
+            // The desktop row grows with the copy, so the media column can match its height.
+            alignItems: { base: "start", lg: "stretch" },
         },
         topicWithImage: {
             gridTemplateColumns: { base: "minmax(0, 1fr)", lg: "minmax(0, 0.86fr) minmax(18rem, 0.82fr)" },
             columnGap: { lg: "12", xl: "16" },
-            alignItems: "center",
+            minH: { lg: "16rem" },
         },
         topicCopy: {
             minW: 0,
@@ -71,13 +72,15 @@ const aboutPersonalSectionsStyles = sva({
         },
         media: {
             minW: 0,
-            display: "flex",
+            display: { base: "flex", lg: "grid" },
             flexDirection: "column",
+            gridTemplateRows: { lg: "minmax(0, 1fr) auto" },
             gap: "2",
-            pt: {
-                base: "2",
-                md: "0",
-            },
+            pt: { base: "2", md: "0" },
+        },
+        mediaFrame: {
+            minH: 0,
+            position: { lg: "relative" },
         },
         mediaReverse: {
             order: { lg: 1 },
@@ -85,8 +88,11 @@ const aboutPersonalSectionsStyles = sva({
         image: {
             display: "block",
             w: "full",
-            aspectRatio: { base: "4 / 3", md: "16 / 10" },
-            maxH: { lg: "24rem" },
+            aspectRatio: { base: "4 / 3", md: "16 / 10", lg: "auto" },
+            // Keep the image out of the grid's intrinsic height calculation on desktop.
+            position: { lg: "absolute" },
+            inset: { lg: 0 },
+            h: { lg: "full" },
             objectFit: "cover",
             borderRadius: "md",
         },
@@ -165,13 +171,15 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
             </div>
 
             <figure className={mediaClassName}>
-                <img
-                    className={styles.image}
-                    src={story.image.src}
-                    alt={story.image.alt}
-                    loading="lazy"
-                    decoding="async"
-                />
+                <div className={styles.mediaFrame}>
+                    <img
+                        className={styles.image}
+                        src={story.image.src}
+                        alt={story.image.alt}
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </div>
                 <figcaption className={styles.caption}>{story.image.caption}</figcaption>
             </figure>
         </section>
