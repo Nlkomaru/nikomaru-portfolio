@@ -1,5 +1,7 @@
 import { motion } from "motion/react";
+import { useLayoutEffect, useRef } from "react";
 import { sva } from "styled-system/css";
+import { getLocale } from "../../../../../paraglide/runtime";
 import type { AboutStory } from "../-types/about";
 import AboutMarkdown from "./about-markdown";
 
@@ -44,7 +46,9 @@ const aboutPersonalSectionsStyles = sva({
             alignItems: { base: "start", lg: "center" },
         },
         topicWithImage: {
-            gridTemplateColumns: { base: "minmax(0, 1fr)", lg: "minmax(0, 1.1fr) minmax(0, 1fr)" },
+            // Cap the whole section so wider screens do not force an oversized photo.
+            maxW: { lg: "65rem" },
+            gridTemplateColumns: { base: "minmax(0, 1fr)", lg: "repeat(2, minmax(0, 1fr))" },
             columnGap: { lg: "10", xl: "14" },
         },
         topicCopy: {
@@ -96,6 +100,49 @@ const aboutPersonalSectionsStyles = sva({
     },
 });
 
+// Text wraps at different widths in each language, so measure both columns rather than
+// stretching or cropping the 3:2 photo. Favor an image no taller than the copy.
+function fitStoryColumns(section: HTMLElement, copy: HTMLElement, media: HTMLElement, reverse: boolean) {
+    const gap = Number.parseFloat(getComputedStyle(section).columnGap) || 0;
+    const availableWidth = section.clientWidth - gap;
+    if (availableWidth <= 0) {
+        return;
+    }
+    const maxImageWidth = availableWidth / 2;
+    const minImageWidth = Math.min(192, maxImageWidth);
+    let bestWidth = minImageWidth;
+    let smallestGap = Number.POSITIVE_INFINITY;
+
+    const measure = (imageWidth: number) => {
+        section.style.gridTemplateColumns = reverse
+            ? `minmax(0, ${imageWidth}px) minmax(0, 1fr)`
+            : `minmax(0, 1fr) minmax(0, ${imageWidth}px)`;
+        const heightGap = copy.getBoundingClientRect().height - media.getBoundingClientRect().height;
+        if (heightGap >= 0 && heightGap < smallestGap) {
+            bestWidth = imageWidth;
+            smallestGap = heightGap;
+        }
+    };
+
+    // Paragraph wrapping creates discrete height jumps; sample across the available width
+    // before refining the closest fit instead of assuming a monotonic text height.
+    for (let width = minImageWidth; width <= maxImageWidth && smallestGap >= 1; width += 24) {
+        measure(width);
+    }
+    if (smallestGap >= 1) {
+        measure(maxImageWidth);
+        const coarseWidth = bestWidth;
+        for (
+            let width = Math.max(minImageWidth, coarseWidth - 24);
+            width <= Math.min(maxImageWidth, coarseWidth + 24) && smallestGap >= 1;
+            width += 2
+        ) {
+            measure(width);
+        }
+    }
+    measure(bestWidth);
+}
+
 interface AboutPersonalSectionsProps {
     hobbyTitle: string;
     stories: AboutStory[];
@@ -110,6 +157,7 @@ export default function AboutPersonalSections({
     future,
 }: AboutPersonalSectionsProps) {
     const styles = aboutPersonalSectionsStyles();
+    const locale = getLocale();
 
     return (
         <motion.div
@@ -123,7 +171,7 @@ export default function AboutPersonalSections({
                     {hobbyTitle}
                 </h3>
                 {stories.map((story, index) => (
-                    <StoryTopic key={story.id} story={story} reverse={index % 2 === 1} />
+                    <StoryTopic key={`${locale}-${story.id}`} story={story} reverse={index % 2 === 1} />
                 ))}
             </section>
 
@@ -147,10 +195,63 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
     const copyClassName = reverse ? `${styles.topicCopy} ${styles.topicCopyReverse}` : styles.topicCopy;
     const mediaClassName = reverse ? `${styles.media} ${styles.mediaReverse}` : styles.media;
     const headingId = `about-${story.id}-heading`;
+    const sectionRef = useRef<HTMLElement>(null);
+    const copyRef = useRef<HTMLDivElement>(null);
+    const mediaRef = useRef<HTMLElement>(null);
+
+    useLayoutEffect(() => {
+        const section = sectionRef.current;
+        const copy = copyRef.current;
+        const media = mediaRef.current;
+        if (!section || !copy || !media) {
+            return;
+        }
+
+        const desktop = window.matchMedia("(min-width: 64rem)");
+        const alignColumns = () => {
+            if (desktop.matches) {
+                fitStoryColumns(section, copy, media, reverse);
+            } else {
+                section.style.removeProperty("grid-template-columns");
+            }
+        };
+        let lastWidth = section.clientWidth;
+        let lastGap = getComputedStyle(section).columnGap;
+        alignColumns();
+        const onResize = () => {
+            const width = section.clientWidth;
+            const gap = getComputedStyle(section).columnGap;
+            // The xl breakpoint changes the gap even after max-width caps the section.
+            if (width !== lastWidth || gap !== lastGap) {
+                lastWidth = width;
+                lastGap = gap;
+                alignColumns();
+            }
+        };
+        const observer = new ResizeObserver(onResize);
+        observer.observe(section);
+        window.addEventListener("resize", onResize);
+        desktop.addEventListener("change", alignColumns);
+
+        // Web fonts may change wrapping after the first layout pass.
+        let active = true;
+        void document.fonts.ready.then(() => {
+            if (active) {
+                alignColumns();
+            }
+        });
+        return () => {
+            active = false;
+            observer.disconnect();
+            desktop.removeEventListener("change", alignColumns);
+            window.removeEventListener("resize", onResize);
+            section.style.removeProperty("grid-template-columns");
+        };
+    }, [reverse]);
 
     return (
-        <section className={rootClassName} aria-labelledby={headingId}>
-            <div className={copyClassName}>
+        <section ref={sectionRef} className={rootClassName} aria-labelledby={headingId}>
+            <div ref={copyRef} className={copyClassName}>
                 <h4 id={headingId} className={styles.topicTitle}>
                     {story.title}
                 </h4>
@@ -159,7 +260,7 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
                 </div>
             </div>
 
-            <figure className={mediaClassName}>
+            <figure ref={mediaRef} className={mediaClassName}>
                 <img
                     className={styles.image}
                     src={story.image.src}
