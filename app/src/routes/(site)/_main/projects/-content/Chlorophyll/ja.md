@@ -19,7 +19,7 @@ metaItems:
     external: true
   - term: Source
     description: morinoparty/Chlorophyll
-    href: https://github.com/morinoparty/chlorophyll
+    href: https://github.com/morinoparty/Chlorophyll
     external: true
 coverImage:
   src: ./assets/sekaiju.png

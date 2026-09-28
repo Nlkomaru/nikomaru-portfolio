@@ -1,6 +1,5 @@
 import { Dialog, Portal } from "@chakra-ui/react";
 import { X } from "lucide-react";
-import { motion } from "motion/react";
 import { useState } from "react";
 import { sva } from "styled-system/css";
 import { getPhotoBackgroundStyle } from "../-functions/get-photo-entries";
@@ -148,26 +147,6 @@ const photoGalleryStyles = sva({
     },
 });
 
-const photoGridMotion = {
-    hidden: { opacity: 1 },
-    show: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.045,
-        },
-    },
-};
-
-const photoItemMotion = {
-    hidden: { opacity: 0, y: 20, scale: 0.98 },
-    show: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: { duration: 0.58, ease: "easeOut" },
-    },
-};
-
 type PhotoGalleryProps = {
     photos: PhotoEntry[];
 };
@@ -213,26 +192,19 @@ function PhotoGalleryGrid({ photos, onSelect }: PhotoGalleryGridProps) {
     const styles = photoGalleryStyles();
 
     return (
-        <motion.ul className={styles.grid} variants={photoGridMotion} initial="hidden" animate="show">
+        <ul className={styles.grid}>
             {photos.map((photo, index) => (
                 <PhotoGallery.Item key={photo.id} photo={photo} index={index} onSelect={onSelect} />
             ))}
-        </motion.ul>
+        </ul>
     );
 }
 
 function PhotoGalleryItem({ photo, index, onSelect }: PhotoGalleryItemProps) {
     const styles = photoGalleryStyles();
-    const [loaded, setLoaded] = useState(false);
 
     return (
-        <motion.li
-            className={styles.item}
-            variants={photoItemMotion}
-            initial="hidden"
-            animate={loaded ? "show" : "hidden"}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-        >
+        <li className={styles.item}>
             <button type="button" className={styles.button} onClick={() => onSelect(photo)}>
                 <div className={styles.frame}>
                     <img
@@ -244,11 +216,10 @@ function PhotoGalleryItem({ photo, index, onSelect }: PhotoGalleryItemProps) {
                         decoding="async"
                         className={styles.image}
                         style={getPhotoBackgroundStyle(photo.blurhash)}
-                        onLoad={() => setLoaded(true)}
                     />
                 </div>
             </button>
-        </motion.li>
+        </li>
     );
 }
 

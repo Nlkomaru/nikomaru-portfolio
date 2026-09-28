@@ -22,9 +22,13 @@ This site is built on the following technology stack.
 - `lefthook` installs a `pre-commit` hook and runs `pnpm run check` automatically before commits.
 - GitHub Actions run the same check flow in CI and include the label sync workflow for `.github/labels.json`.
 
-## Sitemap
+## Project links
 
-`/sitemap.xml` lists English and Japanese public pages and project detail pages with a Japanese Markdown article, plus the non-private slides in the R2 slide list. It is generated on request so newly published slides appear without rebuilding the app. `/robots.txt` advertises the sitemap.
+Project detail source and documentation URLs are maintained in both `en.md` and `ja.md` under `app/src/routes/(site)/_main/projects/-content/`. Update both locales when repositories or documentation domains move. Links to another project article use `./Slug` and are rendered as locale-aware router links.
+
+## Image presentation
+
+About story photos keep their original aspect ratio beside the text. The Photos gallery shows thumbnails without an entrance animation; selecting one opens the full-size lightbox.
 
 ## APM
 
