@@ -81,7 +81,12 @@ export default function AboutMarkdown({ markdown }: AboutMarkdownProps) {
                         if (href === MORINO_PARTY_URL) {
                             return (
                                 <a href={href} className={styles.brandLink} {...externalProps}>
-                                    <img className={styles.brandIcon} src="/moripa.svg" alt="" aria-hidden="true" />
+                                    <img
+                                        className={styles.brandIcon}
+                                        src="/assets/moripa.svg"
+                                        alt=""
+                                        aria-hidden="true"
+                                    />
                                     <span className={styles.brandText}>{children}</span>
                                 </a>
                             );

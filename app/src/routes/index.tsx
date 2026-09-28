@@ -156,7 +156,7 @@ function AppPage() {
             <motion.div className={styles.greeting} variants={introItemMotion}>
                 <img
                     className={styles.icon}
-                    src="/icon.avif"
+                    src="/icon/icon.avif"
                     alt="icon"
                     width={48}
                     height={48}
