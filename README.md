@@ -28,7 +28,7 @@ Project detail source and documentation URLs are maintained in both `en.md` and 
 
 ## Image presentation
 
-About story photos keep their original aspect ratio, with each desktop section sizing the image column to its adjacent text. The Photos gallery shows thumbnails without an entrance animation; selecting one opens the full-size lightbox.
+About story photos keep their original aspect ratio and align to the top of the copy. Each desktop story uses equal-width columns and adjusts the section width to keep the photo as large as possible without exceeding half the section. The Photos gallery shows thumbnails without an entrance animation; selecting one opens the full-size lightbox.
 
 ## APM
 

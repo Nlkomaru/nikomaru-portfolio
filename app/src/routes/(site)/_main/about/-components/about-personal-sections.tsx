@@ -42,8 +42,7 @@ const aboutPersonalSectionsStyles = sva({
                 base: "8",
                 md: "4",
             },
-            // Different paragraph lengths can grow independently of the uncropped photo.
-            alignItems: { base: "start", lg: "center" },
+            alignItems: "start",
         },
         topicWithImage: {
             // Cap the whole section so wider screens do not force an oversized photo.
@@ -100,47 +99,28 @@ const aboutPersonalSectionsStyles = sva({
     },
 });
 
-// Text wraps at different widths in each language, so measure both columns rather than
-// stretching or cropping the 3:2 photo. Favor an image no taller than the copy.
-function fitStoryColumns(section: HTMLElement, copy: HTMLElement, media: HTMLElement, reverse: boolean) {
-    const gap = Number.parseFloat(getComputedStyle(section).columnGap) || 0;
-    const availableWidth = section.clientWidth - gap;
-    if (availableWidth <= 0) {
-        return;
-    }
-    const maxImageWidth = availableWidth / 2;
-    const minImageWidth = Math.min(192, maxImageWidth);
-    let bestWidth = minImageWidth;
-    let smallestGap = Number.POSITIVE_INFINITY;
+// Keep the image at the largest possible half-width column while the 3:2 photo
+// and its caption stay close to the height of the adjacent copy.
+function fitStorySection(section: HTMLElement, copy: HTMLElement, media: HTMLElement, containerWidth: number) {
+    const maxWidth = Math.min(containerWidth, Number.parseFloat(getComputedStyle(section).maxWidth));
+    const minWidth = Math.min(maxWidth, Math.max(640, maxWidth * 0.65));
+    let bestWidth = maxWidth;
+    let closestGap = Number.POSITIVE_INFINITY;
 
-    const measure = (imageWidth: number) => {
-        section.style.gridTemplateColumns = reverse
-            ? `minmax(0, ${imageWidth}px) minmax(0, 1fr)`
-            : `minmax(0, 1fr) minmax(0, ${imageWidth}px)`;
-        const heightGap = copy.getBoundingClientRect().height - media.getBoundingClientRect().height;
-        if (heightGap >= 0 && heightGap < smallestGap) {
-            bestWidth = imageWidth;
-            smallestGap = heightGap;
+    // Wrapping changes in whole lines. Try wider sections first so the first close
+    // match retains the largest image allowed by the equal-width grid columns.
+    for (let width = maxWidth; width >= minWidth; width -= 8) {
+        section.style.width = `${width}px`;
+        const heightGap = Math.abs(copy.getBoundingClientRect().height - media.getBoundingClientRect().height);
+        if (heightGap < closestGap) {
+            bestWidth = width;
+            closestGap = heightGap;
         }
-    };
-
-    // Paragraph wrapping creates discrete height jumps; sample across the available width
-    // before refining the closest fit instead of assuming a monotonic text height.
-    for (let width = minImageWidth; width <= maxImageWidth && smallestGap >= 1; width += 24) {
-        measure(width);
-    }
-    if (smallestGap >= 1) {
-        measure(maxImageWidth);
-        const coarseWidth = bestWidth;
-        for (
-            let width = Math.max(minImageWidth, coarseWidth - 24);
-            width <= Math.min(maxImageWidth, coarseWidth + 24) && smallestGap >= 1;
-            width += 2
-        ) {
-            measure(width);
+        if (heightGap <= 16) {
+            break;
         }
     }
-    measure(bestWidth);
+    section.style.width = `${bestWidth}px`;
 }
 
 interface AboutPersonalSectionsProps {
@@ -203,25 +183,25 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
         const section = sectionRef.current;
         const copy = copyRef.current;
         const media = mediaRef.current;
-        if (!section || !copy || !media) {
+        const container = section?.parentElement;
+        if (!section || !copy || !media || !container) {
             return;
         }
 
         const desktop = window.matchMedia("(min-width: 64rem)");
         const alignColumns = () => {
             if (desktop.matches) {
-                fitStoryColumns(section, copy, media, reverse);
+                fitStorySection(section, copy, media, container.clientWidth);
             } else {
-                section.style.removeProperty("grid-template-columns");
+                section.style.removeProperty("width");
             }
         };
-        let lastWidth = section.clientWidth;
+        let lastWidth = container.clientWidth;
         let lastGap = getComputedStyle(section).columnGap;
         alignColumns();
         const onResize = () => {
-            const width = section.clientWidth;
+            const width = container.clientWidth;
             const gap = getComputedStyle(section).columnGap;
-            // The xl breakpoint changes the gap even after max-width caps the section.
             if (width !== lastWidth || gap !== lastGap) {
                 lastWidth = width;
                 lastGap = gap;
@@ -229,11 +209,11 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
             }
         };
         const observer = new ResizeObserver(onResize);
-        observer.observe(section);
+        observer.observe(container);
         window.addEventListener("resize", onResize);
         desktop.addEventListener("change", alignColumns);
 
-        // Web fonts may change wrapping after the first layout pass.
+        // Web fonts may change paragraph wrapping after the first layout pass.
         let active = true;
         void document.fonts.ready.then(() => {
             if (active) {
@@ -245,9 +225,9 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
             observer.disconnect();
             desktop.removeEventListener("change", alignColumns);
             window.removeEventListener("resize", onResize);
-            section.style.removeProperty("grid-template-columns");
+            section.style.removeProperty("width");
         };
-    }, [reverse]);
+    }, []);
 
     return (
         <section ref={sectionRef} className={rootClassName} aria-labelledby={headingId}>
