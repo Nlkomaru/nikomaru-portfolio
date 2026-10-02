@@ -22,6 +22,14 @@ This site is built on the following technology stack.
 - `lefthook` installs a `pre-commit` hook and runs `pnpm run check` automatically before commits.
 - GitHub Actions run the same check flow in CI and include the label sync workflow for `.github/labels.json`.
 
+## Project links
+
+Project detail source and documentation URLs are maintained in both `en.md` and `ja.md` under `app/src/routes/(site)/_main/projects/-content/`. Update both locales when repositories or documentation domains move. Links to another project article use `./Slug` and are rendered as locale-aware router links.
+
+## Image presentation
+
+About story photos keep their original aspect ratio and align to the top of the copy. On desktop, each story section fills the available page width; its image column starts at half the section and narrows until the photo and adjacent copy have similar heights, with the copy taking the freed space. The Photos gallery shows thumbnails without an entrance animation; selecting one opens the full-size lightbox.
+
 ## APM
 
 This repository includes an `apm.yml` manifest for MCP setup.

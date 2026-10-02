@@ -8,18 +8,18 @@ metaItems:
   - term: Role
     description: Developer
   - term: Stack
-    description: Kotlin · Paper API · ProtocolLib · Object Storage
+    description: Kotlin · Paper API · PacketEvents · Object Storage
   - term: Year
     description: 2023 — 2024
   - term: Status
     description: Released
   - term: Document
-    description: minestamp.plugin.nikomaru.page
-    href: https://minestamp.plugin.nikomaru.page
+    description: minestamp.plugin.morino.party
+    href: https://minestamp.plugin.morino.party/
     external: true
   - term: Source
-    description: Nlkomaru/MineStamp
-    href: https://github.com/Nlkomaru/MineStamp
+    description: morinoparty/MineStamp
+    href: https://github.com/morinoparty/MineStamp
     external: true
 coverImage:
   src: ./assets/player-with-emoji.avif
@@ -50,7 +50,7 @@ Minecraftサーバー内のコミュニケーションはチャットやアク�
 
 ## 実装と運用
 
-MineStampではProtocolLibを利用し、Minecraftクライアントに見える表示を制御しています。ほぼすべてのUnicode絵文字を扱えるようにし、`en_US` と `ja_JP` の多言語表示にも対応しました。
+MineStampではPacketEventsを利用し、スタンプを描画するパケットをMinecraftクライアントへ送信しています。ほぼすべてのUnicode絵文字を扱えるようにし、`en_US` と `ja_JP` の多言語表示にも対応しました。
 
 また、複数サーバー構成で同じスタンプデータを扱えるよう、S3・MinIO・Cloudflare R2などのオブジェクトストレージを利用した同期をサポートしています。単一サーバーの装飾機能で終わらせず、ネットワーク型のMinecraftサーバーでも扱いやすいことを意識したプラグインです。
 
