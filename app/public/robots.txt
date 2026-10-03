@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://nikomaru.dev/sitemap.xml
+Sitemap: https://www.nikomaru.dev/sitemap.xml

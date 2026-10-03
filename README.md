@@ -26,6 +26,12 @@ This site is built on the following technology stack.
 
 Project detail source and documentation URLs are maintained in both `en.md` and `ja.md` under `app/src/routes/(site)/_main/projects/-content/`. Update both locales when repositories or documentation domains move. Links to another project article use `./Slug` and are rendered as locale-aware router links.
 
+## Search indexing
+
+The production origin is `https://www.nikomaru.dev`; the apex domain redirects to `www`. `/sitemap.xml` and the sitemap declaration in `app/public/robots.txt` must use this same origin. The sitemap lists public pages in both locales, project articles, and non-private slides.
+
+After deployment, submit `https://www.nikomaru.dev/sitemap.xml` in the matching Search Console property. A successful browser request does not prove Googlebot can fetch it; if Search Console still reports a fetch failure, check its error details and Cloudflare security events for blocked Google requests.
+
 ## Image presentation
 
 About story photos keep their original aspect ratio and align to the top of the copy. On desktop, each story section fills the available page width; its image column starts at half the section and narrows until the photo and adjacent copy have similar heights, with the copy taking the freed space. The Photos gallery shows thumbnails without an entrance animation; selecting one opens the full-size lightbox.
