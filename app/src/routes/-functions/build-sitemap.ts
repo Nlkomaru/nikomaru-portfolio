@@ -1,4 +1,4 @@
-const SITE_ORIGIN = "https://nikomaru.dev";
+const SITE_ORIGIN = "https://www.nikomaru.dev";
 const PUBLIC_PATHS = ["/", "/about", "/photos", "/projects", "/talks"];
 
 // URLs are generated from the same project and slide collections as the public pages.
