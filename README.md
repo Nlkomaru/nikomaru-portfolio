@@ -28,7 +28,7 @@ Project detail source and documentation URLs are maintained in both `en.md` and 
 
 ## Search indexing
 
-The production origin is `https://www.nikomaru.dev`; the apex domain redirects to `www`. `/sitemap.xml` and the sitemap declaration in `app/public/robots.txt` must use this same origin. The sitemap lists public pages in both locales, project articles, and non-private slides.
+The production origin is `https://www.nikomaru.dev`; the apex domain redirects to `www`. `/sitemap.xml` and the sitemap declaration in `app/public/robots.txt` must use this same origin. The sitemap lists public pages in both locales, project articles, and public slides (excluding draft and private).
 
 After deployment, submit `https://www.nikomaru.dev/sitemap.xml` in the matching Search Console property. A successful browser request does not prove Googlebot can fetch it; if Search Console still reports a fetch failure, check its error details and Cloudflare security events for blocked Google requests.
 
