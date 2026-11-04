@@ -7,11 +7,12 @@ export const Route = createFileRoute("/sitemap.xml")({
     server: {
         handlers: {
             GET: async () => {
-                // The talks archive and sitemap must expose the same set of non-private slides.
+                // The talks archive and sitemap must expose the same set of public slides (excluding draft and private).
                 const slides = await getSlides();
+                const publicSlides = slides.filter((slide) => slide.type === "public");
                 const sitemap = buildSitemap(
                     projectSlugs,
-                    slides.map((slide) => slide.id),
+                    publicSlides.map((slide) => slide.id),
                 );
 
                 return new Response(sitemap, {
