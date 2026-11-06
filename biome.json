@@ -24,6 +24,8 @@
             "!**/env.d.ts",
             "!**/worker-configuration.d.ts",
             "!**/routeTree.gen.ts",
+            "!app/src/routes/(site)/_main/photos/-content/photos.json",
+            "!scripts/photo-sync-state.json",
             "!**/storybook-static",
             "!**/.source"
         ],

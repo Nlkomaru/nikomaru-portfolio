@@ -1,8 +1,6 @@
 name: Deploy
 
 on:
-  schedule:
-    - cron: "17 19 * * *"
   workflow_dispatch:
   push:
     branches:
@@ -68,11 +66,6 @@ jobs:
       - name: Install
         run: pnpm install
 
-      - name: Sync favorite photos
-        run: pnpm run photos:sync
-        env:
-          OMOIDE_API_KEY: ${{ secrets.OMOIDE_API_KEY }}
-          OMOIDE_API_URL: ${{ vars.OMOIDE_API_URL || 'https://omoide.nikomaru.dev' }}
 
       - name: Build app
         run: pnpm run build
