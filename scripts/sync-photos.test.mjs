@@ -807,3 +807,29 @@ test("limits large images to 2560 pixels without enlarging small inputs or chang
         ],
     );
 });
+
+test("streams real-time synchronization progress to the logger", async (t) => {
+    const original = await fixture("png", { width: 100, height: 100 });
+    const photos = [summary(1, original)];
+    const api = await galleryApi(t, {
+        photos,
+        images: new Map([[photos[0].jpegUrl, original]]),
+    });
+    const work = await workspace(t);
+    const logs = [];
+    await syncPhotos({
+        ...options(api, work),
+        logger: (message) => logs.push(message),
+    });
+    assert.ok(logs.some((msg) => msg.includes("Fetching favorite photos")));
+    assert.ok(logs.some((msg) => msg.includes("Found 1 favorite photo")));
+    assert.ok(logs.some((msg) => msg.includes("[1/1] Downloading & converting")));
+    assert.ok(logs.some((msg) => msg.includes("[1/1] Generated")));
+
+    const secondLogs = [];
+    await syncPhotos({
+        ...options(api, work),
+        logger: (message) => secondLogs.push(message),
+    });
+    assert.ok(secondLogs.some((msg) => msg.includes("[1/1] Reused")));
+});
