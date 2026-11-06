@@ -272,7 +272,7 @@ async function collectPhotos(baseUrl, apiKey, stats) {
 }
 
 /** Sources are ephemeral: only revision, kind, and generated artifact metadata belong in state. */
-export async function collectSources(baseUrl, apiKey, { stats } = {}) {
+export async function collectSources(baseUrl, apiKey, { stats, logger } = {}) {
     if (typeof apiKey !== "string" || apiKey.trim() === "") throw new Error("OMOIDE_API_KEY is required.");
     const apiUrl = apiBaseUrl(baseUrl);
     const parents = await collectPhotos(apiUrl, apiKey, stats);
@@ -311,6 +311,7 @@ export async function collectSources(baseUrl, apiKey, { stats } = {}) {
         }
     }
     sources.sort((a, b) => b.takenAt - a.takenAt || (a.entry.id < b.entry.id ? -1 : a.entry.id > b.entry.id ? 1 : 0));
+    logger?.(`Found ${sources.length} favorite photo variant(s).`);
     return sources;
 }
 
@@ -531,12 +532,14 @@ export async function syncPhotos({
     statePath,
     processing = PROCESSING_CONFIG,
     onProgress,
+    logger,
 } = {}) {
     const paths = outputPaths(outputDirectory, manifestPath, statePath);
     const config = processingConfig(processing);
     const fingerprint = createProcessingFingerprint(config);
     const stats = { metadataRequests: 0, assetDownloads: 0, encodes: 0, reused: 0 };
-    const sources = await collectSources(baseUrl, apiKey, { stats });
+    logger?.("Fetching favorite photos from Omoide API...");
+    const sources = await collectSources(baseUrl, apiKey, { stats, logger });
     const oldState = await readState(paths.state);
     const publications = [];
     try {
@@ -546,8 +549,10 @@ export async function syncPhotos({
         await mkdir(output.next);
         const manifest = { photos: [] };
         const state = { version: STATE_VERSION, processingFingerprint: fingerprint, photos: {} };
-        for (const source of sources) {
+        for (let i = 0; i < sources.length; i++) {
+            const source = sources[i];
             const id = source.entry.id;
+            const progress = `[${i + 1}/${sources.length}]`;
             const old = oldState?.photos[id];
             const previousPath = join(paths.output, `${id}.avif`);
             const nextPath = join(output.next, `${id}.avif`);
@@ -573,9 +578,12 @@ export async function syncPhotos({
                         blurhash: old.blurhash,
                     };
                     stats.reused++;
+                    const sizeKb = Math.round(artifact.byteSize / 1024);
+                    logger?.(`${progress} Reused ${id} (${source.kind}, ${sizeKb} kB)`);
                 }
             }
             if (!artifact) {
+                logger?.(`${progress} Downloading & converting ${id} (${source.kind})...`);
                 const converted = await convertImage(source, apiKey, config, stats);
                 await writeFile(nextPath, converted.data);
                 artifact = {
@@ -585,6 +593,8 @@ export async function syncPhotos({
                     height: converted.height,
                     blurhash: converted.blurhash,
                 };
+                const sizeKb = Math.round(artifact.byteSize / 1024);
+                logger?.(`${progress} Generated ${id} (${artifact.width}x${artifact.height}, ${sizeKb} kB)`);
             }
             state.photos[id] = { kind: source.kind, revision: source.revision, ...artifact };
             manifest.photos.push({
@@ -608,6 +618,9 @@ export async function syncPhotos({
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
     try {
         const { photos } = await syncPhotos({
+            logger: (message) => {
+                process.stdout.write(`${message}\n`);
+            },
             onProgress: ({ metadataRequests, assetDownloads, encodes, reused }) => {
                 process.stdout.write(
                     `Photo sync: metadataRequests=${metadataRequests} assetDownloads=${assetDownloads} encodes=${encodes} reused=${reused}\n`,
