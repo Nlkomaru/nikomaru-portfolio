@@ -16,7 +16,7 @@ stories:
   - id: photography
     title: Looking for structure in everyday scenes
     image:
-      src: /photos/2026-03-28_kanazawa/images/_DSC1198.avif
+      src: /about/kanazawa.avif
       alt: A glass-and-steel architectural pattern photographed in Kanazawa
       caption: Kanazawa, 2026
 careerTitle: Career & learning
