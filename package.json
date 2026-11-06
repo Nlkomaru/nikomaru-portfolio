@@ -7,6 +7,8 @@
         "build": "pnpm --filter @nikomaru-portfolio/app build",
         "preview": "pnpm --filter @nikomaru-portfolio/app preview",
         "test": "pnpm --filter @nikomaru-portfolio/app test",
+        "photos:sync": "node --env-file-if-exists=.env scripts/sync-photos.mjs",
+        "test:photos": "node --test scripts/sync-photos.test.mjs",
         "prepare": "lefthook install",
         "check": "biome check . --write",
         "deploy": "pnpm --filter @nikomaru-portfolio/app deploy",
@@ -21,6 +23,8 @@
     "devDependencies": {
         "@biomejs/biome": "^2.4.10",
         "@lhci/cli": "0.15.1",
-        "lefthook": "^2.1.6"
+        "blurhash": "^2.0.5",
+        "lefthook": "^2.1.6",
+        "sharp": "^0.35.5"
     }
 }

@@ -16,7 +16,7 @@ stories:
   - id: photography
     title: 写真
     image:
-      src: /photos/2026-03-28_kanazawa/images/_DSC1198.avif
+      src: /about/kanazawa.avif
       alt: 金沢で撮影したガラスと鉄骨の建築パターン
       caption: Kanazawa, 2026
 careerTitle: 経歴と学び

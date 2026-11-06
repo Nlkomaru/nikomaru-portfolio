@@ -91,6 +91,14 @@ const config = defineConfig({
                     path: "/",
                     prerender: { enabled: true },
                 },
+                {
+                    path: "/photos",
+                    prerender: { enabled: true },
+                },
+                {
+                    path: "/ja/photos",
+                    prerender: { enabled: true },
+                },
                 ...projectPrerenderPages,
             ],
         }),

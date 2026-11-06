@@ -27,6 +27,10 @@ todos.json
 
 memo.txt
 sample/
+# Local photo-generation staging data.
+/app/public/.photos-staging-*/
+/app/src/routes/(site)/_main/photos/-content/.photos.json-staging-*/
+/scripts/.photo-sync-state.json-staging-*/
 
 # PNG のみリポジトリ直下（サブディレクトリは対象外）
 /*.png

@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -32,6 +31,9 @@ jobs:
 
       - name: Test
         run: pnpm run test
+
+      - name: Test photo synchronizer
+        run: pnpm run test:photos
 
   deploy-app:
     needs: check
@@ -63,6 +65,7 @@ jobs:
 
       - name: Install
         run: pnpm install
+
 
       - name: Build app
         run: pnpm run build
@@ -101,6 +104,7 @@ jobs:
           R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
 
   deploy-storybook:
+    if: github.event_name != 'schedule'
     needs: check
     runs-on: ubuntu-latest
     name: Deploy Storybook

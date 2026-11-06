@@ -45,6 +45,9 @@ jobs:
 
           exit "$status"
 
+      - name: Test photo synchronizer
+        run: pnpm run test:photos
+
       - name: Upload test result
         if: always()
         uses: actions/upload-artifact@v4
