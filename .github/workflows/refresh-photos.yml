@@ -14,9 +14,10 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
-      actions: write
       contents: write
       pull-requests: write
+    outputs:
+      changed: ${{ steps.snapshot.outputs.changed }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -120,8 +121,8 @@ jobs:
             exit 1
           fi
 
-      - name: Deploy merged snapshot
-        if: steps.snapshot.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run deploy.yml --ref main
+  deploy:
+    needs: refresh
+    if: needs.refresh.outputs.changed == 'true'
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
