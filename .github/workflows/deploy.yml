@@ -2,6 +2,7 @@ name: Deploy
 
 on:
   workflow_dispatch:
+  workflow_call:
   push:
     branches:
       - main
@@ -11,6 +12,8 @@ jobs:
     name: Check
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
@@ -43,6 +46,8 @@ jobs:
     name: Deploy App
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Get secrets from Bitwarden Secrets Manager
         uses: bitwarden/sm-action@v2
@@ -104,12 +109,14 @@ jobs:
           R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
 
   deploy-storybook:
-    if: github.event_name != 'schedule'
+    if: github.event_name != 'schedule' && github.event_name != 'workflow_call'
     needs: check
     runs-on: ubuntu-latest
     name: Deploy Storybook
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Get secrets from Bitwarden Secrets Manager
         uses: bitwarden/sm-action@v2
