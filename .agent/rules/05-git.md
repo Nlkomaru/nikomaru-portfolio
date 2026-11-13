@@ -1,9 +1,11 @@
 # Gitのルール
 
 ## Repository
+
 - [nikomaru-portfolio](https://github.com/nlkomaru/nikomaru-portfolio)
 
 ## コミットメッセージ
+
 - コミットメッセージは英語で書き、以下のような形式で書く。
 
 ```
@@ -11,7 +13,8 @@ emoji コミットの概要
 
 ```
 
-例: 
+例:
+
 ```
 🎨 Add new page to portfolio site
 ```

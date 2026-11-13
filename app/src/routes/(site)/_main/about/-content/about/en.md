@@ -3,22 +3,22 @@ pageTitle: About
 metaDescription: About Nikomaru, a computer science student and software developer working across web applications and Minecraft server technology.
 avatarAlt: Nikomaru icon
 sectionTitles:
-  about: About me
-  hobby: Hobbies
-  future: Next
+    about: About me
+    hobby: Hobbies
+    future: Next
 stories:
-  - id: baking
-    title: Baking as another way to build
-    image:
-      src: /sweets/bonbon-au-chocolat.avif
-      alt: Bonbon au chocolat made as a baking project
-      caption: Bonbon au chocolat
-  - id: photography
-    title: Looking for structure in everyday scenes
-    image:
-      src: /about/kanazawa.avif
-      alt: A glass-and-steel architectural pattern photographed in Kanazawa
-      caption: Kanazawa, 2026
+    - id: baking
+      title: Baking as another way to build
+      image:
+          src: /sweets/bonbon-au-chocolat.avif
+          alt: Bonbon au chocolat made as a baking project
+          caption: Bonbon au chocolat
+    - id: photography
+      title: Looking for structure in everyday scenes
+      image:
+          src: /about/kanazawa.avif
+          alt: A glass-and-steel architectural pattern photographed in Kanazawa
+          caption: Kanazawa, 2026
 careerTitle: Career & learning
 careerDescription: My education and community involvement.
 qualificationTitle: Qualifications & certifications
@@ -27,6 +27,7 @@ qualificationEmptyLabel: Qualification details are being prepared.
 qualificationExpectedLabel: expected
 presentLabel: Present
 ---
+
 section: intro
 ---
 
@@ -37,6 +38,7 @@ At [Morino Party](https://morino.party), I work across the systems that connect 
 I also maintain development and delivery workflows with Docker and GitHub Actions. My goal is to build software that remains understandable for maintainers and straightforward for the people using it.
 
 ---
+
 section: story
 id: baking
 ---
@@ -48,6 +50,7 @@ That habit is close to how I write software: observe, change one thing, and make
 Baking is also a useful way to think about the people who receive what I make. A small difference in texture, shape, or timing can change the whole impression, so I try to look at the result from the outside, not only from the process that produced it.
 
 ---
+
 section: story
 id: photography
 ---
@@ -61,6 +64,7 @@ I like finding a clear frame inside a busy scene. Deciding what to include, what
 I shoot with a [Sony α7C](https://www.sony.com/electronics/interchangeable-lens-cameras/ilce-7c) and a [SIGMA 28-70mm F2.8 DG DN | Contemporary](https://www.sigma-global.com/en/lenses/c021_28_70_28/).
 
 ---
+
 section: future
 ---
 

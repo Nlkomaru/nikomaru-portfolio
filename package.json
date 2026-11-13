@@ -10,7 +10,7 @@
         "photos:sync": "node --env-file-if-exists=.env scripts/sync-photos.mjs",
         "test:photos": "node --test scripts/sync-photos.test.mjs",
         "prepare": "lefthook install",
-        "check": "biome check . --write",
+        "check": "vp check",
         "deploy": "pnpm --filter @nikomaru-portfolio/app deploy",
         "deploy:app": "pnpm --filter @nikomaru-portfolio/app deploy",
         "deploy:storybook": "pnpm --filter ./storybook deploy",
@@ -19,12 +19,13 @@
         "build-storybook": "pnpm --filter ./storybook build",
         "test:runner": "pnpm --filter ./storybook test:runner"
     },
-    "packageManager": "pnpm@10.33.2",
     "devDependencies": {
-        "@biomejs/biome": "^2.4.10",
         "@lhci/cli": "0.15.1",
         "blurhash": "^2.0.5",
         "lefthook": "^2.1.6",
-        "sharp": "^0.35.5"
-    }
+        "sharp": "^0.35.5",
+        "vite": "npm:@voidzero-dev/vite-plus-core@1.5.1",
+        "vite-plus": "1.5.1"
+    },
+    "packageManager": "pnpm@12.18.0"
 }

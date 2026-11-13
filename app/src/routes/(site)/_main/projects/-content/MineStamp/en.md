@@ -2,39 +2,40 @@
 slug: MineStamp
 title: MineStamp
 abstract: >-
-  MineStamp is a Minecraft plugin that displays emoji stamps above players.
-  It supports Unicode emoji, multilingual messages, and multi-server synchronization through object storage such as S3, MinIO, and Cloudflare R2.
+    MineStamp is a Minecraft plugin that displays emoji stamps above players.
+    It supports Unicode emoji, multilingual messages, and multi-server synchronization through object storage such as S3, MinIO, and Cloudflare R2.
 metaItems:
-  - term: Role
-    description: Developer
-  - term: Stack
-    description: Kotlin · Paper API · PacketEvents · Object Storage
-  - term: Year
-    description: 2023 — 2024
-  - term: Status
-    description: Released
-  - term: Document
-    description: minestamp.plugin.morino.party
-    href: https://minestamp.plugin.morino.party/
-    external: true
-  - term: Source
-    description: morinoparty/MineStamp
-    href: https://github.com/morinoparty/MineStamp
-    external: true
+    - term: Role
+      description: Developer
+    - term: Stack
+      description: Kotlin · Paper API · PacketEvents · Object Storage
+    - term: Year
+      description: 2023 — 2024
+    - term: Status
+      description: Released
+    - term: Document
+      description: minestamp.plugin.morino.party
+      href: https://minestamp.plugin.morino.party/
+      external: true
+    - term: Source
+      description: morinoparty/MineStamp
+      href: https://github.com/morinoparty/MineStamp
+      external: true
 coverImage:
-  src: ./assets/player-with-emoji.avif
-  alt: MineStamp displaying emoji above a player
-  blurhash: 'ULDvvLx{E1MwS,S*o#M^%jbeM_ocXBo2oHoc'
+    src: ./assets/player-with-emoji.avif
+    alt: MineStamp displaying emoji above a player
+    blurhash: "ULDvvLx{E1MwS,S*o#M^%jbeM_ocXBo2oHoc"
 openGraph:
-  title: MineStamp
-  description: A Minecraft plugin for displaying Unicode emoji stamps above players.
-  image: ./assets/player-with-emoji.png
-  imageAlt: MineStamp displaying emoji above a player
+    title: MineStamp
+    description: A Minecraft plugin for displaying Unicode emoji stamps above players.
+    image: ./assets/player-with-emoji.png
+    imageAlt: MineStamp displaying emoji above a player
 ---
+
 image:
-  src: ./assets/player-with-emoji.avif
-  alt: MineStamp displaying emoji above a player
-  caption: MineStamp emoji display
+src: ./assets/player-with-emoji.avif
+alt: MineStamp displaying emoji above a player
+caption: MineStamp emoji display
 layout: right-image
 ---
 

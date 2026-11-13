@@ -6,17 +6,17 @@
         "prepare": "panda codegen",
         "dev": "vite dev --port 3000 --host --open",
         "dev:tunnel": "sh -c 'vite dev --port 3000 --host 0.0.0.0 & vite_pid=$!; trap \"kill $vite_pid 2>/dev/null\" EXIT INT TERM; cloudflared tunnel --url http://localhost:3000'",
-        "build": "vite build",
+        "build": "cf build",
         "panda:codegen": "panda codegen",
         "paraglide:compile": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide",
         "preview": "pnpm run build && vite preview",
         "test": "vitest run --config vitest.config.ts",
-        "deploy": "pnpm run build && wrangler deploy",
-        "cf-typegen": "wrangler types"
+        "deploy": "pnpm run build && cf deploy --prebuilt",
+        "cf-typegen": "cf workers types"
     },
     "dependencies": {
         "@chakra-ui/react": "^3.34.0",
-        "@cloudflare/vite-plugin": "^1.13.8",
+        "@cloudflare/vite-plugin": "2.0.0-beta.v.12",
         "@emotion/react": "^11.14.0",
         "@fontsource/caveat": "^5.2.8",
         "@fontsource/jetbrains-mono": "^5.2.8",
@@ -51,10 +51,11 @@
         "@types/react-dom": "^19.2.0",
         "@vitejs/plugin-react": "^5.0.4",
         "autoprefixer": "^10.4.27",
+        "cf": "1.0.0-beta.28",
         "jsdom": "^27.0.0",
         "typescript": "^5.7.2",
-        "vite": "^7.1.7",
-        "vitest": "^3.0.5",
-        "wrangler": "^4.66.0"
+        "vite": "npm:@voidzero-dev/vite-plus-core@1.5.1",
+        "vite-plus": "1.5.1",
+        "vitest": "^3.0.5"
     }
 }

@@ -2,39 +2,40 @@
 slug: RaceAssist
 title: RaceAssist
 abstract: >-
-  RaceAssistは、Minecraftサーバー上で競馬イベントを開催するために開発したプラグインです。
-  レース開催、リアルタイム順位表示、ベッティング、外部連携API、フロントエンドによる情報表示をまとめて扱えるようにしました。
+    RaceAssistは、Minecraftサーバー上で競馬イベントを開催するために開発したプラグインです。
+    レース開催、リアルタイム順位表示、ベッティング、外部連携API、フロントエンドによる情報表示をまとめて扱えるようにしました。
 metaItems:
-  - term: Role
-    description: Developer
-  - term: Stack
-    description: Kotlin · Ktor · Bukkit/Paper API · OpenAPI · MUI
-  - term: Year
-    description: 2021 — 2024
-  - term: Status
-    description: Maintained
-  - term: Document
-    description: RaceAssist API Docs
-    href: https://raceassist.github.io/RaceAssist-core/-race-assist/dev.nikomaru.raceassist.api.core/-race-assist-a-p-i/index.html
-    external: true
-  - term: Source
-    description: RaceAssist/RaceAssist-core
-    href: https://github.com/RaceAssist/RaceAssist-core
-    external: true
+    - term: Role
+      description: Developer
+    - term: Stack
+      description: Kotlin · Ktor · Bukkit/Paper API · OpenAPI · MUI
+    - term: Year
+      description: 2021 — 2024
+    - term: Status
+      description: Maintained
+    - term: Document
+      description: RaceAssist API Docs
+      href: https://raceassist.github.io/RaceAssist-core/-race-assist/dev.nikomaru.raceassist.api.core/-race-assist-a-p-i/index.html
+      external: true
+    - term: Source
+      description: RaceAssist/RaceAssist-core
+      href: https://github.com/RaceAssist/RaceAssist-core
+      external: true
 coverImage:
-  src: ./assets/race-place.avif
-  alt: RaceAssist の競馬場
-  blurhash: 'UYG]ds${%Nx^p3xcxss+Imt5RPMxoNjJt7t7'
+    src: ./assets/race-place.avif
+    alt: RaceAssist の競馬場
+    blurhash: "UYG]ds${%Nx^p3xcxss+Imt5RPMxoNjJt7t7"
 openGraph:
-  title: RaceAssist
-  description: Minecraftサーバー上で競馬イベントを開催するためのレース支援プラグインです。
-  image: ./assets/race-place.png
-  imageAlt: RaceAssist の競馬場
+    title: RaceAssist
+    description: Minecraftサーバー上で競馬イベントを開催するためのレース支援プラグインです。
+    image: ./assets/race-place.png
+    imageAlt: RaceAssist の競馬場
 ---
+
 image:
-  src: ./assets/race-place.avif
-  alt: RaceAssist の競馬場
-  caption: RaceAssist を利用した競馬場
+src: ./assets/race-place.avif
+alt: RaceAssist の競馬場
+caption: RaceAssist を利用した競馬場
 layout: left-image
 ---
 
@@ -57,10 +58,11 @@ Minecraftサーバーで競馬イベントを開くには、コースの案内�
 順位判定では、コース上の進行度をどう扱うかが重要でした。READMEでは、初期の設計として角度差を使って順位を求めるため、コースは一周し交差しない形である必要があることを明示しています。この制約を運用上の前提として扱いながら、将来的にはベクトルによる算出へ置き換える想定も残していました。
 
 ---
+
 image:
-  src: ./assets/frontend.avif
-  alt: RaceAssist のフロントエンド画面
-  caption: RaceAssist のフロントエンド
+src: ./assets/frontend.avif
+alt: RaceAssist のフロントエンド画面
+caption: RaceAssist のフロントエンド
 layout: right-image
 ---
 

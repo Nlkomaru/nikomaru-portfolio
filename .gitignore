@@ -9,6 +9,7 @@ count.txt
 .nitro
 .tanstack
 .wrangler
+.cloudflare
 .output
 .vinxi
 __unconfig*

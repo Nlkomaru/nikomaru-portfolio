@@ -1,442 +1,377 @@
 name: Preview
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+    pull_request:
+        types: [opened, synchronize]
 
 permissions:
-  contents: read
-  pull-requests: write
-  id-token: write
+    contents: read
+    pull-requests: write
+    id-token: write
+
+env:
+    CF_SEND_TELEMETRY: "false"
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    name: Check
-    steps:
-      - uses: actions/checkout@v4
+    check:
+        runs-on: ubuntu-latest
+        name: Check
+        steps:
+            - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
+            - uses: voidzero-dev/setup-vp@v1.22.0
+              with:
+                  node-version-file: .node-version
+                  cache: true
+                  run-install: |
+                      args: ["--frozen-lockfile"]
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
+            - name: Check
+              run: pnpm run check
 
-      - name: Install
-        run: pnpm install
+            - name: Test
+              shell: bash
+              run: |
+                  set +e
+                  (
+                    cd app
+                    pnpm exec vitest run --config vitest.config.ts --reporter=json --outputFile=../test-result.json
+                  )
+                  status=$?
+                  node .github/workflows/scripts/test-result-summarize.mjs test-result.json test-result.md "$status"
 
-      - name: Check
-        run: pnpm run check
+                  exit "$status"
 
-      - name: Test
-        shell: bash
-        run: |
-          set +e
-          (
-            cd app
-            pnpm exec vitest run --config vitest.config.ts --reporter=json --outputFile=../test-result.json
-          )
-          status=$?
-          node .github/workflows/scripts/test-result-summarize.mjs test-result.json test-result.md "$status"
+            - name: Test photo synchronizer
+              run: pnpm run test:photos
 
-          exit "$status"
+            - name: Upload test result
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: test-result
+                  path: test-result.md
+                  if-no-files-found: ignore
 
-      - name: Test photo synchronizer
-        run: pnpm run test:photos
+    deploy-app-preview:
+        needs: check
+        runs-on: ubuntu-latest
+        name: Deploy App Preview
+        outputs:
+            deployment_url: ${{ steps.deploy-preview.outputs.deployment_url }}
+        steps:
+            - uses: actions/checkout@v4
 
-      - name: Upload test result
+            - name: Load Preview Secrets
+              uses: nlkomaru/secret-manager@v2
+              with:
+                  project: "nikomaru-portfolio"
+                  env: "preview"
+                  shared-keys: |
+                      CLOUDFLARE_ACCOUNT_ID
+
+            - uses: voidzero-dev/setup-vp@v1.22.0
+              with:
+                  node-version-file: .node-version
+                  cache: true
+                  run-install: |
+                      args: ["--frozen-lockfile"]
+
+            - name: Build app
+              run: pnpm run build
+
+            - name: Deploy app preview
+              id: deploy-preview
+              working-directory: app
+              env:
+                  CLOUDFLARE_API_TOKEN: ${{ env.CLOUDFLARE_API_TOKEN || env.CLOUDFLARE_API_KEY }}
+                  CLOUDFLARE_ACCOUNT_ID: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+              run: |
+                  pnpm exec cf workers versions create --prebuilt --message "Deployed preview by GitHub Actions branch ${{ github.ref_name }}" 2>&1 | tee cf-preview.log
+                  url=$(grep -Eo 'https://[^[:space:]]+' cf-preview.log | head -n 1 || true)
+                  if [ -z "$url" ]; then
+                    echo "Failed to resolve app preview URL from cf outputs."
+                    exit 1
+                  fi
+                  echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
+
+    deploy-storybook-preview:
+        needs: check
+        runs-on: ubuntu-latest
+        name: Deploy Storybook Preview
+        outputs:
+            deployment_url: ${{ steps.deploy-storybook-preview.outputs.deployment_url }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Load Preview Secrets
+              uses: nlkomaru/secret-manager@v2
+              with:
+                  project: "nikomaru-portfolio"
+                  env: "preview"
+                  shared-keys: |
+                      CLOUDFLARE_ACCOUNT_ID
+
+            - uses: voidzero-dev/setup-vp@v1.22.0
+              with:
+                  node-version-file: .node-version
+                  cache: true
+                  run-install: |
+                      args: ["--frozen-lockfile"]
+
+            - name: Build storybook
+              run: pnpm --filter ./storybook build
+
+            - name: Deploy storybook preview
+              id: deploy-storybook-preview
+              working-directory: storybook
+              env:
+                  CLOUDFLARE_API_TOKEN: ${{ env.CLOUDFLARE_API_TOKEN || env.CLOUDFLARE_API_KEY }}
+                  CLOUDFLARE_ACCOUNT_ID: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+              run: |
+                  pnpm exec cf workers versions create --prebuilt --message "Deployed storybook preview by GitHub Actions branch ${{ github.ref_name }}" 2>&1 | tee cf-preview.log
+                  url=$(grep -Eo 'https://[^[:space:]]+' cf-preview.log | head -n 1 || true)
+                  if [ -z "$url" ]; then
+                    echo "Failed to resolve storybook preview URL from cf outputs."
+                    exit 1
+                  fi
+                  echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
+
+    storybook-a11y:
+        needs: check
+        runs-on: ubuntu-latest
+        name: Storybook A11y
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: voidzero-dev/setup-vp@v1.22.0
+              with:
+                  node-version-file: .node-version
+                  cache: true
+                  run-install: |
+                      args: ["--frozen-lockfile"]
+
+            - name: Cache Playwright browsers
+              id: playwright-cache
+              uses: actions/cache@v4
+              with:
+                  path: ~/.cache/ms-playwright
+                  key: playwright-chromium-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+            - name: Install Playwright browser
+              if: steps.playwright-cache.outputs.cache-hit != 'true'
+              run: pnpm --filter ./storybook exec playwright install chromium --with-deps
+
+            - name: Install Playwright system dependencies
+              if: steps.playwright-cache.outputs.cache-hit == 'true'
+              run: pnpm --filter ./storybook exec playwright install-deps chromium
+
+            - name: Build storybook
+              run: pnpm --filter ./storybook build
+
+            - name: Run Storybook A11y test
+              shell: bash
+              run: |
+                  set +e
+                  rm -rf storybook/reports
+                  pnpm --filter ./storybook test:runner
+                  status=$?
+                  node .github/workflows/scripts/a11y-result-summarize.mjs storybook/reports/junit.xml a11y-result.md "$status" storybook/reports/a11y-violations.jsonl
+                  cat a11y-result.md >> "$GITHUB_STEP_SUMMARY"
+
+                  exit "$status"
+
+            - name: Upload A11y result
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: a11y-result
+                  path: |
+                      a11y-result.md
+                      storybook/reports/junit.xml
+                      storybook/reports/a11y-violations.jsonl
+                  if-no-files-found: ignore
+
+    lighthouse-app:
+        needs: deploy-app-preview
+        runs-on: ubuntu-latest
+        name: Prepare Lighthouse Matrix
+        outputs:
+            matrix: ${{ steps.matrix.outputs.matrix }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: voidzero-dev/setup-vp@v1.22.0
+              with:
+                  node-version-file: .node-version
+                  cache: true
+                  run-install: |
+                      args: ["--frozen-lockfile"]
+
+            - name: Build Lighthouse URL list
+              id: matrix
+              env:
+                  DEPLOYMENT_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
+              run: |
+                  node .github/workflows/scripts/lighthouse-build-urls.mjs
+                  {
+                    echo 'matrix<<EOF'
+                    cat lighthouse-matrix.json
+                    echo 'EOF'
+                  } >> "$GITHUB_OUTPUT"
+
+            - name: Upload Lighthouse manifest artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: lighthouse-manifest
+                  path: |
+                      lighthouse-urls.txt
+                      lighthouse-skipped.txt
+
+    lighthouse-app-pages:
+        needs: [deploy-app-preview, lighthouse-app]
+        runs-on: ubuntu-latest
+        name: Lighthouse ${{ matrix.path }}
+        strategy:
+            fail-fast: false
+            matrix:
+                include: ${{ fromJSON(needs.lighthouse-app.outputs.matrix) }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: voidzero-dev/setup-vp@v1.22.0
+              with:
+                  node-version-file: .node-version
+                  cache: true
+                  run-install: |
+                      args: ["--frozen-lockfile"]
+
+            - name: Write Lighthouse URL file
+              run: |
+                  printf '%s\n' '${{ matrix.url }}' > lighthouse-urls.txt
+
+            - name: Run Lighthouse
+              run: |
+                  ./.github/workflows/scripts/lighthouse-run.sh lighthouse-urls.txt .lighthouserc.generated.json lighthouse.log
+
+            - name: Upload Lighthouse result artifact
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: lighthouse-result-${{ matrix.id }}
+                  include-hidden-files: true
+                  path: |
+                      lighthouse.log
+                      lighthouse-urls.txt
+                      .lighthouseci
+
+    lighthouse-summary:
+        needs: [lighthouse-app, lighthouse-app-pages]
+        runs-on: ubuntu-latest
+        name: Summarize Lighthouse
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Download Lighthouse artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  path: .
+
+            - name: Summarize Lighthouse
+              continue-on-error: true
+              run: |
+                  node .github/workflows/scripts/lighthouse-summarize.mjs
+
+            - name: Upload Lighthouse summary artifact
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: lighthouse-summary
+                  path: lighthouse-summary.md
+
+    comment:
+        needs: [check, deploy-app-preview, deploy-storybook-preview, storybook-a11y, lighthouse-summary]
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-result
-          path: test-result.md
-          if-no-files-found: ignore
-
-  deploy-app-preview:
-    needs: check
-    runs-on: ubuntu-latest
-    name: Deploy App Preview
-    outputs:
-      deployment_url: ${{ steps.resolve-app-preview-url.outputs.deployment_url }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Load Preview Secrets
-        uses: nlkomaru/secret-manager@main
-        with:
-          project: "nikomaru-portfolio"
-          env: "preview"
-
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
-
-      - name: Install
-        run: pnpm install
-
-      - name: Build app
-        run: pnpm run build
-
-      - name: Deploy app preview
-        id: deploy-preview
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ env.CLOUDFLARE_API_KEY }}
-          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
-          command: versions upload --message "Deployed preview by GitHub Actions branch ${{ github.ref_name }}"
-          workingDirectory: app
-
-      - name: Resolve app preview URL
-        id: resolve-app-preview-url
-        env:
-          WRANGLER_DEPLOYMENT_URL: ${{ steps.deploy-preview.outputs.deployment-url }}
-          WRANGLER_COMMAND_OUTPUT: ${{ steps.deploy-preview.outputs.command-output }}
-          WRANGLER_COMMAND_STDERR: ${{ steps.deploy-preview.outputs.command-stderr }}
-        shell: bash
-        run: |
-          url="$WRANGLER_DEPLOYMENT_URL"
-          if [ -z "$url" ]; then
-            output="$WRANGLER_COMMAND_OUTPUT"$'\n'"$WRANGLER_COMMAND_STDERR"
-            url=$(echo "$output" | grep -Eo 'https://[^[:space:]]+' | head -n 1 || true)
-          fi
-
-          if [ -z "$url" ]; then
-            echo "Failed to resolve app preview URL from wrangler-action outputs."
-            exit 1
-          fi
-
-          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
-
-  deploy-storybook-preview:
-    needs: check
-    runs-on: ubuntu-latest
-    name: Deploy Storybook Preview
-    outputs:
-      deployment_url: ${{ steps.resolve-storybook-preview-url.outputs.deployment_url }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
-
-      - name: Install
-        run: pnpm install
-
-      - name: Load Preview Secrets
-        uses: nlkomaru/secret-manager@main
-        with:
-          project: "nikomaru-portfolio"
-          env: "preview"
-
-      - name: Build storybook
-        run: pnpm --filter ./storybook build
-
-      - name: Deploy storybook preview
-        id: deploy-storybook-preview
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ env.CLOUDFLARE_API_KEY }}
-          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
-          command: versions upload --message "Deployed storybook preview by GitHub Actions branch ${{ github.ref_name }}"
-          workingDirectory: storybook
-
-      - name: Resolve storybook preview URL
-        id: resolve-storybook-preview-url
-        env:
-          WRANGLER_DEPLOYMENT_URL: ${{ steps.deploy-storybook-preview.outputs.deployment-url }}
-          WRANGLER_COMMAND_OUTPUT: ${{ steps.deploy-storybook-preview.outputs.command-output }}
-          WRANGLER_COMMAND_STDERR: ${{ steps.deploy-storybook-preview.outputs.command-stderr }}
-        shell: bash
-        run: |
-          url="$WRANGLER_DEPLOYMENT_URL"
-          if [ -z "$url" ]; then
-            output="$WRANGLER_COMMAND_OUTPUT"$'\n'"$WRANGLER_COMMAND_STDERR"
-            url=$(echo "$output" | grep -Eo 'https://[^[:space:]]+' | head -n 1 || true)
-          fi
-
-          if [ -z "$url" ]; then
-            echo "Failed to resolve storybook preview URL from wrangler-action outputs."
-            exit 1
-          fi
-
-          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
-
-  storybook-a11y:
-    needs: check
-    runs-on: ubuntu-latest
-    name: Storybook A11y
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
-
-      - name: Install
-        run: pnpm install
-
-      - name: Cache Playwright browsers
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-
-      - name: Install Playwright browser
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: pnpm --filter ./storybook exec playwright install chromium --with-deps
-
-      - name: Install Playwright system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: pnpm --filter ./storybook exec playwright install-deps chromium
-
-      - name: Build storybook
-        run: pnpm --filter ./storybook build
-
-      - name: Run Storybook A11y test
-        shell: bash
-        run: |
-          set +e
-          rm -rf storybook/reports
-          pnpm --filter ./storybook test:runner
-          status=$?
-          node .github/workflows/scripts/a11y-result-summarize.mjs storybook/reports/junit.xml a11y-result.md "$status" storybook/reports/a11y-violations.jsonl
-          cat a11y-result.md >> "$GITHUB_STEP_SUMMARY"
-
-          exit "$status"
-
-      - name: Upload A11y result
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: a11y-result
-          path: |
-            a11y-result.md
-            storybook/reports/junit.xml
-            storybook/reports/a11y-violations.jsonl
-          if-no-files-found: ignore
-
-  lighthouse-app:
-    needs: deploy-app-preview
-    runs-on: ubuntu-latest
-    name: Prepare Lighthouse Matrix
-    outputs:
-      matrix: ${{ steps.matrix.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
-
-      - name: Install
-        run: pnpm install
-
-      - name: Build Lighthouse URL list
-        id: matrix
-        env:
-          DEPLOYMENT_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
-        run: |
-          node .github/workflows/scripts/lighthouse-build-urls.mjs
-          {
-            echo 'matrix<<EOF'
-            cat lighthouse-matrix.json
-            echo 'EOF'
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Upload Lighthouse manifest artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: lighthouse-manifest
-          path: |
-            lighthouse-urls.txt
-            lighthouse-skipped.txt
-
-  lighthouse-app-pages:
-    needs: [deploy-app-preview, lighthouse-app]
-    runs-on: ubuntu-latest
-    name: Lighthouse ${{ matrix.path }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include: ${{ fromJSON(needs.lighthouse-app.outputs.matrix) }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
-
-      - name: Install
-        run: pnpm install
-
-      - name: Write Lighthouse URL file
-        run: |
-          printf '%s\n' '${{ matrix.url }}' > lighthouse-urls.txt
-
-      - name: Run Lighthouse
-        run: |
-          ./.github/workflows/scripts/lighthouse-run.sh lighthouse-urls.txt .lighthouserc.generated.json lighthouse.log
-
-      - name: Upload Lighthouse result artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lighthouse-result-${{ matrix.id }}
-          include-hidden-files: true
-          path: |
-            lighthouse.log
-            lighthouse-urls.txt
-            .lighthouseci
-
-  lighthouse-summary:
-    needs: [lighthouse-app, lighthouse-app-pages]
-    runs-on: ubuntu-latest
-    name: Summarize Lighthouse
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download Lighthouse artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: .
-
-      - name: Summarize Lighthouse
-        continue-on-error: true
-        run: |
-          node .github/workflows/scripts/lighthouse-summarize.mjs
-
-      - name: Upload Lighthouse summary artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lighthouse-summary
-          path: lighthouse-summary.md
-
-  comment:
-    needs: [check, deploy-app-preview, deploy-storybook-preview, storybook-a11y, lighthouse-summary]
-    if: always()
-    runs-on: ubuntu-latest
-    name: Comment Preview URLs
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download Lighthouse summary
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          name: lighthouse-summary
-          path: .
-
-      - name: Download test result
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          name: test-result
-          path: .
-
-      - name: Download A11y result
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          name: a11y-result
-          path: .
-
-      - name: Create comment file
-        env:
-          APP_PREVIEW_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
-          STORYBOOK_PREVIEW_URL: ${{ needs.deploy-storybook-preview.outputs.deployment_url }}
-        run: |
-          cat << EOF > comment.md
-          ## Deploy preview
-          EOF
-
-          if [ -n "$APP_PREVIEW_URL" ]; then
-            echo "- App Preview URL: $APP_PREVIEW_URL" >> comment.md
-          else
-            echo "- App Preview URL: Not available" >> comment.md
-          fi
-
-          if [ -n "$STORYBOOK_PREVIEW_URL" ]; then
-            echo "- Storybook Preview URL: $STORYBOOK_PREVIEW_URL" >> comment.md
-          else
-            echo "- Storybook Preview URL: Not available" >> comment.md
-          fi
-
-          echo >> comment.md
-
-          if [ -f lighthouse-summary.md ]; then
-            cat lighthouse-summary.md >> comment.md
-          fi
-
-          if [ -f test-result.md ]; then
-            cat test-result.md >> comment.md
-          else
-            cat << EOF >> comment.md
-          <details>
-          <summary>Test Result</summary>
-
-          Test result artifact was not generated.
-
-          </details>
-          EOF
-          fi
-
-          if [ -f a11y-result.md ]; then
-            cat a11y-result.md >> comment.md
-          else
-            cat << EOF >> comment.md
-          <details>
-          <summary>A11y Test Result</summary>
-
-          A11y test result artifact was not generated.
-
-          </details>
-          EOF
-          fi
-
-      - name: Create PR comment
-        run: gh pr comment ${{ github.event.number }} --body-file comment.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        runs-on: ubuntu-latest
+        name: Comment Preview URLs
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Download Lighthouse summary
+              continue-on-error: true
+              uses: actions/download-artifact@v4
+              with:
+                  name: lighthouse-summary
+                  path: .
+
+            - name: Download test result
+              continue-on-error: true
+              uses: actions/download-artifact@v4
+              with:
+                  name: test-result
+                  path: .
+
+            - name: Download A11y result
+              continue-on-error: true
+              uses: actions/download-artifact@v4
+              with:
+                  name: a11y-result
+                  path: .
+
+            - name: Create comment file
+              env:
+                  APP_PREVIEW_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
+                  STORYBOOK_PREVIEW_URL: ${{ needs.deploy-storybook-preview.outputs.deployment_url }}
+              run: |
+                  cat << EOF > comment.md
+                  ## Deploy preview
+                  EOF
+
+                  if [ -n "$APP_PREVIEW_URL" ]; then
+                    echo "- App Preview URL: $APP_PREVIEW_URL" >> comment.md
+                  else
+                    echo "- App Preview URL: Not available" >> comment.md
+                  fi
+
+                  if [ -n "$STORYBOOK_PREVIEW_URL" ]; then
+                    echo "- Storybook Preview URL: $STORYBOOK_PREVIEW_URL" >> comment.md
+                  else
+                    echo "- Storybook Preview URL: Not available" >> comment.md
+                  fi
+
+                  echo >> comment.md
+
+                  if [ -f lighthouse-summary.md ]; then
+                    cat lighthouse-summary.md >> comment.md
+                  fi
+
+                  if [ -f test-result.md ]; then
+                    cat test-result.md >> comment.md
+                  else
+                    cat << EOF >> comment.md
+                  <details>
+                  <summary>Test Result</summary>
+
+                  Test result artifact was not generated.
+
+                  </details>
+                  EOF
+                  fi
+
+                  if [ -f a11y-result.md ]; then
+                    cat a11y-result.md >> comment.md
+                  else
+                    cat << EOF >> comment.md
+                  <details>
+                  <summary>A11y Test Result</summary>
+
+                  A11y test result artifact was not generated.
+
+                  </details>
+                  EOF
+                  fi
+
+            - name: Create PR comment
+              run: gh pr comment ${{ github.event.number }} --body-file comment.md
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

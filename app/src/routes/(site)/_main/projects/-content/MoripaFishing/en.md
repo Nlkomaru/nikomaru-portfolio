@@ -2,39 +2,40 @@
 slug: MoripaFishing
 title: MoripaFishing
 abstract: >-
-  MoripaFishing is a Minecraft plugin that extends the fishing experience on a server.
-  It lets administrators define custom fish, rarities, and catching conditions so the server can run its own collection loops and seasonal events.
+    MoripaFishing is a Minecraft plugin that extends the fishing experience on a server.
+    It lets administrators define custom fish, rarities, and catching conditions so the server can run its own collection loops and seasonal events.
 metaItems:
-  - term: Role
-    description: Developer
-  - term: Stack
-    description: Kotlin · Paper API · Gradle · Docusaurus
-  - term: Year
-    description: 2025 — Present
-  - term: Status
-    description: Active
-  - term: Document
-    description: fishing.plugin.morino.party
-    href: https://fishing.plugin.morino.party/
-    external: true
-  - term: Source
-    description: morinoparty/MoripaFishing
-    href: https://github.com/morinoparty/MoripaFishing
-    external: true
+    - term: Role
+      description: Developer
+    - term: Stack
+      description: Kotlin · Paper API · Gradle · Docusaurus
+    - term: Year
+      description: 2025 — Present
+    - term: Status
+      description: Active
+    - term: Document
+      description: fishing.plugin.morino.party
+      href: https://fishing.plugin.morino.party/
+      external: true
+    - term: Source
+      description: morinoparty/MoripaFishing
+      href: https://github.com/morinoparty/MoripaFishing
+      external: true
 coverImage:
-  src: ./assets/cover.jpg
-  alt: Key visual for MoripaFishing features
-  blurhash: 'UKC%.[PfDgInIzq|Vqr=lotQR2NF?cM{sjbt'
+    src: ./assets/cover.jpg
+    alt: Key visual for MoripaFishing features
+    blurhash: "UKC%.[PfDgInIzq|Vqr=lotQR2NF?cM{sjbt"
 openGraph:
-  title: MoripaFishing
-  description: A Minecraft fishing plugin with configurable fish, rarities, and condition-based catches.
-  image: ./assets/cover.jpg
-  imageAlt: Key visual for MoripaFishing features
+    title: MoripaFishing
+    description: A Minecraft fishing plugin with configurable fish, rarities, and condition-based catches.
+    image: ./assets/cover.jpg
+    imageAlt: Key visual for MoripaFishing features
 ---
+
 image:
-  src: ./assets/cover.jpg
-  alt: Key visual for MoripaFishing features
-  caption: MoripaFishing key visual
+src: ./assets/cover.jpg
+alt: Key visual for MoripaFishing features
+caption: MoripaFishing key visual
 layout: left-image
 ---
 

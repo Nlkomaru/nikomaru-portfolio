@@ -2,35 +2,36 @@
 slug: MoriPath
 title: MoriPath
 abstract: >-
-  MoriPathは、もりのパーティのMinecraftサーバー向けに開発しているWebアプリケーションです。
-  MineAuthと連携し、ログインしたプレイヤーがオンライン状況・どんぐり残高(ゲーム内通貨)・保護ブロック・クエストなどをMinecraftサーバー外から確認、操作できるようにするために制作しています。
+    MoriPathは、もりのパーティのMinecraftサーバー向けに開発しているWebアプリケーションです。
+    MineAuthと連携し、ログインしたプレイヤーがオンライン状況・どんぐり残高(ゲーム内通貨)・保護ブロック・クエストなどをMinecraftサーバー外から確認、操作できるようにするために制作しています。
 metaItems:
-  - term: Role
-    description: Developer・Designer (Partial)
-  - term: Stack
-    description: React · TypeScript · TanStack Start · Cloudflare Workers
-  - term: Year
-    description: 2025 — Present
-  - term: Status
-    description: Active (WIP)
-  - term: Source
-    description: morinoparty/MoriPath
-    href: https://github.com/morinoparty/MoriPath
-    external: true
+    - term: Role
+      description: Developer・Designer (Partial)
+    - term: Stack
+      description: React · TypeScript · TanStack Start · Cloudflare Workers
+    - term: Year
+      description: 2025 — Present
+    - term: Status
+      description: Active (WIP)
+    - term: Source
+      description: morinoparty/MoriPath
+      href: https://github.com/morinoparty/MoriPath
+      external: true
 coverImage:
-  src: ./assets/app-showcase.avif
-  alt: MoriPath の画面デザイン
-  blurhash: 'UIKLpv?v4-00tlNF?IkV00xuiwD%~Xxa00IU'
+    src: ./assets/app-showcase.avif
+    alt: MoriPath の画面デザイン
+    blurhash: "UIKLpv?v4-00tlNF?IkV00xuiwD%~Xxa00IU"
 openGraph:
-  title: MoriPath
-  description: もりのパーティのMinecraftサーバー向けに、MineAuthと連携してプレイヤー情報やサーバー機能を扱うWebアプリケーションです。
-  image: ./assets/app-showcase.png
-  imageAlt: MoriPath の画面デザイン
+    title: MoriPath
+    description: もりのパーティのMinecraftサーバー向けに、MineAuthと連携してプレイヤー情報やサーバー機能を扱うWebアプリケーションです。
+    image: ./assets/app-showcase.png
+    imageAlt: MoriPath の画面デザイン
 ---
+
 image:
-  src: ./assets/app-showcase.avif
-  alt: MoriPath の画面デザイン
-  caption: MoriPath の画面デザイン
+src: ./assets/app-showcase.avif
+alt: MoriPath の画面デザイン
+caption: MoriPath の画面デザイン
 layout: left-image
 ---
 
@@ -46,10 +47,11 @@ Minecraftを起動していない状態でもコミュニティの状況にア�
 名前に含まれる「Path」には、このアプリだけですべての操作を完結させるという意味ではなく、Minecraftサーバーを主体にしたまま、Webからサーバーへ自然につながる道を用意したいという意図を込めています。
 
 ---
+
 image:
-  src: ./assets/mineauth-authorization.avif
-  alt: MineAuthのログイン画面
-  caption: MineAuthのログイン画面
+src: ./assets/mineauth-authorization.avif
+alt: MineAuthのログイン画面
+caption: MineAuthのログイン画面
 layout: right-image
 ---
 
