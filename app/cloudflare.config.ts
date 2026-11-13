@@ -12,14 +12,9 @@ export default defineConfig({
         },
         domains: ["nikomaru.dev", "www.nikomaru.dev"],
         env: {
-            CF_ACCESS_CLIENT_ID: bindings.secretsStoreSecret({
-                storeId: "d36d5a11ea07462c83bb21a0e9ccb811",
-                secretName: "shared_CLOUDFLARE_ACCESS_CLIENT_ID",
-            }),
-            CF_ACCESS_CLIENT_SECRET: bindings.secretsStoreSecret({
-                storeId: "d36d5a11ea07462c83bb21a0e9ccb811",
-                secretName: "shared_CLOUDFLARE_ACCESS_CLIENT_SECRET",
-            }),
+            CF_ACCESS_CLIENT_ID: bindings.secret(),
+            CF_ACCESS_CLIENT_SECRET: bindings.secret(),
+            R2_PUBLIC_URL: bindings.secret(),
         },
     },
 });
