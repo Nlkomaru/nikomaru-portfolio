@@ -30,7 +30,7 @@ const projects = [
         year: "2025 — Present",
         image: {
             src: chlorophyllImageSrc,
-            alt: "Chlorophyll のテーマを想起させるキービジュアル",
+            alt: "Chlorophyll のロゴ画像",
             blurhash: "UCQANz5PxY?bW+xaIpODWF~W?b-;?u%29Y%N",
         },
     },
@@ -41,7 +41,7 @@ const projects = [
         year: "2021 — 2024",
         image: {
             src: raceAssistImageSrc,
-            alt: "RaceAssist のコース管理を想起させるキービジュアル",
+            alt: "RaceAssist の競馬場",
             blurhash: "UYG]ds${%Nx^p3xcxss+Imt5RPMxoNjJt7t7",
         },
     },
@@ -64,7 +64,7 @@ const projects = [
         year: "2023 — 2024",
         image: {
             src: mineStampImageSrc,
-            alt: "MineStamp の絵文字表示を想起させるキービジュアル",
+            alt: "MineStamp でプレイヤーの頭上に絵文字を表示している画面",
             blurhash: "ULDvvLx{E1MwS,S*o#M^%jbeM_ocXBo2oHoc",
         },
     },
@@ -75,7 +75,7 @@ const projects = [
         year: "2025 — Present",
         image: {
             src: moripaFishingImageSrc,
-            alt: "MoripaFishing の機能を想起させるキービジュアル",
+            alt: "Minecraft 内で釣りをしているスクリーンショット",
             blurhash: "UKC%.[PfDgInIzq|Vqr=lotQR2NF?cM{sjbt",
         },
     },

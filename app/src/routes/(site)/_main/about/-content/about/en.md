@@ -13,12 +13,14 @@ stories:
           src: /sweets/bonbon-au-chocolat.avif
           alt: Bonbon au chocolat made as a baking project
           caption: Bonbon au chocolat
+          blurhash: "LSI=42_3%g~qxHxux]E1%Mn$E19F"
     - id: photography
       title: Looking for structure in everyday scenes
       image:
           src: /about/kanazawa.avif
           alt: A glass-and-steel architectural pattern photographed in Kanazawa
           caption: Kanazawa, 2026
+          blurhash: "LGAoHTH=tRx]ysWYkDbHM{kWRPkC"
 careerTitle: Career & learning
 careerDescription: My education and community involvement.
 qualificationTitle: Qualifications & certifications
@@ -57,11 +59,9 @@ id: photography
 
 I also started photography after buying a camera. I often point it at buildings, light, and repeated patterns that are easy to overlook while walking.
 
-Photography gives me another way to practice composition, spacing, and attention to detail, which also feeds back into how I think about interfaces.
+Photography gives me another way to practice composition, spacing, and attention to detail, which also feeds back into how I think about interfaces. Lately, I have also been enjoying food photography, often capturing dishes and sweets even more than landscapes.
 
-I like finding a clear frame inside a busy scene. Deciding what to include, what to leave out, and where the eye should move feels close to designing a screen or organizing information in code.
-
-I shoot with a [Sony α7C](https://www.sony.com/electronics/interchangeable-lens-cameras/ilce-7c) and a [SIGMA 28-70mm F2.8 DG DN | Contemporary](https://www.sigma-global.com/en/lenses/c021_28_70_28/).
+I shoot with a [Sony α7C](https://www.sony.com/electronics/interchangeable-lens-cameras/ilce-7c) and a [SIGMA 28-70mm F2.8 DG DN | Contemporary](https://www.sigma-global.com/en/lenses/c021_28_70_28/). Because the setup is compact and easy to carry around, I can slip it into my bag and bring it along to all sorts of places—whether I am heading out for breakfast in the morning or taking a walk around town to find a clear frame in everyday scenes.
 
 ---
 

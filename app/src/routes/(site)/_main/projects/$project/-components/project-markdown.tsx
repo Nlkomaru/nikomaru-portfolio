@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { sva } from "styled-system/css";
-import ProjectImagePreview from "./project-image-preview";
+import ImagePreview from "@/components/image-preview";
 
 const projectMarkdownStyles = sva({
     slots: [
@@ -60,7 +60,7 @@ const projectMarkdownStyles = sva({
             color: "fg.subtle",
             textDecorationLine: "underline",
             textDecorationStyle: "solid",
-            textDecorationThickness: "2px",
+            textDecorationThickness: "2.5px",
             textUnderlineOffset: "2px",
             textDecorationColor: "border.outline",
             transition: "color 0.2s ease, text-decoration-color 0.2s ease",
@@ -165,7 +165,7 @@ export default function ProjectMarkdown({ markdown, className }: ProjectMarkdown
                     ul: ({ children }) => <ul className={styles.list}>{children}</ul>,
                     ol: ({ children }) => <ol className={styles.orderedList}>{children}</ol>,
                     li: ({ children }) => <li className={styles.listItem}>{children}</li>,
-                    img: ({ alt, src }) => <ProjectImagePreview src={src} alt={alt ?? ""} />,
+                    img: ({ alt, src }) => <ImagePreview src={src} alt={alt ?? ""} />,
                     blockquote: ({ children }) => <blockquote className={styles.blockquote}>{children}</blockquote>,
                     hr: () => <hr className={styles.horizontalRule} />,
                     table: ({ children }) => (

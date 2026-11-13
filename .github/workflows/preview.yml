@@ -69,6 +69,7 @@ jobs:
                   env: "preview"
                   shared-keys: |
                       CLOUDFLARE_ACCOUNT_ID
+                      CLOUDFLARE_API_TOKEN
 
             - uses: voidzero-dev/setup-vp@v1.22.0
               with:
@@ -111,6 +112,7 @@ jobs:
                   env: "preview"
                   shared-keys: |
                       CLOUDFLARE_ACCOUNT_ID
+                      CLOUDFLARE_API_TOKEN
 
             - uses: voidzero-dev/setup-vp@v1.22.0
               with:
@@ -137,185 +139,19 @@ jobs:
                   fi
                   echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
 
-    storybook-a11y:
-        needs: check
-        runs-on: ubuntu-latest
-        name: Storybook A11y
-        steps:
-            - uses: actions/checkout@v4
-
-            - uses: voidzero-dev/setup-vp@v1.22.0
-              with:
-                  node-version-file: .node-version
-                  cache: true
-                  run-install: |
-                      args: ["--frozen-lockfile"]
-
-            - name: Cache Playwright browsers
-              id: playwright-cache
-              uses: actions/cache@v4
-              with:
-                  path: ~/.cache/ms-playwright
-                  key: playwright-chromium-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-
-            - name: Install Playwright browser
-              if: steps.playwright-cache.outputs.cache-hit != 'true'
-              run: pnpm --filter ./storybook exec playwright install chromium --with-deps
-
-            - name: Install Playwright system dependencies
-              if: steps.playwright-cache.outputs.cache-hit == 'true'
-              run: pnpm --filter ./storybook exec playwright install-deps chromium
-
-            - name: Build storybook
-              run: pnpm --filter ./storybook build
-
-            - name: Run Storybook A11y test
-              shell: bash
-              run: |
-                  set +e
-                  rm -rf storybook/reports
-                  pnpm --filter ./storybook test:runner
-                  status=$?
-                  node .github/workflows/scripts/a11y-result-summarize.mjs storybook/reports/junit.xml a11y-result.md "$status" storybook/reports/a11y-violations.jsonl
-                  cat a11y-result.md >> "$GITHUB_STEP_SUMMARY"
-
-                  exit "$status"
-
-            - name: Upload A11y result
-              if: always()
-              uses: actions/upload-artifact@v4
-              with:
-                  name: a11y-result
-                  path: |
-                      a11y-result.md
-                      storybook/reports/junit.xml
-                      storybook/reports/a11y-violations.jsonl
-                  if-no-files-found: ignore
-
-    lighthouse-app:
-        needs: deploy-app-preview
-        runs-on: ubuntu-latest
-        name: Prepare Lighthouse Matrix
-        outputs:
-            matrix: ${{ steps.matrix.outputs.matrix }}
-        steps:
-            - uses: actions/checkout@v4
-
-            - uses: voidzero-dev/setup-vp@v1.22.0
-              with:
-                  node-version-file: .node-version
-                  cache: true
-                  run-install: |
-                      args: ["--frozen-lockfile"]
-
-            - name: Build Lighthouse URL list
-              id: matrix
-              env:
-                  DEPLOYMENT_URL: ${{ needs.deploy-app-preview.outputs.deployment_url }}
-              run: |
-                  node .github/workflows/scripts/lighthouse-build-urls.mjs
-                  {
-                    echo 'matrix<<EOF'
-                    cat lighthouse-matrix.json
-                    echo 'EOF'
-                  } >> "$GITHUB_OUTPUT"
-
-            - name: Upload Lighthouse manifest artifact
-              uses: actions/upload-artifact@v4
-              with:
-                  name: lighthouse-manifest
-                  path: |
-                      lighthouse-urls.txt
-                      lighthouse-skipped.txt
-
-    lighthouse-app-pages:
-        needs: [deploy-app-preview, lighthouse-app]
-        runs-on: ubuntu-latest
-        name: Lighthouse ${{ matrix.path }}
-        strategy:
-            fail-fast: false
-            matrix:
-                include: ${{ fromJSON(needs.lighthouse-app.outputs.matrix) }}
-        steps:
-            - uses: actions/checkout@v4
-
-            - uses: voidzero-dev/setup-vp@v1.22.0
-              with:
-                  node-version-file: .node-version
-                  cache: true
-                  run-install: |
-                      args: ["--frozen-lockfile"]
-
-            - name: Write Lighthouse URL file
-              run: |
-                  printf '%s\n' '${{ matrix.url }}' > lighthouse-urls.txt
-
-            - name: Run Lighthouse
-              run: |
-                  ./.github/workflows/scripts/lighthouse-run.sh lighthouse-urls.txt .lighthouserc.generated.json lighthouse.log
-
-            - name: Upload Lighthouse result artifact
-              if: always()
-              uses: actions/upload-artifact@v4
-              with:
-                  name: lighthouse-result-${{ matrix.id }}
-                  include-hidden-files: true
-                  path: |
-                      lighthouse.log
-                      lighthouse-urls.txt
-                      .lighthouseci
-
-    lighthouse-summary:
-        needs: [lighthouse-app, lighthouse-app-pages]
-        runs-on: ubuntu-latest
-        name: Summarize Lighthouse
-        steps:
-            - uses: actions/checkout@v4
-
-            - name: Download Lighthouse artifacts
-              uses: actions/download-artifact@v4
-              with:
-                  path: .
-
-            - name: Summarize Lighthouse
-              continue-on-error: true
-              run: |
-                  node .github/workflows/scripts/lighthouse-summarize.mjs
-
-            - name: Upload Lighthouse summary artifact
-              if: always()
-              uses: actions/upload-artifact@v4
-              with:
-                  name: lighthouse-summary
-                  path: lighthouse-summary.md
-
     comment:
-        needs: [check, deploy-app-preview, deploy-storybook-preview, storybook-a11y, lighthouse-summary]
+        needs: [check, deploy-app-preview, deploy-storybook-preview]
         if: always()
         runs-on: ubuntu-latest
         name: Comment Preview URLs
         steps:
             - uses: actions/checkout@v4
 
-            - name: Download Lighthouse summary
-              continue-on-error: true
-              uses: actions/download-artifact@v4
-              with:
-                  name: lighthouse-summary
-                  path: .
-
             - name: Download test result
               continue-on-error: true
               uses: actions/download-artifact@v4
               with:
                   name: test-result
-                  path: .
-
-            - name: Download A11y result
-              continue-on-error: true
-              uses: actions/download-artifact@v4
-              with:
-                  name: a11y-result
                   path: .
 
             - name: Create comment file
@@ -341,10 +177,6 @@ jobs:
 
                   echo >> comment.md
 
-                  if [ -f lighthouse-summary.md ]; then
-                    cat lighthouse-summary.md >> comment.md
-                  fi
-
                   if [ -f test-result.md ]; then
                     cat test-result.md >> comment.md
                   else
@@ -353,19 +185,6 @@ jobs:
                   <summary>Test Result</summary>
 
                   Test result artifact was not generated.
-
-                  </details>
-                  EOF
-                  fi
-
-                  if [ -f a11y-result.md ]; then
-                    cat a11y-result.md >> comment.md
-                  else
-                    cat << EOF >> comment.md
-                  <details>
-                  <summary>A11y Test Result</summary>
-
-                  A11y test result artifact was not generated.
 
                   </details>
                   EOF

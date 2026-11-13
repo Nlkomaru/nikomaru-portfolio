@@ -15,7 +15,7 @@ metaItems:
       description: Active (WIP)
     - term: Document
       description: Chlorophyll Docs（Theme）
-      href: https://chlorophyll-docs.nikomaru.workers.dev/docs/theme
+      href: https://chlorophyll.morinoparty.workers.dev/docs/theme
       external: true
     - term: Source
       description: morinoparty/Chlorophyll
@@ -23,7 +23,7 @@ metaItems:
       external: true
 coverImage:
     src: ./assets/sekaiju.png
-    alt: Chlorophyll のテーマを想起させるキービジュアル
+    alt: Chlorophyll の世界樹モチーフのカバー画像
     blurhash: "UbFi}t?w.8Mw%%tStRV?IWMwMxt7xwV?n~oz"
 openGraph:
     title: Chlorophyll
@@ -51,13 +51,13 @@ layout: left-image
 image:
 src: ./assets/chlorophyll.avif
 alt: Chlorophyll のブランド画像
-caption: Chlorophyll のビジュアルアイデンティティ
+caption: Chlorophyll のブランドロゴ
 layout: right-image
 ---
 
 ## デザイントークンとドキュメント
 
-トークン設計の考え方は、[Chlorophyll の Theme ドキュメント](https://chlorophyll-docs.nikomaru.workers.dev/docs/theme)にまとめています。**System Tokens**（用途ベースのセマンティック値）と **Reference Tokens**（パレットやタイポの土台）に分け、コンポーネントからはまずセマンティック側を参照するイメージです。カラー・ボーダー・タイポグラフィ・z-index・シャドウ・角丸・スペーシング・アニメーションなど、カテゴリごとの説明もそこから辿れるようにしています。
+トークン設計の考え方は、[Chlorophyll の Theme ドキュメント](https://chlorophyll.morinoparty.workers.dev/docs/theme)にまとめています。**System Tokens**（用途ベースのセマンティック値）と **Reference Tokens**（パレットやタイポの土台）に分け、コンポーネントからはまずセマンティック側を参照するイメージです。カラー・ボーダー・タイポグラフィ・z-index・シャドウ・角丸・スペーシング・アニメーションなど、カテゴリごとの説明もそこから辿れるようにしています。
 
 チームで Panda のプリセットを配布し、各アプリの `styled-system` に取り込む、またはChlorophyll側で用意する予定のコンポーネントを活用した運用を想定しています。追加するコンポーネントについては、一般的なWebアプリケーションで使用されるボタンなど以外にも、Minecraftサーバー特有のコンポーネント(具体的にはプレイヤーのスキンの表示など)を考えています。
 

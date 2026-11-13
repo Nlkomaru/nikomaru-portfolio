@@ -13,12 +13,14 @@ stories:
           src: /sweets/bonbon-au-chocolat.avif
           alt: 作ったボンボンショコラ
           caption: Bonbon au chocolat
+          blurhash: "LSI=42_3%g~qxHxux]E1%Mn$E19F"
     - id: photography
       title: 写真
       image:
           src: /about/kanazawa.avif
           alt: 金沢で撮影したガラスと鉄骨の建築パターン
           caption: Kanazawa, 2026
+          blurhash: "LGAoHTH=tRx]ysWYkDbHM{kWRPkC"
 careerTitle: 経歴と学び
 careerDescription: 学歴とコミュニティでの活動歴です。
 qualificationTitle: 資格・認定
@@ -57,13 +59,13 @@ section: story
 id: photography
 ---
 
-最近カメラを買ってから、写真も撮っています。街や建築、自然の風景など普段見過ごしがちなものを見つけるのが好きです。
+最近カメラを買ってから、写真も撮っています。街や建築、自然の風景など、普段見過ごしがちなものを見つけるのが好きです。
 
-カメラを買うまで気にも留めなかった景色に注目するようになったので、いい買い物だったなと感じています。
+カメラを持ち歩くようになってからは、光の入り方や建物の形など、以前なら気にも留めなかった景色に目が向くようになりました。日常の見え方が変わり、いい買い物だったと感じています。
 
-食べ物の写真を撮るのにもハマっていて、最近は景色よりも食べ物の写真を撮ることが増えてきています。
+最近は食べ物の写真を撮るのにもハマっていて、景色よりも料理やスイーツを撮ることが増えてきました。撮影には [Sony α7C](https://www.sony.jp/ichigan/products/ILCE-7C/) と [SIGMA 28-70mm F2.8 DG DN | Contemporary](https://www.sigma-global.com/jp/lenses/c021_28_70_28/) を使っています。
 
-撮影には [Sony α7C](https://www.sony.jp/ichigan/products/ILCE-7C/) と [SIGMA 28-70mm F2.8 DG DN | Contemporary](https://www.sigma-global.com/jp/lenses/c021_28_70_28/) を使っています。
+コンパクトでカバンに入れやすく、気軽に持ち出せるのが気に入っています。普段のお出かけや朝のモーニングにも持って行き、合間に街を歩いて写真を撮る時間を楽しんでいます。
 
 ---
 

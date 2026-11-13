@@ -1,7 +1,9 @@
 import { motion } from "motion/react";
 import { useLayoutEffect, useRef } from "react";
 import { sva } from "styled-system/css";
+import ImagePreview from "../../../../../components/image-preview";
 import { getLocale } from "../../../../../paraglide/runtime";
+import { getBlurhashBackground } from "../../../../-functions/blurhash-background";
 import type { AboutStory } from "../-types/about";
 import AboutMarkdown from "./about-markdown";
 
@@ -83,6 +85,8 @@ const aboutPersonalSectionsStyles = sva({
         image: {
             display: "block",
             w: "full",
+            // 見出し（topicTitle）1行分の高さの半分だけ下げて、見出しと本文のまとまりに揃える。
+            mt: { base: "calc(1.25rem * 1.25 / 2)", md: "calc(1.5rem * 1.25 / 2)" },
             // Reserve the photos' 3:2 space before loading; use their intrinsic ratio once loaded.
             aspectRatio: "auto 3 / 2",
             borderRadius: "md",
@@ -239,12 +243,13 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
             </div>
 
             <figure ref={mediaRef} className={mediaClassName}>
-                <img
+                <ImagePreview
                     className={styles.image}
                     src={story.image.src}
                     alt={story.image.alt}
                     loading="lazy"
                     decoding="async"
+                    style={story.image.blurhash ? getBlurhashBackground(story.image.blurhash) : undefined}
                 />
                 <figcaption className={styles.caption}>{story.image.caption}</figcaption>
             </figure>
