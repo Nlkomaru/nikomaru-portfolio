@@ -1,6 +1,11 @@
 import { env } from "cloudflare:workers";
 import { createFileRoute } from "@tanstack/react-router";
-import { isSlideTopHtmlResponse, isStaticAsset, resolveSlideR2Url } from "./-functions/slide-route-helper";
+import {
+    isSlideTopHtmlResponse,
+    isStaticAsset,
+    normalizeR2PublicUrl,
+    resolveSlideR2Url,
+} from "./-functions/slide-route-helper";
 
 const STATIC_CACHE_CONTROL = "public, max-age=86400, s-maxage=604800";
 
@@ -19,7 +24,7 @@ function escapeHtmlAttribute(value: string): string {
 // 取得失敗時はサムネ画像の OGP だけ付けたいので例外は呑んで undefined を返す。
 async function fetchSlideTitle(slideId: string, authHeaders: Headers): Promise<string | undefined> {
     try {
-        const res = await fetch(`${env.R2_PUBLIC_URL}slide-info-list.json`, {
+        const res = await fetch(`${normalizeR2PublicUrl(env.R2_PUBLIC_URL)}slide-info-list.json`, {
             headers: authHeaders,
             // タイトル取得用のリクエストは Cloudflare のキャッシュに任せて軽量化する。
             cf: { cacheTtl: 300, cacheEverything: true },
@@ -87,8 +92,8 @@ export const Route = createFileRoute("/(site)/_main/slide/$")({
                 }
 
                 const headers = new Headers();
-                headers.append("CF-Access-Client-Id", env.CF_ACCESS_CLIENT_ID);
-                headers.append("CF-Access-Client-Secret", env.CF_ACCESS_CLIENT_SECRET);
+                headers.append("CF-Access-Client-Id", env.CLOUDFLARE_ACCESS_CLIENT_ID);
+                headers.append("CF-Access-Client-Secret", env.CLOUDFLARE_ACCESS_CLIENT_SECRET);
 
                 const slideUrl = resolveSlideR2Url(env.R2_PUBLIC_URL, splat, segments);
                 const res = await fetch(slideUrl, { headers });
