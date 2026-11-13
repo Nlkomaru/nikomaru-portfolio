@@ -83,6 +83,7 @@ const aboutPersonalSectionsStyles = sva({
         image: {
             display: "block",
             w: "full",
+            mt: "15px",
             // Reserve the photos' 3:2 space before loading; use their intrinsic ratio once loaded.
             aspectRatio: "auto 3 / 2",
             borderRadius: "md",
