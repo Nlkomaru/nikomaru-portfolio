@@ -15,7 +15,7 @@ metaItems:
       description: Active (WIP)
     - term: Document
       description: Chlorophyll Docs (Theme)
-      href: https://chlorophyll-docs.nikomaru.workers.dev/docs/theme
+      href: https://chlorophyll.morinoparty.workers.dev/docs/theme
       external: true
     - term: Source
       description: morinoparty/Chlorophyll
@@ -57,7 +57,7 @@ layout: right-image
 
 ## Design tokens and documentation
 
-The token model is explained in the [Theme section of the Chlorophyll docs](https://chlorophyll-docs.nikomaru.workers.dev/docs/theme). **System Tokens** are purpose-based semantic values, while **Reference Tokens** define the underlying palette and typography foundation. Components are intended to reference the semantic layer first. The documentation also covers categories such as colors, borders, typography, z-index, shadows, radii, spacing, and animation.
+The token model is explained in the [Theme section of the Chlorophyll docs](https://chlorophyll.morinoparty.workers.dev/docs/theme). **System Tokens** are purpose-based semantic values, while **Reference Tokens** define the underlying palette and typography foundation. Components are intended to reference the semantic layer first. The documentation also covers categories such as colors, borders, typography, z-index, shadows, radii, spacing, and animation.
 
 The intended workflow is to distribute Panda presets within the team so each application can import them into its `styled-system`, or use components planned for Chlorophyll itself. In addition to common web application components such as buttons, I am also considering Minecraft server-specific components, such as UI for displaying player skins.
 

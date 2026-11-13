@@ -60,7 +60,7 @@ const projectMarkdownStyles = sva({
             color: "fg.subtle",
             textDecorationLine: "underline",
             textDecorationStyle: "solid",
-            textDecorationThickness: "2px",
+            textDecorationThickness: "2.5px",
             textUnderlineOffset: "2px",
             textDecorationColor: "border.outline",
             transition: "color 0.2s ease, text-decoration-color 0.2s ease",
