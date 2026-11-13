@@ -1,7 +1,7 @@
 import { sva } from "styled-system/css";
 import { m } from "../../../../../../paraglide/messages";
 import type { ProjectSection as ProjectSectionData } from "../../-functions/parse-project-markdown";
-import ProjectImagePreview from "./project-image-preview";
+import ImagePreview from "@/components/image-preview";
 import ProjectMarkdown from "./project-markdown";
 
 const projectSectionStyles = sva({
@@ -83,7 +83,7 @@ export default function ProjectSection({ section, imageNumber, showDividerBefore
 
     const imageElement = (
         <figure className={styles.imageFrame}>
-            <ProjectImagePreview src={section.image.src} alt={section.image.alt} />
+            <ImagePreview src={section.image.src} alt={section.image.alt} />
             <figcaption className={styles.imageCaption}>
                 {m["projects.image.figureLabel"]()}
                 {imageNumber ?? 1}: {section.image.caption ?? section.image.alt}

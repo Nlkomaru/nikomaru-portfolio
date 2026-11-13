@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { useLayoutEffect, useRef } from "react";
 import { sva } from "styled-system/css";
+import ImagePreview from "../../../../../components/image-preview";
 import { getLocale } from "../../../../../paraglide/runtime";
 import { getBlurhashBackground } from "../../../../-functions/blurhash-background";
 import type { AboutStory } from "../-types/about";
@@ -242,7 +243,7 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
             </div>
 
             <figure ref={mediaRef} className={mediaClassName}>
-                <img
+                <ImagePreview
                     className={styles.image}
                     src={story.image.src}
                     alt={story.image.alt}

@@ -1,9 +1,9 @@
 import { Dialog, Portal } from "@chakra-ui/react";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import { sva } from "styled-system/css";
 
-const projectImagePreviewStyles = sva({
+const imagePreviewStyles = sva({
     slots: ["trigger", "image", "backdrop", "positioner", "content", "close", "dialogBody", "dialogImage"],
     base: {
         trigger: {
@@ -22,6 +22,7 @@ const projectImagePreviewStyles = sva({
             },
         },
         image: {
+            display: "block",
             w: "full",
             h: "auto",
             borderRadius: "xl",
@@ -105,13 +106,18 @@ const projectImagePreviewStyles = sva({
     },
 });
 
-type ProjectImagePreviewProps = {
+type ImagePreviewProps = {
     src?: string;
     alt: string;
+    className?: string;
+    style?: CSSProperties;
+    loading?: "lazy" | "eager";
+    decoding?: "async" | "sync" | "auto";
 };
 
-export default function ProjectImagePreview({ src, alt }: ProjectImagePreviewProps) {
-    const styles = projectImagePreviewStyles();
+// クリックで画像をモーダル拡大表示する共通コンポーネント。
+export default function ImagePreview({ src, alt, className, style, loading, decoding }: ImagePreviewProps) {
+    const styles = imagePreviewStyles();
     const [open, setOpen] = useState(false);
 
     if (!src) {
@@ -119,6 +125,7 @@ export default function ProjectImagePreview({ src, alt }: ProjectImagePreviewPro
     }
 
     const closePreview = () => setOpen(false);
+    const thumbnailClassName = className ? `${styles.image} ${className}` : styles.image;
 
     return (
         <>
@@ -128,7 +135,14 @@ export default function ProjectImagePreview({ src, alt }: ProjectImagePreviewPro
                 onClick={() => setOpen(true)}
                 aria-label={`Open image preview: ${alt}`}
             >
-                <img src={src} alt={alt} className={styles.image} />
+                <img
+                    src={src}
+                    alt={alt}
+                    loading={loading}
+                    decoding={decoding}
+                    className={thumbnailClassName}
+                    style={style}
+                />
             </button>
 
             <Dialog.Root open={open} onOpenChange={(details) => setOpen(details.open)} placement="center">
