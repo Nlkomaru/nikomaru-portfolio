@@ -13,12 +13,14 @@ stories:
           src: /sweets/bonbon-au-chocolat.avif
           alt: Bonbon au chocolat made as a baking project
           caption: Bonbon au chocolat
+          blurhash: "LSI=42_3%g~qxHxux]E1%Mn$E19F"
     - id: photography
       title: Looking for structure in everyday scenes
       image:
           src: /about/kanazawa.avif
           alt: A glass-and-steel architectural pattern photographed in Kanazawa
           caption: Kanazawa, 2026
+          blurhash: "LGAoHTH=tRx]ysWYkDbHM{kWRPkC"
 careerTitle: Career & learning
 careerDescription: My education and community involvement.
 qualificationTitle: Qualifications & certifications

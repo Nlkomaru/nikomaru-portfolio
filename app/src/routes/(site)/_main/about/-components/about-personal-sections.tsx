@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { useLayoutEffect, useRef } from "react";
 import { sva } from "styled-system/css";
 import { getLocale } from "../../../../../paraglide/runtime";
+import { getBlurhashBackground } from "../../../../-functions/blurhash-background";
 import type { AboutStory } from "../-types/about";
 import AboutMarkdown from "./about-markdown";
 
@@ -247,6 +248,7 @@ function StoryTopic({ story, reverse }: { story: AboutStory; reverse: boolean })
                     alt={story.image.alt}
                     loading="lazy"
                     decoding="async"
+                    style={story.image.blurhash ? getBlurhashBackground(story.image.blurhash) : undefined}
                 />
                 <figcaption className={styles.caption}>{story.image.caption}</figcaption>
             </figure>

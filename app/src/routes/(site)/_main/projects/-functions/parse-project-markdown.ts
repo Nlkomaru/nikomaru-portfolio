@@ -41,6 +41,21 @@ function tryParseSectionMeta(block: string): SectionMeta | null {
             return null;
         }
 
+        // `image:` の配下がインデントされずフラットに書かれた場合（image: null, src: ...）も正規化して拾う。
+        if ((candidate.image === null || candidate.image === undefined) && typeof candidate.src === "string") {
+            return {
+                image: {
+                    src: candidate.src,
+                    alt: typeof candidate.alt === "string" ? candidate.alt : "",
+                    caption: typeof candidate.caption === "string" ? candidate.caption : undefined,
+                },
+                layout:
+                    candidate.layout === "left-image" || candidate.layout === "right-image"
+                        ? candidate.layout
+                        : undefined,
+            };
+        }
+
         return candidate as SectionMeta;
     } catch {
         return null;

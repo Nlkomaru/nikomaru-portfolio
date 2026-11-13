@@ -12,6 +12,7 @@ export interface AboutImage {
     src: string;
     alt: string;
     caption: string;
+    blurhash?: string;
 }
 
 // story のうち、Markdown 本文を除いた構造化データ（frontmatter 由来）。

@@ -13,12 +13,14 @@ stories:
           src: /sweets/bonbon-au-chocolat.avif
           alt: 作ったボンボンショコラ
           caption: Bonbon au chocolat
+          blurhash: "LSI=42_3%g~qxHxux]E1%Mn$E19F"
     - id: photography
       title: 写真
       image:
           src: /about/kanazawa.avif
           alt: 金沢で撮影したガラスと鉄骨の建築パターン
           caption: Kanazawa, 2026
+          blurhash: "LGAoHTH=tRx]ysWYkDbHM{kWRPkC"
 careerTitle: 経歴と学び
 careerDescription: 学歴とコミュニティでの活動歴です。
 qualificationTitle: 資格・認定
