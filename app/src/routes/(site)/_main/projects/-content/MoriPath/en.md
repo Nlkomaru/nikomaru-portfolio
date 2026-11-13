@@ -2,35 +2,36 @@
 slug: MoriPath
 title: MoriPath
 abstract: >-
-  MoriPath is a web application being developed for the Morino Party Minecraft server.
-  By integrating with MineAuth, it lets logged-in players check and operate on online status, donguri balances (in-game currency), protected blocks, quests, and other server data from outside the Minecraft server.
+    MoriPath is a web application being developed for the Morino Party Minecraft server.
+    By integrating with MineAuth, it lets logged-in players check and operate on online status, donguri balances (in-game currency), protected blocks, quests, and other server data from outside the Minecraft server.
 metaItems:
-  - term: Role
-    description: Developer · Designer (Partial)
-  - term: Stack
-    description: React · TypeScript · TanStack Start · Cloudflare Workers
-  - term: Year
-    description: 2025 — Present
-  - term: Status
-    description: Active (WIP)
-  - term: Source
-    description: morinoparty/MoriPath
-    href: https://github.com/morinoparty/MoriPath
-    external: true
+    - term: Role
+      description: Developer · Designer (Partial)
+    - term: Stack
+      description: React · TypeScript · TanStack Start · Cloudflare Workers
+    - term: Year
+      description: 2025 — Present
+    - term: Status
+      description: Active (WIP)
+    - term: Source
+      description: morinoparty/MoriPath
+      href: https://github.com/morinoparty/MoriPath
+      external: true
 coverImage:
-  src: ./assets/app-showcase.avif
-  alt: MoriPath screen design
-  blurhash: 'UIKLpv?v4-00tlNF?IkV00xuiwD%~Xxa00IU'
+    src: ./assets/app-showcase.avif
+    alt: MoriPath screen design
+    blurhash: "UIKLpv?v4-00tlNF?IkV00xuiwD%~Xxa00IU"
 openGraph:
-  title: MoriPath
-  description: A web application for the Morino Party Minecraft server that integrates with MineAuth to work with player information and server features.
-  image: ./assets/app-showcase.png
-  imageAlt: MoriPath screen design
+    title: MoriPath
+    description: A web application for the Morino Party Minecraft server that integrates with MineAuth to work with player information and server features.
+    image: ./assets/app-showcase.png
+    imageAlt: MoriPath screen design
 ---
+
 image:
-  src: ./assets/app-showcase.avif
-  alt: MoriPath screen design
-  caption: MoriPath screen design
+src: ./assets/app-showcase.avif
+alt: MoriPath screen design
+caption: MoriPath screen design
 layout: left-image
 ---
 
@@ -45,10 +46,11 @@ It brings together information players may want to check outside the server, suc
 The "Path" in the name does not mean that every action should be completed inside this application alone. It expresses the idea of keeping the Minecraft server as the main place and providing a natural path from the web back to the server.
 
 ---
+
 image:
-  src: ./assets/mineauth-authorization.avif
-  alt: MineAuth login screen
-  caption: MineAuth login screen
+src: ./assets/mineauth-authorization.avif
+alt: MineAuth login screen
+caption: MineAuth login screen
 layout: right-image
 ---
 

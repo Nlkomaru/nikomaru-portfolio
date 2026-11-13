@@ -2,39 +2,40 @@
 slug: MineStamp
 title: MineStamp
 abstract: >-
-  MineStampは、Minecraft内のプレイヤーの頭上に絵文字を表示するために開発したプラグインです。
-  Unicode絵文字、多言語表示、S3・MinIO・R2などのオブジェクトストレージを使ったマルチサーバー同期に対応しています。
+    MineStampは、Minecraft内のプレイヤーの頭上に絵文字を表示するために開発したプラグインです。
+    Unicode絵文字、多言語表示、S3・MinIO・R2などのオブジェクトストレージを使ったマルチサーバー同期に対応しています。
 metaItems:
-  - term: Role
-    description: Developer
-  - term: Stack
-    description: Kotlin · Paper API · PacketEvents · Object Storage
-  - term: Year
-    description: 2023 — 2024
-  - term: Status
-    description: Released
-  - term: Document
-    description: minestamp.plugin.morino.party
-    href: https://minestamp.plugin.morino.party/
-    external: true
-  - term: Source
-    description: morinoparty/MineStamp
-    href: https://github.com/morinoparty/MineStamp
-    external: true
+    - term: Role
+      description: Developer
+    - term: Stack
+      description: Kotlin · Paper API · PacketEvents · Object Storage
+    - term: Year
+      description: 2023 — 2024
+    - term: Status
+      description: Released
+    - term: Document
+      description: minestamp.plugin.morino.party
+      href: https://minestamp.plugin.morino.party/
+      external: true
+    - term: Source
+      description: morinoparty/MineStamp
+      href: https://github.com/morinoparty/MineStamp
+      external: true
 coverImage:
-  src: ./assets/player-with-emoji.avif
-  alt: MineStamp でプレイヤーの頭上に絵文字を表示している画面
-  blurhash: 'ULDvvLx{E1MwS,S*o#M^%jbeM_ocXBo2oHoc'
+    src: ./assets/player-with-emoji.avif
+    alt: MineStamp でプレイヤーの頭上に絵文字を表示している画面
+    blurhash: "ULDvvLx{E1MwS,S*o#M^%jbeM_ocXBo2oHoc"
 openGraph:
-  title: MineStamp
-  description: Minecraft内のプレイヤーの頭上にUnicode絵文字を表示するためのプラグインです。
-  image: ./assets/player-with-emoji.png
-  imageAlt: MineStamp でプレイヤーの頭上に絵文字を表示している画面
+    title: MineStamp
+    description: Minecraft内のプレイヤーの頭上にUnicode絵文字を表示するためのプラグインです。
+    image: ./assets/player-with-emoji.png
+    imageAlt: MineStamp でプレイヤーの頭上に絵文字を表示している画面
 ---
+
 image:
-  src: ./assets/player-with-emoji.avif
-  alt: MineStamp でプレイヤーの頭上に絵文字を表示している画面
-  caption: MineStamp の絵文字表示
+src: ./assets/player-with-emoji.avif
+alt: MineStamp でプレイヤーの頭上に絵文字を表示している画面
+caption: MineStamp の絵文字表示
 layout: right-image
 ---
 

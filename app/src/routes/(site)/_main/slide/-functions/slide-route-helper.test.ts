@@ -36,14 +36,12 @@ describe("resolveSlideR2Url", () => {
 });
 
 describe("isStaticAsset", () => {
-    it.each([
-        "image/png",
-        "text/css; charset=utf-8",
-        "application/javascript",
-        "font/woff2",
-    ])("detects %s as a static asset", (contentType) => {
-        expect(isStaticAsset(contentType)).toBe(true);
-    });
+    it.each(["image/png", "text/css; charset=utf-8", "application/javascript", "font/woff2"])(
+        "detects %s as a static asset",
+        (contentType) => {
+            expect(isStaticAsset(contentType)).toBe(true);
+        },
+    );
 
     it.each(["text/html", "application/json", "text/plain"])("does not detect %s as a static asset", (contentType) => {
         expect(isStaticAsset(contentType)).toBe(false);

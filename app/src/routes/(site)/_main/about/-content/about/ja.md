@@ -3,22 +3,22 @@ pageTitle: 私について
 metaDescription: 信州大学でコンピュータサイエンスを学びながら、WebアプリケーションとMinecraftサーバー周辺の開発に取り組むNikomaruのプロフィール。
 avatarAlt: Nikomaruのアイコン
 sectionTitles:
-  about: 私について
-  hobby: 趣味
-  future: 今後
+    about: 私について
+    hobby: 趣味
+    future: 今後
 stories:
-  - id: baking
-    title: お菓子作り
-    image:
-      src: /sweets/bonbon-au-chocolat.avif
-      alt: 作ったボンボンショコラ
-      caption: Bonbon au chocolat
-  - id: photography
-    title: 写真
-    image:
-      src: /about/kanazawa.avif
-      alt: 金沢で撮影したガラスと鉄骨の建築パターン
-      caption: Kanazawa, 2026
+    - id: baking
+      title: お菓子作り
+      image:
+          src: /sweets/bonbon-au-chocolat.avif
+          alt: 作ったボンボンショコラ
+          caption: Bonbon au chocolat
+    - id: photography
+      title: 写真
+      image:
+          src: /about/kanazawa.avif
+          alt: 金沢で撮影したガラスと鉄骨の建築パターン
+          caption: Kanazawa, 2026
 careerTitle: 経歴と学び
 careerDescription: 学歴とコミュニティでの活動歴です。
 qualificationTitle: 資格・認定
@@ -27,6 +27,7 @@ qualificationEmptyLabel: 資格情報は準備中です。
 qualificationExpectedLabel: 取得予定
 presentLabel: 現在
 ---
+
 section: intro
 ---
 
@@ -37,6 +38,7 @@ section: intro
 DockerやGitHub Actionsを使った開発・運用環境も含め、公開後に保守しやすく、利用者にとって迷いにくいソフトウェアを作ることを大切にしています。
 
 ---
+
 section: story
 id: baking
 ---
@@ -50,6 +52,7 @@ id: baking
 お菓子作りでは、作り手側の手順だけでなく、受け取る人からどう見えるかも大事にしています。食感、形、温度、見た目の少しの差で印象が変わるところが面白く、より良いものを作りたいと惹かれるものがあり楽しいです。
 
 ---
+
 section: story
 id: photography
 ---
@@ -63,6 +66,7 @@ id: photography
 撮影には [Sony α7C](https://www.sony.jp/ichigan/products/ILCE-7C/) と [SIGMA 28-70mm F2.8 DG DN | Contemporary](https://www.sigma-global.com/jp/lenses/c021_28_70_28/) を使っています。
 
 ---
+
 section: future
 ---
 

@@ -1,128 +1,130 @@
 name: Refresh Photos
 
 on:
-  schedule:
-    - cron: "17 19 * * *"
-  workflow_dispatch:
+    schedule:
+        - cron: "17 19 * * *"
+    workflow_dispatch:
 
 concurrency:
-  group: refresh-photos-main
-  cancel-in-progress: false
+    group: refresh-photos-main
+    cancel-in-progress: false
 
 jobs:
-  refresh:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    outputs:
-      changed: ${{ steps.snapshot.outputs.changed }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
+    refresh:
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+            id-token: write
+        outputs:
+            changed: ${{ steps.snapshot.outputs.changed }}
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  ref: main
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
+            - uses: voidzero-dev/setup-vp@v1.22.0
+              with:
+                  node-version-file: .node-version
+                  cache: true
+                  run-install: |
+                      args: ["--frozen-lockfile"]
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
+            - name: Skip if a photo refresh PR is already open
+              id: pending
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  open_prs=$(gh pr list --base main --state open --json headRefName --jq '[.[] | select(.headRefName | startswith("photos/refresh-"))] | length')
+                  if [ "$open_prs" -gt 0 ]; then
+                    echo "A generated-photo refresh PR is already open; leaving it for review/merge."
+                    echo "exists=true" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "exists=false" >> "$GITHUB_OUTPUT"
+                  fi
 
-      - name: Install
-        run: pnpm install
+            - name: Load Production Secrets
+              if: steps.pending.outputs.exists == 'false'
+              uses: nlkomaru/secret-manager@v2
+              with:
+                  project: "nikomaru-portfolio"
+                  env: "production"
 
-      - name: Skip if a photo refresh PR is already open
-        id: pending
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          open_prs=$(gh pr list --base main --state open --json headRefName --jq '[.[] | select(.headRefName | startswith("photos/refresh-"))] | length')
-          if [ "$open_prs" -gt 0 ]; then
-            echo "A generated-photo refresh PR is already open; leaving it for review/merge."
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-          fi
+            - name: Refresh generated photos
+              if: steps.pending.outputs.exists == 'false'
+              run: pnpm run photos:sync
+              env:
+                  OMOIDE_API_URL: ${{ vars.OMOIDE_API_URL || 'https://omoide.nikomaru.dev' }}
 
-      - name: Refresh generated photos
-        if: steps.pending.outputs.exists == 'false'
-        run: pnpm run photos:sync
-        env:
-          OMOIDE_API_KEY: ${{ secrets.OMOIDE_API_KEY }}
-          OMOIDE_API_URL: ${{ vars.OMOIDE_API_URL || 'https://omoide.nikomaru.dev' }}
+            - name: Create generated-only refresh PR if changed
+              id: snapshot
+              if: steps.pending.outputs.exists == 'false'
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  git add -A -- app/public/photos 'app/src/routes/(site)/_main/photos/-content/photos.json' scripts/photo-sync-state.json
+                  if git diff --cached --quiet; then
+                    echo "changed=false" >> "$GITHUB_OUTPUT"
+                    echo "Generated photo snapshot is unchanged."
+                    exit 0
+                  fi
 
-      - name: Create generated-only refresh PR if changed
-        id: snapshot
-        if: steps.pending.outputs.exists == 'false'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git add -A -- app/public/photos 'app/src/routes/(site)/_main/photos/-content/photos.json' scripts/photo-sync-state.json
-          if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "Generated photo snapshot is unchanged."
-            exit 0
-          fi
+                  while IFS= read -r -d '' path; do
+                    case "$path" in
+                      'app/src/routes/(site)/_main/photos/-content/photos.json'|scripts/photo-sync-state.json)
+                        ;;
+                      app/public/photos/*.avif)
+                        filename=${path##*/}
+                        if [[ ! "$filename" =~ ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-7[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\.avif$ ]]; then
+                          echo "Unexpected file in generated photo output: $path" >&2
+                          exit 1
+                        fi
+                        ;;
+                      *)
+                        echo "Unexpected staged path in photo refresh: $path" >&2
+                        exit 1
+                        ;;
+                    esac
+                  done < <(git diff --cached --name-only -z)
 
-          while IFS= read -r -d '' path; do
-            case "$path" in
-              'app/src/routes/(site)/_main/photos/-content/photos.json'|scripts/photo-sync-state.json)
-                ;;
-              app/public/photos/*.avif)
-                filename=${path##*/}
-                if [[ ! "$filename" =~ ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-7[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\.avif$ ]]; then
-                  echo "Unexpected file in generated photo output: $path" >&2
-                  exit 1
-                fi
-                ;;
-              *)
-                echo "Unexpected staged path in photo refresh: $path" >&2
-                exit 1
-                ;;
-            esac
-          done < <(git diff --cached --name-only -z)
+                  pnpm run test:photos
+                  pnpm run build
 
-          pnpm run test:photos
-          pnpm run build
+                  branch="photos/refresh-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+                  git checkout -b "$branch"
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git commit -m "✨ Refresh generated photo snapshot"
+                  expected_head=$(git rev-parse HEAD)
+                  git push --set-upstream origin "$branch"
+                  pr_url=$(gh pr create \
+                    --base main \
+                    --head "$branch" \
+                    --title "✨ Refresh generated photo snapshot" \
+                    --body "Automated refresh of generated UUIDv7 AVIFs, manifest, and incremental state only. The staged-path allowlist was checked; photo tests and a complete app build passed. No source code or workflow files are included.")
+                  echo "changed=true" >> "$GITHUB_OUTPUT"
+                  echo "pr_url=$pr_url" >> "$GITHUB_OUTPUT"
+                  echo "expected_head=$expected_head" >> "$GITHUB_OUTPUT"
 
-          branch="photos/refresh-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-          git checkout -b "$branch"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "✨ Refresh generated photo snapshot"
-          expected_head=$(git rev-parse HEAD)
-          git push --set-upstream origin "$branch"
-          pr_url=$(gh pr create \
-            --base main \
-            --head "$branch" \
-            --title "✨ Refresh generated photo snapshot" \
-            --body "Automated refresh of generated UUIDv7 AVIFs, manifest, and incremental state only. The staged-path allowlist was checked; photo tests and a complete app build passed. No source code or workflow files are included.")
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-          echo "pr_url=$pr_url" >> "$GITHUB_OUTPUT"
-          echo "expected_head=$expected_head" >> "$GITHUB_OUTPUT"
+            - name: Merge generated-only snapshot PR
+              if: steps.snapshot.outputs.changed == 'true'
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  PR_URL: ${{ steps.snapshot.outputs.pr_url }}
+                  EXPECTED_HEAD: ${{ steps.snapshot.outputs.expected_head }}
+              run: |
+                  gh pr merge "$PR_URL" --squash --match-head-commit "$EXPECTED_HEAD"
+                  merged_at=$(gh pr view "$PR_URL" --json mergedAt --jq '.mergedAt // empty')
+                  if [ -z "$merged_at" ]; then
+                    echo "Photo refresh PR was not merged; deployment was not dispatched."
+                    exit 1
+                  fi
 
-      - name: Merge generated-only snapshot PR
-        if: steps.snapshot.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_URL: ${{ steps.snapshot.outputs.pr_url }}
-          EXPECTED_HEAD: ${{ steps.snapshot.outputs.expected_head }}
-        run: |
-          gh pr merge "$PR_URL" --squash --match-head-commit "$EXPECTED_HEAD"
-          merged_at=$(gh pr view "$PR_URL" --json mergedAt --jq '.mergedAt // empty')
-          if [ -z "$merged_at" ]; then
-            echo "Photo refresh PR was not merged; deployment was not dispatched."
-            exit 1
-          fi
-
-  deploy:
-    needs: refresh
-    if: needs.refresh.outputs.changed == 'true'
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
+    deploy:
+        needs: refresh
+        if: needs.refresh.outputs.changed == 'true'
+        permissions:
+            contents: read
+            id-token: write
+        uses: ./.github/workflows/deploy.yml

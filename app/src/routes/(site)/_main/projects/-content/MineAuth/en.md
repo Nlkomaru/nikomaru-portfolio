@@ -2,39 +2,40 @@
 slug: MineAuth
 title: MineAuth
 abstract: >-
-  MineAuth is a plugin that provides an OAuth 2/OpenID Connect authentication platform running on a Minecraft server.
-  It was built so web applications and external services can safely work with player data already managed by server-side plugins and systems.
+    MineAuth is a plugin that provides an OAuth 2/OpenID Connect authentication platform running on a Minecraft server.
+    It was built so web applications and external services can safely work with player data already managed by server-side plugins and systems.
 metaItems:
-  - term: Role
-    description: Developer
-  - term: Stack
-    description: Kotlin · Ktor · OpenTelemetry · Scalar
-  - term: Year
-    description: 2024 — Present
-  - term: Status
-    description: Active
-  - term: Document
-    description: mineauth.plugin.morino.party
-    href: https://mineauth.plugin.morino.party
-    external: true
-  - term: Source
-    description: morinoparty/MineAuth
-    href: https://github.com/morinoparty/MineAuth
-    external: true
+    - term: Role
+      description: Developer
+    - term: Stack
+      description: Kotlin · Ktor · OpenTelemetry · Scalar
+    - term: Year
+      description: 2024 — Present
+    - term: Status
+      description: Active
+    - term: Document
+      description: mineauth.plugin.morino.party
+      href: https://mineauth.plugin.morino.party
+      external: true
+    - term: Source
+      description: morinoparty/MineAuth
+      href: https://github.com/morinoparty/MineAuth
+      external: true
 coverImage:
-  src: ./assets/community.avif
-  alt: MineAuth Community
-  blurhash: 'UVF#HaIt9coe~9M}IWWW--V[RkR+%KjIV]Wo'
+    src: ./assets/community.avif
+    alt: MineAuth Community
+    blurhash: "UVF#HaIt9coe~9M}IWWW--V[RkR+%KjIV]Wo"
 openGraph:
-  title: MineAuth
-  description: MineAuth is a plugin that provides an OAuth 2/OpenID Connect authentication platform running on a Minecraft server.
-  image: ./assets/community.png
-  imageAlt: MineAuth Community
+    title: MineAuth
+    description: MineAuth is a plugin that provides an OAuth 2/OpenID Connect authentication platform running on a Minecraft server.
+    image: ./assets/community.png
+    imageAlt: MineAuth Community
 ---
+
 image:
-  src: ./assets/moripath.avif
-  alt: MoriPath
-  caption: Screenshot of MoriPath
+src: ./assets/moripath.avif
+alt: MoriPath
+caption: Screenshot of MoriPath
 layout: left-image
 ---
 
@@ -53,10 +54,11 @@ I also considered established solutions such as [Keycloak](https://www.keycloak.
 Minecraft also has the concept of permissions for actions such as running commands, and I thought integrating with that model would make server operations smoother. Many Minecraft servers use [LuckPerms](https://luckperms.net/) as their permissions management plugin. MineAuth integrates with LuckPerms as well, enabling consistent permission management both inside and outside Minecraft.
 
 ---
+
 image:
-  src: ./assets/scalar.avif
-  alt: MineAuth API documentation with Scalar.
-  caption: API documentation generated with Scalar
+src: ./assets/scalar.avif
+alt: MineAuth API documentation with Scalar.
+caption: API documentation generated with Scalar
 layout: right-image
 ---
 
