@@ -23,7 +23,7 @@ metaItems:
       external: true
 coverImage:
     src: ./assets/sekaiju.png
-    alt: Chlorophyll のテーマを想起させるキービジュアル
+    alt: Chlorophyll の世界樹モチーフのカバー画像
     blurhash: "UbFi}t?w.8Mw%%tStRV?IWMwMxt7xwV?n~oz"
 openGraph:
     title: Chlorophyll
@@ -51,7 +51,7 @@ layout: left-image
 image:
 src: ./assets/chlorophyll.avif
 alt: Chlorophyll のブランド画像
-caption: Chlorophyll のビジュアルアイデンティティ
+caption: Chlorophyll のブランドロゴ
 layout: right-image
 ---
 

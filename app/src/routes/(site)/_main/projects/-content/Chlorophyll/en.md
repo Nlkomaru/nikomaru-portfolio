@@ -23,7 +23,7 @@ metaItems:
       external: true
 coverImage:
     src: ./assets/sekaiju.png
-    alt: Key visual evoking the Chlorophyll theme
+    alt: Chlorophyll cover image with a world tree motif
     blurhash: "UbFi}t?w.8Mw%%tStRV?IWMwMxt7xwV?n~oz"
 openGraph:
     title: Chlorophyll
@@ -51,7 +51,7 @@ Chlorophyll uses [Panda CSS](https://panda-css.com/) for themes and presets and 
 image:
 src: ./assets/chlorophyll.avif
 alt: Chlorophyll brand image
-caption: Chlorophyll visual identity
+caption: Chlorophyll brand logo
 layout: right-image
 ---
 

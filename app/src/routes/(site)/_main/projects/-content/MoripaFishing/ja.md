@@ -23,19 +23,19 @@ metaItems:
       external: true
 coverImage:
     src: ./assets/cover.jpg
-    alt: MoripaFishing の機能を想起させるキービジュアル
+    alt: Minecraft 内で釣りをしているスクリーンショット
     blurhash: "UKC%.[PfDgInIzq|Vqr=lotQR2NF?cM{sjbt"
 openGraph:
     title: MoripaFishing
     description: Minecraftサーバー向けに、魚・レアリティ・条件判定を設定できる釣り拡張プラグインです。
     image: ./assets/cover.jpg
-    imageAlt: MoripaFishing の機能を想起させるキービジュアル
+    imageAlt: Minecraft 内で釣りをしているスクリーンショット
 ---
 
 image:
 src: ./assets/cover.jpg
-alt: MoripaFishing の機能を想起させるキービジュアル
-caption: MoripaFishing のキービジュアル
+alt: Minecraft 内で釣りをしているスクリーンショット
+caption: MoripaFishing を使って釣りをしている様子
 layout: left-image
 ---
 

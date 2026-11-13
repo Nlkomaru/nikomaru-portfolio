@@ -23,19 +23,19 @@ metaItems:
       external: true
 coverImage:
     src: ./assets/cover.jpg
-    alt: Key visual for MoripaFishing features
+    alt: In-game screenshot of a player fishing in Minecraft
     blurhash: "UKC%.[PfDgInIzq|Vqr=lotQR2NF?cM{sjbt"
 openGraph:
     title: MoripaFishing
     description: A Minecraft fishing plugin with configurable fish, rarities, and condition-based catches.
     image: ./assets/cover.jpg
-    imageAlt: Key visual for MoripaFishing features
+    imageAlt: In-game screenshot of a player fishing in Minecraft
 ---
 
 image:
 src: ./assets/cover.jpg
-alt: Key visual for MoripaFishing features
-caption: MoripaFishing key visual
+alt: In-game screenshot of a player fishing in Minecraft
+caption: Fishing in-game with MoripaFishing
 layout: left-image
 ---
 
