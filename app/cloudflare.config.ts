@@ -12,8 +12,8 @@ export default defineConfig({
         },
         domains: ["nikomaru.dev", "www.nikomaru.dev"],
         env: {
-            CF_ACCESS_CLIENT_ID: bindings.secret(),
-            CF_ACCESS_CLIENT_SECRET: bindings.secret(),
+            CLOUDFLARE_ACCESS_CLIENT_ID: bindings.secret(),
+            CLOUDFLARE_ACCESS_CLIENT_SECRET: bindings.secret(),
             R2_PUBLIC_URL: bindings.secret(),
         },
     },

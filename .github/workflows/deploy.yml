@@ -80,8 +80,8 @@ jobs:
                     "R2_PUBLIC_URL",
                   ];
                   const optionalSecretNames = [
-                    "CF_ACCESS_CLIENT_ID",
-                    "CF_ACCESS_CLIENT_SECRET",
+                    "CLOUDFLARE_ACCESS_CLIENT_ID",
+                    "CLOUDFLARE_ACCESS_CLIENT_SECRET",
                   ];
                   const missingSecretNames = secretNames.filter((name) => !process.env[name]);
 
