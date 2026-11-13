@@ -16,6 +16,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      id-token: write
     outputs:
       changed: ${{ steps.snapshot.outputs.changed }}
     steps:
@@ -50,11 +51,17 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Load Production Secrets
+        if: steps.pending.outputs.exists == 'false'
+        uses: nlkomaru/secret-manager@main
+        with:
+          project: "nikomaru-portfolio"
+          env: "production"
+
       - name: Refresh generated photos
         if: steps.pending.outputs.exists == 'false'
         run: pnpm run photos:sync
         env:
-          OMOIDE_API_KEY: ${{ secrets.OMOIDE_API_KEY }}
           OMOIDE_API_URL: ${{ vars.OMOIDE_API_URL || 'https://omoide.nikomaru.dev' }}
 
       - name: Create generated-only refresh PR if changed
@@ -124,5 +131,7 @@ jobs:
   deploy:
     needs: refresh
     if: needs.refresh.outputs.changed == 'true'
+    permissions:
+      contents: read
+      id-token: write
     uses: ./.github/workflows/deploy.yml
-    secrets: inherit

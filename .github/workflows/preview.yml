@@ -7,6 +7,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  id-token: write
 
 jobs:
   check:
@@ -58,8 +59,6 @@ jobs:
 
   deploy-app-preview:
     needs: check
-    env:
-      R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
     runs-on: ubuntu-latest
     name: Deploy App Preview
     outputs:
@@ -67,13 +66,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Get secrets from Bitwarden Secrets Manager
-        uses: bitwarden/sm-action@v2
+      - name: Load Preview Secrets
+        uses: nlkomaru/secret-manager@main
         with:
-          access_token: ${{ secrets.NIKOMARU_BITWARDEN_SECRET_MANAGER_ACCESS_TOKEN }}
-          secrets: |
-            2bad9e23-82af-4fba-b514-b49900e1632f > CLOUDFLARE_ACCOUNT_ID
-            f1bf4fa4-0288-4a31-b28b-b499013acdce > CLOUDFLARE_API_KEY
+          project: "nikomaru-portfolio"
+          env: "preview"
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
@@ -145,13 +142,11 @@ jobs:
       - name: Install
         run: pnpm install
 
-      - name: Get secrets from Bitwarden Secrets Manager
-        uses: bitwarden/sm-action@v2
+      - name: Load Preview Secrets
+        uses: nlkomaru/secret-manager@main
         with:
-          access_token: ${{ secrets.NIKOMARU_BITWARDEN_SECRET_MANAGER_ACCESS_TOKEN }}
-          secrets: |
-            2bad9e23-82af-4fba-b514-b49900e1632f > CLOUDFLARE_ACCOUNT_ID
-            f1bf4fa4-0288-4a31-b28b-b499013acdce > CLOUDFLARE_API_KEY
+          project: "nikomaru-portfolio"
+          env: "preview"
 
       - name: Build storybook
         run: pnpm --filter ./storybook build
