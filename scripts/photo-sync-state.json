@@ -2,6 +2,17 @@
     "version": 1,
     "processingFingerprint": "97914784c2a1f933a3930c24d3b70fd8e18c7308d46f123536a2444c0d5fcb91",
     "photos": {
+        "01a1e375-86eb-7d9c-a166-d07692a759ac": {
+            "kind": "development",
+            "revision": [
+                "31ae0f79cc54dfba474aaca938bae5721cb6e5adea7c6d75b66db952170f8c6f"
+            ],
+            "sha256": "287fa34720ff0f534a7a1a20ed3479b5e2863843d848132026fbb6b9c18500c3",
+            "byteSize": 115398,
+            "width": 2048,
+            "height": 1365,
+            "blurhash": "LBI53,v|Ej_NMyDN%ht601IUMdMx"
+        },
         "01a1d155-bc5f-750d-b92e-9fac0c1a2f63": {
             "kind": "development",
             "revision": [
