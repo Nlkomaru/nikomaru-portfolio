@@ -1,6 +1,17 @@
 {
     "photos": [
         {
+            "id": "01a1e375-86eb-7d9c-a166-d07692a759ac",
+            "album": "2026-11-16",
+            "src": "/photos/01a1e375-86eb-7d9c-a166-d07692a759ac.avif",
+            "alt": "Photo taken on 2026-11-16 — Developed",
+            "cameraLabel": "SONY ILCE-7C",
+            "lensLabel": "28-70mm F2.8 DG DN | Contemporary 021",
+            "width": 2048,
+            "height": 1365,
+            "blurhash": "LBI53,v|Ej_NMyDN%ht601IUMdMx"
+        },
+        {
             "id": "01a1d155-bc5f-750d-b92e-9fac0c1a2f63",
             "album": "2026-11-07",
             "src": "/photos/01a1d155-bc5f-750d-b92e-9fac0c1a2f63.avif",
