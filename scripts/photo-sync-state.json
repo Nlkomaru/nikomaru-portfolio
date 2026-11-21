@@ -975,16 +975,16 @@
             "height": 1080,
             "blurhash": "LLHxD=%L~Txb9Gf,-;kD02WB9bad"
         },
-        "019ca379-cb10-7f69-b8f1-e7b8b6da48af": {
+        "019ca21f-28c8-7e39-8ced-227027430534": {
             "kind": "development",
             "revision": [
-                "9f69b8f1e7b8b6da48afeac2ece1521eda6e928ac74bfb59a23f11e2bfe8cb53"
+                "5e394ced227027430534104e8ca069f5affb68210a429b5a0c0b313f48a8a0ca"
             ],
-            "sha256": "d9259510e842724eeec99cd98d4eb8a10ec43a8d2b5397f328d59b5f628f107c",
-            "byteSize": 73275,
-            "width": 1620,
-            "height": 1080,
-            "blurhash": "L26R7F%2004:0gxt^$E2~pfl4oV@"
+            "sha256": "a13f0cd67c781199505c3b35fffd9f918884aec213b1295704366c913c30b369",
+            "byteSize": 280336,
+            "width": 1710,
+            "height": 2560,
+            "blurhash": "L79%hj-:010158-oxsM{~pf+NGIV"
         },
         "019ca377-bfa0-7563-8d2d-ac7e2db50d83": {
             "kind": "development",
