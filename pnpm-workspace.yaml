@@ -3,7 +3,7 @@ packages:
     - storybook
 
 overrides:
-    vite: npm:@voidzero-dev/vite-plus-core@1.5.1
+    vite: npm:@voidzero-dev/vite-plus-core@1.6.0
     playwright: ^1.65.0
     playwright-core: ^1.65.0
 
