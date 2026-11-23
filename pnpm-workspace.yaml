@@ -4,8 +4,8 @@ packages:
 
 overrides:
     vite: npm:@voidzero-dev/vite-plus-core@1.6.0
-    playwright: ^1.65.0
-    playwright-core: ^1.65.0
+    playwright: ^1.65.1
+    playwright-core: ^1.65.1
 
 allowBuilds:
     "@swc/core": true
